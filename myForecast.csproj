@@ -95,6 +95,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include=".gitignore" />
+    <None Include="LICENSE" />
     <None Include="Markup\About.mcml">
       <SubType>Designer</SubType>
     </None>
@@ -172,6 +174,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="myForecast.snk" />
+    <None Include="README.md" />
     <None Include="Setup\Build.cmd" />
     <None Include="Setup\License.rtf" />
     <None Include="Setup\License.txt" />
@@ -202,7 +205,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>%25windir%25\eHome\McmlVerifier.exe -verbose -assemblyredirect:"$(FullyQualifiedOutputPath)" -directory:"$(ProjectDir)Markup"
-"$(ProjectDir)Setup\Build.cmd" $(ConfigurationName)</PostBuildEvent>
+REM "$(ProjectDir)Setup\Build.cmd" $(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
