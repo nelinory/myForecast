@@ -1,0 +1,7 @@
+﻿Changes for myForecast 1.0 beta
+===============================
+Enhancements
+- N/A
+
+Bugfixes
+- N/A

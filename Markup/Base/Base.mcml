@@ -1,0 +1,10 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml">
+
+  <!-- Aggregate all base resources -->
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Animations"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Colors"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Fonts"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Images" />
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Sounds" />
+
+</Mcml>

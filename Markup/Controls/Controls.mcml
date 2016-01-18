@@ -1,0 +1,321 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MSCorLib/System"
+      xmlns:code="assembly://myForecast/myForecast"
+      xmlns:this="Me">
+
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
+
+  <!-- Aggregate all base controls -->
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Edit"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Button"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Spinner"/>
+
+  <!-- Application title control -->
+  <UI Name="ApplicationTitle">
+    <Properties>
+      <core:String Name="Content" String="$Required"/>
+      
+      <Font Name="FontLight" FontName="global://this:FontFaceLight" FontSize="48"/>
+    </Properties>
+    <Content>
+      <Panel Layout="Dock" Padding="0,31,53,0">
+        <Children>
+          <Clip Layout="Anchor" Alpha="0.80" FadeSize="90" Orientation="Vertical" ShowNear="false">
+            <LayoutInput>
+              <DockLayoutInput Position="Top" Alignment="Far"/>
+            </LayoutInput>
+            <Children>
+              <Text Content="[Content]" Color="DeepSkyBlue" Font="[FontLight]"/>
+            </Children>
+          </Clip>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <!-- Application title control -->
+  <UI Name="SettingsTitle">
+    <Properties>
+      <core:String Name="Content" String="$Required"/>
+      
+      <Font Name="FontLight" FontName="global://this:FontFaceLight" FontSize="30"/>
+    </Properties>
+    <Content>
+      <Panel Layout="Dock" Padding="190,38,0,0">
+        <Children>
+          <Clip Layout="Anchor" Alpha="0.80" FadeSize="90" Orientation="Vertical" ShowNear="false">
+            <LayoutInput>
+              <DockLayoutInput Position="Top" Alignment="Near"/>
+            </LayoutInput>
+            <Children>
+              <Text Content="[Content]" Color="DeepSkyBlue" Font="[FontLight]"/>
+            </Children>
+          </Clip>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+  
+  <!-- Loading message control -->
+  <UI Name="LoadingMessage">
+    <Properties>
+      <core:String Name="Content" String="$Required"/>
+      
+      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="22"/>
+    </Properties>
+    <Content>
+      <ColorFill Content="Transparent" Layout="Center">
+        <Animations>
+          <Animation Loop="-1">
+            <Keyframes>
+              <AlphaKeyframe Time="0.0" Value="1.0"/>
+              <AlphaKeyframe Time="2.0" Value="0.0"/>
+              <AlphaKeyframe Time="4.0" Value="1.0"/>
+              <AlphaKeyframe Time="5.0" Value="0.0"/>
+              <AlphaKeyframe Time="6.0" Value="1.0"/>
+            </Keyframes>
+          </Animation>
+        </Animations>
+        <Children>
+          <Text Content="[Content]" Color="White" Font="[FontRegular]"/>
+          <Graphic Content="image://this:PoweredByWeatherUnderground" MaximumSize="120,28" Margins="0,70,0,0"/>
+        </Children>
+      </ColorFill>
+    </Content>
+  </UI>
+
+  <!-- Location control -->
+  <UI Name="LocationName">
+    <Properties>
+      <core:String Name="Content" String="$Required"/>
+      
+      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="22"/>
+    </Properties>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+      
+      <Binding Source="[Content]" Target="[TextLocationName.Content]"/>
+    </Rules>
+    <Content>
+      <Text Name="TextLocationName" Color="White" Font="[FontRegular]"/>
+    </Content>
+  </UI>
+
+  <!-- Current time control -->
+  <UI Name="CurrentTime">
+    <Properties>
+      <core:String Name="Content" String="$Required"/>
+      
+      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="18"/>
+    </Properties>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+      
+      <Binding Source="[Content]" Target="[TextCurrentTime.Content]"/>
+    </Rules>
+    <Content>
+      <Text Name="TextCurrentTime" Color="White" Font="[FontRegular]"/>
+    </Content>
+  </UI>
+
+  <!-- Last update timestamp control -->
+  <UI Name="LastUpdateTimestamp">
+    <Properties>
+      <core:String Name="Content" String="$Required"/>
+      
+      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="9"/>
+    </Properties>
+    <Rules>
+      <Binding Source="[Content]" Target="[TextLastUpdateTimestamp.Content]" >
+        <Transformer>
+          <FormatTransformer Format="Last update: {0}"/>
+        </Transformer>
+      </Binding>
+    </Rules>
+    <Content>
+      <Text Name="TextLastUpdateTimestamp" Color="White" Font="[FontRegular]"/>
+    </Content>
+  </UI>
+
+  <!-- Current weather panel control -->
+  <UI Name="CurrentWeatherPanel">
+    <Properties>
+      <code:WeatherModel Name="CurrentWeather" WeatherModel="$Required"/>
+      
+      <Font Name="FontBoldCurrentTemperature" FontName="global://this:FontFaceBold" FontSize="54"/>
+      <Font Name="FontRegularCurrentDescription" FontName="global://this:FontFaceRegular" FontSize="24"/>
+      <Font Name="FontRegularCurrentConditions" FontName="global://this:FontFaceRegular" FontSize="20"/>
+    </Properties>
+    <Rules>
+      <!-- Cast CurrentConditionIcon string to image -->
+      <Binding Source="[CurrentWeather.CurrentConditionIcon!Image]" Target="[CurrentConditionIcon.Content]">
+        <Conditions>
+          <Equality Source="[CurrentWeather.CurrentConditionIcon]" ConditionOp="NotEquals" Value=""/>
+        </Conditions>
+      </Binding>
+      
+      <!-- Bind all current conditions -->
+      <Binding Source="[CurrentWeather.CurrentConditionTemperature]" Target="[TextCurrentConditionTemperature.Content]"/>
+      <Binding Source="[CurrentWeather.CurrentConditionDescription]" Target="[TextCurrentConditionDescription.Content]"/>
+      <Binding Source="[CurrentWeather.CurrentConditionFeelsLike]" Target="[TextCurrentConditionFeelsLike.Content]"/>
+      <Binding Source="[CurrentWeather.CurrentConditionHumidity]" Target="[TextCurrentConditionHumidity.Content]"/>
+      <Binding Source="[CurrentWeather.CurrentConditionDewPoint]" Target="[TextCurrentConditionDewPoint.Content]"/>
+      <Binding Source="[CurrentWeather.CurrentConditionWind]" Target="[TextCurrentConditionWind.Content]"/>
+      <Binding Source="[CurrentWeather.CurrentConditionUvIndex]" Target="[TextCurrentConditionUvIndex.Content]"/>
+      <Binding Source="[CurrentWeather.CurrentConditionPressure]" Target="[TextCurrentConditionPressure.Content]"/>
+    </Rules>
+    <Content>
+      <Graphic Content="image://this:Shade" Padding="5,5,5,5" MinimumSize="1035,250" MaximumSize="1035,250">
+        <Children>
+          <Panel Layout="HorizontalFlow" MinimumSize="1025,200">
+            <Children>
+              <Panel MinimumSize="250,1">
+                <Children>
+                  <Graphic Name="CurrentConditionIcon" Content="image://this:Blank" MinimumSize="210,210" MaintainAspectRatio="true" Margins="30,10,10,0"/>
+                </Children>
+              </Panel>
+              <Panel Margins="15,40,5,0" MinimumSize="300,1">
+                <Children>
+                  <Text Name="TextCurrentConditionTemperature" Content="null" Color="White"
+                        Font="[FontBoldCurrentTemperature]" HorizontalAlignment="Center" Margins="0,10,0,0"/>
+                  <Text Name="TextCurrentConditionDescription" Content="null" Color="White"
+                        Font="[FontRegularCurrentDescription]" HorizontalAlignment="Center" Margins="0,100,0,0"
+                        MaximumSize="300,0" MaximumLines="2" WordWrap="true"/>
+                </Children>
+              </Panel>
+              <Panel Margins="100,4,0,0" MinimumSize="100,1">
+                <Layout>
+                  <FlowLayout Orientation="Vertical" ItemAlignment="Far"/>
+                </Layout>
+                <Children>
+                  <Text Content="Feels like:" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="Humidity:" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="Dew point:" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="Wind:" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="Uv index:" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="Pressure:" Color="White" Font="[FontRegularCurrentConditions]"/>
+                </Children>
+              </Panel>
+              <Panel Margins="10,5,10,0" MinimumSize="180,1">
+                <Layout>
+                  <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
+                </Layout>
+                <Children>
+                  <Text Name="TextCurrentConditionFeelsLike" Content="null" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Name="TextCurrentConditionHumidity" Content="null" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Name="TextCurrentConditionDewPoint" Content="null" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Name="TextCurrentConditionWind" Content="null" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Name="TextCurrentConditionUvIndex" Content="null" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Name="TextCurrentConditionPressure" Content="null" Color="White" Font="[FontRegularCurrentConditions]"/>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+        </Children>
+      </Graphic>
+    </Content>
+  </UI>
+
+  <!-- Forecast weather panel control -->
+  <UI Name="ForecastWeatherPanel">
+    <Properties>
+      <Index Name="Index" Index="$Required"/>
+
+      <code:ForecastItem Name="ForecastItem" ForecastItem="$Required"/>
+
+      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="16"/>
+      <Font Name="FontRegularBig" FontName="global://this:FontFaceRegular" FontSize="18"/>
+    </Properties>
+    <Rules>
+      <Binding Source="[ForecastItem.DayOfTheWeek]" Target="[TextDayOfTheWeek.Content]"/>
+
+      <!-- Cast ForecastIcon string to image -->
+      <Binding Source="[ForecastItem.ForecastIcon!Image]" Target="[ForecastIcon.Content]">
+        <Conditions>
+          <Equality Source="[ForecastItem.ForecastIcon]" ConditionOp="NotEquals" Value=""/>
+        </Conditions>
+      </Binding>
+      <Binding Source="[ForecastItem.Condition]" Target="[TextCondition.Content]"/>
+      <Binding Source="[ForecastItem.LowTemp]" Target="[TextLowTemp.Content]"/>
+      <Binding Source="[ForecastItem.HighTemp]" Target="[TextHighTemp.Content]"/>
+
+      <!-- Cast PopIcon string to image -->
+      <Binding Source="[ForecastItem.PopIcon!Image]" Target="[PopIcon.Content]">
+        <Conditions>
+          <Equality Source="[ForecastItem.PopIcon]" ConditionOp="NotEquals" Value=""/>
+        </Conditions>
+      </Binding>
+      <Binding Source="[ForecastItem.Pop]" Target="[TextPop.Content]"/>
+
+      <!-- Controls the visibility of pop panel -->
+      <Binding Source="[ForecastItem.Pop]" Target="[PanelPop.Visible]">
+        <Transformer>
+          <BooleanTransformer/>
+        </Transformer>
+      </Binding>
+    </Rules>
+    <Content>
+      <Graphic Content="image://this:Shade" Margins="0,0,3,0" MinimumSize="170,230">
+        <Children>
+          <Panel>
+            <Layout>
+              <FlowLayout Orientation="Vertical" ItemAlignment="Center" StripAlignment="Near" Spacing="-5,1"/>
+            </Layout>
+            <Children>
+              <Panel>
+                <Children>
+                  <Graphic Content="image://this:Shade" MinimumSize="170,38">
+                    <Children>
+                      <ColorFill Content="Transparent" Layout="Center">
+                        <Children>
+                          <Text Name="TextDayOfTheWeek" Content="null" Color="White" Font="[FontRegularBig]"/>
+                        </Children>
+                      </ColorFill>
+                    </Children>
+                  </Graphic>
+                </Children>
+              </Panel>
+              <Graphic Name="ForecastIcon" Content="image://this:Blank" MinimumSize="90,90" MaximumSize="90,90" Margins="0,15,0,5"/>
+              <Panel Layout="HorizontalFlow">
+                <Children>
+                  <Text Name="TextLowTemp" Content="null" Color="White" Font="[FontRegularBig]"/>
+                  <Text Content="/" Color="White" Font="[FontRegularBig]"/>
+                  <Text Name="TextHighTemp" Content="null" Color="White" Font="[FontRegularBig]"/>
+                </Children>
+              </Panel>
+              <Text Name="TextCondition" Content="null" Color="White" Font="[FontRegular]" MaximumSize="160,0"/>
+              <Panel Name="PanelPop">
+                <Layout>
+                  <FlowLayout Orientation="Horizontal" Spacing="3,0" ItemAlignment="Center"/>
+                </Layout>
+                <Children>
+                  <Graphic Name="PopIcon" Content="image://this:Blank" MaximumSize="15,15" Alpha="0.9" Margins="0,3,0,0"/>
+                  <Text Name="TextPop" Content="null" Color="White" Font="[FontRegular]"/>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+        </Children>
+      </Graphic>
+    </Content>
+  </UI>
+  
+  <!-- Powered by WeatherUnderground credits control -->
+  <UI Name="PoweredByWeatherUndergroundCredits">
+    <Properties>
+      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="10"/>
+    </Properties>
+    <Content>
+      <Panel>
+        <Layout>
+          <FlowLayout Orientation="Horizontal" Spacing="3,0" ItemAlignment="Far"/>
+        </Layout>
+        <Children>
+          <Text Content="Powered by" Color="White" Font="[FontRegular]"/>
+          <Graphic Content="image://this:PoweredByWeatherUnderground" MaximumSize="120,28"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+</Mcml>

@@ -1,0 +1,132 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MsCorLib/System"
+      xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
+      xmlns:this="Me">
+
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Controls"/>
+
+  <UI Name="About">
+    <Locals>
+      <Command Name="CommandDone" Description="Done"/>
+    </Locals>
+    <Properties>
+      <Font Name="FontBoldAppName" FontName="global://this:FontFaceBold" FontSize="24"/>
+      <Font Name="FontBoldAboutText" FontName="global://this:FontFaceBold" FontSize="16"/>
+      <Font Name="FontBoldSettings" FontName="global://this:FontFaceBold" FontSize="18"/>
+
+      <host:HistoryOrientedPageSession Name="Session" HistoryOrientedPageSession="$Required"/>
+    </Properties>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+
+      <!-- Button Done clicked -->
+      <Changed Source="[CommandDone.Invoked]">
+        <Actions>
+          <Invoke Target="[Session.BackPage]"/>
+        </Actions>
+      </Changed>
+
+      <!-- Only show the static background when developing -->
+      <Rule>
+        <Conditions>
+          <Equality Source="[Session]" ConditionOp="NotEquals" Value="null"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[ctrlBackground.Content]" Value="null"/>
+        </Actions>
+      </Rule>
+    </Rules>
+    <Content>
+      <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
+        <Children>
+          <Panel Layout="Form" MinimumSize="1366,768" MaximumSize="1366,768">
+            <Children>
+              <!-- Application title in MCE style -->
+              <this:ApplicationTitle Content="myForecast"/>
+
+              <!-- Manage settings label -->
+              <Panel Layout="Form">
+                <Children>
+                  <Panel Layout="VerticalFlow">
+                    <LayoutInput>
+                      <FormLayoutInput Left="Parent,0,230" Top="Parent,0,96"/>
+                    </LayoutInput>
+                    <Children>
+                      <Text Content="about" Font="[FontBoldSettings]" Color="White" Padding="0,0,0,0"/>
+                    </Children>
+                  </Panel>
+                </Children>
+              </Panel>
+
+              <!-- About -->
+              <Panel>
+                <LayoutInput>
+                  <FormLayoutInput Left="Parent,0,400" Top="Parent,0,160" Horizontal="Center" Vertical="Near"/>
+                </LayoutInput>
+                <Layout>
+                  <FlowLayout Orientation="Vertical" ItemAlignment="Center"/>
+                </Layout>
+                <Children>
+                  <ColorFill Content="Transparent" MinimumSize="760,240" MaximumSize="760,240" Layout="HorizontalFlow">
+                    <Children>
+                      <Graphic Content="image://this:myForecastLogo" MaximumSize="120,120" Margins="0,0,10,0"/>
+                      <Panel Margins="15,0,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="myForecast" Font="[FontBoldAppName]" Color="White"/>
+                          <Text Content="Version 1.0 (beta)" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="Copyright &#169; 2016 by Chavdar Kostov." Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="This product is licensed under the terms of the End User License Agreement." Font="[FontBoldAboutText]"
+                                Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
+                          <Text Content="Icons provided by The Weather Channel, LLC weather.com&#174;" Font="[FontBoldAboutText]" Color="White"/>
+                        </Children>
+                      </Panel>
+                    </Children>
+                  </ColorFill>
+                  <ColorFill Content="Transparent" MinimumSize="760,200" MaximumSize="760,200" Layout="HorizontalFlow" Margins="0,20,0,0">
+                    <Children>
+                      <Graphic Content="image://this:WeatherUndergroundLogo" Margins="0,0,10,0"/>
+                      <Panel Margins="15,0,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="Powered by Weather Underground&#174;" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="All weather data used by this application is provided by Weather Underground&#174; API." Font="[FontBoldAboutText]"
+                                Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
+                          <Text Content="For more information regarding the Weather Underground&#174; API, please visit http://www.wunderground.com/weather/api" Font="[FontBoldAboutText]"
+                                Color="White" MaximumSize="700,0" WordWrap="true"/>
+                        </Children>
+                      </Panel>
+                    </Children>
+                  </ColorFill>
+                </Children>
+              </Panel>
+
+              <!-- Buttons -->
+              <Panel>
+                <LayoutInput>
+                  <FormLayoutInput Left="Parent,0,230" Top="Parent,0,160" Horizontal="Near" Vertical="Near"/>
+                </LayoutInput>
+                <Children>
+                  <Panel>
+                    <Layout>
+                      <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
+                    </Layout>
+                    <Children>
+                      <this:Button Model="[CommandDone]"/>
+                    </Children>
+                  </Panel>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+        </Children>
+      </Graphic>
+    </Content>
+  </UI>
+
+</Mcml>

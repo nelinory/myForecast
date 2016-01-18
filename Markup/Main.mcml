@@ -1,0 +1,147 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:code="assembly://myForecast/myForecast"
+      xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"      
+      xmlns:this="Me">
+
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Controls"/>
+
+  <UI Name="Main">
+    <Locals>
+      <code:ClockModel Name="CodeClockModel"/>
+      <code:WeatherModel Name="CodeWeatherModel"/>
+
+      <Timer Name="TimerLoadWeather" Interval="300" AutoRepeat="false" Enabled="true"/>
+    </Locals>
+    <Properties>
+      <host:HistoryOrientedPageSession Name="Session" HistoryOrientedPageSession="$Required"/>
+    </Properties>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+      
+      <!-- Bind the clock object and the refresh event -->
+      <Binding Source="[CodeClockModel.CurrentTime]" Target="[ControlCurrentTime.Content]"/>
+      
+      <!-- Bind the location name and the refresh event -->
+      <Binding Source="[CodeWeatherModel.LocationName]" Target="[ControlLocationName.Content]"/>
+            
+      <!-- Bind the last updated and the refresh event -->
+      <Binding Source="[CodeWeatherModel.LastUpdateTimestamp]" Target="[ControlLastUpdateTimestamp.Content]"/>
+      
+      <!-- Bind the weather forecast object and the refresh event -->
+      <Binding Source="[CodeWeatherModel.Forecast]" Target="[ControlSixDaysForecast.Source]"/>
+      
+      <!-- Show/Hide loading message -->
+      <Rule>
+        <Conditions>
+          <Equality Source="[CodeWeatherModel.IsLoaded]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[ControlLoadingMessage.Visible]" Value="false"/>
+          <Set Target="[PanelWeather.Visible]" Value="true"/>
+          
+          <Invoke Target="[ControlLocationName.NavigateInto]"/>
+        </Actions>
+      </Rule>
+      
+      <!-- Call main weather loading method -->
+      <Rule>
+        <Conditions>
+          <Modified Source="[TimerLoadWeather.Tick]"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[CodeWeatherModel.LoadWeatherData]" InvokePolicy="AsynchronousLowPri"/>
+        </Actions>
+      </Rule>
+      
+      <!-- Only show the static background when developing -->
+      <Rule>
+        <Conditions>
+          <Equality Source="[Session]" ConditionOp="NotEquals" Value="null"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[ctrlBackground.Content]" Value="null"/>
+        </Actions>
+      </Rule>
+    </Rules>
+    <Content>
+      <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
+        <Children>
+          <Panel Layout="Form" MinimumSize="1366,768" MaximumSize="1366,768">
+            <Children>
+              <!-- Application title in MCE style -->
+              <this:ApplicationTitle Content="myForecast"/>
+
+              <!-- Loading message for the weather data -->
+              <this:LoadingMessage Name="ControlLoadingMessage" Content="Loading weather data"/>
+
+              <!-- Main weather UI panel -->
+              <Panel Name="PanelWeather" Layout="Form" Visible="false">
+                <Children>
+                  <!-- Settings button -->
+                  <this:SettingsButton Name="ControlSettings" Text="weather settings">
+                    <LayoutInput>
+                      <FormLayoutInput Left="Parent,.13" Bottom="ControlLocationName,1,-30"/>
+                    </LayoutInput>
+                    <Command>
+                      <code:NavigateCommand Page="Settings"/>
+                    </Command>
+                  </this:SettingsButton>
+
+                  <!-- Location name -->
+                  <this:LocationName Name="ControlLocationName" Content="null">
+                    <LayoutInput>
+                      <FormLayoutInput Left="ControlCurrentWeather,0,1" Bottom="ControlCurrentWeather,0,1"/>
+                    </LayoutInput>
+                  </this:LocationName>
+
+                  <!-- Current time -->
+                  <this:CurrentTime Name="ControlCurrentTime" Content="null">
+                    <LayoutInput>
+                      <FormLayoutInput Top="Parent,.17" Right="Parent,1,-60"/>
+                    </LayoutInput>
+                  </this:CurrentTime>
+
+                  <!-- Last updated timestamp -->
+                  <this:LastUpdateTimestamp Name="ControlLastUpdateTimestamp" Content="null" Visible="false">
+                    <LayoutInput>
+                      <FormLayoutInput Top="ControlCurrentTime,1" Right="Parent,1,-60"/>
+                    </LayoutInput>
+                  </this:LastUpdateTimestamp>
+
+                  <!-- Current weather condition -->
+                  <this:CurrentWeatherPanel Name="ControlCurrentWeather" CurrentWeather="[CodeWeatherModel]">
+                    <LayoutInput>
+                      <FormLayoutInput Top="ControlCurrentTime,1" Right="Parent,1,-64"/>
+                    </LayoutInput>
+                  </this:CurrentWeatherPanel>
+
+                  <!-- Six days forecast -->
+                  <Repeater Name="ControlSixDaysForecast">
+                    <Layout>
+                      <FlowLayout Orientation="Horizontal" StripAlignment="Center"/>
+                    </Layout>
+                    <LayoutInput>
+                      <FormLayoutInput Left="Parent,.19" Top="ControlCurrentWeather,1,3" Right="Parent,1,-53"/>
+                    </LayoutInput>
+                    <Content>
+                      <this:ForecastWeatherPanel ForecastItem="[RepeatedItem!code:ForecastItem]" Index="[RepeatedItemIndex]"/>
+                    </Content>
+                  </Repeater>
+
+                  <!-- Powered by WeatherUnderground credits -->
+                  <this:PoweredByWeatherUndergroundCredits>
+                    <LayoutInput>
+                      <FormLayoutInput Right="Parent,1,-60" Bottom="Parent,1,-60"/>
+                    </LayoutInput>
+                  </this:PoweredByWeatherUndergroundCredits>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+        </Children>
+      </Graphic>
+    </Content>
+  </UI>
+
+</Mcml>

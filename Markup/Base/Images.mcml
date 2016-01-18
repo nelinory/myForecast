@@ -1,0 +1,24 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml">
+
+  <!-- Used for developing only, so we can see clearly all elements -->
+  <Image Name="Background" Source="resx://myForecast/myForecast.Resources/Background"/>
+
+  <!-- Used for switching graphics like the forecast icons -->
+  <Image Name="Blank" Image="null"/>
+  
+  <!-- Used for shade background in panels -->
+  <Image Name="Shade" Source="resx://myForecast/myForecast.Resources/Shade" NineGrid="4,4,4,4"/>
+
+  <!-- Used for WeatherUnderground credits -->
+  <Image Name="PoweredByWeatherUnderground" Source="resx://myForecast/myForecast.Resources/PoweredBy"/>
+
+  <!-- Used for WeatherUnderground logo -->
+  <Image Name="WeatherUndergroundLogo" Source="resx://myForecast/myForecast.Resources/WeatherUndergroundLogo"/>
+
+  <!-- Used for myForecast logo -->
+  <Image Name="myForecastLogo" Source="resx://myForecast/myForecast.Resources/myForecast"/>
+
+  <!-- used for keyboard button  -->
+  <Image Name="Keyboard" Source="resx://myForecast/myForecast.Resources/Keyboard"/>
+  
+</Mcml>

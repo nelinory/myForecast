@@ -1,0 +1,15 @@
+﻿<application
+    title="myForecast"
+    id="{81ca0920-238a-4dc9-8bfd-93bb0a43c5b8}"
+    companyName="Nelinory"
+    description="Shows current weather conditions and forecast">
+  <entrypoint
+        id="{b1b8feb9-2738-4a51-8d5d-3a8f9d66d180}"
+		    addin="myForecast.MyAddIn, myForecast,Culture=Neutral,Version=1.0.0.0,PublicKeyToken=a3fc2b4950c202e2"
+		    title="myForecast"
+        description="Shows current weather conditions and forecast"
+        imageUrl=".\myForecast.png"
+        inactiveImageURL=".\myForecastInactive.png">
+    <category category="More Programs"/>
+  </entrypoint>
+</application>

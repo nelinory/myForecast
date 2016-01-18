@@ -1,0 +1,240 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MsCorLib/System"
+      xmlns:code="assembly://myForecast/myForecast"
+      xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
+      xmlns:this="Me">
+
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Controls"/>
+
+  <UI Name="Settings">
+    <Locals>
+      <!-- Needed for the OSK -->
+      <host:AddInHost Name="AddInHost"/>
+
+      <!-- TypingHandlers for the OSK -->
+      <TypingHandler Name="TypingHandlerApiKey" TypingPolicy="Default"/>
+      <TypingHandler Name="TypingHandlerLocationCode" TypingPolicy="Default"/>
+
+      <code:ConfigModel Name="CodeConfigModel"/>
+      <code:NavigateCommand Name="NavigateCommand" Page="About"/>
+
+      <EditableText Name="TextApiKey"/>
+      <EditableText Name="TextLocationCode"/>
+
+      <Command Name="CommandSave" Description="Save"/>
+      <Command Name="CommandCancel" Description="Cancel"/>
+      <Command Name="CommandAbout" Description="About"/>
+      <Command Name="CommandKeyboardApiKey" Description="null"/>
+      <Command Name="CommandKeyboardLocationCode" Description="null"/>
+    </Locals>
+    <Properties>
+      <Font Name="FontBoldSettings" FontName="global://this:FontFaceBold" FontSize="18"/>
+      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="20"/>
+
+      <host:HistoryOrientedPageSession Name="Session" HistoryOrientedPageSession="$Required"/>
+    </Properties>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+
+      <!-- Bind ApiKey text control -->
+      <Binding Source="[CodeConfigModel.ApiKey]" Target="[TextApiKey.Value]"/>
+
+      <!-- Bind LocationCode text control -->
+      <Binding Source="[CodeConfigModel.LocationCode]" Target="[TextLocationCode.Value]"/>
+
+      <!-- Bind WeatherUnit spinner control -->
+      <Binding Source="[CodeConfigModel.WeatherUnit]" Target="[SpinnerWeatherUnits.Model]"/>
+
+      <!-- Bind RefreshRateInMinutes spinner control -->
+      <Binding Source="[CodeConfigModel.RefreshRateInMinutes]" Target="[SpinnerRefreshRateInMinutes.Model]"/>
+
+      <!-- Bind ClockTimeFormat spinner control -->
+      <Binding Source="[CodeConfigModel.ClockTimeFormat]" Target="[SpinnerClockTimeFormat.Model]"/>
+
+      <!-- BIndings for the OSK -->
+      <Binding Source="[TextApiKey]" Target="[TypingHandlerApiKey.EditableText]" />
+      <Binding Source="[TextLocationCode]" Target="[TypingHandlerLocationCode.EditableText]" />
+
+      <!-- Button Save clicked -->
+      <Changed Source="[CommandSave.Invoked]">
+        <Actions>
+          <Set Target="[CodeConfigModel.ApiKey]" Value="[TextApiKey.Value]" />
+          <Set Target="[CodeConfigModel.LocationCode]" Value="[TextLocationCode.Value]" />
+          <Set Target="[CodeConfigModel.WeatherUnit]" Value="[SpinnerWeatherUnits.Model]"/>
+          <Set Target="[CodeConfigModel.RefreshRateInMinutes]" Value="[SpinnerRefreshRateInMinutes.Model]"/>
+          <Set Target="[CodeConfigModel.ClockTimeFormat]" Value="[SpinnerClockTimeFormat.Model]"/>
+          <Invoke Target="[CodeConfigModel.Save]" />
+          <Invoke Target="[Session.BackPage]" />
+        </Actions>
+      </Changed>
+
+      <!-- Button Cancel clicked -->
+      <Changed Source="[CommandCancel.Invoked]">
+        <Actions>
+          <Invoke Target="[Session.BackPage]"/>
+        </Actions>
+      </Changed>
+
+      <!-- Button About clicked -->
+      <Changed Source="[CommandAbout.Invoked]">
+        <Actions>
+          <Invoke Target="[NavigateCommand.Invoke]"/>
+        </Actions>
+      </Changed>
+
+      <!-- Button OSK ApiKey clicked -->
+      <Changed Source="[CommandKeyboardApiKey.Invoked]">
+        <Actions>
+          <Invoke Target="[AddInHost.MediaCenterEnvironment.ShowOnscreenKeyboard]"
+                  editableText="[TypingHandlerApiKey.EditableText]"
+                  passwordMasked="[TypingHandlerApiKey.PasswordMasked]"
+                  maxLength="[TypingHandlerApiKey.MaxLength]"/>
+        </Actions>
+      </Changed>
+
+      <!-- Button OSK LocationCode clicked -->
+      <Changed Source="[CommandKeyboardLocationCode.Invoked]">
+        <Actions>
+          <Invoke Target="[AddInHost.MediaCenterEnvironment.ShowOnscreenKeyboard]"
+                  editableText="[TypingHandlerLocationCode.EditableText]"
+                  passwordMasked="[TypingHandlerLocationCode.PasswordMasked]"
+                  maxLength="[TypingHandlerLocationCode.MaxLength]"/>
+        </Actions>
+      </Changed>
+
+      <!-- Only show the static background when developing -->
+      <Rule>
+        <Conditions>
+          <Equality Source="[Session]" ConditionOp="NotEquals" Value="null"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[ctrlBackground.Content]" Value="null"/>
+        </Actions>
+      </Rule>
+    </Rules>
+    <Content>
+      <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
+        <Children>
+          <Panel Layout="Form" MinimumSize="1366,768" MaximumSize="1366,768">
+            <Children>
+              <!-- Application title in MCE style -->
+              <this:ApplicationTitle Content="myForecast"/>
+
+              <!-- Manage settings label -->
+              <Panel Layout="Form">
+                <Children>
+                  <Panel Layout="VerticalFlow">
+                    <LayoutInput>
+                      <FormLayoutInput Left="Parent,0,230" Top="Parent,0,96"/>
+                    </LayoutInput>
+                    <Children>
+                      <Text Content="weather settings" Font="[FontBoldSettings]" Color="White" Padding="0,0,0,0"/>
+                    </Children>
+                  </Panel>
+                </Children>
+              </Panel>
+
+              <!-- Settings -->
+              <Panel>
+                <LayoutInput>
+                  <FormLayoutInput Left="Parent,0,320" Top="Parent,0,160" Horizontal="Center" Vertical="Near"/>
+                </LayoutInput>
+                <Layout>
+                  <FlowLayout Orientation="Vertical" ItemAlignment="Center"/>
+                </Layout>
+                <Children>
+                  <Panel>
+                    <Layout>
+                      <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
+                    </Layout>
+                    <Children>
+                      <!-- Api key -->
+                      <Panel>
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="Api key" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <this:Edit Model="[TextApiKey]" ContentMinSize="350,32" ContentMaxSize="350,32" FocusOrder="1"/>
+                          <this:Button Model="[CommandKeyboardApiKey]" IconImage="image://this:Keyboard"
+                                       IconMinSize="46,30" IconMaxSize="46,30" TileSize="60,51" IconPadding="7,0,0,0"/>
+                        </Children>
+                      </Panel>
+
+                      <!-- Location code  -->
+                      <Panel Margins="0,4,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="Location code" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <this:Edit Model="[TextLocationCode]" ContentMinSize="350,32" ContentMaxSize="350,32"/>
+                          <this:Button Model="[CommandKeyboardLocationCode]" IconImage="image://this:Keyboard"
+                                       IconMinSize="46,30" IconMaxSize="46,30" TileSize="60,51" IconPadding="7,0,0,0"/>
+                        </Children>
+                      </Panel>
+
+                      <!-- Weather units -->
+                      <Panel Margins="0,4,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="Weather Units" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <this:Spinner Name="SpinnerWeatherUnits" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
+                        </Children>
+                      </Panel>
+
+                      <!-- Weather refresh interval -->
+                      <Panel Margins="0,4,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="Refresh interval" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <this:Spinner Name="SpinnerRefreshRateInMinutes" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
+                        </Children>
+                      </Panel>
+
+                      <!-- Clock time format -->
+                      <Panel Margins="0,4,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="Clock time format" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <this:Spinner Name="SpinnerClockTimeFormat" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
+                        </Children>
+                      </Panel>
+                    </Children>
+                  </Panel>
+                </Children>
+              </Panel>
+
+              <!-- Buttons -->
+              <Panel>
+                <LayoutInput>
+                  <FormLayoutInput Left="Parent,0,230" Top="Parent,0,160" Horizontal="Near" Vertical="Near"/>
+                </LayoutInput>
+                <Children>
+                  <Panel>
+                    <Layout>
+                      <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
+                    </Layout>
+                    <Children>
+                      <this:Button Model="[CommandSave]"/>
+                      <this:Button Model="[CommandCancel]"/>
+                      <this:Button Model="[CommandAbout]" Padding="0,64,0,0"/>
+                    </Children>
+                  </Panel>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+        </Children>
+      </Graphic>
+    </Content>
+  </UI>
+
+</Mcml>

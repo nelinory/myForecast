@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MsCorLib/System"
+      xmlns:this="Me">
+
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
+
+  <!-- Media Center style settings button control -->
+  <UI Name="SettingsButton">
+    <Locals>
+      <ClickHandler Name="Clicker"/>
+    </Locals>
+    <Properties>
+      <core:String Name="Text" String="null"/>
+
+      <ICommand Name="Command" ICommand="$Required"/>
+
+      <Image Name="Default" Source="res://ehres!Browse.Cmd.Settings.png"/>
+      <Image Name="Focus" Source="res://ehres!Browse.Cmd.Settings.Focus.png"/>
+      <Image Name="Dormant" Source="res://ehres!Browse.Cmd.Settings.Dormant.png"/>
+
+      <Font Name="Font" FontName="global://this:FontFaceRegular" FontSize="18"/>
+      <Font Name="FontBold" FontName="global://this:FontFaceBold" FontSize="18"/>
+
+      <Color Name="LabelColor" Color="DeepSkyBlue"/>
+      <Color Name="LabelHoverColor" Color="White"/>
+
+      <Sound Name="FocusSound" Sound="res://ehres!Focus_a.wav"/>
+      <Sound Name="DefaultNavigationSound" Sound="res://ehres!Select_a.wav"/>
+    </Properties>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+
+      <Binding Source="[Text]" Target="[Label.Content]"/>
+      <Binding Source="[Command]" Target="[Clicker.Command]"/>
+      
+      <Condition Source="[Clicker.Clicking]" SourceValue="true">
+        <Actions>
+          <PlaySound Sound="[DefaultNavigationSound]"/>
+          <PlayAnimation Target="[Container]">
+            <Animation>
+              <Animation CenterPointPercent="0,1,0.5">
+                <Keyframes>
+                  <ScaleKeyframe Time="0.000" RelativeTo="Current"/>
+                  <ScaleKeyframe Time="0.015" RelativeTo="Absolute" Value="1.0,1.0,1.0"/>
+                  <ScaleKeyframe Time="0.030" RelativeTo="Absolute" Value="1.1,1.1,1.1"/>
+                </Keyframes>
+              </Animation>
+            </Animation>
+          </PlayAnimation>
+        </Actions>
+      </Condition>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true">
+        <Actions>
+          <Set Target="[Image.Content]" Value="[Focus]"/>
+          <Set Target="[Label.Font]" Value="[FontBold]"/>
+          <Set Target="[Label.Color]" Value="[LabelHoverColor]"/>
+          <Set Target="[Container.Scale]" Value="1.05, 1.05, 1.0" />
+          <PlaySound Sound="[FocusSound]"/>
+        </Actions>
+      </Condition>
+      <Condition Source="[Input.MouseFocus]" SourceValue="true">
+        <Actions>
+          <Set Target="[Image.Content]" Value="[Focus]"/>
+          <Set Target="[Label.Font]" Value="[FontBold]"/>
+          <Set Target="[Label.Color]" Value="[LabelHoverColor]"/>
+          <PlaySound Sound="[FocusSound]"/>
+        </Actions>
+      </Condition>
+    </Rules>
+    <Content>
+      <Panel Name="Container" Scale="1,1,1" CenterPointPercent="0,1,0.5" Padding="0,0,0,5">
+        <Animations>
+          <Animation Type="Scale">
+            <Keyframes>
+              <ScaleKeyframe Time="0.00" RelativeTo="Current" />
+              <ScaleKeyframe Time="0.05" RelativeTo="Final" />
+            </Keyframes>
+          </Animation>
+        </Animations>
+        <Layout>
+          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+        </Layout>
+        <Children>
+          <Graphic Name="Image" Content="[Default]" Margins="0,7,10,0"/>
+          <Text Name="Label" Color="[LabelColor]" Font="[Font]"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <!-- Media Center style button -->
+  <UI Name="Button" BaseUI="this:BaseButton">
+    <Properties>
+      <ICommand Name="Model" ICommand="$Required"/>
+    </Properties>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+ 
+      <Binding Source="[Model.Available]" Target="[Input.Enabled]"/>
+      <Binding Source="[Model.Description]" Target="[Label.Content]"/>
+      <Rule>
+        <Conditions>
+          <Modified Source="[Clicker.Invoked]"/>
+          <Equality Source="[IsSelectable]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[Model.Invoke]" InvokePolicy="AsynchronousLowPri"/>
+        </Actions>
+      </Rule>
+    </Rules>
+  </UI>
+
+  <!-- Do not use directly -->
+  <UI Name="BaseButton">
+    <Locals>
+      <ClickHandler Name="Clicker"/>
+
+      <core:Boolean Name="IsSelectable" Boolean="false"/>
+
+      <Timer Name="IsSelectableTimer" Interval="50" AutoRepeat="false" Enabled="false"/>
+    </Locals>
+    <Properties>
+      <Font Name="Font" FontName="global://this:FontFaceBold" FontSize="20"/>
+      <Font Name="FocusFont" Font="null"/>
+      <Font Name="DisabledFont" Font="null"/>
+
+      <core:String Name="FocusLoopContentTemplate" String="null"/>
+      <core:Boolean Name="ShowLabel" Boolean="true"/>
+      <core:Boolean Name="AllowPressedEffect" Boolean="true"/>
+      <core:Boolean Name="AllowMarquee" Boolean="true"/>
+      <core:Boolean Name="ShowLabelBackground" Boolean="false"/>
+      <core:Boolean Name="HideFocusState" Boolean="false"/>
+      <core:Boolean Name="ShowIcon" Boolean="true"/>
+      <core:Boolean Name="IsNavigatingCommand" Boolean="true"/>
+      <core:Boolean Name="InvokeOnSingleTap" Boolean="true"/>
+
+      <Size Name="IconMinSize"/>
+      <Size Name="IconMaxSize"/>
+      <Size Name="TileSize" Size="250, 51"/>
+
+      <Image Name="LabelBackground" Source="res://ehres!Button.Label.Background.png" NineGrid="7,7,7,7"/>
+      <Image Name="LabelBackgroundFocus" Source="res://ehres!Button.Label.Background.Focus.png" NineGrid="7,7,7,7"/>
+      <Image Name="NoFocusImage" Source="res://ehres!Common.Button.NoFocus.Full.png" NineGrid="20,12,20,10"/>
+      <Image Name="FocusImage" Source="res://ehres!Common.Button.Left.Focus.png" NineGrid="20,12,20,10"/>
+      <Image Name="DisabledImage" Source="res://ehres!Common.Button.Disabled.Full.png" NineGrid="20,12,20,10"/>
+      <Image Name="FocusOverlayImage" Image="res://ehres!Common.Button.Left.FocusOverlay.png"/>
+      <Image Name="PressedImage" Image="res://ehres!Common.Button.PressedHighlight.png"/>
+      <Image Name="IconImage" Image="null"/>
+      <Image Name="FocusIconImage" Image="null"/>
+      <Image Name="IconAcquiringImage" Image="null"/>
+      <Image Name="IconErrorImage" Image="null"/>
+
+      <Color Name="NoFocusColor" Color="color://this:LightBlue"/>
+      <Color Name="FocusColor" Color="color://this:OffWhite"/>
+      <Color Name="DisabledColor" Color="color://this:LightBlue40Percent"/>
+      <Color Name="NoFocusFillColor" Color="color://this:Transparent"/>
+      <Color Name="FocusFillColor" Color="color://this:Transparent"/>
+      <Color Name="DisabledFillColor" Color="color://this:Transparent"/>
+
+      <Inset Name="IconPadding"/>
+
+      <DockLayoutInput Name="LabelBorderInput" Position="Left" Alignment="Center"/>
+      <DockLayoutInput Name="IconBorderInput" Position="Left" Alignment="Center"/>
+
+      <Sound Name="DefaultNavigationSound" Sound="res://ehres!Select_a.wav"/>
+      <Sound Name="DefaultNonNavigationSound" Sound="res://ehres!MiniSelect_a.wav"/>
+    </Properties>
+    <Rules>
+      <Rule>
+        <Conditions>
+          <Equality Source="[InvokeOnSingleTap]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[IsSelectable]" Value="true"/>
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Modified Source="[Clicker.Invoked]"/>
+          <Equality Source="[IsNavigatingCommand]" Value="true"/>
+          <Equality Source="[IsSelectable]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <PlaySound Sound="[DefaultNavigationSound]"/>
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Modified Source="[Clicker.Invoked]"/>
+          <Equality Source="[IsNavigatingCommand]" Value="false"/>
+          <Equality Source="[IsSelectable]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <PlaySound Sound="[DefaultNonNavigationSound]"/>
+        </Actions>
+      </Rule>
+      <Condition Source="[Input.Enabled]" SourceValue="false" Target="[Label.Color]" Value="[DisabledColor]"/>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true" Target="[Label.Color]" Value="[FocusColor]">
+        <Conditions>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+      </Condition>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="true"/>
+          <Equality Source="[FocusLoopContentTemplate]" ConditionOp="NotEquals" Value="null"/>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[IconFocusLoopHost.Visible]" Value="true"/>
+          <Set Target="[IconFocusLoopHost.Source]" Value="[FocusLoopContentTemplate]"/>
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="true"/>
+          <Equality Source="[FocusIconImage]" ConditionOp="NotEquals" Value="null"/>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Icon.Content]" Value="[FocusIconImage]"/>
+        </Actions>
+      </Rule>
+      <Binding Source="[IconErrorImage]" Target="[Icon.ErrorImage]"/>
+      <Binding Source="[IconAcquiringImage]" Target="[Icon.AcquiringImage]"/>
+      <Binding Source="[IconImage]" Target="[Icon.Content]"/>
+      <Default Target="[Icon.Content]" Value="[IconImage]"/>
+      <Binding Source="[ShowIcon]" Target="[Icon.Visible]"/>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true" Target="[LabelBackgroundGraphic.Content]" Value="[LabelBackgroundFocus]">
+        <Conditions>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+      </Condition>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.Enabled]" Value="false"/>
+          <Equality Source="[DisabledFont]" ConditionOp="NotEquals" Value="null"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Label.Font]" Value="[DisabledFont]"/>
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="true"/>
+          <Equality Source="[FocusFont]" ConditionOp="NotEquals" Value="null"/>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Label.Font]" Value="[FocusFont]"/>
+        </Actions>
+      </Rule>
+      <Condition Source="[Input.Enabled]" SourceValue="false" Target="[Background.Content]" Value="[DisabledImage]"/>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true" Target="[Background.Content]" Value="[FocusImage]">
+        <Conditions>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+      </Condition>
+      <Condition Source="[Input.Enabled]" SourceValue="false" Target="[Fill.Content]" Value="[DisabledFillColor]"/>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" ConditionOp="ChangedTo" Value="true"/>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[FocusOverlay.Visible]" Value="true"/>
+          <Set Target="[Fill.Content]" Value="[FocusFillColor]"/>
+          <PlaySound Sound="res://ehres!Focus_a.wav"/>
+        </Actions>
+      </Rule>
+      <Default Target="[FocusOverlay.Visible]" Value="false"/>
+      <Binding Source="[Clicker.Clicking]" Target="[Highlight.Visible]"/>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="true" ConditionOp="ChangedTo"/>
+          <Equality Source="[InvokeOnSingleTap]" Value="false"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[IsSelectableTimer.Start]"/>
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Modified Source="[IsSelectableTimer.Tick]"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[IsSelectable]" Value="true"/>
+        </Actions>
+      </Rule>
+      <Condition Source="[Input.KeyFocus]" ConditionOp="ChangedTo" SourceValue="false">
+        <Conditions>
+          <Equality Source="[InvokeOnSingleTap]" Value="false"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[IsSelectable]" Value="false"/>
+        </Actions>
+      </Condition>
+      <Binding Source="[TileSize]" Target="[Root.MaximumSize]"/>
+      <Binding Source="[TileSize]" Target="[Fill.MinimumSize]"/>
+      <Binding Source="[TileSize]" Target="[Background.MinimumSize]"/>
+    </Rules>
+    <Content>
+      <Panel Name="Root" MouseInteractive="true">
+        <Children>
+          <Panel Name="LabelScalePanel" Layout="Dock">
+            <Children>
+              <Graphic Name="Icon" LayoutInput="[IconBorderInput]" Margins="[IconPadding]" MaintainAspectRatio="true" MinimumSize="[IconMinSize]" MaximumSize="[IconMaxSize]" Visible="[ShowIcon]">
+                <Children>
+                  <this:BaseIconFocusLoopContent Name="IconFocusLoopHost" Visible="false" Source="null"/>
+                </Children>
+              </Graphic>
+              <Panel Name="LabelPanel" Layout="Anchor" LayoutInput="[LabelBorderInput]" Margins="16,0,8,0" Visible="[ShowLabel]">
+                <Children>
+                  <Text Name="Label" Color="[NoFocusColor]" Font="[Font]">
+                    <!--<LayoutInput>
+                      <AnchorLayoutInput Vertical="Center" Horizontal="Near"/>
+                    </LayoutInput>-->
+                  </Text>
+                  <Graphic Name="LabelBackgroundGraphic" Content="[LabelBackground]" Visible="[ShowLabelBackground]">
+                    <LayoutInput>
+                      <AnchorLayoutInput Left="Label,0,-8" Top="Label,0,-4" Right="Label,1,8" Bottom="Label,1,4" ContributesToWidth="false" ContributesToHeight="false"/>
+                    </LayoutInput>
+                  </Graphic>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+          <Clip FadeSize="20" Layout="Fill">
+            <Children>
+              <Graphic Name="Highlight" Content="[PressedImage]">
+                <Animations>
+                  <TransformByAttributeAnimation Filter="Position" Attribute="Width" Magnitude="1.0">
+                    <Source>
+                      <Animation Type="Show">
+                        <Keyframes>
+                          <PositionKeyframe Time="0.00" Value="-1.0,0,0" RelativeTo="Final"/>
+                          <PositionKeyframe Time="0.10" Value="0.00,0,0" RelativeTo="Final"/>
+                          <PositionKeyframe Time="0.18" Value="0.35,0,0" RelativeTo="Final"/>
+                          <PositionKeyframe Time="0.35" Value="0.55,0,0" RelativeTo="Final"/>
+                          <PositionKeyframe Time="0.60" Value="1.25,0,0" RelativeTo="Final"/>
+                          <PositionKeyframe Time="0.70" Value="1.25,0,0" RelativeTo="Final"/>
+                          <AlphaKeyframe Time="0.00" Value="0.00" RelativeTo="Absolute"/>
+                          <AlphaKeyframe Time="0.05" Value="0.75" RelativeTo="Absolute"/>
+                          <AlphaKeyframe Time="0.17" Value="0.75" RelativeTo="Absolute"/>
+                          <AlphaKeyframe Time="0.40" Value="0.00" RelativeTo="Absolute"/>
+                        </Keyframes>
+                      </Animation>
+                    </Source>
+                  </TransformByAttributeAnimation>
+                  <TransformByAttributeAnimation Filter="Position" Attribute="Width" Magnitude="1.0">
+                    <Source>
+                      <Animation Type="Hide">
+                        <Keyframes>
+                          <PositionKeyframe Time="0.00" Value="0.0,0,0" RelativeTo="Current"/>
+                          <PositionKeyframe Time="0.10" Value="1.0,0,0" RelativeTo="Final"/>
+                          <AlphaKeyframe Time="0.00" RelativeTo="Current"/>
+                          <AlphaKeyframe Time="0.10" Value="0.0" RelativeTo="Absolute"/>
+                        </Keyframes>
+                      </Animation>
+                    </Source>
+                  </TransformByAttributeAnimation>
+                </Animations>
+              </Graphic>
+            </Children>
+          </Clip>
+          <Graphic Name="FocusOverlay" Layout="Fill" Content="[FocusOverlayImage]">
+            <Animations>
+              <Animation Loop="-1" Type="Idle">
+                <Keyframes>
+                  <AlphaKeyframe Time="0.0" Value="0.0" Interpolation="SCurve" RelativeTo="Absolute"/>
+                  <AlphaKeyframe Time="1.5" Value="0.63" Interpolation="SCurve" RelativeTo="Absolute"/>
+                  <AlphaKeyframe Time="3.0" Value="0.0" RelativeTo="Absolute"/>
+                </Keyframes>
+              </Animation>
+            </Animations>
+          </Graphic>
+          <ColorFill Name="Fill" Layout="Fill" Content="[NoFocusFillColor]"/>
+          <Graphic Name="Background" Layout="Fill" Content="[NoFocusImage]"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+  <UI Name="BaseIconFocusLoopContent"></UI>
+
+</Mcml>

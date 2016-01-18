@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MsCorLib/System"
+      xmlns:this="Me">
+
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Button"/>
+
+  <UI Name="Spinner">
+    <Locals>
+      <Command Name="PreviousValue" Description="-"/>
+      <Command Name="NextValue" Description="+"/>
+    </Locals>
+    <Properties>
+      <Choice Name="Model" Choice="$Required"/>
+
+      <Font Name="Font" FontName="global://this:FontFaceRegular" FontSize="20"/>
+
+      <Size Name="LabelMinSize" Size="0,0"/>
+      <Size Name="LabelMaxSize" Size="0,0"/>
+      <Size Name="TileSize" Size="51,51"/>
+
+      <Inset Name="BackgroundPadding" Inset="10,2,10,2"/>
+      <Inset Name="LabelMargins" Inset="15,5,10,5"/>
+      <Inset Name="ButtonMargins" Inset="0,0,5,0"/>
+
+      <Image Name="NoFocusImage" Image="res://ehres!ContextMenu.Button.NoFocus.png"/>
+      <Image Name="FocusImage" Image="res://ehres!ContextMenu.Button.NoFocus.png"/>
+      <Image Name="DisabledImage" Image="res://ehres!ContextMenu.Button.NoFocus.png"/>
+
+      <Color Name="NoFocusColor" Color="color://this:LightBlue"/>
+      <Color Name="FocusColor" Color="color://this:OffWhite"/>
+      <Color Name="DisabledColor" Color="color://this:LightBlue40Percent"/>
+    </Properties>
+    <Rules>
+      <Binding Source="[Model.HasNextValue]" Target="[NextValue.Available]"/>
+      <Binding Source="[Model.HasPreviousValue]" Target="[PreviousValue.Available]"/>
+      <Binding Source="[Model.Chosen]" Target="[ValueLabel.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0}"/>
+        </Transformer>
+      </Binding>
+     
+      <Condition Source="[Input.Enabled]" SourceValue="false" Target="[ValueLabel.Color]" Value="[DisabledColor]"/>
+      <Condition Source="[Input.DeepKeyFocus]" SourceValue="true" Target="[ValueLabel.Color]" Value="[FocusColor]"/>
+      <Condition Source="[Input.Enabled]" SourceValue="false" Target="[Background.Content]" Value="[DisabledImage]"/>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true" Target="[Background.Content]" Value="[FocusImage]"/>
+
+      <!-- Button + clicked -->
+      <Changed Source="[NextValue.Invoked]">
+        <Actions>
+          <Invoke Target="[Model.NextValue]"/>
+        </Actions>
+      </Changed>
+
+      <!-- Button - clicked -->
+      <Changed Source="[PreviousValue.Invoked]">
+        <Actions>
+          <Invoke Target="[Model.PreviousValue]"/>
+        </Actions>
+      </Changed>
+    </Rules>
+    <Content>
+      <Panel>
+        <Layout>
+          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+        </Layout>
+        <Children>
+          <Graphic Name="Background" Content="[NoFocusImage]" Padding="[BackgroundPadding]" Layout="Anchor">
+            <Children>
+              <Text Name="ValueLabel" Color="[NoFocusColor]" Font="[Font]" MinimumSize="[LabelMinSize]" MaximumSize="[LabelMaxSize]"/>
+            </Children>
+          </Graphic>
+          <Panel Name="Buttons" Layout="HorizontalFlow">
+            <Children>
+              <this:Button Model="[PreviousValue]"
+                           TileSize="[TileSize]"
+                           NoFocusImage="res://ehres!Spinner.Arrow.Back.NoFocus.png"
+                           FocusImage="res://ehres!Spinner.Arrow.Back.Focus.png"
+                           DisabledImage="res://ehres!Spinner.Arrow.Back.Disabled.png"
+                           Margins="[ButtonMargins]"
+                           ShowLabel="false"
+                           IsNavigatingCommand="false"/>
+              <this:Button Model="[NextValue]"
+                           TileSize="[TileSize]"
+                           NoFocusImage="res://ehres!Spinner.Arrow.Forward.NoFocus.png"
+                           FocusImage="res://ehres!Spinner.Arrow.Forward.Focus.png"
+                           DisabledImage="res://ehres!Spinner.Arrow.Forward.Disabled.png"
+                           Margins="[ButtonMargins]"
+                           ShowLabel="false"
+                           IsNavigatingCommand="false"/>
+            </Children>
+          </Panel>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+</Mcml>

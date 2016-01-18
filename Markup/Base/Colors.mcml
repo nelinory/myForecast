@@ -1,0 +1,83 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MSCorLib/System">
+
+  <Color Name="LightBlue" Color="255,151,217,255"/>
+  <Color Name="LightBlue40Percent" Color="102,151,217,255"/>
+  <Color Name="OffWhite" Color="255,242,242,242"/>
+  <Color Name="Black" Color="255,16,16,16"/>
+  <Color Name="Transparent" Color="0,0,0,0"/>
+  
+  <!--
+  <Color Name="OffWhite" Color="255,242,242,242"/>
+  <Color Name="OffWhite10Percent" Color="26,242,242,242"/>
+  <Color Name="OffWhite50Percent" Color="128,242,242,242"/>
+  <Color Name="OffWhite60Percent" Color="153,242,242,242"/>
+  <Color Name="White20Percent" Color="51,255,255,255"/>
+  <Color Name="White40Percent" Color="102,255,255,255"/>
+  <Color Name="White60Percent" Color="153,255,255,255"/>
+  <Color Name="White80Percent" Color="204,255,255,255"/>
+  <Color Name="LightBlue" Color="255,151,217,255"/>
+  <Color Name="LightBlue40Percent" Color="102,151,217,255"/>
+  <Color Name="LightBlue60Percent" Color="153,151,217,255"/>
+  <Color Name="MediumBlue" Color="255,2,166,212"/>
+  <Color Name="MediumBlue98Percent" Color="250,60,112,162"/>
+  <Color Name="DarkBlue" Color="255,5,33,92"/>
+  <Color Name="GuideMediumBlue" Color="255,84,201,247"/>
+  <Color Name="GuideMediumBlueHC" Color="255,84,201,247"/>
+  <Color Name="Black" Color="255,16,16,16"/>
+  <Color Name="DetailsBlack70Percent" Color="178,16,16,16"/>
+  <Color Name="Yellow" Color="255,255,255,100"/>
+  <Color Name="GalleryItemFill" Color="255,46,135,176"/>
+  <Color Name="GalleryItemFillFocus" Color="255,46,135,176"/>
+  <Color Name="GalleryItemLabel" Color="255,5,33,92"/>
+  <Color Name="GalleryItemLabelFocus" Color="255,5,33,92"/>
+  <Color Name="GalleryFolderFill" Color=" 40,151,217,255"/>
+  <Color Name="GalleryFolderFillFocus" Color="255,71,136,174"/>
+  <Color Name="GalleryFolderLabel" Color="255,242,242,242"/>
+  <Color Name="GalleryFolderLabelFocus" Color="255,242,242,242"/>
+  <Color Name="Transparent" Color=" 0,0,0,0"/>
+  <Color Name="ToolbarOffWhite" Color="255,242,242,242"/>
+  <Color Name="MMIActiveText" Color="255,242,242,242"/>
+  <Color Name="MMIActiveShadow" Color=" 96,0,0,0"/>
+  <Color Name="MMIInactiveText" Color="255,5,33,92"/>
+  <Color Name="MMIInactiveShadow" Color=" 96,242,242,242"/>
+  <Color Name="MMIActiveBackground" Color="255,5,100,75"/>
+  <Color Name="OffWhiteHCInverted" Color="255,242,242,242"/>
+  <Color Name="OffWhiteHCOpposites" Color="255,242,242,242"/>
+  <Color Name="DarkBlueHCInverted" Color="255,5,33,92"/>
+  <Color Name="BlackHCStatic" Color="255,16,16,16"/>
+  <Color Name="BlackHCInverted" Color=" 89,151,217,255"/>
+  <Color Name="LinkSpecifier" Color="255,0,255,0"/>
+  <Color Name="GuideWhite" Color="153,242,242,242"/>
+  <Color Name="DenialBackground" Color="255,5,33,92"/>
+  <Color Name="DenialBackgroundTp" Color="217,7,32,83"/>
+  <Color Name="DenialItemBackgroundTp" Color="127,5,33,92"/>
+  <Color Name="DenialDebugBackground" Color="200,90,90,90"/>
+  <Color Name="AlbumArtBGColor1" Color="255,45,132,184"/>
+  <Color Name="AlbumArtOverlayLabelColor1" Color="255,2,36,56"/>
+  <Color Name="AlbumArtBGColor2" Color="255,95,167,69"/>
+  <Color Name="AlbumArtOverlayLabelColor2" Color="255,22,54,10"/>
+  <Color Name="AlbumArtBGColor3" Color="255,163,26,26"/>
+  <Color Name="AlbumArtOverlayLabelColor3" Color="255,255,219,219"/>
+  <Color Name="AlbumArtBGColor4" Color="255,218,218,207"/>
+  <Color Name="AlbumArtOverlayLabelColor4" Color="255,68,68,68"/>
+  <Color Name="AlbumArtBGColor5" Color="255,236,146,28"/>
+  <Color Name="AlbumArtOverlayLabelColor5" Color="255,66,40,10"/>
+  <Color Name="AlbumArtBGColor6" Color="255,242,206,70"/>
+  <Color Name="AlbumArtOverlayLabelColor6" Color="255,93,80,25"/>
+  <Color Name="MovieArtBGColor1" Color="255,45,132,184"/>
+  <Color Name="MovieArtBGColor2" Color="255,95,167,69"/>
+  <Color Name="MovieArtBGColor3" Color="255,163,26,26"/>
+  <Color Name="MovieArtBGColor4" Color="255,218,218,207"/>
+  <Color Name="MovieArtBGColor5" Color="255,236,146,28"/>
+  <Color Name="MovieArtBGColor6" Color="255,242,206,70"/>
+  <Color Name="MovieArtOverlayLabelColor1" Color="255,2,36,56"/>
+  <Color Name="MovieArtOverlayLabelColor2" Color="255,22,54,10"/>
+  <Color Name="MovieArtOverlayLabelColor3" Color="255,255,219,219"/>
+  <Color Name="MovieArtOverlayLabelColor4" Color="255,68,68,68"/>
+  <Color Name="MovieArtOverlayLabelColor5" Color="255,66,40,10"/>
+  <Color Name="MovieArtOverlayLabelColor6" Color="255,93,80,25"/>
+  <Color Name="SeekBarLabelColor" Color="255,102,102,102"/>
+  -->
+
+</Mcml>

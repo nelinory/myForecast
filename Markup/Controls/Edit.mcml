@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MsCorLib/System"
+      xmlns:this="Me">
+
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
+
+  <UI Name="Edit">
+    <Locals>
+      <TypingHandler Name="TypingHandlerEdit"/>
+    </Locals>
+    <Properties>
+      <EditableText Name="Model" EditableText="$Required"/>
+
+      <Font Name="Font" FontName="global://this:FontFaceRegular" FontSize="20"/>
+
+      <Size Name="CaretSize" Size="25,5"/>
+      <Size Name="ContentMinSize" Size="150,32"/>
+      <Size Name="ContentMaxSize" Size="150,32"/>
+      <Size Name="TextMinSize" Size="0,32"/>
+
+      <Inset Name="ContentPadding" Inset="15,7,15,7"/>
+
+      <Image Name="NoFocusImage" Image="res://ehres!Find.EditBox.NoFocus.png"/>
+      <Image Name="FocusImage" Image="res://ehres!Find.EditBox.png"/>
+      <Image Name="DisabledImage" Image="res://ehres!Find.EditBox.NoFocus.png"/>
+
+      <Color Name="NoFocusColor" Color="color://this:LightBlue"/>
+      <Color Name="FocusColor" Color="color://this:OffWhite"/>
+      <Color Name="DisabledColor" Color="color://this:LightBlue40Percent"/>
+
+      <core:Int32 Name="MaxLength" Int32="300"/>
+      <core:Boolean Name="UseTripleTap" Boolean="false"/>
+      <core:Boolean Name="PasswordMasked" Boolean="false"/>
+
+      <Sound Name="FocusSound" Sound="res://ehres!Focus_a.wav"/>      
+    </Properties>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+
+      <Binding Source="[TypingHandlerEdit.DisplayValue]" Target="[Value.Content]"/>
+      <Binding Target="[TypingHandlerEdit.EditableText]" Source="[Model]"/>
+      <Binding Target="[TypingHandlerEdit.PasswordMasked]" Source="[PasswordMasked]"/>
+      <Binding Target="[TypingHandlerEdit.MaxLength]" Source="[MaxLength]"/>
+
+      <Condition Source="[UseTripleTap]" SourceValue="false" Target="[TypingHandlerEdit.TypingPolicy]" Value="Default"/>
+      <Condition Source="[UseTripleTap]" SourceValue="true" Target="[TypingHandlerEdit.TypingPolicy]" Value="TripleTap"/>
+      <Condition Source="[Input.Enabled]" SourceValue="false" Target="[Background.Content]" Value="[DisabledImage]"/>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true">
+        <Actions>
+          <Set Target="[Background.Content]" Value="[FocusImage]"/>
+          <Set Target="[Caret.Visible]" Value="true"/>
+          <PlaySound Sound="[FocusSound]"/>
+        </Actions>
+      </Condition>
+    </Rules>
+    <Content>
+      <Panel Layout="HorizontalFlow">
+        <Children>
+          <Graphic Name="Background" Content="[NoFocusImage]" Padding="[ContentPadding]" SizingPolicy="SizeToChildren">
+            <Children>
+              <Panel MinimumSize="[ContentMinSize]" MaximumSize="[ContentMaxSize]" >
+                <Layout>
+                  <FlowLayout Orientation="Horizontal" ItemAlignment="Far"/>
+                </Layout>
+                <Children>
+                  <Panel MinimumSize="[TextMinSize]">
+                    <Children>
+                      <Text Name="Value" Color="color://this:Black" HorizontalAlignment="Far" Font="[Font]" Margins="0,-5,0,0"/>
+                    </Children>
+                  </Panel>
+                  <Graphic Name="Caret" Visible="false" Content="res://ehres!Edit.Caret.png" MaximumSize="[CaretSize]">
+                    <Animations>
+                      <Animation Name="CaretBlink.Show" Type="Show" Loop="-1">
+                        <Keyframes>
+                          <AlphaKeyframe Time="0.0" Value="0.0" Interpolation="SCurve" RelativeTo="Absolute"/>
+                          <AlphaKeyframe Time="0.5" Value="0.0" Interpolation="SCurve" RelativeTo="Absolute"/>
+                          <AlphaKeyframe Time="0.6" Value="1.0" Interpolation="SCurve" RelativeTo="Absolute"/>
+                          <AlphaKeyframe Time="1.1" Value="1.0" Interpolation="SCurve" RelativeTo="Absolute"/>
+                          <AlphaKeyframe Time="1.2" Value="0.0" RelativeTo="Absolute"/>
+                        </Keyframes>
+                      </Animation>
+                    </Animations>
+                  </Graphic>
+                </Children>
+              </Panel>
+            </Children>
+          </Graphic>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+
+</Mcml>

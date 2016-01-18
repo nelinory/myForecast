@@ -1,0 +1,9 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MSCorLib/System">
+
+  <!-- Font names -->
+  <core:String Name="FontFaceBold" String="Segoe UI Semibold"/>
+  <core:String Name="FontFaceRegular" String="Segoe UI"/>
+  <core:String Name="FontFaceLight" String="Segoe UI Light"/>
+
+</Mcml>
