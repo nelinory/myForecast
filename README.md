@@ -51,3 +51,7 @@ When you configure myForecast, please enter the full location code, i.e. **zmw:1
 
 ## Screenshot
 ![Screenshot](https://cloud.githubusercontent.com/assets/15143882/12383750/46d5703c-bd6f-11e5-8e62-556b7b064283.jpg)
+
+## Feedback
+Any comments, questions and ideas are greatly appreciated.
+All application generated files (configuration/location cache and error logs) can be found at: C:\Users\<YOUR USER NAME>\Documents\myForecast
