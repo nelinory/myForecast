@@ -14,7 +14,7 @@
   <UI Name="ApplicationTitle">
     <Properties>
       <core:String Name="Content" String="$Required"/>
-      
+
       <Font Name="FontLight" FontName="global://this:FontFaceLight" FontSize="48"/>
     </Properties>
     <Content>
@@ -37,7 +37,7 @@
   <UI Name="SettingsTitle">
     <Properties>
       <core:String Name="Content" String="$Required"/>
-      
+
       <Font Name="FontLight" FontName="global://this:FontFaceLight" FontSize="30"/>
     </Properties>
     <Content>
@@ -55,12 +55,12 @@
       </Panel>
     </Content>
   </UI>
-  
+
   <!-- Loading message control -->
   <UI Name="LoadingMessage">
     <Properties>
       <core:String Name="Content" String="$Required"/>
-      
+
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="22"/>
     </Properties>
     <Content>
@@ -84,20 +84,45 @@
     </Content>
   </UI>
 
-  <!-- Location control -->
+  <!-- Location/Weather alert control -->
   <UI Name="LocationName">
     <Properties>
       <core:String Name="Content" String="$Required"/>
-      
+      <core:String Name="WeatherAlertContent" String="$Required"/>
+
+      <ICommand Name="Model" ICommand="$Required"/>
+
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="22"/>
     </Properties>
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true"/>
-      
+
       <Binding Source="[Content]" Target="[TextLocationName.Content]"/>
+      <Binding Source="[WeatherAlertContent]" Target="[TextWeatherAlert.Content]"/>
+
+      <!-- Only show the weather alert when present -->
+      <Binding Source="[WeatherAlertContent]" Target="[PanelWeatherAlert.Visible]">
+        <Transformer>
+          <BooleanTransformer/>
+        </Transformer>
+      </Binding>
     </Rules>
     <Content>
-      <Text Name="TextLocationName" Color="White" Font="[FontRegular]"/>
+      <Panel Layout="HorizontalFlow">
+        <Children>
+          <Text Name="TextLocationName" Color="White" Font="[FontRegular]" Padding="0,0,0,2"/>
+          <Panel Name="PanelWeatherAlert">
+            <Layout>
+              <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+            </Layout>
+            <Children>
+              <this:Button Name="ControlWeatherAlert" Model="[Model]" IconImage="image://this:WeatherAlert"
+                           IconMinSize="40,40" IconMaxSize="40,40" TileSize="44,44" IconPadding="2,0,0,0" Margins="10,0,0,0"/>
+              <Text Name="TextWeatherAlert" Color="White" Font="[FontRegular]"/>
+            </Children>
+          </Panel>
+        </Children>
+      </Panel>
     </Content>
   </UI>
 
@@ -105,16 +130,16 @@
   <UI Name="CurrentTime">
     <Properties>
       <core:String Name="Content" String="$Required"/>
-      
+
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="18"/>
     </Properties>
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true"/>
-      
+
       <Binding Source="[Content]" Target="[TextCurrentTime.Content]"/>
     </Rules>
     <Content>
-      <Text Name="TextCurrentTime" Color="White" Font="[FontRegular]"/>
+      <Text Name="TextCurrentTime" Color="White" Font="[FontRegular]" Padding="0,0,0,2"/>
     </Content>
   </UI>
 
@@ -122,7 +147,7 @@
   <UI Name="LastUpdateTimestamp">
     <Properties>
       <core:String Name="Content" String="$Required"/>
-      
+
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="9"/>
     </Properties>
     <Rules>
@@ -141,7 +166,7 @@
   <UI Name="CurrentWeatherPanel">
     <Properties>
       <code:WeatherModel Name="CurrentWeather" WeatherModel="$Required"/>
-      
+
       <Font Name="FontBoldCurrentTemperature" FontName="global://this:FontFaceBold" FontSize="54"/>
       <Font Name="FontRegularCurrentDescription" FontName="global://this:FontFaceRegular" FontSize="24"/>
       <Font Name="FontRegularCurrentConditions" FontName="global://this:FontFaceRegular" FontSize="20"/>
@@ -153,7 +178,7 @@
           <Equality Source="[CurrentWeather.CurrentConditionIcon]" ConditionOp="NotEquals" Value=""/>
         </Conditions>
       </Binding>
-      
+
       <!-- Bind all current conditions -->
       <Binding Source="[CurrentWeather.CurrentConditionTemperature]" Target="[TextCurrentConditionTemperature.Content]"/>
       <Binding Source="[CurrentWeather.CurrentConditionDescription]" Target="[TextCurrentConditionDescription.Content]"/>
@@ -299,7 +324,7 @@
       </Graphic>
     </Content>
   </UI>
-  
+
   <!-- Powered by WeatherUnderground credits control -->
   <UI Name="PoweredByWeatherUndergroundCredits">
     <Properties>

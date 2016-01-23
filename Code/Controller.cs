@@ -27,6 +27,10 @@ namespace myForecast
             {
                 MyAddIn.Instance.GoAboutPage();
             }
+            else if (Page.Equals("WeatherAlert"))
+            {
+                MyAddIn.Instance.GoWeatherAlertPage();
+            }
         }
     }
 }

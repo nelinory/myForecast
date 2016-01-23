@@ -97,6 +97,9 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="LICENSE" />
+    <None Include="Markup\WeatherAlert.mcml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Markup\About.mcml">
       <SubType>Designer</SubType>
     </None>
@@ -106,6 +109,7 @@
     <Content Include="Images\myForecastInactive.png" />
     <Content Include="Images\PoweredBy.png" />
     <Content Include="Images\WeatherUndergroundLogo.png" />
+    <Content Include="Images\Weather_Alert.png" />
     <Content Include="Setup\ChangeLog.txt" />
     <Content Include="Setup\ReadMe.txt" />
     <None Include="DevInstall.cmd" />

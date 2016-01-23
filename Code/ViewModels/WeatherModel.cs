@@ -26,6 +26,7 @@ namespace myForecast
         private bool _isLoaded;
         private string _lastUpdateTimestamp;
         private string _locationName;
+        private string _weatherAlert;
         private string _currentConditionIcon;
         private string _currentConditionTemperature;
         private string _currentConditionDescription;
@@ -57,6 +58,12 @@ namespace myForecast
         {
             get { return _locationName; }
             set { _locationName = value; FirePropertyChanged("LocationName"); }
+        }
+
+        public string WeatherAlert
+        {
+            get { return _weatherAlert; }
+            set { _weatherAlert = value; FirePropertyChanged("WeatherAlert"); }
         }
 
         public string CurrentConditionIcon
@@ -209,6 +216,7 @@ namespace myForecast
         {
             LastUpdateTimestamp = GetFormattedTimestampFromEpoch(_xmlWeatherData.SelectSingleNode("response/current_observation/observation_epoch").InnerText);
             LocationName = _xmlWeatherData.SelectSingleNode("response/current_observation/display_location/full").InnerText;
+            WeatherAlert = GetWeatherAlertCaption(_xmlWeatherData.SelectSingleNode("response/alerts"));
 
             // Current condition support
             LoadCurrentConditionProperties(_xmlWeatherData.SelectSingleNode("response/current_observation"));
@@ -457,6 +465,27 @@ namespace myForecast
                 else
                     MyAddIn.Instance.AddInHost.ApplicationContext.CloseApplication();
             }
+        }
+
+        private string GetWeatherAlertCaption(XmlNode alertsNode)
+        {
+            string caption = null;
+
+            if (alertsNode.ChildNodes.Count > 0)
+            {
+                XmlNode descriptionNode = alertsNode.SelectSingleNode("alert/description"); // try for US weather alert
+                if (descriptionNode == null)
+                    descriptionNode = alertsNode.SelectSingleNode("alert/wtype_meteoalarm_name"); // try for Europe weather alert
+
+                if (descriptionNode != null)
+                {
+                    caption = String.Format("*** {0} ***", descriptionNode.InnerText);
+                    if (alertsNode.ChildNodes.Count > 1)
+                        caption = String.Format("{0} [+{1}]", caption, alertsNode.ChildNodes.Count - 1);
+                }
+            }
+
+            return caption;
         }
     }
 

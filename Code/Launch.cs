@@ -68,9 +68,14 @@ namespace myForecast
         /// </summary>
         public void GoMainPage()
         {
-            Dictionary<string, object> properties = new Dictionary<string, object>();
-            properties["Session"] = Session;
-            Session.GoToPage("resx://MyForecast/MyForecast.Resources/Main", properties);
+            if (Session == null)
+                Logger.LogInformation("Calling Main Page");
+            else
+            {
+                Dictionary<string, object> properties = new Dictionary<string, object>();
+                properties["Session"] = Session;
+                Session.GoToPage("resx://MyForecast/MyForecast.Resources/Main", properties);
+            }
         }
 
         /// <summary>
@@ -78,9 +83,14 @@ namespace myForecast
         /// </summary>
         public void GoSettingsPage()
         {
-            Dictionary<string, object> properties = new Dictionary<string, object>();
-            properties["Session"] = Session;
-            Session.GoToPage("resx://MyForecast/MyForecast.Resources/Settings", properties);
+            if (Session == null)
+                Logger.LogInformation("Calling Settings Page");
+            else
+            {
+                Dictionary<string, object> properties = new Dictionary<string, object>();
+                properties["Session"] = Session;
+                Session.GoToPage("resx://MyForecast/MyForecast.Resources/Settings", properties);
+            }
         }
 
         /// <summary>
@@ -88,9 +98,29 @@ namespace myForecast
         /// </summary>
         public void GoAboutPage()
         {
-            Dictionary<string, object> properties = new Dictionary<string, object>();
-            properties["Session"] = Session;
-            Session.GoToPage("resx://MyForecast/MyForecast.Resources/About", properties);
+            if (Session == null)
+                Logger.LogInformation("Calling About Page");
+            else
+            {
+                Dictionary<string, object> properties = new Dictionary<string, object>();
+                properties["Session"] = Session;
+                Session.GoToPage("resx://MyForecast/MyForecast.Resources/About", properties);
+            }
+        }
+
+        /// <summary>
+        /// Navigates to the weather alert page
+        /// </summary>
+        public void GoWeatherAlertPage()
+        {
+            if (Session == null)
+                Logger.LogInformation("Calling Weather Alert Page");
+            else
+            {
+                Dictionary<string, object> properties = new Dictionary<string, object>();
+                properties["Session"] = Session;
+                Session.GoToPage("resx://MyForecast/MyForecast.Resources/WeatherAlert", properties);
+            }
         }
     }
 }
