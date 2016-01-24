@@ -96,7 +96,7 @@
               </Panel>
 
               <!-- Weather alert -->
-              <Panel>
+              <Panel Name="PanelWeatherAlert">
                 <LayoutInput>
                   <FormLayoutInput Left="Parent,0,400" Top="Parent,0,160" Horizontal="Center" Vertical="Near"/>
                 </LayoutInput>
@@ -123,8 +123,9 @@
                     </Children>
                   </Graphic>
 
+                 
                   <!-- Page indicator -->
-                  <Panel Layout="HorizontalFlow">
+                  <Panel Layout="HorizontalFlow" Margins="700,0,0,0">
                     <Children>
                       <!-- Display for current/total number of pages -->
                       <Text Name="TextCurrentPage" Content="1" Font="[FontBoldSettings]" Color="White"/>
@@ -132,6 +133,16 @@
                       <Text Name="TextTotalPages" Content="4" Font="[FontBoldSettings]" Color="color://this:LightBlue"/>
                     </Children>
                   </Panel>
+                </Children>
+              </Panel>
+
+              <!-- Navigation directions -->
+              <Panel>
+                <LayoutInput>
+                  <FormLayoutInput Left="PanelWeatherAlert,0,0" Bottom="PanelWeatherAlert,1,-2" Horizontal="Near"/>
+                </LayoutInput>
+                <Children>
+                  <Text Content="Use Up/Down buttons to scroll" Font="[FontBoldWeatherAlertText]" Color="color://this:LightBlue"/>
                 </Children>
               </Panel>
 
