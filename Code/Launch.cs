@@ -111,7 +111,7 @@ namespace myForecast
         /// <summary>
         /// Navigates to the weather alert page
         /// </summary>
-        public void GoWeatherAlertPage()
+        public void GoWeatherAlertPage(string weatherAlertText)
         {
             if (Session == null)
                 Logger.LogInformation("Calling Weather Alert Page");
@@ -119,6 +119,7 @@ namespace myForecast
             {
                 Dictionary<string, object> properties = new Dictionary<string, object>();
                 properties["Session"] = Session;
+                properties["WeatherAlertText"] = weatherAlertText;
                 Session.GoToPage("resx://MyForecast/MyForecast.Resources/WeatherAlert", properties);
             }
         }

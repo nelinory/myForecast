@@ -1,4 +1,5 @@
 <Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MsCorLib/System"
       xmlns:code="assembly://myForecast/myForecast"
       xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
       xmlns:this="Me">
@@ -8,18 +9,16 @@
 
   <UI Name="WeatherAlert">
     <Locals>
-      <code:WeatherModel Name="CodeWeatherModel"/>
-
       <Command Name="CommandDone" Description="Done"/>
 
       <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="true" HandlerStage="Bubbled"/>
       <ScrollingData Name="ScrollingData"/>
-
-      <Timer Name="TimerLoadWeather" Interval="300" AutoRepeat="false" Enabled="true"/>
     </Locals>
     <Properties>
       <Font Name="FontBoldWeatherAlertText" FontName="global://this:FontFaceBold" FontSize="16"/>
-      <Font Name="FontBoldSettings" FontName="global://this:FontFaceBold" FontSize="18"/>
+      <Font Name="FontBold" FontName="global://this:FontFaceBold" FontSize="18"/>
+
+      <core:String Name="WeatherAlertText" String="$Required"/>
 
       <host:HistoryOrientedPageSession Name="Session" HistoryOrientedPageSession="$Required"/>
     </Properties>
@@ -27,17 +26,7 @@
       <Default Target="[Input.KeyInteractive]" Value="true"/>
 
       <!-- Bind the weather alert text and the refresh event -->
-      <Binding Source="[CodeWeatherModel.WeatherAlertText]" Target="[TextWeatherAlert.Content]"/>
-
-      <!-- Call main weather loading method -->
-      <Rule>
-        <Conditions>
-          <Modified Source="[TimerLoadWeather.Tick]"/>
-        </Conditions>
-        <Actions>
-          <Invoke Target="[CodeWeatherModel.LoadWeatherData]" InvokePolicy="AsynchronousLowPri"/>
-        </Actions>
-      </Rule>
+      <Binding Source="[WeatherAlertText]" Target="[TextWeatherAlert.Content]"/>
 
       <!-- Button Done clicked -->
       <Changed Source="[CommandDone.Invoked]">
@@ -104,7 +93,7 @@
                   <FlowLayout Orientation="Vertical" ItemAlignment="Center"/>
                 </Layout>
                 <Children>
-                  <Graphic Content="image://this:Shade" Padding="20,20,20,40" MinimumSize="760,460" MaximumSize="760,460">
+                  <Graphic Content="image://this:Shade" Padding="20,20,20,40" MinimumSize="760,440" MaximumSize="760,460">
                     <Children>
                       <Scroller Orientation="Vertical" FadeSize="-20" ScrollingData="[ScrollingData]">
                         <Children>
@@ -122,27 +111,29 @@
                       </Scroller>
                     </Children>
                   </Graphic>
-
-                 
-                  <!-- Page indicator -->
-                  <Panel Layout="HorizontalFlow" Margins="700,0,0,0">
-                    <Children>
-                      <!-- Display for current/total number of pages -->
-                      <Text Name="TextCurrentPage" Content="1" Font="[FontBoldSettings]" Color="White"/>
-                      <Text Content="|" Font="[FontBoldSettings]" Color="color://this:LightBlue"/>
-                      <Text Name="TextTotalPages" Content="4" Font="[FontBoldSettings]" Color="color://this:LightBlue"/>
-                    </Children>
-                  </Panel>
                 </Children>
               </Panel>
 
               <!-- Navigation directions -->
               <Panel>
                 <LayoutInput>
-                  <FormLayoutInput Left="PanelWeatherAlert,0,0" Bottom="PanelWeatherAlert,1,-2" Horizontal="Near"/>
+                  <FormLayoutInput Left="PanelWeatherAlert,0,0" Bottom="PanelWeatherAlert,1,34" Horizontal="Near"/>
                 </LayoutInput>
                 <Children>
-                  <Text Content="Use Up/Down buttons to scroll" Font="[FontBoldWeatherAlertText]" Color="color://this:LightBlue"/>
+                  <Text Content="Use Up/Down buttons to scroll" Font="[FontBold]" Color="color://this:LightBlue"/>
+                </Children>
+              </Panel>
+
+              <!-- Page indicator -->
+              <Panel Layout="HorizontalFlow">
+                <LayoutInput>
+                  <FormLayoutInput Right="PanelWeatherAlert,1,0" Bottom="PanelWeatherAlert,1,34" Horizontal="Far"/>
+                </LayoutInput>
+                <Children>
+                  <!-- Display for current/total number of pages -->
+                  <Text Name="TextCurrentPage" Content="1" Font="[FontBold]" Color="White"/>
+                  <Text Content="|" Font="[FontBold]" Color="color://this:LightBlue"/>
+                  <Text Name="TextTotalPages" Content="4" Font="[FontBold]" Color="color://this:LightBlue"/>
                 </Children>
               </Panel>
 

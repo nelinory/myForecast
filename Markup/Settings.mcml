@@ -17,7 +17,7 @@
       <TypingHandler Name="TypingHandlerLocationCode" TypingPolicy="Default"/>
 
       <code:ConfigModel Name="CodeConfigModel"/>
-      <code:NavigateCommand Name="NavigateCommand" Page="About"/>
+      <code:NavigationController Name="NavigationController"/>
 
       <EditableText Name="TextApiKey"/>
       <EditableText Name="TextLocationCode"/>
@@ -79,7 +79,7 @@
       <!-- Button About clicked -->
       <Changed Source="[CommandAbout.Invoked]">
         <Actions>
-          <Invoke Target="[NavigateCommand.Invoke]"/>
+          <Invoke Target="[NavigationController.GoToAboutPage]"/>
         </Actions>
       </Changed>
 

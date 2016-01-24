@@ -1,4 +1,5 @@
 <Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MsCorLib/System"
       xmlns:code="assembly://myForecast/myForecast"
       xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
       xmlns:this="Me">
@@ -10,8 +11,9 @@
     <Locals>
       <code:ClockModel Name="CodeClockModel"/>
       <code:WeatherModel Name="CodeWeatherModel"/>
-      <code:NavigateCommand Name="NavigateCommand" Page="WeatherAlert"/>
-      
+      <code:NavigationController Name="NavigationController"/>
+
+      <Command Name="CommandSettings" Description="weather settings"/>      
       <Command Name="CommandWeatherAlert" Description="null"/>
 
       <Timer Name="TimerLoadWeather" Interval="300" AutoRepeat="false" Enabled="true"/>
@@ -70,10 +72,17 @@
         </Actions>
       </Rule>
 
+      <!-- Button Settings clicked -->
+      <Changed Source="[CommandSettings.Invoked]">
+        <Actions>
+          <Invoke Target="[NavigationController.GoToSettingsPage]"/>
+        </Actions>
+      </Changed>
+
       <!-- Button Weather alert clicked -->
       <Changed Source="[CommandWeatherAlert.Invoked]">
         <Actions>
-          <Invoke Target="[NavigateCommand.Invoke]"/>
+          <Invoke Target="[NavigationController.GoToWeatherAlertPage]" weatherAlertText="[CodeWeatherModel.WeatherAlertText]"/>
         </Actions>
       </Changed>
     </Rules>
@@ -92,13 +101,10 @@
               <Panel Name="PanelWeather" Layout="Form" Visible="false">
                 <Children>
                   <!-- Settings button -->
-                  <this:SettingsButton Name="ControlSettings" Text="weather settings">
+                  <this:SettingsButton Name="ControlSettings" Model="[CommandSettings]">
                     <LayoutInput>
                       <FormLayoutInput Left="Parent,.13" Bottom="ControlLocationName,1,-30"/>
                     </LayoutInput>
-                    <Command>
-                      <code:NavigateCommand Page="Settings"/>
-                    </Command>
                   </this:SettingsButton>
 
                   <!-- Location name/Weather alerts -->
