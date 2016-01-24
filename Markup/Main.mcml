@@ -46,7 +46,7 @@
           <Set Target="[ControlLoadingMessage.Visible]" Value="false"/>
           <Set Target="[PanelWeather.Visible]" Value="true"/>
 
-          <Invoke Target="[ControlCurrentTime.NavigateInto]"/>
+          <Invoke Target="[ControlLocationName.NavigateInto]"/>
         </Actions>
       </Rule>
 
