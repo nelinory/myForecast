@@ -3,6 +3,7 @@ using Microsoft.MediaCenter.UI;
 using System;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Xml;
 
 namespace myForecast
@@ -26,7 +27,8 @@ namespace myForecast
         private bool _isLoaded;
         private string _lastUpdateTimestamp;
         private string _locationName;
-        private string _weatherAlert;
+        private string _weatherAlertCaption;
+        private string _weatherAlertText;
         private string _currentConditionIcon;
         private string _currentConditionTemperature;
         private string _currentConditionDescription;
@@ -60,10 +62,16 @@ namespace myForecast
             set { _locationName = value; FirePropertyChanged("LocationName"); }
         }
 
-        public string WeatherAlert
+        public string WeatherAlertCaption
         {
-            get { return _weatherAlert; }
-            set { _weatherAlert = value; FirePropertyChanged("WeatherAlert"); }
+            get { return _weatherAlertCaption; }
+            set { _weatherAlertCaption = value; FirePropertyChanged("WeatherAlertCaption"); }
+        }
+
+        public string WeatherAlertText
+        {
+            get { return _weatherAlertText; }
+            set { _weatherAlertText = value; FirePropertyChanged("WeatherAlertText"); }
         }
 
         public string CurrentConditionIcon
@@ -216,7 +224,8 @@ namespace myForecast
         {
             LastUpdateTimestamp = GetFormattedTimestampFromEpoch(_xmlWeatherData.SelectSingleNode("response/current_observation/observation_epoch").InnerText);
             LocationName = _xmlWeatherData.SelectSingleNode("response/current_observation/display_location/full").InnerText;
-            WeatherAlert = GetWeatherAlertCaption(_xmlWeatherData.SelectSingleNode("response/alerts"));
+            WeatherAlertCaption = GetWeatherAlertCaption(_xmlWeatherData.SelectSingleNode("response/alerts"));
+            WeatherAlertText = GetWeatherAlertText(_xmlWeatherData.SelectSingleNode("response/alerts"));
 
             // Current condition support
             LoadCurrentConditionProperties(_xmlWeatherData.SelectSingleNode("response/current_observation"));
@@ -473,9 +482,9 @@ namespace myForecast
 
             if (alertsNode.ChildNodes.Count > 0)
             {
-                XmlNode descriptionNode = alertsNode.SelectSingleNode("alert/description"); // try for US weather alert
+                XmlNode descriptionNode = alertsNode.ChildNodes[0].SelectSingleNode("wtype_meteoalarm_name"); // Europe weather alert
                 if (descriptionNode == null)
-                    descriptionNode = alertsNode.SelectSingleNode("alert/wtype_meteoalarm_name"); // try for Europe weather alert
+                    descriptionNode = alertsNode.ChildNodes[0].SelectSingleNode("description"); // US weather alert
 
                 if (descriptionNode != null)
                 {
@@ -486,6 +495,62 @@ namespace myForecast
             }
 
             return caption;
+        }
+
+        private string GetWeatherAlertText(XmlNode alertsNode)
+        {
+            StringBuilder alertText = new StringBuilder();
+
+            if (alertsNode.ChildNodes.Count > 0)
+            {
+                foreach (XmlNode alertNode in alertsNode.ChildNodes)
+                {
+                    string alertDescription = String.Empty;
+                    string alertStartDate = String.Empty;
+                    string alertExpireDate = String.Empty;
+                    string alertMessage = String.Empty;
+                    string alertCredits = string.Empty;
+
+                    // description
+                    XmlNode descriptionNode = alertNode.SelectSingleNode("wtype_meteoalarm_name"); // Europe weather alert
+                    if (descriptionNode == null)
+                        descriptionNode = alertNode.SelectSingleNode("description"); // US weather alert
+
+                    if (descriptionNode != null)
+                        alertDescription = String.Format("*** {0} ***", descriptionNode.InnerText);
+
+                    // start date
+                    XmlNode startDateNode = alertNode.SelectSingleNode("date");
+                    if (startDateNode != null)
+                        alertStartDate = String.Format("Start Date: {0}", startDateNode.InnerText);
+
+                    // expire date
+                    XmlNode expireDateNode = alertNode.SelectSingleNode("expires");
+                    if (expireDateNode != null)
+                        alertExpireDate = String.Format("Expire Date: {0}", expireDateNode.InnerText);
+
+                    // message
+                    XmlNode messageNode = alertNode.SelectSingleNode("message");
+                    if (messageNode != null)
+                        alertMessage = messageNode.InnerText;
+
+                    // credits
+                    XmlNode creditsNode = alertNode.SelectSingleNode("attribution");
+                    if (creditsNode != null)
+                        alertCredits = creditsNode.InnerText;
+
+                    alertText.AppendLine(alertDescription);
+                    alertText.AppendLine(alertStartDate.Trim());
+                    alertText.AppendLine(alertExpireDate.Trim());
+                    alertText.AppendLine(alertMessage.Trim());
+                    alertText.AppendLine(alertCredits.Trim());
+                }
+            }
+
+            if (alertText.Length == 0)
+                alertText.AppendLine("Weather alert information is not available at the moment");
+
+            return alertText.ToString();
         }
     }
 

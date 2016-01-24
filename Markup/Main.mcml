@@ -29,7 +29,7 @@
       <Binding Source="[CodeWeatherModel.LocationName]" Target="[ControlLocationName.Content]"/>
 
       <!-- Bind the weather alert and the refresh event -->
-      <Binding Source="[CodeWeatherModel.WeatherAlert]" Target="[ControlLocationName.WeatherAlertContent]"/>
+      <Binding Source="[CodeWeatherModel.WeatherAlertCaption]" Target="[ControlLocationName.WeatherAlertCaptionContent]"/>
 
       <!-- Bind the last updated and the refresh event -->
       <Binding Source="[CodeWeatherModel.LastUpdateTimestamp]" Target="[ControlLastUpdateTimestamp.Content]"/>
@@ -102,7 +102,7 @@
                   </this:SettingsButton>
 
                   <!-- Location name/Weather alerts -->
-                  <this:LocationName Name="ControlLocationName" Content="null" WeatherAlertContent="null" Model="[CommandWeatherAlert]">
+                  <this:LocationName Name="ControlLocationName" Content="null" WeatherAlertCaptionContent="null" Model="[CommandWeatherAlert]">
                     <LayoutInput>
                       <FormLayoutInput Left="ControlCurrentWeather,0,1" Bottom="ControlCurrentWeather,0,1"/>
                     </LayoutInput>

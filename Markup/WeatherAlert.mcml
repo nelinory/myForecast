@@ -1,5 +1,5 @@
 <Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
-      xmlns:core="assembly://MsCorLib/System"
+      xmlns:code="assembly://myForecast/myForecast"
       xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
       xmlns:this="Me">
 
@@ -8,7 +8,14 @@
 
   <UI Name="WeatherAlert">
     <Locals>
+      <code:WeatherModel Name="CodeWeatherModel"/>
+
       <Command Name="CommandDone" Description="Done"/>
+
+      <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="true"/>
+      <ScrollingData Name="ScrollingData"/>
+
+      <Timer Name="TimerLoadWeather" Interval="300" AutoRepeat="false" Enabled="true"/>
     </Locals>
     <Properties>
       <Font Name="FontBoldWeatherAlertText" FontName="global://this:FontFaceBold" FontSize="16"/>
@@ -18,6 +25,19 @@
     </Properties>
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true"/>
+
+      <!-- Bind the weather alert text and the refresh event -->
+      <Binding Source="[CodeWeatherModel.WeatherAlertText]" Target="[TextWeatherAlert.Content]"/>
+
+      <!-- Call main weather loading method -->
+      <Rule>
+        <Conditions>
+          <Modified Source="[TimerLoadWeather.Tick]"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[CodeWeatherModel.LoadWeatherData]" InvokePolicy="AsynchronousLowPri"/>
+        </Actions>
+      </Rule>
 
       <!-- Button Done clicked -->
       <Changed Source="[CommandDone.Invoked]">
@@ -35,6 +55,23 @@
           <Set Target="[ctrlBackground.Content]" Value="null"/>
         </Actions>
       </Rule>
+
+      <!-- Give ScrollingData to ScrollingHandler. -->
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+
+      <!-- Bind the current page from the scrolling data to our display -->
+      <Binding Source="[ScrollingData.CurrentPage]" Target="[TextCurrentPage.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0:F0}"/>
+        </Transformer>
+      </Binding>
+
+      <!-- Bind the total page count from the scrolling data to our display -->
+      <Binding Source="[ScrollingData.TotalPages]" Target="[TextTotalPages.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0:F0}"/>
+        </Transformer>
+      </Binding>
     </Rules>
     <Content>
       <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
@@ -67,7 +104,34 @@
                   <FlowLayout Orientation="Vertical" ItemAlignment="Center"/>
                 </Layout>
                 <Children>
-                  <Text Content="TODO" Color="White" Font="[FontBoldSettings]"/>
+                  <Graphic Content="image://this:Shade" Padding="20,20,20,40" MinimumSize="760,460" MaximumSize="760,460">
+                    <Children>
+                      <Scroller Orientation="Vertical" FadeSize="-20" ScrollingData="[ScrollingData]">
+                        <Children>
+                          <Text Name="TextWeatherAlert" Content="null" Color="White" Font="[FontBoldWeatherAlertText]" WordWrap="true">
+                            <Animations>
+                              <Animation Type="Move">
+                                <Keyframes>
+                                  <PositionKeyframe Time="0" Value="0,0,0" RelativeTo="Current" Interpolation="Exp"/>
+                                  <PositionKeyframe Time=".1" Value="0,0,0"/>
+                                </Keyframes>
+                              </Animation>
+                            </Animations>
+                          </Text>
+                        </Children>
+                      </Scroller>
+                    </Children>
+                  </Graphic>
+
+                  <!-- Page indicator -->
+                  <Panel Layout="HorizontalFlow">
+                    <Children>
+                      <!-- Display for current/total number of pages -->
+                      <Text Name="TextCurrentPage" Content="1" Font="[FontBoldSettings]" Color="White"/>
+                      <Text Content="|" Font="[FontBoldSettings]" Color="color://this:LightBlue"/>
+                      <Text Name="TextTotalPages" Content="4" Font="[FontBoldSettings]" Color="color://this:LightBlue"/>
+                    </Children>
+                  </Panel>
                 </Children>
               </Panel>
 

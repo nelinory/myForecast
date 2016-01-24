@@ -88,7 +88,7 @@
   <UI Name="LocationName">
     <Properties>
       <core:String Name="Content" String="$Required"/>
-      <core:String Name="WeatherAlertContent" String="$Required"/>
+      <core:String Name="WeatherAlertCaptionContent" String="$Required"/>
 
       <ICommand Name="Model" ICommand="$Required"/>
 
@@ -98,10 +98,10 @@
       <Default Target="[Input.KeyInteractive]" Value="true"/>
 
       <Binding Source="[Content]" Target="[TextLocationName.Content]"/>
-      <Binding Source="[WeatherAlertContent]" Target="[TextWeatherAlert.Content]"/>
+      <Binding Source="[WeatherAlertCaptionContent]" Target="[TextWeatherAlert.Content]"/>
 
       <!-- Only show the weather alert when present -->
-      <Binding Source="[WeatherAlertContent]" Target="[PanelWeatherAlert.Visible]">
+      <Binding Source="[WeatherAlertCaptionContent]" Target="[PanelWeatherAlert.Visible]">
         <Transformer>
           <BooleanTransformer/>
         </Transformer>
