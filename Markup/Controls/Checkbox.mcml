@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core ="assembly://MsCorLib/System"
+      xmlns:this="Me">
+
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
+
+  <UI Name="Checkbox">
+    <Properties>
+      <BooleanChoice Name="Model" BooleanChoice="$Required"/>
+
+      <Font Name="Font" FontName="global://this:FontFaceRegular" FontSize="20"/>
+
+      <Size Name="TileSize" Size="51,51"/>
+
+      <core:Boolean Name="ShowLabel" Boolean="true"/>
+      <core:Boolean Name="WordWrap" Boolean="false"/>
+      <core:Boolean Name="HideFocusState" Boolean="false"/>
+
+      <Inset Name="LabelMargins" Inset="15,5,10,5"/>
+
+      <Image Name="NoFocusImage" Source="res://ehres!GlobalSettings.Tile.NoFocus.png"/>
+      <Image Name="FocusImage" Source="res://ehres!GlobalSettings.Tile.Focus.png"/>
+      <Image Name="DisabledImage" Source="res://ehres!GlobalSettings.Tile.Disabled.png"/>
+      <Image Name="CheckedNoFocusImage" Source="res://ehres!GlobalSettings.Tile.Select.NoFocus.png"/>
+      <Image Name="CheckedFocusImage" Source="res://ehres!GlobalSettings.Tile.Select.Focus.png"/>
+      <Image Name="CheckedDisabledImage" Source="res://ehres!GlobalSettings.Tile.Select.Disabled.png"/>
+
+      <Color Name="NoFocusColor" Color="color://this:LightBlue"/>
+      <Color Name="FocusColor" Color="color://this:OffWhite"/>
+      <Color Name="DisabledColor" Color="color://this:LightBlue40Percent"/>
+
+      <Command Name="CommandOverride" Command="null"/>
+    </Properties>
+    <Locals>
+      <Command Name="Command"/>
+
+      <ClickHandler Name="Clicker"/>
+    </Locals>
+    <Rules>
+      <Binding Target="[Command]" Source="[CommandOverride]">
+        <Conditions>
+          <IsValid Source="[CommandOverride]"/>
+        </Conditions>
+      </Binding>
+      <Condition Source="[Input.Enabled]" SourceValue="false" Target="[Label.Color]" Value="[DisabledColor]"/>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true" Target="[Label.Color]" Value="[FocusColor]">
+        <Conditions>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+      </Condition>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="false"/>
+          <Equality Source="[Input.Enabled]" Value="false"/>
+          <Equality Source="[Model.Value]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Background.Content]" Value="[CheckedDisabledImage]"/>
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="true"/>
+          <Equality Source="[Model.Value]" Value="true"/>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Background.Content]" Value="[CheckedFocusImage]"/>
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="true"/>
+          <Equality Source="[Model.Value]" Value="true"/>
+          <Equality Source="[HideFocusState]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Background.Content]" Value="[CheckedNoFocusImage]"/>
+        </Actions>
+      </Rule>
+      <Rule>
+        <Conditions>
+          <Equality Source="[Input.KeyFocus]" Value="false"/>
+          <Equality Source="[Model.Value]" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[Background.Content]" Value="[CheckedNoFocusImage]"/>
+        </Actions>
+      </Rule>
+      <Condition Source="[Input.Enabled]" SourceValue="false" Target="[Background.Content]" Value="[DisabledImage]"/>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true" Target="[Background.Content]" Value="[FocusImage]">
+        <Conditions>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+      </Condition>
+      <Condition Source="[Input.KeyFocus]" SourceValue="true">
+        <Conditions>
+          <Equality Source="[HideFocusState]" Value="false"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[FocusOverlay.Visible]" Value="true"/>
+          <PlaySound Sound="res://ehres!Focus_a.wav" />
+        </Actions>
+      </Condition>
+      <Default Target="[FocusOverlay.Visible]" Value="false"/>
+      <Binding Source="[Clicker.Clicking]" Target="[Highlight.Visible]"/>
+      <Binding Source="[Model.Description]" Target="[Label.Content]"/>
+      <Changed Source="[Clicker.Invoked]">
+        <Actions>
+          <PlaySound Sound="res://ehres!MiniSelect_a.wav" />
+          <Set Value="[Model.Value]" Target="[Model.Value]">
+            <Transformer>
+              <BooleanTransformer Inverse="true"/>
+            </Transformer>
+          </Set>
+        </Actions>
+      </Changed>
+      <Default Target="[Clicker.Command]" Value="[Command]"/>
+    </Rules>
+    <Content>
+      <Panel MouseInteractive="true">
+        <Layout>
+          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+        </Layout>
+        <Children>
+          <Panel MaximumSize="[TileSize]">
+            <Children>
+              <Clip Layout="Fill" FadeSize="10">
+                <Children>
+                  <Graphic Name="Highlight" Content="res://ehres!Common.Button.PressedHighlight.png">
+                    <Animations>
+                      <TransformByAttributeAnimation Filter="Position" Attribute="Width" Magnitude="1.0">
+                        <Source>
+                          <Animation Type="Show">
+                            <Keyframes>
+                              <PositionKeyframe Time="0.00" Value="-1.0,0,0" RelativeTo="Final"/>
+                              <PositionKeyframe Time="0.10" Value="0.00,0,0" RelativeTo="Final"/>
+                              <PositionKeyframe Time="0.18" Value="0.35,0,0" RelativeTo="Final"/>
+                              <PositionKeyframe Time="0.35" Value="0.55,0,0" RelativeTo="Final"/>
+                              <PositionKeyframe Time="0.60" Value="1.25,0,0" RelativeTo="Final"/>
+                              <PositionKeyframe Time="0.70" Value="1.25,0,0" RelativeTo="Final"/>
+                              <AlphaKeyframe Time="0.00" Value="0.00" RelativeTo="Absolute"/>
+                              <AlphaKeyframe Time="0.05" Value="0.75" RelativeTo="Absolute"/>
+                              <AlphaKeyframe Time="0.17" Value="0.75" RelativeTo="Absolute"/>
+                              <AlphaKeyframe Time="0.40" Value="0.00" RelativeTo="Absolute"/>
+                            </Keyframes>
+                          </Animation>
+                        </Source>
+                      </TransformByAttributeAnimation>
+                      <TransformByAttributeAnimation Filter="Position" Attribute="Width" Magnitude="1.0">
+                        <Source>
+                          <Animation Type="Hide">
+                            <Keyframes>
+                              <PositionKeyframe Time="0.00" Value="0.0,0,0" RelativeTo="Current"/>
+                              <PositionKeyframe Time="0.10" Value="1.0,0,0" RelativeTo="Final"/>
+                              <AlphaKeyframe Time="0.00" RelativeTo="Current"/>
+                              <AlphaKeyframe Time="0.10" Value="0.0" RelativeTo="Absolute"/>
+                            </Keyframes>
+                          </Animation>
+                        </Source>
+                      </TransformByAttributeAnimation>
+                    </Animations>
+                  </Graphic>
+                </Children>
+              </Clip>
+              <Graphic Name="FocusOverlay" Layout="Fill" Content="res://ehres!GlobalSettings.Tile.FocusOverlay.png">
+                <Animations>
+                  <Animation Name="Button.FocusOverlay.Idle" Loop="-1" Type="Idle">
+                    <Keyframes>
+                      <AlphaKeyframe Time="0.0" Value="0.0" Interpolation="SCurve" RelativeTo="Absolute"/>
+                      <AlphaKeyframe Time="1.5" Value="0.63" Interpolation="SCurve" RelativeTo="Absolute"/>
+                      <AlphaKeyframe Time="3.0" Value="0.0" RelativeTo="Absolute"/>
+                    </Keyframes>
+                  </Animation>
+                  <Animation Name="StandardFade.Hide" Type="Hide">
+                    <Keyframes>
+                      <AlphaKeyframe Time="0.00" RelativeTo="Current" Interpolation="SCurve"/>
+                      <AlphaKeyframe Time="0.25" Value="0.0" RelativeTo="Absolute"/>
+                    </Keyframes>
+                  </Animation>
+                </Animations>
+              </Graphic>
+              <Graphic Name="Background" Content="[NoFocusImage]" MaximumSize="[TileSize]" />
+            </Children>
+          </Panel>
+          <Text Name="Label" Color="[NoFocusColor]" Font="[Font]" Margins="[LabelMargins]" Visible="[ShowLabel]" WordWrap="[WordWrap]"/>
+        </Children>
+      </Panel>
+    </Content>
+  </UI>
+</Mcml>

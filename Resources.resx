@@ -307,4 +307,7 @@
   <data name="WeatherAlert" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>markup\weatheralert.mcml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Checkbox" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>markup\controls\checkbox.mcml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

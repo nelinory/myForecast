@@ -22,6 +22,8 @@
       <EditableText Name="TextApiKey"/>
       <EditableText Name="TextLocationCode"/>
 
+      <BooleanChoice Name="CheckboxShowInStartMenu" Description="Integrate into the &quot;Start Menu&quot;"/>
+
       <Command Name="CommandSave" Description="Save"/>
       <Command Name="CommandCancel" Description="Cancel"/>
       <Command Name="CommandAbout" Description="About"/>
@@ -205,6 +207,17 @@
                         <Children>
                           <Text Content="Clock time format" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
                           <this:Spinner Name="SpinnerClockTimeFormat" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
+                        </Children>
+                      </Panel>
+
+                      <!-- Start menu entry point -->
+                      <Panel Margins="0,80,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="App shortcut" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <this:Checkbox Model="[CheckboxShowInStartMenu]"/>
                         </Children>
                       </Panel>
                     </Children>

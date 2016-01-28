@@ -9,6 +9,7 @@
   <Aggregate Source="resx://myForecast/myForecast.Resources/Edit"/>
   <Aggregate Source="resx://myForecast/myForecast.Resources/Button"/>
   <Aggregate Source="resx://myForecast/myForecast.Resources/Spinner"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Checkbox"/>
 
   <!-- Application title control -->
   <UI Name="ApplicationTitle">
