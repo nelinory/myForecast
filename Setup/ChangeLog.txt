@@ -1,4 +1,13 @@
-﻿Changes for myForecast 1.0 beta
+﻿Changes for myForecast 1.0.1
+============================
+Enhancements
+- Added support for weather alerts
+- Added support for star menu shortcut
+
+Bugfixes
+- Small optimizations
+
+Changes for myForecast 1.0 beta
 ===============================
 Enhancements
 - N/A
