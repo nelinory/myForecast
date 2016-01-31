@@ -160,7 +160,7 @@ namespace myForecast
             if (_weatherRefreshTimer == null)
             {
                 _weatherRefreshTimer = new Timer(this);
-                _weatherRefreshTimer.Interval = 7000; // 7 seconds interval
+                _weatherRefreshTimer.Interval = 60000; // 1 minute interval
                 _weatherRefreshTimer.Tick += delegate { LoadWeatherData(); };
             }
         }
