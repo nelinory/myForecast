@@ -11,7 +11,6 @@ For more information regarding the Weather Underground ® API, please visit http
 ## Limitations
 - Only 16:9 screen layout (widescreen) is supported at the moment
 - Single weather location only
-- Weather alerts are NOT SUPPORTED (although they are considered for future version)
 
 ## How to get the API key from Weather Underground
 The application is designed to use a free Weather Underground developer account which limits you to 500 calls per day/10 calls per minute. To prevent the customer from going over the limit the minimum weather refresh interval is set to 5 minutes at the application level. Of course if you already have an API key (free or paid) from Weather Underground API you can use it too.
