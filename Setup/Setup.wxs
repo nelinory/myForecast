@@ -10,8 +10,12 @@
 
 <!-- These variables define the Windows Installer product version, product code and upgrade code. They   -->
 <!-- will be used later on in this file.                                                                 -->
-<?define Property_ProductVersion = "1.0.0.0" ?>
-<?define Property_ProductCode = "47ea88d4-de11-488b-87d3-7dfadd409ed1" ?>
+
+<!-- Change Property_ProductVersion/Property_ProductCode for each release -->
+<?define Property_ProductVersion = "1.0.1.0" ?>
+<?define Property_ProductCode = "1663442f-9744-4823-91be-bf03bffe24d9" ?>
+
+<!-- Never change Property_UpgradeCode -->
 <?define Property_UpgradeCode = "d595d99a-9882-474f-b783-f210a03d190a" ?>
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
@@ -35,7 +39,7 @@
       <UpgradeVersion Minimum="$(var.Property_ProductVersion)"
                       OnlyDetect="yes"
                       Property="NEWERVERSIONDETECTED" />
-      <UpgradeVersion Minimum="0.0.0.0"
+      <UpgradeVersion Minimum="1.0.0.0"
                       IncludeMinimum="yes"
                       Maximum="$(var.Property_ProductVersion)"
                       IncludeMaximum="no"
@@ -46,9 +50,9 @@
     <!-- format. This file is NOT displayed within the standard setup wizard for mouse and keyboard.     -->
     <!-- That file (License.rtf) is defined within the <WixVariable> element below.                      -->
     <Binary Id="License.txt"
-            SourceFile="..\setup\License.txt" />
+            SourceFile="License.txt" />
     <Binary Id="LicenseAccessible.txt"
-            SourceFile="..\setup\LicenseAccessible.txt" />
+            SourceFile="LicenseAccessible.txt" />
 
     <!-- This custom action prevents users from installing if a newer version of this product is already -->
     <!-- installed on the system. This is a part of Windows Installer major upgrade functionality.       -->
@@ -110,7 +114,7 @@
                  DiskId="1">
         <File Id="Registration.xml"
               Name="Registration.xml"
-              Source="..\Setup\Registration.xml"
+              Source="Registration.xml"
               Checksum="no" />
       </Component>
       <Component Id="ReadMe.txt"
@@ -118,7 +122,7 @@
                  DiskId="1">
         <File Id="ReadMe.txt"
               Name="ReadMe.txt"
-              Source="..\Setup\ReadMe.txt"
+              Source="ReadMe.txt"
               Checksum="no">
                 <Shortcut Advertise="yes"
                           Id="MyProductDesktopShortcut"
@@ -134,7 +138,7 @@
                  DiskId="1">
         <File Id="ChangeLog.txt"
               Name="ChangeLog.txt"
-              Source="..\Setup\ChangeLog.txt"
+              Source="ChangeLog.txt"
               Checksum="no" />
       </Component>
       <Component Id="myForecast.png"
@@ -153,6 +157,22 @@
               Source="..\Images\myForecastInactive.png"
               Checksum="no" />
       </Component>
+      <Component Id="myForecastStrip.png"
+                 Guid="24761967-6237-4fed-8230-1e5bbec46aae"
+                 DiskId="1">
+        <File Id="myForecastStrip.png"
+              Name="myForecastStrip.png"
+              Source="..\Images\myForecastStrip.png"
+              Checksum="no" />
+      </Component>
+      <Component Id="myForecastStripInactive.png"
+                 Guid="2ef82d22-49be-42d1-a2ef-222bf329fba7"
+                 DiskId="1">
+        <File Id="myForecastStripInactive.png"
+              Name="myForecastStripInactive.png"
+              Source="..\Images\myForecastStripInactive.png"
+              Checksum="no" />
+      </Component>
     </DirectoryRef>
 
     <!-- This is a list of features that are installed as a part of this product. In this case, there is -->
@@ -167,6 +187,8 @@
       <ComponentRef Id="ChangeLog.txt" />
       <ComponentRef Id="myForecast.png" />
       <ComponentRef Id="myForecastInactive.png" />
+      <ComponentRef Id="myForecastStrip.png" />
+      <ComponentRef Id="myForecastStripInactive.png" />
     </Feature>
 
     <!-- The media table defines the location that the MSI will look to find source files during         -->
@@ -231,7 +253,7 @@
               After="FindRelatedProducts">
         <![CDATA[NEWERVERSIONDETECTED]]>
       </Custom>
-      <RemoveExistingProducts After="InstallFinalize" />
+      <RemoveExistingProducts After="InstallValidate" />
       <LaunchConditions After="AppSearch"/>
 
       <!-- The following custom action must match that used in the       -->
@@ -314,6 +336,8 @@
               Value="!(loc.Property_ArpHelpLink)" />
     <Property Id="ARPURLINFOABOUT"
               Value="!(loc.Property_ArpUrlInfoAbout)" />
+    <Property Id="ARPURLUPDATEINFO"
+              Value="!(loc.Property_ArpUrlUpdateInfo)" />
 
     <!-- This property defines the ALLUSERS property to be 1, which indicates that this product will be  -->
     <!-- installed per-machine instead of per-user.                                                      -->
@@ -371,5 +395,10 @@
     <!-- included in the WixUIExtension with a custom file.                                              -->
     <WixVariable Id="WixUILicenseRtf"
                  Value="License.rtf" />
+
+    <WixVariable Id="WixUIBannerBmp"
+                 Value="WixUI_Bmp_Banner.bmp" />
+    <WixVariable Id="WixUIDialogBmp"
+                 Value="WixUI_Bmp_Dialog.bmp" />
   </Product>
 </Wix>

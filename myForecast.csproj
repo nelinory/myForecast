@@ -99,6 +99,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Setup\WixUI_Bmp_Banner.bmp" />
+    <Content Include="Setup\WixUI_Bmp_Dialog.bmp" />
     <None Include=".gitignore" />
     <None Include="LICENSE" />
     <None Include="Markup\Controls\Checkbox.mcml" />
@@ -190,7 +192,9 @@
     <None Include="Setup\License.rtf" />
     <None Include="Setup\License.txt" />
     <None Include="Setup\LicenseAccessible.txt" />
-    <None Include="Setup\Setup-en-us.wxl" />
+    <None Include="Setup\Setup-en-us.wxl">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Setup\Setup.wxs">
       <SubType>Designer</SubType>
     </None>
