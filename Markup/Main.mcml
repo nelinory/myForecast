@@ -89,7 +89,7 @@
     <Content>
       <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
         <Children>
-          <Panel Layout="Form" MinimumSize="1366,768" MaximumSize="1366,768">
+          <Panel Layout="Form">
             <Children>
               <!-- Application title in MCE style -->
               <this:ApplicationTitle Content="myForecast"/>
