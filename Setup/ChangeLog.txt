@@ -5,7 +5,7 @@ Enhancements
 - Added support for the application shortcut to show in star menu of Windows Media Center
 
 Bugfixes
-- Small optimizations
+- Small optimizations for extenders
 
 Changes for myForecast 1.0 beta
 ===============================
