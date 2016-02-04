@@ -65,8 +65,12 @@
     <AssemblyOriginatorKeyFile>myForecast.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.MediaCenter" />
-    <Reference Include="Microsoft.MediaCenter.UI" />
+    <Reference Include="Microsoft.MediaCenter">
+      <HintPath>..\..\Windows\ehome\Microsoft.MediaCenter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.MediaCenter.UI">
+      <HintPath>..\..\Windows\ehome\Microsoft.MediaCenter.UI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
@@ -95,8 +99,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Setup\WixUI_Bmp_Banner.bmp" />
+    <Content Include="Setup\WixUI_Bmp_Dialog.bmp" />
     <None Include=".gitignore" />
     <None Include="LICENSE" />
+    <None Include="Markup\Controls\Checkbox.mcml" />
+    <None Include="Markup\WeatherAlert.mcml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Markup\About.mcml">
       <SubType>Designer</SubType>
     </None>
@@ -104,8 +114,11 @@
     <Content Include="Images\Keyboard.png" />
     <Content Include="Images\myForecast.png" />
     <Content Include="Images\myForecastInactive.png" />
+    <Content Include="Images\myForecastStrip.png" />
+    <Content Include="Images\myForecastStripInactive.png" />
     <Content Include="Images\PoweredBy.png" />
     <Content Include="Images\WeatherUndergroundLogo.png" />
+    <Content Include="Images\Weather_Alert.png" />
     <Content Include="Setup\ChangeLog.txt" />
     <Content Include="Setup\ReadMe.txt" />
     <None Include="DevInstall.cmd" />
@@ -179,7 +192,9 @@
     <None Include="Setup\License.rtf" />
     <None Include="Setup\License.txt" />
     <None Include="Setup\LicenseAccessible.txt" />
-    <None Include="Setup\Setup-en-us.wxl" />
+    <None Include="Setup\Setup-en-us.wxl">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Setup\Setup.wxs">
       <SubType>Designer</SubType>
     </None>

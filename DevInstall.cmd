@@ -8,6 +8,8 @@ set AssemblyName=MyForecast
 set RegistrationName=Registration
 set ProgramImage=myForecast.png
 set ProgramImageInactive=myForecastInactive.png
+set ProgramImageStrip=myForecastStrip.png
+set ProgramImageStripInactive=myForecastStripInactive.png
 set GACUtilPath=%ProgramFiles(x86)%
  
 ECHO.Determine whether we are on an 32 or 64 bit machine
@@ -73,6 +75,12 @@ goto unregister
 
     ECHO.Copy the program inactive image to program files
     copy /y ".\Images\%ProgramImageInactive%" "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\"
+
+    ECHO.Copy the program image strip to program files
+    copy /y ".\Images\%ProgramImageStrip%" "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\"
+
+    ECHO.Copy the program inactive strip image to program files
+    copy /y ".\Images\%ProgramImageStripInactive%" "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\"
 
     ECHO.Register the DLL with the global assembly cache
     "%GACUtilPath%\Microsoft SDKs\Windows\v7.0A\bin\gacutil.exe" /if "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\%AssemblyName%.dll"

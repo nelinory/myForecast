@@ -1,0 +1,163 @@
+<Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MsCorLib/System"
+      xmlns:code="assembly://myForecast/myForecast"
+      xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
+      xmlns:this="Me">
+
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
+  <Aggregate Source="resx://myForecast/myForecast.Resources/Controls"/>
+
+  <UI Name="WeatherAlert">
+    <Locals>
+      <Command Name="CommandDone" Description="Done"/>
+
+      <ScrollingHandler Name="ScrollingHandler" HandleDirectionalKeys="true" HandlerStage="Bubbled"/>
+      <ScrollingData Name="ScrollingData"/>
+    </Locals>
+    <Properties>
+      <Font Name="FontBoldWeatherAlertText" FontName="global://this:FontFaceBold" FontSize="16"/>
+      <Font Name="FontBold" FontName="global://this:FontFaceBold" FontSize="18"/>
+
+      <core:String Name="WeatherAlertText" String="$Required"/>
+
+      <host:HistoryOrientedPageSession Name="Session" HistoryOrientedPageSession="$Required"/>
+    </Properties>
+    <Rules>
+      <Default Target="[Input.KeyInteractive]" Value="true"/>
+
+      <!-- Bind the weather alert text and the refresh event -->
+      <Binding Source="[WeatherAlertText]" Target="[TextWeatherAlert.Content]"/>
+
+      <!-- Button Done clicked -->
+      <Changed Source="[CommandDone.Invoked]">
+        <Actions>
+          <Invoke Target="[Session.BackPage]"/>
+        </Actions>
+      </Changed>
+
+      <!-- Only show the static background when developing -->
+      <Rule>
+        <Conditions>
+          <Equality Source="[Session]" ConditionOp="NotEquals" Value="null"/>
+        </Conditions>
+        <Actions>
+          <Set Target="[ctrlBackground.Content]" Value="null"/>
+        </Actions>
+      </Rule>
+
+      <!-- Give ScrollingData to ScrollingHandler -->
+      <Default Target="[ScrollingHandler.ScrollingData]" Value="[ScrollingData]"/>
+
+      <!-- Bind the current page from the scrolling data to our display -->
+      <Binding Source="[ScrollingData.CurrentPage]" Target="[TextCurrentPage.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0:F0}"/>
+        </Transformer>
+      </Binding>
+
+      <!-- Bind the total page count from the scrolling data to our display -->
+      <Binding Source="[ScrollingData.TotalPages]" Target="[TextTotalPages.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0:F0}"/>
+        </Transformer>
+      </Binding>
+    </Rules>
+    <Content>
+      <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
+        <Children>
+          <Panel Layout="Form">
+            <Children>
+              <!-- Application title in MCE style -->
+              <this:ApplicationTitle Content="myForecast"/>
+
+              <!-- Manage settings label -->
+              <Panel Layout="Form">
+                <Children>
+                  <Panel Layout="VerticalFlow">
+                    <LayoutInput>
+                      <FormLayoutInput Left="Parent,0,230" Top="Parent,0,96"/>
+                    </LayoutInput>
+                    <Children>
+                      <Text Content="weather alert" Font="[FontBoldWeatherAlertText]" Color="White" Padding="0,0,0,0"/>
+                    </Children>
+                  </Panel>
+                </Children>
+              </Panel>
+
+              <!-- Weather alert -->
+              <Panel Name="PanelWeatherAlert">
+                <LayoutInput>
+                  <FormLayoutInput Left="Parent,0,400" Top="Parent,0,160" Horizontal="Center" Vertical="Near"/>
+                </LayoutInput>
+                <Layout>
+                  <FlowLayout Orientation="Vertical" ItemAlignment="Center"/>
+                </Layout>
+                <Children>
+                  <Graphic Content="image://this:Shade" Padding="20,20,20,40" MinimumSize="760,440" MaximumSize="760,460">
+                    <Children>
+                      <Scroller Orientation="Vertical" FadeSize="-20" ScrollingData="[ScrollingData]">
+                        <Children>
+                          <Text Name="TextWeatherAlert" Content="null" Color="White" Font="[FontBoldWeatherAlertText]" WordWrap="true">
+                            <Animations>
+                              <Animation Type="Move">
+                                <Keyframes>
+                                  <PositionKeyframe Time="0" Value="0,0,0" RelativeTo="Current" Interpolation="Exp"/>
+                                  <PositionKeyframe Time=".1" Value="0,0,0"/>
+                                </Keyframes>
+                              </Animation>
+                            </Animations>
+                          </Text>
+                        </Children>
+                      </Scroller>
+                    </Children>
+                  </Graphic>
+                </Children>
+              </Panel>
+
+              <!-- Navigation directions -->
+              <Panel>
+                <LayoutInput>
+                  <FormLayoutInput Left="PanelWeatherAlert,0,0" Bottom="PanelWeatherAlert,1,34" Horizontal="Near"/>
+                </LayoutInput>
+                <Children>
+                  <Text Content="Use Up/Down buttons to scroll" Font="[FontBold]" Color="color://this:LightBlue"/>
+                </Children>
+              </Panel>
+
+              <!-- Page indicator -->
+              <Panel Layout="HorizontalFlow">
+                <LayoutInput>
+                  <FormLayoutInput Right="PanelWeatherAlert,1,0" Bottom="PanelWeatherAlert,1,34" Horizontal="Far"/>
+                </LayoutInput>
+                <Children>
+                  <!-- Display for current/total number of pages -->
+                  <Text Name="TextCurrentPage" Content="1" Font="[FontBold]" Color="White"/>
+                  <Text Content="|" Font="[FontBold]" Color="color://this:LightBlue"/>
+                  <Text Name="TextTotalPages" Content="4" Font="[FontBold]" Color="color://this:LightBlue"/>
+                </Children>
+              </Panel>
+
+              <!-- Buttons -->
+              <Panel>
+                <LayoutInput>
+                  <FormLayoutInput Left="Parent,0,230" Top="Parent,0,160" Horizontal="Near" Vertical="Near"/>
+                </LayoutInput>
+                <Children>
+                  <Panel>
+                    <Layout>
+                      <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
+                    </Layout>
+                    <Children>
+                      <this:Button Model="[CommandDone]"/>
+                    </Children>
+                  </Panel>
+                </Children>
+              </Panel>
+            </Children>
+          </Panel>
+        </Children>
+      </Graphic>
+    </Content>
+  </UI>
+
+</Mcml>

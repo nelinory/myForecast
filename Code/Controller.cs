@@ -3,30 +3,23 @@
 namespace myForecast
 {
     /// <summary>
-    /// Command that changes page when invoked.
+    /// Controls the navigation to the application pages, allows passing parameters to the target page
     /// </summary>
-	public class NavigateCommand : Command
+    public class NavigationController : ModelItem
     {
-        /// <summary>
-        /// Gets or sets the page to change to.
-        /// </summary>
-		public string Page { get; set; }
-
-        /// <summary>
-        /// Changes the page.
-        /// </summary>
-		protected override void OnInvoked()
+        public void GoToSettingsPage()
         {
-            base.OnInvoked();
+            MyAddIn.Instance.GoSettingsPage();
+        }
 
-            if (Page.Equals("Settings"))
-            {
-                MyAddIn.Instance.GoSettingsPage();
-            }
-            else if (Page.Equals("About"))
-            {
-                MyAddIn.Instance.GoAboutPage();
-            }
+        public void GoToAboutPage()
+        {
+            MyAddIn.Instance.GoAboutPage();
+        }
+
+        public void GoToWeatherAlertPage(string weatherAlertText)
+        {
+            MyAddIn.Instance.GoWeatherAlertPage(weatherAlertText);
         }
     }
 }

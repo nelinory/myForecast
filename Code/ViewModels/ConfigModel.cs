@@ -1,4 +1,6 @@
-﻿using Microsoft.MediaCenter.UI;
+﻿using Microsoft.MediaCenter;
+using Microsoft.MediaCenter.UI;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 
@@ -6,9 +8,16 @@ namespace myForecast
 {
     public class ConfigModel : ModelItem
     {
+        #region Private Properties
+
         private Choice _spinnerWeatherUnits;
         private Choice _spinnerRefreshRateInMinutes;
         private Choice _spinnerClockTimeFormats;
+        private Boolean _checkboxShowInStartMenu;
+
+        #endregion
+
+        #region Public Properties
 
         public string ApiKey
         {
@@ -65,9 +74,6 @@ namespace myForecast
                 int selectedIndex;
                 switch (Configuration.Instance.RefreshRateInMinutes.ToString())
                 {
-                    case "5":
-                        selectedIndex = 0;
-                        break;
                     case "10":
                         selectedIndex = 1;
                         break;
@@ -83,8 +89,11 @@ namespace myForecast
                     case "50":
                         selectedIndex = 5;
                         break;
-                    default:
+                    case "60":
                         selectedIndex = 6;
+                        break;
+                    default:
+                        selectedIndex = 0; // 5 minutes
                         break;
                 }
                 _spinnerRefreshRateInMinutes.ChosenIndex = selectedIndex;
@@ -96,9 +105,6 @@ namespace myForecast
                 int selectedValue;
                 switch (value.ChosenIndex)
                 {
-                    case 0:
-                        selectedValue = 5;
-                        break;
                     case 1:
                         selectedValue = 10;
                         break;
@@ -114,8 +120,11 @@ namespace myForecast
                     case 5:
                         selectedValue = 50;
                         break;
-                    default:
+                    case 6:
                         selectedValue = 60;
+                        break;
+                    default:
+                        selectedValue = 5; // 5 minutes
                         break;
                 }
                 Configuration.Instance.RefreshRateInMinutes = selectedValue;
@@ -160,9 +169,17 @@ namespace myForecast
             }
         }
 
+        public Boolean ShowInStartMenu
+        {
+            get { return _checkboxShowInStartMenu; }
+            set { _checkboxShowInStartMenu = value; FirePropertyChanged("ClockTimeFormat"); }
+        }
+
+        #endregion
+
         public ConfigModel()
         {
-            // load the spinner items
+            // load the WeatherUnits spinner
             if (_spinnerWeatherUnits == null)
             {
                 _spinnerWeatherUnits = new Choice();
@@ -173,6 +190,7 @@ namespace myForecast
                 _spinnerWeatherUnits.Options = spinnerWeatherUnitsItems;
             }
 
+            // load the RefreshRateinMinutes spinner
             if (_spinnerRefreshRateInMinutes == null)
             {
                 _spinnerRefreshRateInMinutes = new Choice();
@@ -188,6 +206,7 @@ namespace myForecast
                 _spinnerRefreshRateInMinutes.Options = spinnerRefreshRateInMinutes;
             }
 
+            // load the ClockTimeFormats spinner
             if (_spinnerClockTimeFormats == null)
             {
                 _spinnerClockTimeFormats = new Choice();
@@ -197,11 +216,85 @@ namespace myForecast
 
                 _spinnerClockTimeFormats.Options = spinnerClockTimeFormats;
             }
+
+            // load the ShowInStartMenu checkbox state
+            _checkboxShowInStartMenu = GetShowInStartMenuRegistryValue();
         }
 
         public void Save()
         {
             Configuration.Instance.Save();
+
+            // start menu entry point, update if needed
+            if (GetShowInStartMenuRegistryValue() != _checkboxShowInStartMenu)
+                SetShowInStartMenuRegistryValue();
+
         }
+
+        #region Show on Start menu functionality
+
+        private readonly string _startMenuAppRegistryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Start Menu\Applications\{81ca0920-238a-4dc9-8bfd-93bb0a43c5b8}";
+        private readonly string _startMenuRegustryKeyNotFoundMessage = "Start menu registry key not found, please reinstall myForecast.";
+        private readonly string _restartNeededMessage = "You need to restart the Windows Media Center Application for start menu changes to take effect.";
+
+        private bool GetShowInStartMenuRegistryValue()
+        {
+            object onStartMenuValue = null;
+
+            try
+            {
+                using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(_startMenuAppRegistryKey))
+                {
+                    if (registryKey != null)
+                        onStartMenuValue = registryKey.GetValue("OnStartMenu");
+                    else
+                        ShowWindowsMediaCenterDialog(_startMenuRegustryKeyNotFoundMessage);
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception);
+            }
+
+            if (onStartMenuValue != null)
+                return Boolean.Parse((string)onStartMenuValue);
+            else
+                return false;
+        }
+
+        private void SetShowInStartMenuRegistryValue()
+        {
+            try
+            {
+                using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(_startMenuAppRegistryKey, true))
+                {
+                    if (registryKey != null)
+                    {
+                        registryKey.SetValue("OnStartMenu", _checkboxShowInStartMenu, RegistryValueKind.String);
+                        ShowWindowsMediaCenterDialog(_restartNeededMessage);
+                    }
+                    else
+                        ShowWindowsMediaCenterDialog(_startMenuRegustryKeyNotFoundMessage);
+                }
+            }
+            catch (Exception exception)
+            {
+                Logger.LogError(exception);
+            }
+        }
+
+        private void ShowWindowsMediaCenterDialog(string message)
+        {
+            // only show dialogs when running under Media Center
+            if (MyAddIn.Instance != null)
+            {
+                // need this for error dialogs
+                MediaCenterEnvironment mcEnvironment = MyAddIn.Instance.AddInHost.MediaCenterEnvironment;
+
+                mcEnvironment.Dialog(message, "myForecast - Configuration Settings", DialogButtons.Ok, 60, true);
+            }
+        }
+
+        #endregion
     }
 }

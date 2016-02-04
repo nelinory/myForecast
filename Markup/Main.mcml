@@ -1,6 +1,7 @@
 <Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
+      xmlns:core="assembly://MsCorLib/System"
       xmlns:code="assembly://myForecast/myForecast"
-      xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"      
+      xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
       xmlns:this="Me">
 
   <Aggregate Source="resx://myForecast/myForecast.Resources/Base"/>
@@ -10,6 +11,10 @@
     <Locals>
       <code:ClockModel Name="CodeClockModel"/>
       <code:WeatherModel Name="CodeWeatherModel"/>
+      <code:NavigationController Name="NavigationController"/>
+
+      <Command Name="CommandSettings" Description="weather settings"/>      
+      <Command Name="CommandWeatherAlert" Description="null"/>
 
       <Timer Name="TimerLoadWeather" Interval="300" AutoRepeat="false" Enabled="true"/>
     </Locals>
@@ -18,19 +23,22 @@
     </Properties>
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true"/>
-      
+
       <!-- Bind the clock object and the refresh event -->
       <Binding Source="[CodeClockModel.CurrentTime]" Target="[ControlCurrentTime.Content]"/>
-      
+
       <!-- Bind the location name and the refresh event -->
       <Binding Source="[CodeWeatherModel.LocationName]" Target="[ControlLocationName.Content]"/>
-            
+
+      <!-- Bind the weather alert and the refresh event -->
+      <Binding Source="[CodeWeatherModel.WeatherAlertCaption]" Target="[ControlLocationName.WeatherAlertCaptionContent]"/>
+
       <!-- Bind the last updated and the refresh event -->
       <Binding Source="[CodeWeatherModel.LastUpdateTimestamp]" Target="[ControlLastUpdateTimestamp.Content]"/>
-      
+
       <!-- Bind the weather forecast object and the refresh event -->
       <Binding Source="[CodeWeatherModel.Forecast]" Target="[ControlSixDaysForecast.Source]"/>
-      
+
       <!-- Show/Hide loading message -->
       <Rule>
         <Conditions>
@@ -39,11 +47,11 @@
         <Actions>
           <Set Target="[ControlLoadingMessage.Visible]" Value="false"/>
           <Set Target="[PanelWeather.Visible]" Value="true"/>
-          
+
           <Invoke Target="[ControlLocationName.NavigateInto]"/>
         </Actions>
       </Rule>
-      
+
       <!-- Call main weather loading method -->
       <Rule>
         <Conditions>
@@ -53,7 +61,7 @@
           <Invoke Target="[CodeWeatherModel.LoadWeatherData]" InvokePolicy="AsynchronousLowPri"/>
         </Actions>
       </Rule>
-      
+
       <!-- Only show the static background when developing -->
       <Rule>
         <Conditions>
@@ -63,11 +71,25 @@
           <Set Target="[ctrlBackground.Content]" Value="null"/>
         </Actions>
       </Rule>
+
+      <!-- Button Settings clicked -->
+      <Changed Source="[CommandSettings.Invoked]">
+        <Actions>
+          <Invoke Target="[NavigationController.GoToSettingsPage]"/>
+        </Actions>
+      </Changed>
+
+      <!-- Button Weather alert clicked -->
+      <Changed Source="[CommandWeatherAlert.Invoked]">
+        <Actions>
+          <Invoke Target="[NavigationController.GoToWeatherAlertPage]" weatherAlertText="[CodeWeatherModel.WeatherAlertText]"/>
+        </Actions>
+      </Changed>
     </Rules>
     <Content>
       <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
         <Children>
-          <Panel Layout="Form" MinimumSize="1366,768" MaximumSize="1366,768">
+          <Panel Layout="Form">
             <Children>
               <!-- Application title in MCE style -->
               <this:ApplicationTitle Content="myForecast"/>
@@ -79,17 +101,14 @@
               <Panel Name="PanelWeather" Layout="Form" Visible="false">
                 <Children>
                   <!-- Settings button -->
-                  <this:SettingsButton Name="ControlSettings" Text="weather settings">
+                  <this:SettingsButton Name="ControlSettings" Model="[CommandSettings]">
                     <LayoutInput>
                       <FormLayoutInput Left="Parent,.13" Bottom="ControlLocationName,1,-30"/>
                     </LayoutInput>
-                    <Command>
-                      <code:NavigateCommand Page="Settings"/>
-                    </Command>
                   </this:SettingsButton>
 
-                  <!-- Location name -->
-                  <this:LocationName Name="ControlLocationName" Content="null">
+                  <!-- Location name/Weather alerts -->
+                  <this:LocationName Name="ControlLocationName" Content="null" WeatherAlertCaptionContent="null" Model="[CommandWeatherAlert]">
                     <LayoutInput>
                       <FormLayoutInput Left="ControlCurrentWeather,0,1" Bottom="ControlCurrentWeather,0,1"/>
                     </LayoutInput>

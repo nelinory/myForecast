@@ -161,6 +161,16 @@ namespace myForecast {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Checkbox {
+            get {
+                object obj = ResourceManager.GetObject("Checkbox", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap clear {
@@ -657,6 +667,26 @@ namespace myForecast {
             get {
                 object obj = ResourceManager.GetObject("unknown", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Weather_Alert {
+            get {
+                object obj = ResourceManager.GetObject("Weather_Alert", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] WeatherAlert {
+            get {
+                object obj = ResourceManager.GetObject("WeatherAlert", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         

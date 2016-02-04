@@ -5,13 +5,14 @@
 	<String Id="LaunchCondition_LaterVersion">A later version of [ProductName] is already installed.</String>
 	<String Id="LaunchCondition_WrongOSVersion">[ProductName] was not designed for this version of Windows Media Center or you don't have Windows Media Center.</String>
 
-	<String Id="Property_ArpHelpLink">http://windows.microsoft.com/en-US/windows/products/windows-media-center</String>
-	<String Id="Property_ArpUrlInfoAbout">http://windows.microsoft.com/en-US/windows/products/windows-media-center</String>
-	<String Id="Property_ProductLanguage">1033</String>
-	<String Id="Property_ProductName">myForecast</String>
+	<String Id="Property_ArpHelpLink">https://github.com/nelinory/myForecast</String>
+	<String Id="Property_ArpUrlInfoAbout">https://github.com/nelinory/myForecast</String>
+  <String Id="Property_ArpUrlUpdateInfo">https://github.com/nelinory/myForecast/releases</String>
+  <String Id="Property_ProductLanguage">1033</String>
+	<String Id="Property_ProductName">myForecast 1.0.1</String>
 	<String Id="Property_CompanyName">Nelinory</String>
 
-	<String Id="Package_Description">myForecast</String>
+	<String Id="Package_Description">myForecast weather application for Windows Media Center</String>
 	<String Id="Package_Comments">This Installer database contains the logic and data required to install myForecast.</String>
 
 </WixLocalization>

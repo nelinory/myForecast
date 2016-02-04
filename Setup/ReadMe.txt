@@ -1,4 +1,4 @@
-﻿myForecast Version 1.0 (beta)
+﻿myForecast Version 1.0.1
 Copyright © 2006-2016 by Chavdar Kostov
 
 
@@ -20,7 +20,6 @@ Limitations
 ===========
 - Only 16:9 screen layout (widescreen) is supported at the moment
 - Single weather location only
-- Weather alerts are NOT SUPPORTED (although they are considered for future version)
 
 
 How to get the API key from Weather Underground

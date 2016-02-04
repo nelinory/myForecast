@@ -11,9 +11,7 @@
       <ClickHandler Name="Clicker"/>
     </Locals>
     <Properties>
-      <core:String Name="Text" String="null"/>
-
-      <ICommand Name="Command" ICommand="$Required"/>
+      <ICommand Name="Model" ICommand="$Required"/>
 
       <Image Name="Default" Source="res://ehres!Browse.Cmd.Settings.png"/>
       <Image Name="Focus" Source="res://ehres!Browse.Cmd.Settings.Focus.png"/>
@@ -31,8 +29,8 @@
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true"/>
 
-      <Binding Source="[Text]" Target="[Label.Content]"/>
-      <Binding Source="[Command]" Target="[Clicker.Command]"/>
+      <Binding Source="[Model.Description]" Target="[Label.Content]"/>
+      <Binding Source="[Model]" Target="[Clicker.Command]"/>
       
       <Condition Source="[Clicker.Clicking]" SourceValue="true">
         <Actions>

@@ -17,10 +17,12 @@
       <TypingHandler Name="TypingHandlerLocationCode" TypingPolicy="Default"/>
 
       <code:ConfigModel Name="CodeConfigModel"/>
-      <code:NavigateCommand Name="NavigateCommand" Page="About"/>
+      <code:NavigationController Name="NavigationController"/>
 
       <EditableText Name="TextApiKey"/>
       <EditableText Name="TextLocationCode"/>
+
+      <BooleanChoice Name="CheckboxShowInStartMenu" Description="Integrate into the &quot;Start Menu&quot;"/>
 
       <Command Name="CommandSave" Description="Save"/>
       <Command Name="CommandCancel" Description="Cancel"/>
@@ -52,7 +54,10 @@
       <!-- Bind ClockTimeFormat spinner control -->
       <Binding Source="[CodeConfigModel.ClockTimeFormat]" Target="[SpinnerClockTimeFormat.Model]"/>
 
-      <!-- BIndings for the OSK -->
+      <!-- Bind ShowInStartMenu checkbox control -->
+      <Binding Source="[CodeConfigModel.ShowInStartMenu]" Target="[CheckboxShowInStartMenu.Value]"/>
+
+      <!-- Bindings for the OSK -->
       <Binding Source="[TextApiKey]" Target="[TypingHandlerApiKey.EditableText]" />
       <Binding Source="[TextLocationCode]" Target="[TypingHandlerLocationCode.EditableText]" />
 
@@ -64,6 +69,7 @@
           <Set Target="[CodeConfigModel.WeatherUnit]" Value="[SpinnerWeatherUnits.Model]"/>
           <Set Target="[CodeConfigModel.RefreshRateInMinutes]" Value="[SpinnerRefreshRateInMinutes.Model]"/>
           <Set Target="[CodeConfigModel.ClockTimeFormat]" Value="[SpinnerClockTimeFormat.Model]"/>
+          <Set Target="[CodeConfigModel.ShowInStartMenu]" Value="[CheckboxShowInStartMenu.Value]"/>
           <Invoke Target="[CodeConfigModel.Save]" />
           <Invoke Target="[Session.BackPage]" />
         </Actions>
@@ -79,7 +85,7 @@
       <!-- Button About clicked -->
       <Changed Source="[CommandAbout.Invoked]">
         <Actions>
-          <Invoke Target="[NavigateCommand.Invoke]"/>
+          <Invoke Target="[NavigationController.GoToAboutPage]"/>
         </Actions>
       </Changed>
 
@@ -116,7 +122,7 @@
     <Content>
       <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
         <Children>
-          <Panel Layout="Form" MinimumSize="1366,768" MaximumSize="1366,768">
+          <Panel Layout="Form">
             <Children>
               <!-- Application title in MCE style -->
               <this:ApplicationTitle Content="myForecast"/>
@@ -205,6 +211,17 @@
                         <Children>
                           <Text Content="Clock time format" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
                           <this:Spinner Name="SpinnerClockTimeFormat" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
+                        </Children>
+                      </Panel>
+
+                      <!-- Show in Start menu -->
+                      <Panel Margins="0,80,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="App shortcut" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <this:Checkbox Model="[CheckboxShowInStartMenu]"/>
                         </Children>
                       </Panel>
                     </Children>

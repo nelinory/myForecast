@@ -18,7 +18,10 @@
   <!-- Used for myForecast logo -->
   <Image Name="myForecastLogo" Source="resx://myForecast/myForecast.Resources/myForecast"/>
 
-  <!-- used for keyboard button  -->
+  <!-- Used for keyboard button  -->
   <Image Name="Keyboard" Source="resx://myForecast/myForecast.Resources/Keyboard"/>
-  
+
+  <!-- Used for weather alert button  -->
+  <Image Name="WeatherAlert" Source="resx://myForecast/myForecast.Resources/Weather_Alert"/>
+
 </Mcml>
