@@ -65,12 +65,8 @@
     <AssemblyOriginatorKeyFile>myForecast.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.MediaCenter">
-      <HintPath>..\..\Windows\ehome\Microsoft.MediaCenter.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.MediaCenter.UI">
-      <HintPath>..\..\Windows\ehome\Microsoft.MediaCenter.UI.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.MediaCenter"/>
+    <Reference Include="Microsoft.MediaCenter.UI"/>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
