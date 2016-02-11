@@ -4,7 +4,7 @@
     companyName="Nelinory"
     description="Shows current weather conditions and forecast"
     startMenuStripTitle="Weather"
-    startMenuStripCategory="Custom Start Menu">
+    startMenuStripCategory="Custom Start Menu\Weather">
   <!-- Add myForecast to the standard location under "More Programs" -->
   <entrypoint
     id="{b1b8feb9-2738-4a51-8d5d-3a8f9d66d180}"
@@ -23,6 +23,6 @@
     description="Shows current weather conditions and forecast"
     imageUrl="myForecastStrip.png"
     inactiveImageURL="myForecastStripInactive.png">
-    <category category="Custom Start Menu" order="1"/>
+    <category category="Custom Start Menu\Weather" order="0"/>
   </entrypoint>
 </application>
