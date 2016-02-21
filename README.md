@@ -49,7 +49,8 @@ The location code we need is: zmw:10001.5.99999 (for US locations just using the
 When you configure myForecast, please enter the full location code, i.e. **zmw:10001.5.99999**
 
 ## Screenshot
-![Screenshot](https://cloud.githubusercontent.com/assets/15143882/12383750/46d5703c-bd6f-11e5-8e62-556b7b064283.jpg)
+![Screenshot](https://cloud.githubusercontent.com/assets/15143882/13204916/0b866066-d8a1-11e5-9656-dda251fe49a1.png)
+
 
 ## Feedback
 Any comments, questions and ideas are greatly appreciated.
