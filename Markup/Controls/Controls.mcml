@@ -219,7 +219,7 @@
                         MaximumSize="300,0" MaximumLines="2" WordWrap="true"/>
                 </Children>
               </Panel>
-              <Panel Margins="90,4,0,0" MinimumSize="100,1">
+              <Panel Margins="90,9,0,0" MinimumSize="100,1">
                 <Layout>
                   <FlowLayout Orientation="Vertical" ItemAlignment="Far"/>
                 </Layout>
@@ -232,7 +232,7 @@
                   <Text Content="Pressure:" Color="White" Font="[FontRegularCurrentConditions]"/>
                 </Children>
               </Panel>
-              <Panel Margins="10,5,10,0" MinimumSize="180,1">
+              <Panel Margins="10,10,10,0" MinimumSize="180,1">
                 <Layout>
                   <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                 </Layout>
