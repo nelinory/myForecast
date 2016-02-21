@@ -385,6 +385,7 @@ namespace myForecast
                 Condition = CleanForecastConditionDescription(currentForecastNode.SelectSingleNode("condition").InnerText),
                 LowTemp = GetFormattedCurrentForecastTemperature(lowTemperatureNode.SelectSingleNode("temp")),
                 HighTemp = GetFormattedCurrentForecastTemperature(highTemperatureNode.SelectSingleNode("temp")),
+                PopIcon = GetFormattedPopIconResx(currentForecastNode),
                 Pop = GetFormattedPop(currentForecastNode)
             });
 
