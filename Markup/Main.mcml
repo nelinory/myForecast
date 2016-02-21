@@ -108,6 +108,14 @@
         </Actions>
       </Changed>
 
+      <!-- Ensure the daily forecast is visible after refresh -->
+      <Changed Source="[CodeWeatherModel.LastUpdateTimestamp]">
+        <Actions>
+          <Set Target="[ControlDailyForecast.Visible]" Value="true"/>
+          <Set Target="[ControlHourlyForecast.Visible]" Value="false"/>
+        </Actions>      
+      </Changed>
+      
       <!-- Navigate to the hourly forecast panel once shown -->
       <Rule>
         <Conditions>
