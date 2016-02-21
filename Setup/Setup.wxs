@@ -12,7 +12,7 @@
 <!-- will be used later on in this file.                                                                 -->
 
 <!-- Change Property_ProductVersion/Property_ProductCode for each release -->
-<?define Property_ProductVersion = "1.0.1.0" ?>
+<?define Property_ProductVersion = "1.0.2.0" ?>
 <?define Property_ProductCode = "1663442f-9744-4823-91be-bf03bffe24d9" ?>
 
 <!-- Never change Property_UpgradeCode -->
