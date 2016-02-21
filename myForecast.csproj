@@ -65,8 +65,8 @@
     <AssemblyOriginatorKeyFile>myForecast.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.MediaCenter"/>
-    <Reference Include="Microsoft.MediaCenter.UI"/>
+    <Reference Include="Microsoft.MediaCenter" />
+    <Reference Include="Microsoft.MediaCenter.UI" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.XML" />
@@ -95,6 +95,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Pop.png" />
     <Content Include="Setup\WixUI_Bmp_Banner.bmp" />
     <Content Include="Setup\WixUI_Bmp_Dialog.bmp" />
     <None Include=".gitignore" />
@@ -134,8 +135,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Markup\Base\Images.mcml" />
-    <Content Include="Images\Pop_Rain.png" />
-    <Content Include="Images\Pop_Snow.png" />
     <Content Include="Images\WeatherIcons\01\chanceflurries.png" />
     <Content Include="Images\WeatherIcons\01\chancerain.png" />
     <Content Include="Images\WeatherIcons\01\chancesleet.png" />

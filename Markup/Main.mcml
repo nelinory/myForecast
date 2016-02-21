@@ -13,16 +13,22 @@
       <code:WeatherModel Name="CodeWeatherModel"/>
       <code:NavigationController Name="NavigationController"/>
 
-      <Command Name="CommandSettings" Description="weather settings"/>      
+      <Command Name="CommandSettings" Description="weather settings"/>
       <Command Name="CommandWeatherAlert" Description="null"/>
+      <Command Name="CommandHourlyForecast" Description="null"/>
 
       <Timer Name="TimerLoadWeather" Interval="300" AutoRepeat="false" Enabled="true"/>
+
+      <ScrollingData Name="ScrollingData" PageStep="1"/>
     </Locals>
     <Properties>
       <host:HistoryOrientedPageSession Name="Session" HistoryOrientedPageSession="$Required"/>
     </Properties>
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true"/>
+
+      <!-- Give Repeater to ScrollingData -->
+      <Default Target="[ScrollingData.Repeater]" Value="[ControlHourlyForecast]"/>
 
       <!-- Bind the clock object and the refresh event -->
       <Binding Source="[CodeClockModel.CurrentTime]" Target="[ControlCurrentTime.Content]"/>
@@ -33,11 +39,11 @@
       <!-- Bind the weather alert and the refresh event -->
       <Binding Source="[CodeWeatherModel.WeatherAlertCaption]" Target="[ControlLocationName.WeatherAlertCaptionContent]"/>
 
-      <!-- Bind the last updated and the refresh event -->
-      <Binding Source="[CodeWeatherModel.LastUpdateTimestamp]" Target="[ControlLastUpdateTimestamp.Content]"/>
+      <!-- Bind the daily weather forecast object and the refresh event -->
+      <Binding Source="[CodeWeatherModel.DailyForecast]" Target="[ControlDailyForecast.Source]"/>
 
-      <!-- Bind the weather forecast object and the refresh event -->
-      <Binding Source="[CodeWeatherModel.Forecast]" Target="[ControlSixDaysForecast.Source]"/>
+      <!-- Bind the hourly weather forecast object and the refresh event -->
+      <Binding Source="[CodeWeatherModel.HourlyForecast]" Target="[ControlHourlyForecast.Source]"/>
 
       <!-- Show/Hide loading message -->
       <Rule>
@@ -68,7 +74,7 @@
           <Equality Source="[Session]" ConditionOp="NotEquals" Value="null"/>
         </Conditions>
         <Actions>
-          <Set Target="[ctrlBackground.Content]" Value="null"/>
+          <Set Target="[ControlBackground.Content]" Value="null"/>
         </Actions>
       </Rule>
 
@@ -85,9 +91,45 @@
           <Invoke Target="[NavigationController.GoToWeatherAlertPage]" weatherAlertText="[CodeWeatherModel.WeatherAlertText]"/>
         </Actions>
       </Changed>
+
+      <!-- Button Current Weather clicked -->
+      <Changed Source="[CommandHourlyForecast.Invoked]">
+        <Actions>
+          <Set Target="[ControlDailyForecast.Visible]" Value="[ControlDailyForecast.Visible]">
+            <Transformer>
+              <BooleanTransformer Inverse="true"/>
+            </Transformer>
+          </Set>
+          <Set Target="[ControlHourlyForecast.Visible]" Value="[ControlHourlyForecast.Visible]">
+            <Transformer>
+              <BooleanTransformer Inverse="true"/>
+            </Transformer>
+          </Set>
+        </Actions>
+      </Changed>
+
+      <!-- Navigate to the hourly forecast panel once shown -->
+      <Rule>
+        <Conditions>
+          <Equality Source="[ControlHourlyForecast.Visible]" ConditionOp="Equals" Value="true"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ControlHourlyForecast.NavigateInto]"/>
+        </Actions>
+      </Rule>
+
+      <!-- Navigate to the location once hourly forecast is hidden -->
+      <Rule>
+        <Conditions>
+          <Equality Source="[ControlHourlyForecast.Visible]" ConditionOp="Equals" Value="false"/>
+        </Conditions>
+        <Actions>
+          <Invoke Target="[ControlLocationName.NavigateInto]"/>
+        </Actions>
+      </Rule>
     </Rules>
     <Content>
-      <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
+      <Graphic Name="ControlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
         <Children>
           <Panel Layout="Form">
             <Children>
@@ -103,55 +145,64 @@
                   <!-- Settings button -->
                   <this:SettingsButton Name="ControlSettings" Model="[CommandSettings]">
                     <LayoutInput>
-                      <FormLayoutInput Left="Parent,.13" Bottom="ControlLocationName,1,-30"/>
+                      <FormLayoutInput Left="Parent,.13" Top="Parent,0,98"/>
                     </LayoutInput>
                   </this:SettingsButton>
 
                   <!-- Location name/Weather alerts -->
                   <this:LocationName Name="ControlLocationName" Content="null" WeatherAlertCaptionContent="null" Model="[CommandWeatherAlert]">
                     <LayoutInput>
-                      <FormLayoutInput Left="ControlCurrentWeather,0,1" Bottom="ControlCurrentWeather,0,1"/>
+                      <FormLayoutInput Left="ControlSettings,0,3" Top="ControlSettings,0,35"/>
                     </LayoutInput>
                   </this:LocationName>
 
                   <!-- Current time -->
                   <this:CurrentTime Name="ControlCurrentTime" Content="null">
                     <LayoutInput>
-                      <FormLayoutInput Top="Parent,.17" Right="Parent,1,-60"/>
+                      <FormLayoutInput Right="ControlCurrentWeather,1" Bottom="ControlCurrentWeather,0"/>
                     </LayoutInput>
                   </this:CurrentTime>
 
-                  <!-- Last updated timestamp -->
-                  <this:LastUpdateTimestamp Name="ControlLastUpdateTimestamp" Content="null" Visible="false">
-                    <LayoutInput>
-                      <FormLayoutInput Top="ControlCurrentTime,1" Right="Parent,1,-60"/>
-                    </LayoutInput>
-                  </this:LastUpdateTimestamp>
-
                   <!-- Current weather condition -->
-                  <this:CurrentWeatherPanel Name="ControlCurrentWeather" CurrentWeather="[CodeWeatherModel]">
+                  <this:CurrentWeather Name="ControlCurrentWeather" CurrentWeatherModel="[CodeWeatherModel]" HourlyForecastCommand="[CommandHourlyForecast]">
                     <LayoutInput>
-                      <FormLayoutInput Top="ControlCurrentTime,1" Right="Parent,1,-64"/>
+                      <FormLayoutInput Top="ControlLocationName,1"/>
                     </LayoutInput>
-                  </this:CurrentWeatherPanel>
+                  </this:CurrentWeather>
 
-                  <!-- Six days forecast -->
-                  <Repeater Name="ControlSixDaysForecast">
-                    <Layout>
-                      <FlowLayout Orientation="Horizontal" StripAlignment="Center"/>
-                    </Layout>
+                  <!-- Forecast -->
+                  <Panel Name="PanelForecast">
                     <LayoutInput>
-                      <FormLayoutInput Left="Parent,.19" Top="ControlCurrentWeather,1,3" Right="Parent,1,-53"/>
+                      <FormLayoutInput Top="ControlCurrentWeather,1,3"/>
                     </LayoutInput>
-                    <Content>
-                      <this:ForecastWeatherPanel ForecastItem="[RepeatedItem!code:ForecastItem]" Index="[RepeatedItemIndex]"/>
-                    </Content>
-                  </Repeater>
+                    <Children>
+                      <Repeater Name="ControlDailyForecast">
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" StripAlignment="Center"/>
+                        </Layout>
+                        <Content>
+                          <this:DailyForecastWeather ForecastItem="[RepeatedItem!code:ForecastItem]" Index="[RepeatedItemIndex]"/>
+                        </Content>
+                      </Repeater>
+                      <Scroller Orientation="Horizontal" MaximumSize="1030,230" FadeSize="1" ScrollingData="[ScrollingData]">
+                        <Children>
+                          <Repeater Name="ControlHourlyForecast" Visible="false">
+                            <Layout>
+                              <FlowLayout Orientation="Horizontal"/>
+                            </Layout>
+                            <Content>
+                              <this:HourlyForecastWeather ForecastItem="[RepeatedItem!code:ForecastItem]" Index="[RepeatedItemIndex]"/>
+                            </Content>
+                          </Repeater>
+                        </Children>
+                      </Scroller>
+                    </Children>
+                  </Panel>
 
                   <!-- Powered by WeatherUnderground credits -->
                   <this:PoweredByWeatherUndergroundCredits>
                     <LayoutInput>
-                      <FormLayoutInput Right="Parent,1,-60" Bottom="Parent,1,-60"/>
+                      <FormLayoutInput Right="ControlCurrentWeather,1" Bottom="PanelForecast,1,40"/>
                     </LayoutInput>
                   </this:PoweredByWeatherUndergroundCredits>
                 </Children>

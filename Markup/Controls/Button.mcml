@@ -301,14 +301,14 @@
     <Content>
       <Panel Name="Root" MouseInteractive="true">
         <Children>
-          <Panel Name="LabelScalePanel" Layout="Dock">
+          <Panel Name="PanelLabelScale" Layout="Dock">
             <Children>
               <Graphic Name="Icon" LayoutInput="[IconBorderInput]" Margins="[IconPadding]" MaintainAspectRatio="true" MinimumSize="[IconMinSize]" MaximumSize="[IconMaxSize]" Visible="[ShowIcon]">
                 <Children>
                   <this:BaseIconFocusLoopContent Name="IconFocusLoopHost" Visible="false" Source="null"/>
                 </Children>
               </Graphic>
-              <Panel Name="LabelPanel" Layout="Anchor" LayoutInput="[LabelBorderInput]" Margins="16,0,8,0" Visible="[ShowLabel]">
+              <Panel Name="PanelLabel" Layout="Anchor" LayoutInput="[LabelBorderInput]" Margins="16,0,8,0" Visible="[ShowLabel]">
                 <Children>
                   <Text Name="Label" Color="[NoFocusColor]" Font="[Font]">
                     <!--<LayoutInput>

@@ -38,7 +38,8 @@ namespace myForecast
         private string _currentConditionWind;
         private string _currentConditionUvIndex;
         private string _currentConditionPressure;
-        private ArrayListDataSet _forecast;
+        private ArrayListDataSet _dailyForecast;
+        private ArrayListDataSet _hourlyForecast;
 
         #endregion
 
@@ -128,10 +129,16 @@ namespace myForecast
             set { _currentConditionPressure = value; FirePropertyChanged("CurrentConditionPressure"); }
         }
 
-        public ArrayListDataSet Forecast
+        public ArrayListDataSet DailyForecast
         {
-            get { return _forecast; }
-            set { _forecast = value; FirePropertyChanged("Forecast"); }
+            get { return _dailyForecast; }
+            set { _dailyForecast = value; FirePropertyChanged("DailyForecast"); }
+        }
+
+        public ArrayListDataSet HourlyForecast
+        {
+            get { return _hourlyForecast; }
+            set { _hourlyForecast = value; FirePropertyChanged("HourlyForecast"); }
         }
 
         #endregion
@@ -153,7 +160,9 @@ namespace myForecast
             _weatherApiAddress = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLocationCode);
 
             _xmlWeatherData = new XmlDocument();
-            _forecast = new ArrayListDataSet();
+            _dailyForecast = new ArrayListDataSet();
+            _hourlyForecast = new ArrayListDataSet();
+
             _isLoaded = false;
 
             // refresh timer
@@ -230,18 +239,70 @@ namespace myForecast
             // Current condition support
             LoadCurrentConditionProperties(_xmlWeatherData.SelectSingleNode("response/current_observation"));
 
-            // Forecast support
-            LoadForecastProperties(_xmlWeatherData.SelectNodes("response/forecast/simpleforecast/forecastdays/forecastday"));
+            // Daily/Current forecast support
+            DailyForecast.Clear();
+            LoadCurrentForecastProperties(_xmlWeatherData.SelectSingleNode("response/hourly_forecast"));
+            LoadDailyForecastProperties(_xmlWeatherData.SelectNodes("response/forecast/simpleforecast/forecastdays/forecastday"));
+
+            // Hourly forecast support
+            LoadHourlyForecastProperties(_xmlWeatherData.SelectNodes("response/hourly_forecast/forecast"));
+
+            IsLoaded = true;
+        }
+
+        private void LoadDefaultWeatherModel()
+        {
+            LastUpdateTimestamp = "N/A";
+            LocationName = "N/A";
+
+            // current conditions
+            CurrentConditionIcon = "resx://myForecast/myForecast.Resources/unknown";
+            CurrentConditionDescription = "N/A";
+            CurrentConditionHumidity = "N/A";
+            CurrentConditionTemperature = "N/A";
+            CurrentConditionFeelsLike = "N/A";
+            CurrentConditionDewPoint = "N/A";
+            CurrentConditionWind = "N/A";
+            CurrentConditionPressure = "N/A";
+            CurrentConditionUvIndex = "N/A";
+
+            // six days forecast
+            DailyForecast.Clear();
+            for (int i = 1; i < 7; i++)
+            {
+                DailyForecast.Add(new ForecastItem()
+                {
+                    DayOfTheWeek = "N/A",
+                    ForecastIcon = "resx://myForecast/myForecast.Resources/unknown",
+                    Condition = "N/A",
+                    LowTemp = "N/A",
+                    HighTemp = "N/A"
+                });
+            }
+
+            // 36 hours forecast by default
+            HourlyForecast.Clear();
+            for (int i = 1; i < 36; i++)
+            {
+                HourlyForecast.Add(new ForecastItem()
+                {
+                    DayOfTheWeek = "N/A",
+                    ForecastIcon = "resx://myForecast/myForecast.Resources/unknown",
+                    Condition = "N/A",
+                    LowTemp = "N/A",
+                    HighTemp = "N/A"
+                });
+            }
+
+            System.Threading.Thread.Sleep(2000);
 
             IsLoaded = true;
         }
 
         private void LoadCurrentConditionProperties(XmlNode currentConditionNode)
         {
-            // icons.wxug.com/i/c/k/nt_clear.gif
-            string icon_url = currentConditionNode.SelectSingleNode("icon_url").InnerText;
-            // [0]nt_clear [1].gif
-            string[] iconNameParts = icon_url.Substring(icon_url.LastIndexOf("/") + 1).Split('.');
+            string icon_url = currentConditionNode.SelectSingleNode("icon_url").InnerText;          // icons.wxug.com/i/c/k/nt_clear.gif
+            string[] iconNameParts = icon_url.Substring(icon_url.LastIndexOf("/") + 1).Split('.');  // [0]nt_clear [1].gif
             CurrentConditionIcon = "resx://myForecast/myForecast.Resources/" + iconNameParts[0];
             CurrentConditionDescription = currentConditionNode.SelectSingleNode("weather").InnerText;
             CurrentConditionHumidity = currentConditionNode.SelectSingleNode("relative_humidity").InnerText;
@@ -249,16 +310,18 @@ namespace myForecast
             switch (_weatherUnit)
             {
                 case WeatherUnit.Imperial:
-                    CurrentConditionTemperature = currentConditionNode.SelectSingleNode("temp_f").InnerText + "F";
-                    CurrentConditionFeelsLike = currentConditionNode.SelectSingleNode("feelslike_f").InnerText + "F";
-                    CurrentConditionDewPoint = currentConditionNode.SelectSingleNode("dewpoint_f").InnerText + "F";
+                    CurrentConditionTemperature = currentConditionNode.SelectSingleNode("temp_f").InnerText;
+                    CurrentConditionTemperature = CurrentConditionTemperature.Substring(0, CurrentConditionTemperature.IndexOf(".")) + "°F";
+                    CurrentConditionFeelsLike = currentConditionNode.SelectSingleNode("feelslike_f").InnerText + "°F";
+                    CurrentConditionDewPoint = currentConditionNode.SelectSingleNode("dewpoint_f").InnerText + "°F";
                     CurrentConditionWind = (currentConditionNode.SelectSingleNode("wind_mph").InnerText == "0.0")
                                             ? currentConditionNode.SelectSingleNode("wind_string").InnerText
                                             : String.Format("{0} mph {1}", currentConditionNode.SelectSingleNode("wind_mph").InnerText, currentConditionNode.SelectSingleNode("wind_dir").InnerText);
                     CurrentConditionPressure = currentConditionNode.SelectSingleNode("pressure_in").InnerText + " in";
                     break;
                 default:
-                    CurrentConditionTemperature = currentConditionNode.SelectSingleNode("temp_c").InnerText + "°C";
+                    CurrentConditionTemperature = currentConditionNode.SelectSingleNode("temp_c").InnerText;
+                    CurrentConditionTemperature = CurrentConditionTemperature.Substring(0, CurrentConditionTemperature.IndexOf(".")) + "°C";
                     CurrentConditionFeelsLike = currentConditionNode.SelectSingleNode("feelslike_c").InnerText + "°C";
                     CurrentConditionDewPoint = currentConditionNode.SelectSingleNode("dewpoint_c").InnerText + "°C";
                     CurrentConditionWind = (currentConditionNode.SelectSingleNode("wind_mph").InnerText == "0.0")
@@ -282,59 +345,86 @@ namespace myForecast
                 CurrentConditionUvIndex = String.Format("{0} (Very High)", uvIndex);
         }
 
-        private void LoadForecastProperties(XmlNodeList forecastNodes)
+        private void LoadCurrentForecastProperties(XmlNode hourlyForecastNode)
         {
-            for (int i = 1; i < forecastNodes.Count; i++) // skipping forecastNode[0] because it is for the current night
+            int forecastHour = DateTime.Now.Hour;
+            XmlNode currentForecastNode = hourlyForecastNode.SelectSingleNode("forecast[FCTTIME/hour='" + DateTime.Now.AddHours(2).Hour + "']");
+            XmlNode previousForecastNode = hourlyForecastNode.SelectSingleNode("forecast[FCTTIME/hour='" + DateTime.Now.AddHours(1).Hour + "']");
+
+            string currentForecastTitle = String.Empty;
+            string forecastIconName = currentForecastNode.SelectSingleNode("icon").InnerText;
+
+            if (forecastHour >= 0 && forecastHour < 12)
+                currentForecastTitle = "TODAY";
+            else if (forecastHour >= 12 && forecastHour < 20)
             {
-                Forecast.Add(new ForecastItem()
+                currentForecastTitle = "TONIGHT";
+                forecastIconName = "nt_" + forecastIconName;
+            }
+            else
+                currentForecastTitle = "TOMORROW";
+
+            // find the low/hi temperatures
+            XmlNode lowTemperatureNode;
+            XmlNode highTemperatureNode;
+            if (float.Parse(currentForecastNode.SelectSingleNode("temp/english").InnerText) > float.Parse(previousForecastNode.SelectSingleNode("temp/english").InnerText))
+            {
+                lowTemperatureNode = previousForecastNode;
+                highTemperatureNode = currentForecastNode;
+            }
+            else
+            {
+                lowTemperatureNode = currentForecastNode;
+                highTemperatureNode = previousForecastNode;
+            }
+
+            DailyForecast.Add(new ForecastItem()
+            {
+                DayOfTheWeek = currentForecastTitle,
+                ForecastIcon = "resx://myForecast/myForecast.Resources/" + forecastIconName,
+                Condition = CleanForecastConditionDescription(currentForecastNode.SelectSingleNode("condition").InnerText),
+                LowTemp = GetFormattedCurrentForecastTemperature(lowTemperatureNode.SelectSingleNode("temp")),
+                HighTemp = GetFormattedCurrentForecastTemperature(highTemperatureNode.SelectSingleNode("temp")),
+                Pop = GetFormattedPop(currentForecastNode)
+            });
+
+        }
+
+        private void LoadDailyForecastProperties(XmlNodeList forecastNodes)
+        {
+            for (int i = 1; i < forecastNodes.Count - 1; i++) // skip node[0] for the tonight forecast
+            {
+                DailyForecast.Add(new ForecastItem()
                 {
                     DayOfTheWeek = String.Format("{0} {1}/{2}",
-                                                    forecastNodes[i].SelectSingleNode("date/weekday_short").InnerText.ToUpper(),
-                                                    forecastNodes[i].SelectSingleNode("date/month").InnerText,
-                                                    forecastNodes[i].SelectSingleNode("date/day").InnerText),
+                                                forecastNodes[i].SelectSingleNode("date/weekday_short").InnerText.ToUpper(),
+                                                forecastNodes[i].SelectSingleNode("date/month").InnerText,
+                                                forecastNodes[i].SelectSingleNode("date/day").InnerText),
                     ForecastIcon = "resx://myForecast/myForecast.Resources/" + forecastNodes[i].SelectSingleNode("icon").InnerText,
                     Condition = CleanForecastConditionDescription(forecastNodes[i].SelectSingleNode("conditions").InnerText),
-                    LowTemp = GetFormattedForecastTemperature(forecastNodes[i].SelectSingleNode("low")),
-                    HighTemp = GetFormattedForecastTemperature(forecastNodes[i].SelectSingleNode("high")),
+                    LowTemp = GetFormattedDailyForecastTemperature(forecastNodes[i].SelectSingleNode("low")),
+                    HighTemp = GetFormattedDailyForecastTemperature(forecastNodes[i].SelectSingleNode("high")),
                     PopIcon = GetFormattedPopIconResx(forecastNodes[i]),
                     Pop = GetFormattedPop(forecastNodes[i])
                 });
             }
         }
 
-        private void LoadDefaultWeatherModel()
+        private void LoadHourlyForecastProperties(XmlNodeList hourlyForecastNodes)
         {
-            LastUpdateTimestamp = "N/A";
-            LocationName = "N/A";
-
-            // current conditions
-            CurrentConditionIcon = "resx://myForecast/myForecast.Resources/unknown";
-            CurrentConditionDescription = "N/A";
-            CurrentConditionHumidity = "N/A";
-            CurrentConditionTemperature = "N/A";
-            CurrentConditionFeelsLike = "N/A";
-            CurrentConditionDewPoint = "N/A";
-            CurrentConditionWind = "N/A";
-            CurrentConditionPressure = "N/A";
-            CurrentConditionUvIndex = "N/A";
-
-            // six days forecast
-            Forecast.Clear();
-            for (int i = 1; i < 7; i++)
+            HourlyForecast.Clear();
+            for (int i = 0; i < hourlyForecastNodes.Count; i++)
             {
-                Forecast.Add(new ForecastItem()
+                HourlyForecast.Add(new ForecastItem()
                 {
-                    DayOfTheWeek = "N/A",
-                    ForecastIcon = "resx://myForecast/myForecast.Resources/unknown",
-                    Condition = "N/A",
-                    LowTemp = "N/A",
-                    HighTemp = "N/A"
+                    DayOfTheWeek = hourlyForecastNodes[i].SelectSingleNode("FCTTIME/weekday_name_abbrev").InnerText.ToUpper(),
+                    TimeOfTheDay = GetFormattedTimeFromEpoch(hourlyForecastNodes[i].SelectSingleNode("FCTTIME/epoch").InnerText),
+                    ForecastIcon = "resx://myForecast/myForecast.Resources/" + hourlyForecastNodes[i].SelectSingleNode("icon").InnerText,
+                    HighTemp = GetFormattedCurrentForecastTemperature(hourlyForecastNodes[i].SelectSingleNode("temp")),
+                    PopIcon = GetFormattedPopIconResx(hourlyForecastNodes[i]),
+                    Pop = GetFormattedPop(hourlyForecastNodes[i])
                 });
             }
-
-            System.Threading.Thread.Sleep(2000);
-
-            IsLoaded = true;
         }
 
         private string GetFormattedTimestampFromEpoch(string epoch)
@@ -356,14 +446,49 @@ namespace myForecast
             return formattedTimestamp;
         }
 
-        private string GetFormattedForecastTemperature(XmlNode temperatureNode)
+        private string GetFormattedTimeFromEpoch(string epoch)
+        {
+            DateTime parsedTimestamp = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
+            string formattedTime;
+
+            switch (_weatherClockTimeFormat)
+            {
+                case ClockTimeFormat.Hours12:
+                    formattedTime = parsedTimestamp.ToString("htt");
+                    break;
+                default:
+                    formattedTime = parsedTimestamp.ToString("HH:mm");
+                    break;
+            }
+
+            return formattedTime;
+        }
+
+        private string GetFormattedCurrentForecastTemperature(XmlNode temperatureNode)
         {
             string temperature;
 
             switch (_weatherUnit)
             {
                 case WeatherUnit.Imperial:
-                    temperature = temperatureNode.SelectSingleNode("fahrenheit").InnerText + "F";
+                    temperature = temperatureNode.SelectSingleNode("english").InnerText + "°F";
+                    break;
+                default:
+                    temperature = temperatureNode.SelectSingleNode("metric").InnerText + "°C";
+                    break;
+            }
+
+            return temperature;
+        }
+
+        private string GetFormattedDailyForecastTemperature(XmlNode temperatureNode)
+        {
+            string temperature;
+
+            switch (_weatherUnit)
+            {
+                case WeatherUnit.Imperial:
+                    temperature = temperatureNode.SelectSingleNode("fahrenheit").InnerText + "°F";
                     break;
                 default:
                     temperature = temperatureNode.SelectSingleNode("celsius").InnerText + "°C";
@@ -380,12 +505,7 @@ namespace myForecast
             if (String.IsNullOrEmpty(GetFormattedPop(forecastNode)) == true)
                 popIconResx += "Blank";
             else
-            {
-                if (forecastNode.SelectSingleNode("snow_allday/in").InnerText == "0.0")
-                    popIconResx += "Pop_Rain"; // assume it is raining
-                else
-                    popIconResx += "Pop_Snow"; // assume it is snowing
-            }
+                popIconResx += "Pop";
 
             return popIconResx;
         }
@@ -559,6 +679,7 @@ namespace myForecast
         #region Private Properties
 
         private string _dayOfTheWeek;
+        private string _timeOfTheDay;
         private string _forecastIcon;
         private string _condition;
         private string _lowTemp;
@@ -572,6 +693,12 @@ namespace myForecast
         {
             get { return _dayOfTheWeek; }
             set { _dayOfTheWeek = value; FirePropertyChanged("DayOfTheWeek"); }
+        }
+
+        public string TimeOfTheDay
+        {
+            get { return _timeOfTheDay; }
+            set { _timeOfTheDay = value; FirePropertyChanged("TimeOfTheDay"); }
         }
 
         public string ForecastIcon

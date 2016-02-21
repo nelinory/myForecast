@@ -41,7 +41,7 @@
           <Equality Source="[Session]" ConditionOp="NotEquals" Value="null"/>
         </Conditions>
         <Actions>
-          <Set Target="[ctrlBackground.Content]" Value="null"/>
+          <Set Target="[ControlBackground.Content]" Value="null"/>
         </Actions>
       </Rule>
 
@@ -63,7 +63,7 @@
       </Binding>
     </Rules>
     <Content>
-      <Graphic Name="ctrlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
+      <Graphic Name="ControlBackground" Content="image://this:Background" SizingPolicy="SizeToChildren">
         <Children>
           <Panel Layout="Form">
             <Children>
