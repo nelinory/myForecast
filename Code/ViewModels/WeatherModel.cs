@@ -16,6 +16,7 @@ namespace myForecast
         private readonly string _weatherFileLocation;
         private readonly string _weatherApiAddress;
 
+        private bool _uiRefreshNeeded;
         private Timer _weatherRefreshTimer;
         private XmlDocument _xmlWeatherData;
         private WeatherUnit _weatherUnit;
@@ -163,13 +164,14 @@ namespace myForecast
             _dailyForecast = new ArrayListDataSet();
             _hourlyForecast = new ArrayListDataSet();
 
+            _uiRefreshNeeded = true;
             _isLoaded = false;
 
             // refresh timer
             if (_weatherRefreshTimer == null)
             {
                 _weatherRefreshTimer = new Timer(this);
-                _weatherRefreshTimer.Interval = 60000; // 1 minute interval
+                _weatherRefreshTimer.Interval = 10000; // 10 seconds interval
                 _weatherRefreshTimer.Tick += delegate { LoadWeatherData(); };
             }
         }
@@ -204,7 +206,10 @@ namespace myForecast
                                 return;
                             }
                             else
+                            {
                                 File.WriteAllText(_weatherFileLocation, weatherDataXml);
+                                _uiRefreshNeeded = true;
+                            }
                         }
                         else
                             ShowErrorDialog("No response received from WeatherUnderground.\nPlease, try again in few minutes.");
@@ -214,7 +219,11 @@ namespace myForecast
                         _xmlWeatherData.Load(_weatherFileLocation);
                     }
 
-                    LoadWeatherModel();
+                    if (_uiRefreshNeeded == true)
+                    {
+                        _uiRefreshNeeded = false;
+                        LoadWeatherModel();
+                    }
 
                     _weatherRefreshTimer.Enabled = true;
                 }
