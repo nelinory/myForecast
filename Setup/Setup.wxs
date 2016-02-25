@@ -13,7 +13,7 @@
 
 <!-- Change Property_ProductVersion/Property_ProductCode for each release -->
 <?define Property_ProductVersion = "1.0.2.0" ?>
-<?define Property_ProductCode = "1663442f-9744-4823-91be-bf03bffe24d9" ?>
+<?define Property_ProductCode = "130f2f44-d5f9-4d8f-a9f0-39795a8f99a5" ?>
 
 <!-- Never change Property_UpgradeCode -->
 <?define Property_UpgradeCode = "d595d99a-9882-474f-b783-f210a03d190a" ?>
