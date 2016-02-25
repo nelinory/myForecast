@@ -1,15 +1,15 @@
 ﻿Changes for myForecast 1.0.2
 ============================
 Enhancements
-- Centered the whole layout
-- Cleaned up the temperature data on the screen. Now it shows the correct unit - °F/°C.
+- Centered the whole layout.
+- Cleaned up the temperature data on the screen. Now it also shows the correct unit - °F/°C.
   Removed the decimal point for the current condition temperature.
-- The left daily forecast tile now show the current day forecast.
+- The left daily forecast tile now shows the current day forecast (2 hours ahead of the current time).
 - Added support for hourly forecast. You can now navigate to the current weather condition panel
-  when selected it acts as a button. Once you click it hides the daily forecast data and shows
-  the hourly forecast weather data (36 hours). You can use the left/right button on the remote
+  when selected it acts as a button. When clicked it hides the daily forecast data and shows
+  the hourly forecast weather data (36 hours ahead). You can use the left/right button on the remote
   control to scroll thru the data. To go back to the default layout just click again on the current
-  weather condition panel. The scheduled data refresh will also restore default layout.
+  weather condition panel. The scheduled data refresh will also restore the default layout.
 
 Bugfixes
 - Fixed an issue where the myForecast start menu tile may override another custom start menu tile
