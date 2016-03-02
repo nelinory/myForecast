@@ -1,4 +1,12 @@
-﻿Changes for myForecast 1.0.2
+﻿Changes for myForecast 1.0.3
+============================
+Enhancements
+- 
+
+Bugfixes
+- Fixed an issue when removing the decimal point from the current temperature (thanks to stuartm and Embiggens)
+
+Changes for myForecast 1.0.2
 ============================
 Enhancements
 - Centered the whole layout.

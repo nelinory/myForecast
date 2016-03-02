@@ -77,7 +77,7 @@
                         </Layout>
                         <Children>
                           <Text Content="myForecast" Font="[FontBoldAppName]" Color="White"/>
-                          <Text Content="Version 1.0.2" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="Version 1.0.3" Font="[FontBoldAboutText]" Color="White"/>
                           <Text Content="Copyright &#169; 2016 by Chavdar Kostov" Font="[FontBoldAboutText]" Color="White"/>
                           <Text Content="This product is licensed under the terms of the End User License Agreement." Font="[FontBoldAboutText]"
                                 Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
