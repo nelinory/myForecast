@@ -320,7 +320,10 @@ namespace myForecast
             {
                 case WeatherUnit.Imperial:
                     CurrentConditionTemperature = currentConditionNode.SelectSingleNode("temp_f").InnerText;
-                    CurrentConditionTemperature = CurrentConditionTemperature.Substring(0, CurrentConditionTemperature.IndexOf(".")) + "°F";
+                    if (CurrentConditionTemperature.IndexOf(".") > -1)
+                        CurrentConditionTemperature = CurrentConditionTemperature.Substring(0, CurrentConditionTemperature.IndexOf(".")) + "°F";
+                    else
+                        CurrentConditionTemperature += "°F";
                     CurrentConditionFeelsLike = currentConditionNode.SelectSingleNode("feelslike_f").InnerText + "°F";
                     CurrentConditionDewPoint = currentConditionNode.SelectSingleNode("dewpoint_f").InnerText + "°F";
                     CurrentConditionWind = (currentConditionNode.SelectSingleNode("wind_mph").InnerText == "0.0")
@@ -330,7 +333,10 @@ namespace myForecast
                     break;
                 default:
                     CurrentConditionTemperature = currentConditionNode.SelectSingleNode("temp_c").InnerText;
-                    CurrentConditionTemperature = CurrentConditionTemperature.Substring(0, CurrentConditionTemperature.IndexOf(".")) + "°C";
+                    if (CurrentConditionTemperature.IndexOf(".") > -1)
+                        CurrentConditionTemperature = CurrentConditionTemperature.Substring(0, CurrentConditionTemperature.IndexOf(".")) + "°C";
+                    else
+                        CurrentConditionTemperature += "°C";
                     CurrentConditionFeelsLike = currentConditionNode.SelectSingleNode("feelslike_c").InnerText + "°C";
                     CurrentConditionDewPoint = currentConditionNode.SelectSingleNode("dewpoint_c").InnerText + "°C";
                     CurrentConditionWind = (currentConditionNode.SelectSingleNode("wind_mph").InnerText == "0.0")
