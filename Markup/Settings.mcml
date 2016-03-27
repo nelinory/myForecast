@@ -54,6 +54,9 @@
       <!-- Bind ClockTimeFormat spinner control -->
       <Binding Source="[CodeConfigModel.ClockTimeFormat]" Target="[SpinnerClockTimeFormat.Model]"/>
 
+      <!-- Bind Language spinner control -->
+      <Binding Source="[CodeConfigModel.Language]" Target="[SpinnerLanguage.Model]"/>
+
       <!-- Bind ShowInStartMenu checkbox control -->
       <Binding Source="[CodeConfigModel.ShowInStartMenu]" Target="[CheckboxShowInStartMenu.Value]"/>
 
@@ -69,6 +72,7 @@
           <Set Target="[CodeConfigModel.WeatherUnit]" Value="[SpinnerWeatherUnits.Model]"/>
           <Set Target="[CodeConfigModel.RefreshRateInMinutes]" Value="[SpinnerRefreshRateInMinutes.Model]"/>
           <Set Target="[CodeConfigModel.ClockTimeFormat]" Value="[SpinnerClockTimeFormat.Model]"/>
+          <Set Target="[CodeConfigModel.Language]" Value="[SpinnerLanguage.Model]"/>
           <Set Target="[CodeConfigModel.ShowInStartMenu]" Value="[CheckboxShowInStartMenu.Value]"/>
           <Invoke Target="[CodeConfigModel.Save]" />
           <Invoke Target="[Session.BackPage]" />
@@ -211,6 +215,17 @@
                         <Children>
                           <Text Content="Clock time format" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
                           <this:Spinner Name="SpinnerClockTimeFormat" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
+                        </Children>
+                      </Panel>
+
+                      <!-- Language -->
+                      <Panel Margins="0,4,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="Language" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <this:Spinner Name="SpinnerLanguage" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
                         </Children>
                       </Panel>
 

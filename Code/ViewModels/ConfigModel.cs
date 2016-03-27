@@ -14,6 +14,7 @@ namespace myForecast
         private Choice _spinnerRefreshRateInMinutes;
         private Choice _spinnerClockTimeFormats;
         private Boolean _checkboxShowInStartMenu;
+        private Choice _spinnerLanguage;
 
         #endregion
 
@@ -63,7 +64,7 @@ namespace myForecast
                 }
                 Configuration.Instance.WeatherUnit = selectedValue;
 
-                FirePropertyChanged("Unit");
+                FirePropertyChanged("WeatherUnit");
             }
         }
 
@@ -169,10 +170,46 @@ namespace myForecast
             }
         }
 
+        public Choice Language
+        {
+            get
+            {
+                int selectedIndex;
+                switch (Configuration.Instance.Language)
+                {
+                    case myForecast.Language.EN:
+                        selectedIndex = 0;
+                        break;
+                    default:
+                        selectedIndex = 1;
+                        break;
+                }
+                _spinnerLanguage.ChosenIndex = selectedIndex;
+
+                return _spinnerLanguage;
+            }
+            set
+            {
+                Language selectedValue;
+                switch (value.ChosenIndex)
+                {
+                    case 0:
+                        selectedValue = myForecast.Language.EN;
+                        break;
+                    default:
+                        selectedValue = myForecast.Language.FR;
+                        break;
+                }
+                Configuration.Instance.Language = selectedValue;
+
+                FirePropertyChanged("Language");
+            }
+        }
+
         public Boolean ShowInStartMenu
         {
             get { return _checkboxShowInStartMenu; }
-            set { _checkboxShowInStartMenu = value; FirePropertyChanged("ClockTimeFormat"); }
+            set { _checkboxShowInStartMenu = value; FirePropertyChanged("ShowInStartMenu"); }
         }
 
         #endregion
@@ -215,6 +252,17 @@ namespace myForecast
                 spinnerClockTimeFormats.Add("24 hours");
 
                 _spinnerClockTimeFormats.Options = spinnerClockTimeFormats;
+            }
+
+            // load the Language spinner
+            if (_spinnerLanguage == null)
+            {
+                _spinnerLanguage = new Choice();
+                List<String> spinnerLanguage = new List<String>();
+                spinnerLanguage.Add("English");
+                spinnerLanguage.Add("Français");
+
+                _spinnerLanguage.Options = spinnerLanguage;
             }
 
             // load the ShowInStartMenu checkbox state

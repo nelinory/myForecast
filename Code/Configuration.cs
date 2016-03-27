@@ -24,6 +24,7 @@ namespace myForecast
         public WeatherUnit? WeatherUnit;
         public int? RefreshRateInMinutes;
         public ClockTimeFormat? ClockTimeFormat;
+        public Language? Language;
 
         public static Configuration Instance
         {
@@ -46,11 +47,11 @@ namespace myForecast
 
         private Configuration()
         {
-            // does the myForecast config folder exists ?
+            // does the myForecast configuration folder exists ?
             if (Directory.Exists(ConfigFileFolder) == false)
                 Directory.CreateDirectory(ConfigFileFolder);
 
-            // try to load an existing config if available
+            // try to load an existing configuration if available
             if (Load() == false)
             {
                 // load default values
@@ -59,6 +60,7 @@ namespace myForecast
                 WeatherUnit = myForecast.WeatherUnit.Imperial;
                 RefreshRateInMinutes = 10; // default 10 minutes
                 ClockTimeFormat = myForecast.ClockTimeFormat.Hours12;
+                Language = myForecast.Language.EN;
 
                 Save();
             }
@@ -66,12 +68,13 @@ namespace myForecast
 
         public bool IsValid()
         {
-            // main config items must present
+            // main configuration items must present
             if (String.IsNullOrEmpty(ApiKey) == true) return false;
             if (String.IsNullOrEmpty(LocationCode) == true) return false;
             if (WeatherUnit.HasValue == false) return false;
             if (ClockTimeFormat.HasValue == false) return false;
             if (RefreshRateInMinutes.HasValue == false) return false;
+            if (Language.HasValue == false) return false;
 
             return true;
         }
@@ -108,6 +111,10 @@ namespace myForecast
                 clockTimeFormatNode.InnerText = ClockTimeFormat.ToString();
                 rootNode.AppendChild(clockTimeFormatNode);
 
+                XmlNode languageNode = xmlDocument.CreateElement("Language");
+                languageNode.InnerText = Language.ToString();
+                rootNode.AppendChild(languageNode);
+
                 // using the xmlTextWriter to get the nice formatting of the xml file
                 XmlTextWriter xmlTextWriter = new XmlTextWriter(configFileFullName, System.Text.Encoding.UTF8);
                 xmlTextWriter.Formatting = Formatting.Indented;
@@ -138,11 +145,15 @@ namespace myForecast
                     XmlNode root = xmlDocument.SelectSingleNode("Configuration");
                     if (root != null && root.HasChildNodes == true)
                     {
-                        ApiKey = root.SelectSingleNode("ApiKey").InnerText;
-                        LocationCode = root.SelectSingleNode("LocationCode").InnerText;
-                        WeatherUnit = (WeatherUnit)Enum.Parse(typeof(WeatherUnit), root.SelectSingleNode("WeatherUnit").InnerText);
-                        RefreshRateInMinutes = Int32.Parse(root.SelectSingleNode("RefreshRateInMinutes").InnerText);
-                        ClockTimeFormat = (ClockTimeFormat)Enum.Parse(typeof(ClockTimeFormat), root.SelectSingleNode("ClockTimeFormat").InnerText);
+                        ApiKey = GetXmlNodeValue(root, "ApiKey") ?? String.Empty;
+                        LocationCode = GetXmlNodeValue(root, "LocationCode") ?? String.Empty;
+                        WeatherUnit = (WeatherUnit)Enum.Parse(typeof(WeatherUnit),
+                                                              GetXmlNodeValue(root, "WeatherUnit") ?? myForecast.WeatherUnit.Imperial.ToString());
+                        RefreshRateInMinutes = Int32.Parse(GetXmlNodeValue(root, "RefreshRateInMinutes") ?? "10");
+                        ClockTimeFormat = (ClockTimeFormat)Enum.Parse(typeof(ClockTimeFormat),
+                                                                      GetXmlNodeValue(root, "ClockTimeFormat") ?? myForecast.ClockTimeFormat.Hours12.ToString());
+                        Language = (Language)Enum.Parse(typeof(Language),
+                                                        GetXmlNodeValue(root, "Language") ?? myForecast.Language.EN.ToString());
 
                         configLoaded = true;
                     }
@@ -154,6 +165,17 @@ namespace myForecast
             }
 
             return configLoaded;
+        }
+
+        private string GetXmlNodeValue(XmlNode rootNode, string nodeName)
+        {
+            string nodeValue = null;
+
+            XmlNode xmlNode = rootNode.SelectSingleNode(nodeName);
+            if (xmlNode != null && String.IsNullOrEmpty(xmlNode.InnerText) == false)
+                nodeValue = xmlNode.InnerText;
+
+            return nodeValue;
         }
     }
 }
