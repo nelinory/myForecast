@@ -24,6 +24,7 @@ namespace myForecast
         private ClockTimeFormat _weatherClockTimeFormat;
         private string _weatherApiKey;
         private string _weatherLocationCode;
+        private Language _weatherLanguage;
 
         private bool _isLoaded;
         private string _lastUpdateTimestamp;
@@ -152,13 +153,14 @@ namespace myForecast
                 _weatherLocationCode = Configuration.Instance.LocationCode;
                 _weatherUnit = Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial);
                 _weatherClockTimeFormat = Configuration.Instance.ClockTimeFormat.GetValueOrDefault(ClockTimeFormat.Hours12);
-                _weatherRefreshRateInMinutes = Configuration.Instance.RefreshRateInMinutes.GetValueOrDefault(5);
+                _weatherRefreshRateInMinutes = Configuration.Instance.RefreshRateInMinutes.GetValueOrDefault(10);
+                _weatherLanguage = Configuration.Instance.Language.GetValueOrDefault(Language.EN);
             }
 
-            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode);
+            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode, _weatherLanguage);
             _weatherFileName = _weatherFileName.Replace(":", "."); // small cleanup is needed for zmw location codes
             _weatherFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherFileName);
-            _weatherApiAddress = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLocationCode);
+            _weatherApiAddress = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLanguage, _weatherLocationCode);
 
             _xmlWeatherData = new XmlDocument();
             _dailyForecast = new ArrayListDataSet();
@@ -193,6 +195,7 @@ namespace myForecast
                     {
                         // download the new weather data in a temporary string
                         // in case there is an error the old weather file will be preserved
+                        webClient.Encoding = Encoding.UTF8;
                         string weatherDataXml = webClient.DownloadString(_weatherApiAddress);
                         if (String.IsNullOrEmpty(weatherDataXml) == false)
                         {
@@ -207,7 +210,7 @@ namespace myForecast
                             }
                             else
                             {
-                                File.WriteAllText(_weatherFileLocation, weatherDataXml);
+                                File.WriteAllText(_weatherFileLocation, weatherDataXml, Encoding.UTF8);
                                 _uiRefreshNeeded = true;
                             }
                         }

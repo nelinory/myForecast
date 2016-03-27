@@ -15,8 +15,8 @@ namespace myForecast
 
         #region Public Properties
 
-        public readonly string WeatherFileNamePattern = "wu_{0}.xml";
-        public readonly string ApiUrlPattern = "http://api.wunderground.com/api/{0}/conditions/alerts/hourly/forecast7day/q/{1}.xml";
+        public readonly string WeatherFileNamePattern = "wu_{0}_{1}.xml";
+        public readonly string ApiUrlPattern = "http://api.wunderground.com/api/{0}/lang:{1}/conditions/alerts/hourly/forecast7day/q/{2}.xml";
         public readonly string ConfigFileFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), "myForecast");
 
         public string ApiKey;
