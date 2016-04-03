@@ -138,4 +138,85 @@
   <data name="ui_LoadingWeatherData" xml:space="preserve">
     <value>Loading weather data</value>
   </data>
+  <data name="ui_IntegrateIntoTheStartMenu" xml:space="preserve">
+    <value>Integrate into the "Start Menu"</value>
+  </data>
+  <data name="ui_About" xml:space="preserve">
+    <value>about</value>
+  </data>
+  <data name="ui_AllWeatherDataProvidedBy" xml:space="preserve">
+    <value>All weather data used by this application is provided by Weather Underground® API</value>
+  </data>
+  <data name="ui_ApiKey" xml:space="preserve">
+    <value>Api key</value>
+  </data>
+  <data name="ui_AppShortcut" xml:space="preserve">
+    <value>App shortcut</value>
+  </data>
+  <data name="ui_ButtonAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ui_ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ui_ButtonDone" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="ui_ButtonSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ui_ClockTimeFormat" xml:space="preserve">
+    <value>Clock time format</value>
+  </data>
+  <data name="ui_DewPoint" xml:space="preserve">
+    <value>Dew point:</value>
+  </data>
+  <data name="ui_FeelsLike" xml:space="preserve">
+    <value>Feels like:</value>
+  </data>
+  <data name="ui_ForWuApiInfoVisit" xml:space="preserve">
+    <value>For more information regarding the Weather Underground® API, please visit http://www.wunderground.com/weather/api</value>
+  </data>
+  <data name="ui_Humidity" xml:space="preserve">
+    <value>Humidity:</value>
+  </data>
+  <data name="ui_IconsProvided" xml:space="preserve">
+    <value>Icons provided by The Weather Channel, LLC weather.com®</value>
+  </data>
+  <data name="ui_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="ui_License" xml:space="preserve">
+    <value>This product is licensed under the terms of the End User License Agreement</value>
+  </data>
+  <data name="ui_LocationCode" xml:space="preserve">
+    <value>Location code</value>
+  </data>
+  <data name="ui_PoweredBy" xml:space="preserve">
+    <value>Powered by</value>
+  </data>
+  <data name="ui_PoweredByWu" xml:space="preserve">
+    <value>Powered by Weather Underground®</value>
+  </data>
+  <data name="ui_Pressure" xml:space="preserve">
+    <value>Pressure:</value>
+  </data>
+  <data name="ui_RefreshInterval" xml:space="preserve">
+    <value>Refresh interval</value>
+  </data>
+  <data name="ui_UseUpDownButtonsToScroll" xml:space="preserve">
+    <value>Use Up/Down buttons to scroll</value>
+  </data>
+  <data name="ui_UvIndex" xml:space="preserve">
+    <value>Uv index:</value>
+  </data>
+  <data name="ui_WeatherAlert" xml:space="preserve">
+    <value>weather alert</value>
+  </data>
+  <data name="ui_WeatherUnits" xml:space="preserve">
+    <value>Weather units</value>
+  </data>
+  <data name="ui_Wind" xml:space="preserve">
+    <value>Wind:</value>
+  </data>
 </root>
