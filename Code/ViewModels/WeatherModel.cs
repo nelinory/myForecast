@@ -1,6 +1,8 @@
 ﻿using Microsoft.MediaCenter;
 using Microsoft.MediaCenter.UI;
+using myForecast.Localization;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -156,6 +158,9 @@ namespace myForecast
                 _weatherRefreshRateInMinutes = Configuration.Instance.RefreshRateInMinutes.GetValueOrDefault(10);
                 _weatherLanguage = Configuration.Instance.Language.GetValueOrDefault(Language.EN);
             }
+
+            // set the correct language for the UI thread
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Enum.GetName(typeof(Language), Configuration.Instance.Language));
 
             _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode, _weatherLanguage);
             _weatherFileName = _weatherFileName.Replace(":", "."); // small cleanup is needed for zmw location codes
@@ -352,15 +357,15 @@ namespace myForecast
             // UV index format based on http://www.wunderground.com/resources/health/uvindex.asp
             int uvIndex = Int32.Parse(currentConditionNode.SelectSingleNode("UV").InnerText.Replace(".0", ""));
             if (uvIndex <= 2)
-                CurrentConditionUvIndex = String.Format("{0} (Very Low)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_VeryLow);
             else if (uvIndex >= 3 && uvIndex < 5)
-                CurrentConditionUvIndex = String.Format("{0} (Low)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Low);
             else if (uvIndex >= 5 && uvIndex < 7)
-                CurrentConditionUvIndex = String.Format("{0} (Moderate)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Moderate);
             else if (uvIndex >= 7 && uvIndex < 10)
-                CurrentConditionUvIndex = String.Format("{0} (High)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_High);
             else if (uvIndex >= 10)
-                CurrentConditionUvIndex = String.Format("{0} (Very High)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_VeryHigh);
         }
 
         private void LoadCurrentForecastProperties(XmlNode hourlyForecastNode)
