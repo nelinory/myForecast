@@ -59,7 +59,7 @@
                       <FormLayoutInput Left="Parent,0,230" Top="Parent,0,96"/>
                     </LayoutInput>
                     <Children>
-                      <Text Content="[CodeLocalizationModel.Items.#ui_About!core:String]" Font="[FontBoldSettings]" Color="White" Padding="0,0,0,0"/>
+                      <Text Content="[CodeLocalizationModel.Items.#ui_AboutCaption!core:String]" Font="[FontBoldSettings]" Color="White" Padding="0,0,0,0"/>
                     </Children>
                   </Panel>
                 </Children>
@@ -84,8 +84,8 @@
                         <Children>
                           <Text Content="myForecast v1.0.3" Font="[FontBoldAppName]" Color="White"/>
                           <Text Content="Copyright &#169; 2016 by Chavdar Kostov" Font="[FontBoldAboutText]" Color="White"/>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_License!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_IconsProvided!core:String]" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutLicense!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutIconsProvided!core:String]" Font="[FontBoldAboutText]" Color="White"/>
                         </Children>
                       </Panel>
                     </Children>
@@ -98,9 +98,9 @@
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_PoweredByWu!core:String]" Font="[FontBoldAboutText]" Color="White"/>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_AllWeatherDataProvidedBy!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_ForWuApiInfoVisit!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutPoweredByWu!core:String]" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutAllWeatherDataProvidedByWu!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutForWuApiInfoVisit!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
                         </Children>
                       </Panel>
                     </Children>

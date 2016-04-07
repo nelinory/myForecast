@@ -61,38 +61,56 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to about.
-        /// </summary>
-        internal static string ui_About {
-            get {
-                return ResourceManager.GetString("ui_About", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to All weather data used by this application is provided by Weather Underground® API.
         /// </summary>
-        internal static string ui_AllWeatherDataProvidedBy {
+        internal static string ui_AboutAllWeatherDataProvidedByWu {
             get {
-                return ResourceManager.GetString("ui_AllWeatherDataProvidedBy", resourceCulture);
+                return ResourceManager.GetString("ui_AboutAllWeatherDataProvidedByWu", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Api key.
+        ///   Looks up a localized string similar to about.
         /// </summary>
-        internal static string ui_ApiKey {
+        internal static string ui_AboutCaption {
             get {
-                return ResourceManager.GetString("ui_ApiKey", resourceCulture);
+                return ResourceManager.GetString("ui_AboutCaption", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to App shortcut.
+        ///   Looks up a localized string similar to For more information regarding the Weather Underground® API, please visit http://www.wunderground.com/weather/api.
         /// </summary>
-        internal static string ui_AppShortcut {
+        internal static string ui_AboutForWuApiInfoVisit {
             get {
-                return ResourceManager.GetString("ui_AppShortcut", resourceCulture);
+                return ResourceManager.GetString("ui_AboutForWuApiInfoVisit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Icons provided by The Weather Channel, LLC weather.com®.
+        /// </summary>
+        internal static string ui_AboutIconsProvided {
+            get {
+                return ResourceManager.GetString("ui_AboutIconsProvided", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This product is licensed under the terms of the End User License Agreement.
+        /// </summary>
+        internal static string ui_AboutLicense {
+            get {
+                return ResourceManager.GetString("ui_AboutLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powered by Weather Underground®.
+        /// </summary>
+        internal static string ui_AboutPoweredByWu {
+            get {
+                return ResourceManager.GetString("ui_AboutPoweredByWu", resourceCulture);
             }
         }
         
@@ -115,11 +133,29 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string ui_ButtonClose {
+            get {
+                return ResourceManager.GetString("ui_ButtonClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Done.
         /// </summary>
         internal static string ui_ButtonDone {
             get {
                 return ResourceManager.GetString("ui_ButtonDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to settings.
+        /// </summary>
+        internal static string ui_ButtonGoToSettings {
+            get {
+                return ResourceManager.GetString("ui_ButtonGoToSettings", resourceCulture);
             }
         }
         
@@ -133,155 +169,263 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clock time format.
-        /// </summary>
-        internal static string ui_ClockTimeFormat {
-            get {
-                return ResourceManager.GetString("ui_ClockTimeFormat", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Dew point:.
         /// </summary>
-        internal static string ui_DewPoint {
+        internal static string ui_CurrentDewPoint {
             get {
-                return ResourceManager.GetString("ui_DewPoint", resourceCulture);
+                return ResourceManager.GetString("ui_CurrentDewPoint", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Feels like:.
         /// </summary>
-        internal static string ui_FeelsLike {
+        internal static string ui_CurrentFeelsLike {
             get {
-                return ResourceManager.GetString("ui_FeelsLike", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to For more information regarding the Weather Underground® API, please visit http://www.wunderground.com/weather/api.
-        /// </summary>
-        internal static string ui_ForWuApiInfoVisit {
-            get {
-                return ResourceManager.GetString("ui_ForWuApiInfoVisit", resourceCulture);
+                return ResourceManager.GetString("ui_CurrentFeelsLike", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Humidity:.
         /// </summary>
-        internal static string ui_Humidity {
+        internal static string ui_CurrentHumidity {
             get {
-                return ResourceManager.GetString("ui_Humidity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Icons provided by The Weather Channel, LLC weather.com®.
-        /// </summary>
-        internal static string ui_IconsProvided {
-            get {
-                return ResourceManager.GetString("ui_IconsProvided", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Integrate into the &quot;Start Menu&quot;.
-        /// </summary>
-        internal static string ui_IntegrateIntoTheStartMenu {
-            get {
-                return ResourceManager.GetString("ui_IntegrateIntoTheStartMenu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Language.
-        /// </summary>
-        internal static string ui_Language {
-            get {
-                return ResourceManager.GetString("ui_Language", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This product is licensed under the terms of the End User License Agreement.
-        /// </summary>
-        internal static string ui_License {
-            get {
-                return ResourceManager.GetString("ui_License", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Loading weather data.
-        /// </summary>
-        internal static string ui_LoadingWeatherData {
-            get {
-                return ResourceManager.GetString("ui_LoadingWeatherData", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Location code.
-        /// </summary>
-        internal static string ui_LocationCode {
-            get {
-                return ResourceManager.GetString("ui_LocationCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Powered by.
-        /// </summary>
-        internal static string ui_PoweredBy {
-            get {
-                return ResourceManager.GetString("ui_PoweredBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Powered by Weather Underground®.
-        /// </summary>
-        internal static string ui_PoweredByWu {
-            get {
-                return ResourceManager.GetString("ui_PoweredByWu", resourceCulture);
+                return ResourceManager.GetString("ui_CurrentHumidity", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Pressure:.
         /// </summary>
-        internal static string ui_Pressure {
+        internal static string ui_CurrentPressure {
             get {
-                return ResourceManager.GetString("ui_Pressure", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Refresh interval.
-        /// </summary>
-        internal static string ui_RefreshInterval {
-            get {
-                return ResourceManager.GetString("ui_RefreshInterval", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use Up/Down buttons to scroll.
-        /// </summary>
-        internal static string ui_UseUpDownButtonsToScroll {
-            get {
-                return ResourceManager.GetString("ui_UseUpDownButtonsToScroll", resourceCulture);
+                return ResourceManager.GetString("ui_CurrentPressure", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Uv index:.
         /// </summary>
-        internal static string ui_UvIndex {
+        internal static string ui_CurrentUvIndex {
             get {
-                return ResourceManager.GetString("ui_UvIndex", resourceCulture);
+                return ResourceManager.GetString("ui_CurrentUvIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wind:.
+        /// </summary>
+        internal static string ui_CurrentWind {
+            get {
+                return ResourceManager.GetString("ui_CurrentWind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ooops - catastrophic error.\nPlease, check the log file for more details..
+        /// </summary>
+        internal static string ui_DialogCatastrophicError {
+            get {
+                return ResourceManager.GetString("ui_DialogCatastrophicError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to myForecast - Configuration Settings.
+        /// </summary>
+        internal static string ui_DialogConfigurationSettingsCaption {
+            get {
+                return ResourceManager.GetString("ui_DialogConfigurationSettingsCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error received from WeatherUnderground.
+        /// </summary>
+        internal static string ui_DialogErrorReceivedFromWu {
+            get {
+                return ResourceManager.GetString("ui_DialogErrorReceivedFromWu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error while connecting to WeatherUnderground.\nPlease, try again in few minutes..
+        /// </summary>
+        internal static string ui_DialogErrorWhileConnectingToWu {
+            get {
+                return ResourceManager.GetString("ui_DialogErrorWhileConnectingToWu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No response received from WeatherUnderground.\nPlease, try again in few minutes..
+        /// </summary>
+        internal static string ui_DialogNoResponseReceivedFromWu {
+            get {
+                return ResourceManager.GetString("ui_DialogNoResponseReceivedFromWu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to restart the Windows Media Center Application for start menu changes to take effect..
+        /// </summary>
+        internal static string ui_DialogStartMenuChangesRestartNeeded {
+            get {
+                return ResourceManager.GetString("ui_DialogStartMenuChangesRestartNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start menu registry key not found, please reinstall myForecast..
+        /// </summary>
+        internal static string ui_DialogStartMenuRegistryKeyNotFound {
+            get {
+                return ResourceManager.GetString("ui_DialogStartMenuRegistryKeyNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to myForecast - Weather Data Refresh.
+        /// </summary>
+        internal static string ui_DialogWeatherDataRefreshCaption {
+            get {
+                return ResourceManager.GetString("ui_DialogWeatherDataRefreshCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forecast.
+        /// </summary>
+        internal static string ui_ForecastCaption {
+            get {
+                return ResourceManager.GetString("ui_ForecastCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading weather data.
+        /// </summary>
+        internal static string ui_LoadingWeatherDataMessage {
+            get {
+                return ResourceManager.GetString("ui_LoadingWeatherDataMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Powered by.
+        /// </summary>
+        internal static string ui_PoweredByCaption {
+            get {
+                return ResourceManager.GetString("ui_PoweredByCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Api key.
+        /// </summary>
+        internal static string ui_SettingsApiKey {
+            get {
+                return ResourceManager.GetString("ui_SettingsApiKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App shortcut.
+        /// </summary>
+        internal static string ui_SettingsAppShortcut {
+            get {
+                return ResourceManager.GetString("ui_SettingsAppShortcut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clock time format.
+        /// </summary>
+        internal static string ui_SettingsClockTimeFormat {
+            get {
+                return ResourceManager.GetString("ui_SettingsClockTimeFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hours.
+        /// </summary>
+        internal static string ui_SettingsHours {
+            get {
+                return ResourceManager.GetString("ui_SettingsHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imperial.
+        /// </summary>
+        internal static string ui_SettingsImperialUnits {
+            get {
+                return ResourceManager.GetString("ui_SettingsImperialUnits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Integrate into the &quot;Start Menu&quot;.
+        /// </summary>
+        internal static string ui_SettingsIntegrateIntoTheStartMenu {
+            get {
+                return ResourceManager.GetString("ui_SettingsIntegrateIntoTheStartMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        internal static string ui_SettingsLanguage {
+            get {
+                return ResourceManager.GetString("ui_SettingsLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location code.
+        /// </summary>
+        internal static string ui_SettingsLocationCode {
+            get {
+                return ResourceManager.GetString("ui_SettingsLocationCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Metric.
+        /// </summary>
+        internal static string ui_SettingsMetricUnits {
+            get {
+                return ResourceManager.GetString("ui_SettingsMetricUnits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to minutes.
+        /// </summary>
+        internal static string ui_SettingsMinutes {
+            get {
+                return ResourceManager.GetString("ui_SettingsMinutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh interval.
+        /// </summary>
+        internal static string ui_SettingsRefreshInterval {
+            get {
+                return ResourceManager.GetString("ui_SettingsRefreshInterval", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weather units.
+        /// </summary>
+        internal static string ui_SettingsWeatherUnits {
+            get {
+                return ResourceManager.GetString("ui_SettingsWeatherUnits", resourceCulture);
             }
         }
         
@@ -333,36 +477,54 @@ namespace myForecast.Localization {
         /// <summary>
         ///   Looks up a localized string similar to weather alert.
         /// </summary>
-        internal static string ui_WeatherAlert {
+        internal static string ui_WeatherAlertCaption {
             get {
-                return ResourceManager.GetString("ui_WeatherAlert", resourceCulture);
+                return ResourceManager.GetString("ui_WeatherAlertCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expire Date.
+        /// </summary>
+        internal static string ui_WeatherAlertExpireDate {
+            get {
+                return ResourceManager.GetString("ui_WeatherAlertExpireDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weather alert information is not available at the moment.
+        /// </summary>
+        internal static string ui_WeatherAlertInfoNotAvailable {
+            get {
+                return ResourceManager.GetString("ui_WeatherAlertInfoNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start Date.
+        /// </summary>
+        internal static string ui_WeatherAlertStartDate {
+            get {
+                return ResourceManager.GetString("ui_WeatherAlertStartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Up/Down buttons to scroll.
+        /// </summary>
+        internal static string ui_WeatherAlertUseUpDownButtonsToScroll {
+            get {
+                return ResourceManager.GetString("ui_WeatherAlertUseUpDownButtonsToScroll", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to weather settings.
         /// </summary>
-        internal static string ui_WeatherSettings {
+        internal static string ui_WeatherSettingsCaption {
             get {
-                return ResourceManager.GetString("ui_WeatherSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weather units.
-        /// </summary>
-        internal static string ui_WeatherUnits {
-            get {
-                return ResourceManager.GetString("ui_WeatherUnits", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wind:.
-        /// </summary>
-        internal static string ui_Wind {
-            get {
-                return ResourceManager.GetString("ui_Wind", resourceCulture);
+                return ResourceManager.GetString("ui_WeatherSettingsCaption", resourceCulture);
             }
         }
     }

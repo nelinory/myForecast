@@ -210,7 +210,7 @@ namespace myForecast
                             XmlNode errorMessageNode = _xmlWeatherData.SelectSingleNode("response/error/description");
                             if (errorMessageNode != null && String.IsNullOrEmpty(errorMessageNode.InnerText) == false)
                             {
-                                ShowErrorDialog("Error received from WeatherUnderground: " + errorMessageNode.InnerText, null, true);
+                                ShowErrorDialog(String.Format("{0}: {1}", LanguageStrings.ui_DialogErrorReceivedFromWu, errorMessageNode.InnerText), null, true);
                                 return;
                             }
                             else
@@ -220,7 +220,7 @@ namespace myForecast
                             }
                         }
                         else
-                            ShowErrorDialog("No response received from WeatherUnderground.\nPlease, try again in few minutes.");
+                            ShowErrorDialog(LanguageStrings.ui_DialogNoResponseReceivedFromWu);
                     }
                     else
                     {
@@ -237,11 +237,11 @@ namespace myForecast
                 }
                 catch (WebException webException)
                 {
-                    ShowErrorDialog("Error while connecting to WeatherUnderground.\nPlease, try again in few minutes.", webException);
+                    ShowErrorDialog(LanguageStrings.ui_DialogErrorWhileConnectingToWu, webException);
                 }
                 catch (Exception exception)
                 {
-                    ShowErrorDialog("Ooops - catastrophic error.\nPlease, check the log file for more details.", exception);
+                    ShowErrorDialog(LanguageStrings.ui_DialogCatastrophicError, exception);
                 }
             }
         }
@@ -374,18 +374,12 @@ namespace myForecast
             XmlNode currentForecastNode = hourlyForecastNode.SelectSingleNode("forecast[FCTTIME/hour='" + DateTime.Now.AddHours(2).Hour + "']");
             XmlNode previousForecastNode = hourlyForecastNode.SelectSingleNode("forecast[FCTTIME/hour='" + DateTime.Now.AddHours(1).Hour + "']");
 
-            string currentForecastTitle = String.Empty;
+            string currentForecastTitle = LanguageStrings.ui_ForecastCaption.ToUpper();
             string forecastIconName = currentForecastNode.SelectSingleNode("icon").InnerText;
 
-            if (forecastHour >= 0 && forecastHour < 12)
-                currentForecastTitle = "TODAY";
-            else if (forecastHour >= 12 && forecastHour < 20)
-            {
-                currentForecastTitle = "TONIGHT";
+            // switch to night icons
+            if (forecastHour >= 12 && forecastHour < 20)
                 forecastIconName = "nt_" + forecastIconName;
-            }
-            else
-                currentForecastTitle = "TOMORROW";
 
             // find the low/hi temperatures
             XmlNode lowTemperatureNode;
@@ -411,7 +405,6 @@ namespace myForecast
                 PopIcon = GetFormattedPopIconResx(currentForecastNode),
                 Pop = GetFormattedPop(currentForecastNode)
             });
-
         }
 
         private void LoadDailyForecastProperties(XmlNodeList forecastNodes)
@@ -605,11 +598,11 @@ namespace myForecast
                 MediaCenterEnvironment mcEnvironment = MyAddIn.Instance.AddInHost.MediaCenterEnvironment;
 
                 System.Collections.Generic.List<String> buttons = new System.Collections.Generic.List<String>();
-                buttons.Add("Close"); // normal button
+                buttons.Add(LanguageStrings.ui_ButtonClose); // normal button
                 if (goToSettingsPage == true)
-                    buttons.Add("Go to settings"); // only show up if requested
+                    buttons.Add(LanguageStrings.ui_ButtonGoToSettings); // only show up if requested
 
-                DialogResult result = mcEnvironment.Dialog(message, "myForecast - Weather Data Refresh", buttons, 60, true, null);
+                DialogResult result = mcEnvironment.Dialog(message, LanguageStrings.ui_DialogWeatherDataRefreshCaption, buttons, 60, true, null);
                 if (result.ToString() == "101")
                 {
                     _weatherRefreshTimer.Enabled = false;
@@ -666,12 +659,12 @@ namespace myForecast
                     // start date
                     XmlNode startDateNode = alertNode.SelectSingleNode("date");
                     if (startDateNode != null)
-                        alertStartDate = String.Format("Start Date: {0}", startDateNode.InnerText);
+                        alertStartDate = String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, startDateNode.InnerText);
 
                     // expire date
                     XmlNode expireDateNode = alertNode.SelectSingleNode("expires");
                     if (expireDateNode != null)
-                        alertExpireDate = String.Format("Expire Date: {0}", expireDateNode.InnerText);
+                        alertExpireDate = String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, expireDateNode.InnerText);
 
                     // message
                     XmlNode messageNode = alertNode.SelectSingleNode("message");
@@ -692,7 +685,7 @@ namespace myForecast
             }
 
             if (alertText.Length == 0)
-                alertText.AppendLine("Weather alert information is not available at the moment");
+                alertText.AppendLine(LanguageStrings.ui_WeatherAlertInfoNotAvailable);
 
             return alertText.ToString();
         }

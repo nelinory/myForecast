@@ -132,25 +132,25 @@
   <data name="ui_UvIndex_VeryLow" xml:space="preserve">
     <value>Very Low</value>
   </data>
-  <data name="ui_WeatherSettings" xml:space="preserve">
+  <data name="ui_WeatherSettingsCaption" xml:space="preserve">
     <value>weather settings</value>
   </data>
-  <data name="ui_LoadingWeatherData" xml:space="preserve">
+  <data name="ui_LoadingWeatherDataMessage" xml:space="preserve">
     <value>Loading weather data</value>
   </data>
-  <data name="ui_IntegrateIntoTheStartMenu" xml:space="preserve">
+  <data name="ui_SettingsIntegrateIntoTheStartMenu" xml:space="preserve">
     <value>Integrate into the "Start Menu"</value>
   </data>
-  <data name="ui_About" xml:space="preserve">
+  <data name="ui_AboutCaption" xml:space="preserve">
     <value>about</value>
   </data>
-  <data name="ui_AllWeatherDataProvidedBy" xml:space="preserve">
+  <data name="ui_AboutAllWeatherDataProvidedByWu" xml:space="preserve">
     <value>All weather data used by this application is provided by Weather Underground® API</value>
   </data>
-  <data name="ui_ApiKey" xml:space="preserve">
+  <data name="ui_SettingsApiKey" xml:space="preserve">
     <value>Api key</value>
   </data>
-  <data name="ui_AppShortcut" xml:space="preserve">
+  <data name="ui_SettingsAppShortcut" xml:space="preserve">
     <value>App shortcut</value>
   </data>
   <data name="ui_ButtonAbout" xml:space="preserve">
@@ -165,58 +165,112 @@
   <data name="ui_ButtonSave" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="ui_ClockTimeFormat" xml:space="preserve">
+  <data name="ui_SettingsClockTimeFormat" xml:space="preserve">
     <value>Clock time format</value>
   </data>
-  <data name="ui_DewPoint" xml:space="preserve">
+  <data name="ui_CurrentDewPoint" xml:space="preserve">
     <value>Dew point:</value>
   </data>
-  <data name="ui_FeelsLike" xml:space="preserve">
+  <data name="ui_CurrentFeelsLike" xml:space="preserve">
     <value>Feels like:</value>
   </data>
-  <data name="ui_ForWuApiInfoVisit" xml:space="preserve">
+  <data name="ui_AboutForWuApiInfoVisit" xml:space="preserve">
     <value>For more information regarding the Weather Underground® API, please visit http://www.wunderground.com/weather/api</value>
   </data>
-  <data name="ui_Humidity" xml:space="preserve">
+  <data name="ui_CurrentHumidity" xml:space="preserve">
     <value>Humidity:</value>
   </data>
-  <data name="ui_IconsProvided" xml:space="preserve">
+  <data name="ui_AboutIconsProvided" xml:space="preserve">
     <value>Icons provided by The Weather Channel, LLC weather.com®</value>
   </data>
-  <data name="ui_Language" xml:space="preserve">
+  <data name="ui_SettingsLanguage" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="ui_License" xml:space="preserve">
+  <data name="ui_AboutLicense" xml:space="preserve">
     <value>This product is licensed under the terms of the End User License Agreement</value>
   </data>
-  <data name="ui_LocationCode" xml:space="preserve">
+  <data name="ui_SettingsLocationCode" xml:space="preserve">
     <value>Location code</value>
   </data>
-  <data name="ui_PoweredBy" xml:space="preserve">
+  <data name="ui_PoweredByCaption" xml:space="preserve">
     <value>Powered by</value>
   </data>
-  <data name="ui_PoweredByWu" xml:space="preserve">
+  <data name="ui_AboutPoweredByWu" xml:space="preserve">
     <value>Powered by Weather Underground®</value>
   </data>
-  <data name="ui_Pressure" xml:space="preserve">
+  <data name="ui_CurrentPressure" xml:space="preserve">
     <value>Pressure:</value>
   </data>
-  <data name="ui_RefreshInterval" xml:space="preserve">
+  <data name="ui_SettingsRefreshInterval" xml:space="preserve">
     <value>Refresh interval</value>
   </data>
-  <data name="ui_UseUpDownButtonsToScroll" xml:space="preserve">
+  <data name="ui_WeatherAlertUseUpDownButtonsToScroll" xml:space="preserve">
     <value>Use Up/Down buttons to scroll</value>
   </data>
-  <data name="ui_UvIndex" xml:space="preserve">
+  <data name="ui_CurrentUvIndex" xml:space="preserve">
     <value>Uv index:</value>
   </data>
-  <data name="ui_WeatherAlert" xml:space="preserve">
+  <data name="ui_WeatherAlertCaption" xml:space="preserve">
     <value>weather alert</value>
   </data>
-  <data name="ui_WeatherUnits" xml:space="preserve">
+  <data name="ui_SettingsWeatherUnits" xml:space="preserve">
     <value>Weather units</value>
   </data>
-  <data name="ui_Wind" xml:space="preserve">
+  <data name="ui_CurrentWind" xml:space="preserve">
     <value>Wind:</value>
+  </data>
+  <data name="ui_DialogConfigurationSettingsCaption" xml:space="preserve">
+    <value>myForecast - Configuration Settings</value>
+  </data>
+  <data name="ui_DialogStartMenuChangesRestartNeeded" xml:space="preserve">
+    <value>You need to restart the Windows Media Center Application for start menu changes to take effect.</value>
+  </data>
+  <data name="ui_DialogStartMenuRegistryKeyNotFound" xml:space="preserve">
+    <value>Start menu registry key not found, please reinstall myForecast.</value>
+  </data>
+  <data name="ui_SettingsHours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="ui_SettingsImperialUnits" xml:space="preserve">
+    <value>Imperial</value>
+  </data>
+  <data name="ui_SettingsMetricUnits" xml:space="preserve">
+    <value>Metric</value>
+  </data>
+  <data name="ui_SettingsMinutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="ui_ButtonClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ui_ButtonGoToSettings" xml:space="preserve">
+    <value>Go to settings</value>
+  </data>
+  <data name="ui_DialogCatastrophicError" xml:space="preserve">
+    <value>Ooops - catastrophic error.\nPlease, check the log file for more details.</value>
+  </data>
+  <data name="ui_DialogErrorReceivedFromWu" xml:space="preserve">
+    <value>Error received from WeatherUnderground</value>
+  </data>
+  <data name="ui_DialogErrorWhileConnectingToWu" xml:space="preserve">
+    <value>Error while connecting to WeatherUnderground.\nPlease, try again in few minutes.</value>
+  </data>
+  <data name="ui_DialogNoResponseReceivedFromWu" xml:space="preserve">
+    <value>No response received from WeatherUnderground.\nPlease, try again in few minutes.</value>
+  </data>
+  <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
+    <value>myForecast - Weather Data Refresh</value>
+  </data>
+  <data name="ui_ForecastCaption" xml:space="preserve">
+    <value>Forecast</value>
+  </data>
+  <data name="ui_WeatherAlertExpireDate" xml:space="preserve">
+    <value>Expire Date</value>
+  </data>
+  <data name="ui_WeatherAlertInfoNotAvailable" xml:space="preserve">
+    <value>Weather alert information is not available at the moment</value>
+  </data>
+  <data name="ui_WeatherAlertStartDate" xml:space="preserve">
+    <value>Start Date</value>
   </data>
 </root>

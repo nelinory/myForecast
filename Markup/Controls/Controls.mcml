@@ -226,12 +226,12 @@
                   <FlowLayout Orientation="Vertical" ItemAlignment="Far"/>
                 </Layout>
                 <Children>
-                  <Text Content="[CodeLocalizationModel.Items.#ui_FeelsLike!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
-                  <Text Content="[CodeLocalizationModel.Items.#ui_Humidity!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
-                  <Text Content="[CodeLocalizationModel.Items.#ui_DewPoint!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
-                  <Text Content="[CodeLocalizationModel.Items.#ui_Wind!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
-                  <Text Content="[CodeLocalizationModel.Items.#ui_UvIndex!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
-                  <Text Content="[CodeLocalizationModel.Items.#ui_Pressure!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="[CodeLocalizationModel.Items.#ui_CurrentFeelsLike!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="[CodeLocalizationModel.Items.#ui_CurrentHumidity!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="[CodeLocalizationModel.Items.#ui_CurrentDewPoint!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="[CodeLocalizationModel.Items.#ui_CurrentWind!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="[CodeLocalizationModel.Items.#ui_CurrentUvIndex!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
+                  <Text Content="[CodeLocalizationModel.Items.#ui_CurrentPressure!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
                 </Children>
               </Panel>
               <Panel Margins="10,10,10,0" MinimumSize="180,1">
@@ -449,7 +449,7 @@
           <FlowLayout Orientation="Horizontal" Spacing="3,0" ItemAlignment="Far"/>
         </Layout>
         <Children>
-          <Text Content="[CodeLocalizationModel.Items.#ui_PoweredBy!core:String]" Color="White" Font="[FontRegular]"/>
+          <Text Content="[CodeLocalizationModel.Items.#ui_PoweredByCaption!core:String]" Color="White" Font="[FontRegular]"/>
           <Graphic Content="image://this:PoweredByWeatherUnderground" MaximumSize="120,28"/>
         </Children>
       </Panel>

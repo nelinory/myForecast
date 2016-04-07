@@ -83,7 +83,7 @@
                       <FormLayoutInput Left="Parent,0,230" Top="Parent,0,96"/>
                     </LayoutInput>
                     <Children>
-                      <Text Content="[CodeLocalizationModel.Items.#ui_WeatherAlert!core:String]" Font="[FontBoldWeatherAlertText]" Color="White" Padding="0,0,0,0"/>
+                      <Text Content="[CodeLocalizationModel.Items.#ui_WeatherAlertCaption!core:String]" Font="[FontBoldWeatherAlertText]" Color="White" Padding="0,0,0,0"/>
                     </Children>
                   </Panel>
                 </Children>
@@ -125,7 +125,7 @@
                   <FormLayoutInput Left="PanelWeatherAlert,0,0" Bottom="PanelWeatherAlert,1,34" Horizontal="Near"/>
                 </LayoutInput>
                 <Children>
-                  <Text Content="[CodeLocalizationModel.Items.#ui_UseUpDownButtonsToScroll!core:String]" Font="[FontBold]" Color="color://this:LightBlue"/>
+                  <Text Content="[CodeLocalizationModel.Items.#ui_WeatherAlertUseUpDownButtonsToScroll!core:String]" Font="[FontBold]" Color="color://this:LightBlue"/>
                 </Children>
               </Panel>
 

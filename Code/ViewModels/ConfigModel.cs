@@ -1,6 +1,7 @@
 ﻿using Microsoft.MediaCenter;
 using Microsoft.MediaCenter.UI;
 using Microsoft.Win32;
+using myForecast.Localization;
 using System;
 using System.Collections.Generic;
 
@@ -221,8 +222,8 @@ namespace myForecast
             {
                 _spinnerWeatherUnits = new Choice();
                 List<String> spinnerWeatherUnitsItems = new List<String>();
-                spinnerWeatherUnitsItems.Add(myForecast.WeatherUnit.Metric.ToString());
-                spinnerWeatherUnitsItems.Add(myForecast.WeatherUnit.Imperial.ToString());
+                spinnerWeatherUnitsItems.Add(LanguageStrings.ui_SettingsMetricUnits);
+                spinnerWeatherUnitsItems.Add(LanguageStrings.ui_SettingsImperialUnits);
 
                 _spinnerWeatherUnits.Options = spinnerWeatherUnitsItems;
             }
@@ -232,13 +233,13 @@ namespace myForecast
             {
                 _spinnerRefreshRateInMinutes = new Choice();
                 List<String> spinnerRefreshRateInMinutes = new List<String>();
-                spinnerRefreshRateInMinutes.Add("5 minutes");
-                spinnerRefreshRateInMinutes.Add("10 minutes");
-                spinnerRefreshRateInMinutes.Add("20 minutes");
-                spinnerRefreshRateInMinutes.Add("30 minutes");
-                spinnerRefreshRateInMinutes.Add("40 minutes");
-                spinnerRefreshRateInMinutes.Add("50 minutes");
-                spinnerRefreshRateInMinutes.Add("60 minutes");
+                spinnerRefreshRateInMinutes.Add(String.Format("5 {0}", LanguageStrings.ui_SettingsMinutes));
+                spinnerRefreshRateInMinutes.Add(String.Format("10 {0}", LanguageStrings.ui_SettingsMinutes));
+                spinnerRefreshRateInMinutes.Add(String.Format("20 {0}", LanguageStrings.ui_SettingsMinutes));
+                spinnerRefreshRateInMinutes.Add(String.Format("30 {0}", LanguageStrings.ui_SettingsMinutes));
+                spinnerRefreshRateInMinutes.Add(String.Format("40 {0}", LanguageStrings.ui_SettingsMinutes));
+                spinnerRefreshRateInMinutes.Add(String.Format("50 {0}", LanguageStrings.ui_SettingsMinutes));
+                spinnerRefreshRateInMinutes.Add(String.Format("60 {0}", LanguageStrings.ui_SettingsMinutes));
 
                 _spinnerRefreshRateInMinutes.Options = spinnerRefreshRateInMinutes;
             }
@@ -248,8 +249,8 @@ namespace myForecast
             {
                 _spinnerClockTimeFormats = new Choice();
                 List<String> spinnerClockTimeFormats = new List<String>();
-                spinnerClockTimeFormats.Add("12 hours");
-                spinnerClockTimeFormats.Add("24 hours");
+                spinnerClockTimeFormats.Add(String.Format("12 {0}", LanguageStrings.ui_SettingsHours));
+                spinnerClockTimeFormats.Add(String.Format("24 {0}", LanguageStrings.ui_SettingsHours));
 
                 _spinnerClockTimeFormats.Options = spinnerClockTimeFormats;
             }
@@ -282,8 +283,6 @@ namespace myForecast
         #region Show on Start menu functionality
 
         private readonly string _startMenuAppRegistryKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Media Center\Start Menu\Applications\{81ca0920-238a-4dc9-8bfd-93bb0a43c5b8}";
-        private readonly string _startMenuRegustryKeyNotFoundMessage = "Start menu registry key not found, please reinstall myForecast.";
-        private readonly string _restartNeededMessage = "You need to restart the Windows Media Center Application for start menu changes to take effect.";
 
         private bool GetShowInStartMenuRegistryValue()
         {
@@ -296,7 +295,7 @@ namespace myForecast
                     if (registryKey != null)
                         onStartMenuValue = registryKey.GetValue("OnStartMenu");
                     else
-                        ShowWindowsMediaCenterDialog(_startMenuRegustryKeyNotFoundMessage);
+                        ShowWindowsMediaCenterDialog(LanguageStrings.ui_DialogStartMenuRegistryKeyNotFound);
                 }
             }
             catch (Exception exception)
@@ -319,10 +318,10 @@ namespace myForecast
                     if (registryKey != null)
                     {
                         registryKey.SetValue("OnStartMenu", _checkboxShowInStartMenu, RegistryValueKind.String);
-                        ShowWindowsMediaCenterDialog(_restartNeededMessage);
+                        ShowWindowsMediaCenterDialog(LanguageStrings.ui_DialogStartMenuChangesRestartNeeded);
                     }
                     else
-                        ShowWindowsMediaCenterDialog(_startMenuRegustryKeyNotFoundMessage);
+                        ShowWindowsMediaCenterDialog(LanguageStrings.ui_DialogStartMenuRegistryKeyNotFound);
                 }
             }
             catch (Exception exception)
@@ -339,7 +338,7 @@ namespace myForecast
                 // need this for error dialogs
                 MediaCenterEnvironment mcEnvironment = MyAddIn.Instance.AddInHost.MediaCenterEnvironment;
 
-                mcEnvironment.Dialog(message, "myForecast - Configuration Settings", DialogButtons.Ok, 60, true);
+                mcEnvironment.Dialog(message, LanguageStrings.ui_DialogConfigurationSettingsCaption, DialogButtons.Ok, 60, true);
             }
         }
 
