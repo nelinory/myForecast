@@ -180,14 +180,14 @@
   <data name="ui_CurrentHumidity" xml:space="preserve">
     <value>Humidity:</value>
   </data>
-  <data name="ui_AboutIconsProvided" xml:space="preserve">
-    <value>Icons provided by The Weather Channel, LLC weather.com®</value>
+  <data name="ui_AboutWeatherIconsBy" xml:space="preserve">
+    <value>Weather icons by: The Weather Channel, LLC weather.com®</value>
   </data>
   <data name="ui_SettingsLanguage" xml:space="preserve">
     <value>Language</value>
   </data>
   <data name="ui_AboutLicense" xml:space="preserve">
-    <value>This product is licensed under the terms of the End User License Agreement</value>
+    <value>This product is licensed under the terms of the End User License Agreement.</value>
   </data>
   <data name="ui_SettingsLocationCode" xml:space="preserve">
     <value>Location code</value>
@@ -272,5 +272,11 @@
   </data>
   <data name="ui_WeatherAlertStartDate" xml:space="preserve">
     <value>Start Date</value>
+  </data>
+  <data name="ui_AboutTranslationBy" xml:space="preserve">
+    <value>Translation by</value>
+  </data>
+  <data name="ui_AboutApllicationIconBy" xml:space="preserve">
+    <value>Application icon by</value>
   </data>
 </root>

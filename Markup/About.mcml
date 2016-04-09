@@ -25,7 +25,17 @@
 
       <!-- Bind the correct language string -->
       <Binding Source="[CodeLocalizationModel.Items.#ui_ButtonDone!core:String]" Target="[CommandDone.Description]"/>
-
+      <Binding Source="[CodeLocalizationModel.Items.#ui_AboutTranslationBy!core:String]" Target="[TextTranslationBy.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0} Romain(FR)"/>
+        </Transformer>
+      </Binding>
+      <Binding Source="[CodeLocalizationModel.Items.#ui_AboutApllicationIconBy!core:String]" Target="[TextApplicationIconBy.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0} d3stroy(weezle icon set)"/>
+        </Transformer>
+      </Binding>
+      
       <!-- Button Done clicked -->
       <Changed Source="[CommandDone.Invoked]">
         <Actions>
@@ -74,7 +84,7 @@
                   <FlowLayout Orientation="Vertical" ItemAlignment="Center"/>
                 </Layout>
                 <Children>
-                  <Panel MinimumSize="760,240" MaximumSize="760,240" Layout="HorizontalFlow">
+                  <Panel MinimumSize="760,260" MaximumSize="760,260" Layout="HorizontalFlow">
                     <Children>
                       <Graphic Content="image://this:myForecastLogo" MaximumSize="120,120" Margins="0,0,10,0"/>
                       <Panel Margins="15,0,0,0">
@@ -85,7 +95,9 @@
                           <Text Content="myForecast v1.0.3" Font="[FontBoldAppName]" Color="White"/>
                           <Text Content="Copyright &#169; 2016 by Chavdar Kostov" Font="[FontBoldAboutText]" Color="White"/>
                           <Text Content="[CodeLocalizationModel.Items.#ui_AboutLicense!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutIconsProvided!core:String]" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutWeatherIconsBy!core:String]" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Name="TextTranslationBy" Content="null" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Name="TextApplicationIconBy" Content="null" Font="[FontBoldAboutText]" Color="White"/>
                         </Children>
                       </Panel>
                     </Children>

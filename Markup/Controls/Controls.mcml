@@ -212,7 +212,7 @@
                   <Graphic Name="CurrentConditionIcon" Content="image://this:Blank" MinimumSize="210,210" MaintainAspectRatio="true" Margins="30,10,10,0"/>
                 </Children>
               </Panel>
-              <Panel Margins="15,40,5,0" MinimumSize="300,1">
+              <Panel Margins="30,40,5,0" MinimumSize="280,1">
                 <Children>
                   <Text Name="TextCurrentConditionTemperature" Content="null" Color="White"
                         Font="[FontBoldCurrentTemperature]" HorizontalAlignment="Center" Margins="0,10,0,0"/>
@@ -221,7 +221,7 @@
                         MaximumSize="300,0" MaximumLines="2" WordWrap="true"/>
                 </Children>
               </Panel>
-              <Panel Margins="90,9,0,0" MinimumSize="100,1">
+              <Panel Margins="70,9,0,0" MinimumSize="120,1">
                 <Layout>
                   <FlowLayout Orientation="Vertical" ItemAlignment="Far"/>
                 </Layout>
@@ -234,7 +234,7 @@
                   <Text Content="[CodeLocalizationModel.Items.#ui_CurrentPressure!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
                 </Children>
               </Panel>
-              <Panel Margins="10,10,10,0" MinimumSize="180,1">
+              <Panel Margins="10,10,10,0" MinimumSize="200,1">
                 <Layout>
                   <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                 </Layout>
@@ -260,7 +260,7 @@
       <Index Name="Index" Index="$Required"/>
 
       <code:ForecastItem Name="ForecastItem" ForecastItem="$Required"/>
-
+      
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="16"/>
       <Font Name="FontRegularBig" FontName="global://this:FontFaceRegular" FontSize="18"/>
     </Properties>

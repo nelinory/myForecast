@@ -541,31 +541,42 @@ namespace myForecast
 
         private string CleanForecastConditionDescription(string conditionDescription)
         {
-            // forecast space is tight
-            string[] chances = new string[] { "chance of a", "chance of" }; // for similar items the order is from most specific to less specific
-            string result = conditionDescription;
+            // forecast description space is tight - currently 13 characters
+            // for similar items the order is from most specific to less specific
+            string[] removeStrings = new string[] { "chance of a", "chance of",     // EN
+                                                    "risque de", "risque d'" };     // FR 
 
-            for (var i = 0; i < chances.Length; i++)
+            string result = conditionDescription;
+            for (var i = 0; i < removeStrings.Length; i++)
             {
-                int indexOfValue = conditionDescription.ToLower().IndexOf(chances[i]);
+                int indexOfValue = conditionDescription.ToLower().IndexOf(removeStrings[i]);
                 if (indexOfValue > -1)
                 {
-                    result = conditionDescription.Substring(indexOfValue + chances[i].Length);
+                    result = conditionDescription.Substring(indexOfValue + removeStrings[i].Length);
                     break;
                 }
             }
 
             result = result.Trim();
 
-            // fix plural condition word
+            // fix plural condition words
             switch (result.ToLower())
             {
-                case "thunderstorm":
+                case "thunderstorm":        // EN
+                case "orage":               // FR
                     result = result + "s";
                     break;
             }
 
-            return result;
+            // check for max size
+            if (result.Length > 13)
+            {
+                // this may produce strange results with other languages than English
+                string[] sentenceParts = result.Split(' ');
+                result = sentenceParts[sentenceParts.Length - 1];
+            }
+
+            return UppercaseFirstLetter(result);
         }
 
         private bool IsWeatherRefreshRequired()
@@ -688,6 +699,14 @@ namespace myForecast
                 alertText.AppendLine(LanguageStrings.ui_WeatherAlertInfoNotAvailable);
 
             return alertText.ToString();
+        }
+
+        private static string UppercaseFirstLetter(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return String.Empty;
+
+            return Char.ToUpper(text[0]) + text.Substring(1);
         }
     }
 

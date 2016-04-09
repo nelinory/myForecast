@@ -70,6 +70,15 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application icon by.
+        /// </summary>
+        internal static string ui_AboutApllicationIconBy {
+            get {
+                return ResourceManager.GetString("ui_AboutApllicationIconBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to about.
         /// </summary>
         internal static string ui_AboutCaption {
@@ -88,16 +97,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Icons provided by The Weather Channel, LLC weather.com®.
-        /// </summary>
-        internal static string ui_AboutIconsProvided {
-            get {
-                return ResourceManager.GetString("ui_AboutIconsProvided", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This product is licensed under the terms of the End User License Agreement.
+        ///   Looks up a localized string similar to This product is licensed under the terms of the End User License Agreement..
         /// </summary>
         internal static string ui_AboutLicense {
             get {
@@ -111,6 +111,24 @@ namespace myForecast.Localization {
         internal static string ui_AboutPoweredByWu {
             get {
                 return ResourceManager.GetString("ui_AboutPoweredByWu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Translation by.
+        /// </summary>
+        internal static string ui_AboutTranslationBy {
+            get {
+                return ResourceManager.GetString("ui_AboutTranslationBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weather icons by: The Weather Channel, LLC weather.com®.
+        /// </summary>
+        internal static string ui_AboutWeatherIconsBy {
+            get {
+                return ResourceManager.GetString("ui_AboutWeatherIconsBy", resourceCulture);
             }
         }
         

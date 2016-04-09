@@ -26,14 +26,8 @@ namespace myForecast
                 // only need the special fields that starts with "ui_"
                 if (property.PropertyType.FullName == typeof(String).ToString() || property.Name.StartsWith("ui_") == true)
                 {
-#if DEBUG
-                    if (_items.ContainsKey(property.Name) == false)
-                        _items[property.Name] = "#" + LanguageStrings.ResourceManager.GetString(property.Name) + "#";
-#else
                     if (_items.ContainsKey(property.Name) == false)
                         _items[property.Name] = LanguageStrings.ResourceManager.GetString(property.Name);
-#endif
-
                 }
             }
         }
