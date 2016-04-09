@@ -313,9 +313,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap myForecast {
+        internal static System.Drawing.Bitmap myForecastAbout {
             get {
-                object obj = ResourceManager.GetObject("myForecast", resourceCulture);
+                object obj = ResourceManager.GetObject("myForecastAbout", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

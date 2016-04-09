@@ -15,8 +15,8 @@
   <!-- Used for WeatherUnderground logo -->
   <Image Name="WeatherUndergroundLogo" Source="resx://myForecast/myForecast.Resources/WeatherUndergroundLogo"/>
 
-  <!-- Used for myForecast logo -->
-  <Image Name="myForecastLogo" Source="resx://myForecast/myForecast.Resources/myForecast"/>
+  <!-- Used for myForecast about screen -->
+  <Image Name="myForecastAbout" Source="resx://myForecast/myForecast.Resources/myForecastAbout"/>
 
   <!-- Used for keyboard button  -->
   <Image Name="Keyboard" Source="resx://myForecast/myForecast.Resources/Keyboard"/>

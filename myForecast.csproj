@@ -101,6 +101,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\myForecastAbout.png" />
     <Content Include="Images\Pop.png" />
     <Content Include="Setup\WixUI_Bmp_Banner.bmp" />
     <Content Include="Setup\WixUI_Bmp_Dialog.bmp" />

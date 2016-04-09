@@ -86,7 +86,7 @@
                 <Children>
                   <Panel MinimumSize="760,260" MaximumSize="760,260" Layout="HorizontalFlow">
                     <Children>
-                      <Graphic Content="image://this:myForecastLogo" MaximumSize="120,120" Margins="0,0,10,0"/>
+                      <Graphic Content="image://this:myForecastAbout" MaximumSize="120,120" Margins="0,0,10,0"/>
                       <Panel Margins="15,0,0,0">
                         <Layout>
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
