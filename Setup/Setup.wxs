@@ -109,6 +109,17 @@
               Vital="yes"
               Assembly=".net"/>
       </Component>
+      <Component Id="FrenchLocalization"
+                 Guid="12da6f86-a8dd-479b-9c09-0f1429319257"
+                 DiskId="1">
+        <File Id="FrenchLocalization.dll"
+              Name="myForecast.resources.dll"
+              KeyPath="yes"
+              Source="..\bin\$(var.BuildType)\fr\myForecast.resources.dll"
+              Checksum="yes"
+              Vital="yes"
+              Assembly=".net"/>
+      </Component>
       <Component Id="Registration.xml"
                  Guid="98c3bf04-3502-4f10-a4ba-fdf7fe94ca25"
                  DiskId="1">
@@ -182,6 +193,7 @@
              Title="myForecast"
              Level="1">
       <ComponentRef Id="myForecast.dll" />
+      <ComponentRef Id="FrenchLocalization" />
       <ComponentRef Id="Registration.xml" />
       <ComponentRef Id="ReadMe.txt" />
       <ComponentRef Id="ChangeLog.txt" />
