@@ -13,4 +13,10 @@ namespace myForecast
         Hours12,
         Hours24
     }
+
+    public enum Language
+    {
+        EN,
+        FR
+    }
 }

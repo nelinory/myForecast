@@ -11,9 +11,10 @@
     <Locals>
       <code:ClockModel Name="CodeClockModel"/>
       <code:WeatherModel Name="CodeWeatherModel"/>
+      <code:LocalizationModel Name="CodeLocalizationModel"/>
       <code:NavigationController Name="NavigationController"/>
 
-      <Command Name="CommandSettings" Description="weather settings"/>
+      <Command Name="CommandSettings" Description="null"/>
       <Command Name="CommandWeatherAlert" Description="null"/>
       <Command Name="CommandHourlyForecast" Description="null"/>
 
@@ -44,6 +45,9 @@
 
       <!-- Bind the hourly weather forecast object and the refresh event -->
       <Binding Source="[CodeWeatherModel.HourlyForecast]" Target="[ControlHourlyForecast.Source]"/>
+
+      <!-- Bind the correct language string -->
+      <Binding Source="[CodeLocalizationModel.Items.#ui_WeatherSettingsCaption!core:String]" Target="[CommandSettings.Description]"/>
 
       <!-- Show/Hide loading message -->
       <Rule>
@@ -145,7 +149,7 @@
               <this:ApplicationTitle Content="myForecast"/>
 
               <!-- Loading message for the weather data -->
-              <this:LoadingMessage Name="ControlLoadingMessage" Content="Loading weather data"/>
+              <this:LoadingMessage Name="ControlLoadingMessage" Content="[CodeLocalizationModel.Items.#ui_LoadingWeatherDataMessage!core:String]"/>
 
               <!-- Main weather UI panel -->
               <Panel Name="PanelWeather" Layout="Form" Visible="false">

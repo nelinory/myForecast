@@ -283,9 +283,6 @@
   <data name="About" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>markup\about.mcml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="myForecast" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\myforecast.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="PoweredBy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\poweredby.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -306,5 +303,8 @@
   </data>
   <data name="Pop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\pop.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="myForecastAbout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\myforecastabout.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

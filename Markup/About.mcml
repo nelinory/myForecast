@@ -1,5 +1,6 @@
 <Mcml xmlns="http://schemas.microsoft.com/2008/mcml"
       xmlns:core="assembly://MsCorLib/System"
+      xmlns:code="assembly://myForecast/myForecast"      
       xmlns:host="assembly://Microsoft.MediaCenter/Microsoft.MediaCenter.Hosting"
       xmlns:this="Me">
 
@@ -8,7 +9,9 @@
 
   <UI Name="About">
     <Locals>
-      <Command Name="CommandDone" Description="Done"/>
+      <code:LocalizationModel Name="CodeLocalizationModel"/>
+
+      <Command Name="CommandDone" Description="null"/>
     </Locals>
     <Properties>
       <Font Name="FontBoldAppName" FontName="global://this:FontFaceBold" FontSize="24"/>
@@ -20,6 +23,19 @@
     <Rules>
       <Default Target="[Input.KeyInteractive]" Value="true"/>
 
+      <!-- Bind the correct language string -->
+      <Binding Source="[CodeLocalizationModel.Items.#ui_ButtonDone!core:String]" Target="[CommandDone.Description]"/>
+      <Binding Source="[CodeLocalizationModel.Items.#ui_AboutTranslationBy!core:String]" Target="[TextTranslationBy.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0} Romain(FR)"/>
+        </Transformer>
+      </Binding>
+      <Binding Source="[CodeLocalizationModel.Items.#ui_AboutApllicationIconBy!core:String]" Target="[TextApplicationIconBy.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0} d3stroy(weezle icon set)"/>
+        </Transformer>
+      </Binding>
+      
       <!-- Button Done clicked -->
       <Changed Source="[CommandDone.Invoked]">
         <Actions>
@@ -53,7 +69,7 @@
                       <FormLayoutInput Left="Parent,0,230" Top="Parent,0,96"/>
                     </LayoutInput>
                     <Children>
-                      <Text Content="about" Font="[FontBoldSettings]" Color="White" Padding="0,0,0,0"/>
+                      <Text Content="[CodeLocalizationModel.Items.#ui_AboutCaption!core:String]" Font="[FontBoldSettings]" Color="White" Padding="0,0,0,0"/>
                     </Children>
                   </Panel>
                 </Children>
@@ -68,20 +84,20 @@
                   <FlowLayout Orientation="Vertical" ItemAlignment="Center"/>
                 </Layout>
                 <Children>
-                  <Panel MinimumSize="760,240" MaximumSize="760,240" Layout="HorizontalFlow">
+                  <Panel MinimumSize="760,260" MaximumSize="760,260" Layout="HorizontalFlow">
                     <Children>
-                      <Graphic Content="image://this:myForecastLogo" MaximumSize="120,120" Margins="0,0,10,0"/>
+                      <Graphic Content="image://this:myForecastAbout" MaximumSize="120,120" Margins="0,0,10,0"/>
                       <Panel Margins="15,0,0,0">
                         <Layout>
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                         </Layout>
                         <Children>
-                          <Text Content="myForecast" Font="[FontBoldAppName]" Color="White"/>
-                          <Text Content="Version 1.0.2" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="myForecast v1.0.3" Font="[FontBoldAppName]" Color="White"/>
                           <Text Content="Copyright &#169; 2016 by Chavdar Kostov" Font="[FontBoldAboutText]" Color="White"/>
-                          <Text Content="This product is licensed under the terms of the End User License Agreement." Font="[FontBoldAboutText]"
-                                Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
-                          <Text Content="Icons provided by The Weather Channel, LLC weather.com&#174;" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutLicense!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutWeatherIconsBy!core:String]" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Name="TextTranslationBy" Content="null" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Name="TextApplicationIconBy" Content="null" Font="[FontBoldAboutText]" Color="White"/>
                         </Children>
                       </Panel>
                     </Children>
@@ -94,11 +110,9 @@
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                         </Layout>
                         <Children>
-                          <Text Content="Powered by Weather Underground&#174;" Font="[FontBoldAboutText]" Color="White"/>
-                          <Text Content="All weather data used by this application is provided by Weather Underground&#174; API." Font="[FontBoldAboutText]"
-                                Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
-                          <Text Content="For more information regarding the Weather Underground&#174; API, please visit http://www.wunderground.com/weather/api" Font="[FontBoldAboutText]"
-                                Color="White" MaximumSize="700,0" WordWrap="true"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutPoweredByWu!core:String]" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutAllWeatherDataProvidedByWu!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutForWuApiInfoVisit!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
                         </Children>
                       </Panel>
                     </Children>

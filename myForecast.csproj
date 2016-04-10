@@ -79,7 +79,13 @@
     <Compile Include="Code\Logger.cs" />
     <Compile Include="Code\ViewModels\ClockModel.cs" />
     <Compile Include="Code\ViewModels\ConfigModel.cs" />
+    <Compile Include="Code\ViewModels\LocalizationModel.cs" />
     <Compile Include="Code\ViewModels\WeatherModel.cs" />
+    <Compile Include="Localization\LanguageStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LanguageStrings.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -95,6 +101,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\myForecastAbout.png" />
     <Content Include="Images\Pop.png" />
     <Content Include="Setup\WixUI_Bmp_Banner.bmp" />
     <Content Include="Setup\WixUI_Bmp_Dialog.bmp" />
@@ -206,6 +213,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Localization\LanguageStrings.fr.resx" />
+    <EmbeddedResource Include="Localization\LanguageStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LanguageStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>

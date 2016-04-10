@@ -1,6 +1,8 @@
 ﻿using Microsoft.MediaCenter;
 using Microsoft.MediaCenter.UI;
+using myForecast.Localization;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -24,6 +26,7 @@ namespace myForecast
         private ClockTimeFormat _weatherClockTimeFormat;
         private string _weatherApiKey;
         private string _weatherLocationCode;
+        private Language _weatherLanguage;
 
         private bool _isLoaded;
         private string _lastUpdateTimestamp;
@@ -152,13 +155,17 @@ namespace myForecast
                 _weatherLocationCode = Configuration.Instance.LocationCode;
                 _weatherUnit = Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial);
                 _weatherClockTimeFormat = Configuration.Instance.ClockTimeFormat.GetValueOrDefault(ClockTimeFormat.Hours12);
-                _weatherRefreshRateInMinutes = Configuration.Instance.RefreshRateInMinutes.GetValueOrDefault(5);
+                _weatherRefreshRateInMinutes = Configuration.Instance.RefreshRateInMinutes.GetValueOrDefault(10);
+                _weatherLanguage = Configuration.Instance.Language.GetValueOrDefault(Language.EN);
             }
 
-            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode);
+            // set the correct language for the UI thread
+            System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Enum.GetName(typeof(Language), Configuration.Instance.Language));
+
+            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode, _weatherLanguage);
             _weatherFileName = _weatherFileName.Replace(":", "."); // small cleanup is needed for zmw location codes
             _weatherFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherFileName);
-            _weatherApiAddress = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLocationCode);
+            _weatherApiAddress = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLanguage, _weatherLocationCode);
 
             _xmlWeatherData = new XmlDocument();
             _dailyForecast = new ArrayListDataSet();
@@ -193,6 +200,7 @@ namespace myForecast
                     {
                         // download the new weather data in a temporary string
                         // in case there is an error the old weather file will be preserved
+                        webClient.Encoding = Encoding.UTF8;
                         string weatherDataXml = webClient.DownloadString(_weatherApiAddress);
                         if (String.IsNullOrEmpty(weatherDataXml) == false)
                         {
@@ -202,17 +210,17 @@ namespace myForecast
                             XmlNode errorMessageNode = _xmlWeatherData.SelectSingleNode("response/error/description");
                             if (errorMessageNode != null && String.IsNullOrEmpty(errorMessageNode.InnerText) == false)
                             {
-                                ShowErrorDialog("Error received from WeatherUnderground: " + errorMessageNode.InnerText, null, true);
+                                ShowErrorDialog(String.Format("{0}: {1}", LanguageStrings.ui_DialogErrorReceivedFromWu, errorMessageNode.InnerText), null, true);
                                 return;
                             }
                             else
                             {
-                                File.WriteAllText(_weatherFileLocation, weatherDataXml);
+                                File.WriteAllText(_weatherFileLocation, weatherDataXml, Encoding.UTF8);
                                 _uiRefreshNeeded = true;
                             }
                         }
                         else
-                            ShowErrorDialog("No response received from WeatherUnderground.\nPlease, try again in few minutes.");
+                            ShowErrorDialog(LanguageStrings.ui_DialogNoResponseReceivedFromWu);
                     }
                     else
                     {
@@ -229,11 +237,11 @@ namespace myForecast
                 }
                 catch (WebException webException)
                 {
-                    ShowErrorDialog("Error while connecting to WeatherUnderground.\nPlease, try again in few minutes.", webException);
+                    ShowErrorDialog(LanguageStrings.ui_DialogErrorWhileConnectingToWu, webException);
                 }
                 catch (Exception exception)
                 {
-                    ShowErrorDialog("Ooops - catastrophic error.\nPlease, check the log file for more details.", exception);
+                    ShowErrorDialog(LanguageStrings.ui_DialogCatastrophicError, exception);
                 }
             }
         }
@@ -349,15 +357,15 @@ namespace myForecast
             // UV index format based on http://www.wunderground.com/resources/health/uvindex.asp
             int uvIndex = Int32.Parse(currentConditionNode.SelectSingleNode("UV").InnerText.Replace(".0", ""));
             if (uvIndex <= 2)
-                CurrentConditionUvIndex = String.Format("{0} (Very Low)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_VeryLow);
             else if (uvIndex >= 3 && uvIndex < 5)
-                CurrentConditionUvIndex = String.Format("{0} (Low)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Low);
             else if (uvIndex >= 5 && uvIndex < 7)
-                CurrentConditionUvIndex = String.Format("{0} (Moderate)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Moderate);
             else if (uvIndex >= 7 && uvIndex < 10)
-                CurrentConditionUvIndex = String.Format("{0} (High)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_High);
             else if (uvIndex >= 10)
-                CurrentConditionUvIndex = String.Format("{0} (Very High)", uvIndex);
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_VeryHigh);
         }
 
         private void LoadCurrentForecastProperties(XmlNode hourlyForecastNode)
@@ -366,18 +374,12 @@ namespace myForecast
             XmlNode currentForecastNode = hourlyForecastNode.SelectSingleNode("forecast[FCTTIME/hour='" + DateTime.Now.AddHours(2).Hour + "']");
             XmlNode previousForecastNode = hourlyForecastNode.SelectSingleNode("forecast[FCTTIME/hour='" + DateTime.Now.AddHours(1).Hour + "']");
 
-            string currentForecastTitle = String.Empty;
+            string currentForecastTitle = LanguageStrings.ui_ForecastCaption.ToUpper();
             string forecastIconName = currentForecastNode.SelectSingleNode("icon").InnerText;
 
-            if (forecastHour >= 0 && forecastHour < 12)
-                currentForecastTitle = "TODAY";
-            else if (forecastHour >= 12 && forecastHour < 20)
-            {
-                currentForecastTitle = "TONIGHT";
+            // switch to night icons
+            if (forecastHour >= 12 && forecastHour < 20)
                 forecastIconName = "nt_" + forecastIconName;
-            }
-            else
-                currentForecastTitle = "TOMORROW";
 
             // find the low/hi temperatures
             XmlNode lowTemperatureNode;
@@ -403,7 +405,6 @@ namespace myForecast
                 PopIcon = GetFormattedPopIconResx(currentForecastNode),
                 Pop = GetFormattedPop(currentForecastNode)
             });
-
         }
 
         private void LoadDailyForecastProperties(XmlNodeList forecastNodes)
@@ -540,31 +541,42 @@ namespace myForecast
 
         private string CleanForecastConditionDescription(string conditionDescription)
         {
-            // forecast space is tight
-            string[] chances = new string[] { "chance of a", "chance of" }; // for similar items the order is from most specific to less specific
-            string result = conditionDescription;
+            // forecast description space is tight - currently 13 characters
+            // for similar items the order is from most specific to less specific
+            string[] removeStrings = new string[] { "chance of a", "chance of",     // EN
+                                                    "risque de", "risque d'" };     // FR 
 
-            for (var i = 0; i < chances.Length; i++)
+            string result = conditionDescription;
+            for (var i = 0; i < removeStrings.Length; i++)
             {
-                int indexOfValue = conditionDescription.ToLower().IndexOf(chances[i]);
+                int indexOfValue = conditionDescription.ToLower().IndexOf(removeStrings[i]);
                 if (indexOfValue > -1)
                 {
-                    result = conditionDescription.Substring(indexOfValue + chances[i].Length);
+                    result = conditionDescription.Substring(indexOfValue + removeStrings[i].Length);
                     break;
                 }
             }
 
             result = result.Trim();
 
-            // fix plural condition word
+            // fix plural condition words
             switch (result.ToLower())
             {
-                case "thunderstorm":
+                case "thunderstorm":        // EN
+                case "orage":               // FR
                     result = result + "s";
                     break;
             }
 
-            return result;
+            // check for max size
+            if (result.Length > 13)
+            {
+                // this may produce strange results with other languages than English
+                string[] sentenceParts = result.Split(' ');
+                result = sentenceParts[sentenceParts.Length - 1];
+            }
+
+            return UppercaseFirstLetter(result);
         }
 
         private bool IsWeatherRefreshRequired()
@@ -597,11 +609,11 @@ namespace myForecast
                 MediaCenterEnvironment mcEnvironment = MyAddIn.Instance.AddInHost.MediaCenterEnvironment;
 
                 System.Collections.Generic.List<String> buttons = new System.Collections.Generic.List<String>();
-                buttons.Add("Close"); // normal button
+                buttons.Add(LanguageStrings.ui_ButtonClose); // normal button
                 if (goToSettingsPage == true)
-                    buttons.Add("Go to settings"); // only show up if requested
+                    buttons.Add(LanguageStrings.ui_ButtonGoToSettings); // only show up if requested
 
-                DialogResult result = mcEnvironment.Dialog(message, "myForecast - Weather Data Refresh", buttons, 60, true, null);
+                DialogResult result = mcEnvironment.Dialog(message, LanguageStrings.ui_DialogWeatherDataRefreshCaption, buttons, 60, true, null);
                 if (result.ToString() == "101")
                 {
                     _weatherRefreshTimer.Enabled = false;
@@ -658,12 +670,12 @@ namespace myForecast
                     // start date
                     XmlNode startDateNode = alertNode.SelectSingleNode("date");
                     if (startDateNode != null)
-                        alertStartDate = String.Format("Start Date: {0}", startDateNode.InnerText);
+                        alertStartDate = String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, startDateNode.InnerText);
 
                     // expire date
                     XmlNode expireDateNode = alertNode.SelectSingleNode("expires");
                     if (expireDateNode != null)
-                        alertExpireDate = String.Format("Expire Date: {0}", expireDateNode.InnerText);
+                        alertExpireDate = String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, expireDateNode.InnerText);
 
                     // message
                     XmlNode messageNode = alertNode.SelectSingleNode("message");
@@ -684,9 +696,17 @@ namespace myForecast
             }
 
             if (alertText.Length == 0)
-                alertText.AppendLine("Weather alert information is not available at the moment");
+                alertText.AppendLine(LanguageStrings.ui_WeatherAlertInfoNotAvailable);
 
             return alertText.ToString();
+        }
+
+        private static string UppercaseFirstLetter(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return String.Empty;
+
+            return Char.ToUpper(text[0]) + text.Substring(1);
         }
     }
 

@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ui_UvIndex_VeryHigh" xml:space="preserve">
+    <value>Very High</value>
+  </data>
+  <data name="ui_UvIndex_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="ui_UvIndex_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="ui_UvIndex_Moderate" xml:space="preserve">
+    <value>Moderate</value>
+  </data>
+  <data name="ui_UvIndex_VeryLow" xml:space="preserve">
+    <value>Very Low</value>
+  </data>
+  <data name="ui_WeatherSettingsCaption" xml:space="preserve">
+    <value>weather settings</value>
+  </data>
+  <data name="ui_LoadingWeatherDataMessage" xml:space="preserve">
+    <value>Loading weather data</value>
+  </data>
+  <data name="ui_SettingsIntegrateIntoTheStartMenu" xml:space="preserve">
+    <value>Integrate into the "Start Menu"</value>
+  </data>
+  <data name="ui_AboutCaption" xml:space="preserve">
+    <value>about</value>
+  </data>
+  <data name="ui_AboutAllWeatherDataProvidedByWu" xml:space="preserve">
+    <value>All weather data used by this application is provided by Weather Underground® API</value>
+  </data>
+  <data name="ui_SettingsApiKey" xml:space="preserve">
+    <value>Api key</value>
+  </data>
+  <data name="ui_SettingsAppShortcut" xml:space="preserve">
+    <value>App shortcut</value>
+  </data>
+  <data name="ui_ButtonAbout" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ui_ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ui_ButtonDone" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="ui_ButtonSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ui_SettingsClockTimeFormat" xml:space="preserve">
+    <value>Clock time format</value>
+  </data>
+  <data name="ui_CurrentDewPoint" xml:space="preserve">
+    <value>Dew point:</value>
+  </data>
+  <data name="ui_CurrentFeelsLike" xml:space="preserve">
+    <value>Feels like:</value>
+  </data>
+  <data name="ui_AboutForWuApiInfoVisit" xml:space="preserve">
+    <value>For more information regarding the Weather Underground® API, please visit http://www.wunderground.com/weather/api</value>
+  </data>
+  <data name="ui_CurrentHumidity" xml:space="preserve">
+    <value>Humidity:</value>
+  </data>
+  <data name="ui_AboutWeatherIconsBy" xml:space="preserve">
+    <value>Weather icons by: The Weather Channel, LLC weather.com®</value>
+  </data>
+  <data name="ui_SettingsLanguage" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="ui_AboutLicense" xml:space="preserve">
+    <value>This product is licensed under the terms of the End User License Agreement.</value>
+  </data>
+  <data name="ui_SettingsLocationCode" xml:space="preserve">
+    <value>Location code</value>
+  </data>
+  <data name="ui_PoweredByCaption" xml:space="preserve">
+    <value>Powered by</value>
+  </data>
+  <data name="ui_AboutPoweredByWu" xml:space="preserve">
+    <value>Powered by Weather Underground®</value>
+  </data>
+  <data name="ui_CurrentPressure" xml:space="preserve">
+    <value>Pressure:</value>
+  </data>
+  <data name="ui_SettingsRefreshInterval" xml:space="preserve">
+    <value>Refresh interval</value>
+  </data>
+  <data name="ui_WeatherAlertUseUpDownButtonsToScroll" xml:space="preserve">
+    <value>Use Up/Down buttons to scroll</value>
+  </data>
+  <data name="ui_CurrentUvIndex" xml:space="preserve">
+    <value>Uv index:</value>
+  </data>
+  <data name="ui_WeatherAlertCaption" xml:space="preserve">
+    <value>weather alert</value>
+  </data>
+  <data name="ui_SettingsWeatherUnits" xml:space="preserve">
+    <value>Weather units</value>
+  </data>
+  <data name="ui_CurrentWind" xml:space="preserve">
+    <value>Wind:</value>
+  </data>
+  <data name="ui_DialogConfigurationSettingsCaption" xml:space="preserve">
+    <value>myForecast - Configuration Settings</value>
+  </data>
+  <data name="ui_DialogStartMenuChangesRestartNeeded" xml:space="preserve">
+    <value>You need to restart the Windows Media Center Application for start menu changes to take effect.</value>
+  </data>
+  <data name="ui_DialogStartMenuRegistryKeyNotFound" xml:space="preserve">
+    <value>Start menu registry key not found, please reinstall myForecast.</value>
+  </data>
+  <data name="ui_SettingsHours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="ui_SettingsImperialUnits" xml:space="preserve">
+    <value>Imperial</value>
+  </data>
+  <data name="ui_SettingsMetricUnits" xml:space="preserve">
+    <value>Metric</value>
+  </data>
+  <data name="ui_SettingsMinutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="ui_ButtonClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ui_ButtonGoToSettings" xml:space="preserve">
+    <value>Go to settings</value>
+  </data>
+  <data name="ui_DialogCatastrophicError" xml:space="preserve">
+    <value>Ooops - catastrophic error.\nPlease, check the log file for more details.</value>
+  </data>
+  <data name="ui_DialogErrorReceivedFromWu" xml:space="preserve">
+    <value>Error received from WeatherUnderground</value>
+  </data>
+  <data name="ui_DialogErrorWhileConnectingToWu" xml:space="preserve">
+    <value>Error while connecting to WeatherUnderground.\nPlease, try again in few minutes.</value>
+  </data>
+  <data name="ui_DialogNoResponseReceivedFromWu" xml:space="preserve">
+    <value>No response received from WeatherUnderground.\nPlease, try again in few minutes.</value>
+  </data>
+  <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
+    <value>myForecast - Weather Data Refresh</value>
+  </data>
+  <data name="ui_ForecastCaption" xml:space="preserve">
+    <value>Forecast</value>
+  </data>
+  <data name="ui_WeatherAlertExpireDate" xml:space="preserve">
+    <value>Expire Date</value>
+  </data>
+  <data name="ui_WeatherAlertInfoNotAvailable" xml:space="preserve">
+    <value>Weather alert information is not available at the moment</value>
+  </data>
+  <data name="ui_WeatherAlertStartDate" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="ui_AboutTranslationBy" xml:space="preserve">
+    <value>Translation by</value>
+  </data>
+  <data name="ui_AboutApllicationIconBy" xml:space="preserve">
+    <value>Application icon by</value>
+  </data>
+</root>

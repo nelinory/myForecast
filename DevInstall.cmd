@@ -32,8 +32,9 @@ goto unregister
     ECHO.Unregister the application entry points
     %windir%\ehome\RegisterMCEApp.exe /allusers "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\%RegistrationName%.xml" /u
 
-    ECHO.Remove the DLL from the Global Assembly cache
+    ECHO.Remove the assemblies from the Global Assembly cache
     "%GACUtilPath%\Microsoft SDKs\Windows\v7.0A\bin\gacutil.exe" /u "%AssemblyName%"
+    "%GACUtilPath%\Microsoft SDKs\Windows\v7.0A\bin\gacutil.exe" /u "%AssemblyName%.resources"
 
     ECHO.Delete the folder containing the DLLs and supporting files (silent if successful)
     rd /s /q "%ProgramFilesPath%\%CompanyName%\%AssemblyName%"
@@ -82,8 +83,17 @@ goto unregister
     ECHO.Copy the program inactive strip image to program files
     copy /y ".\Images\%ProgramImageStripInactive%" "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\"
 
-    ECHO.Register the DLL with the global assembly cache
+    ECHO.Make the folders for the localization assemblies inside program files
+	md "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\fr"
+
+    ECHO.Copy the localization assemblies to program files
+    copy /y ".\bin\%ReleaseType%\fr\%AssemblyName%.resources.dll" "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\fr\"
+
+    ECHO.Register the main assembly with the global assembly cache
     "%GACUtilPath%\Microsoft SDKs\Windows\v7.0A\bin\gacutil.exe" /if "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\%AssemblyName%.dll"
+
+    ECHO.Register the localization assemblies with the global assembly cache
+    "%GACUtilPath%\Microsoft SDKs\Windows\v7.0A\bin\gacutil.exe" /if "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\fr\%AssemblyName%.resources.dll"
 
     ECHO.Register the application with Windows Media Center
     %windir%\ehome\RegisterMCEApp.exe /allusers "%ProgramFilesPath%\%CompanyName%\%AssemblyName%\%RegistrationName%.xml"
