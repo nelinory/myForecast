@@ -1,10 +1,13 @@
 ﻿Changes for myForecast 1.0.3
 ============================
 Enhancements
-- 
+- Redesigned the application to support localization. French translation is provided by Romain.
+- myForecst now will request the weather data from WeatherUnderground API(R) using the selected language.
+- Replaced the default application icon in MCE extras menu and the start menu strip with a new one by d3stroy(weezle icon set).
 
 Bugfixes
 - Fixed an issue when removing the decimal point from the current temperature (thanks to stuartm and Embiggens)
+- Removed the complicated (buggy) logic for the forecast tile, now the title is just "Forecast"
 
 Changes for myForecast 1.0.2
 ============================
