@@ -378,7 +378,7 @@ namespace myForecast
             string forecastIconName = currentForecastNode.SelectSingleNode("icon").InnerText;
 
             // switch to night icons
-            if (forecastHour >= 12 && forecastHour < 20)
+            if (forecastHour < 6 || forecastHour > 18)
                 forecastIconName = "nt_" + forecastIconName;
 
             // find the low/hi temperatures
@@ -432,11 +432,18 @@ namespace myForecast
             HourlyForecast.Clear();
             for (int i = 0; i < hourlyForecastNodes.Count; i++)
             {
+                string forecastIconName = hourlyForecastNodes[i].SelectSingleNode("icon").InnerText;
+                int forecastHour = GetTimestampFromEpoch(hourlyForecastNodes[i].SelectSingleNode("FCTTIME/epoch").InnerText).Hour;
+
+                // switch to night icons
+                if (forecastHour < 6 || forecastHour > 18)
+                    forecastIconName = "nt_" + forecastIconName;
+
                 HourlyForecast.Add(new ForecastItem()
                 {
                     DayOfTheWeek = hourlyForecastNodes[i].SelectSingleNode("FCTTIME/weekday_name_abbrev").InnerText.ToUpper(),
                     TimeOfTheDay = GetFormattedTimeFromEpoch(hourlyForecastNodes[i].SelectSingleNode("FCTTIME/epoch").InnerText),
-                    ForecastIcon = "resx://myForecast/myForecast.Resources/" + hourlyForecastNodes[i].SelectSingleNode("icon").InnerText,
+                    ForecastIcon = "resx://myForecast/myForecast.Resources/" + forecastIconName,
                     HighTemp = GetFormattedCurrentForecastTemperature(hourlyForecastNodes[i].SelectSingleNode("temp")),
                     PopIcon = GetFormattedPopIconResx(hourlyForecastNodes[i]),
                     Pop = GetFormattedPop(hourlyForecastNodes[i])
@@ -479,6 +486,11 @@ namespace myForecast
             }
 
             return formattedTime;
+        }
+
+        private DateTime GetTimestampFromEpoch(string epoch)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
         }
 
         private string GetFormattedCurrentForecastTemperature(XmlNode temperatureNode)

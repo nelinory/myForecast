@@ -9,7 +9,7 @@ For more information regarding the Weather Underground ® API, please visit http
 - Api key from WeatherUnderground
 
 ## Limitations
-- Only 16:9 screen layout (widescreen) is supported at the moment
+- Only 16:9/16:10 screen layouts (widescreen) are supported at the moment
 - Single weather location only
 
 ## How to get the API key from Weather Underground
