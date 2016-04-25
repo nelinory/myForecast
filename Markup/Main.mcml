@@ -157,14 +157,14 @@
                   <!-- Settings button -->
                   <this:SettingsButton Name="ControlSettings" Model="[CommandSettings]">
                     <LayoutInput>
-                      <FormLayoutInput Left="Parent,.13" Top="Parent,0,98"/>
+                      <FormLayoutInput Left="ControlLocationName,0" Bottom="ControlLocationName,0,5"/>
                     </LayoutInput>
                   </this:SettingsButton>
 
                   <!-- Location name/Weather alerts -->
                   <this:LocationName Name="ControlLocationName" Content="null" WeatherAlertCaptionContent="null" Model="[CommandWeatherAlert]">
                     <LayoutInput>
-                      <FormLayoutInput Left="ControlSettings,0,3" Top="ControlSettings,0,35"/>
+                      <FormLayoutInput Left="ControlCurrentWeather,0" Bottom="ControlCurrentWeather,0"/>
                     </LayoutInput>
                   </this:LocationName>
 
@@ -178,7 +178,7 @@
                   <!-- Current weather condition -->
                   <this:CurrentWeather Name="ControlCurrentWeather" CurrentWeatherModel="[CodeWeatherModel]" HourlyForecastCommand="[CommandHourlyForecast]">
                     <LayoutInput>
-                      <FormLayoutInput Top="ControlLocationName,1"/>
+                      <FormLayoutInput Top="Parent,.24"/>
                     </LayoutInput>
                   </this:CurrentWeather>
 

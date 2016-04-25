@@ -1,4 +1,12 @@
-﻿Changes for myForecast 1.0.3
+﻿Changes for myForecast 1.0.4
+============================
+Enhancements
+- N/A
+
+Bugfixes
+- Updated the application layout to render better on 16:10 displays (example: 1680x1050 resolution, thanks to Scallica)
+
+Changes for myForecast 1.0.3
 ============================
 Enhancements
 - Redesigned the application to support localization. French translation is provided by Romain.

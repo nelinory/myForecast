@@ -66,7 +66,7 @@
                 <Children>
                   <Panel Layout="VerticalFlow">
                     <LayoutInput>
-                      <FormLayoutInput Left="Parent,0,230" Top="Parent,0,96"/>
+                      <FormLayoutInput Left="Parent,0,130" Top="Parent,0,96"/>
                     </LayoutInput>
                     <Children>
                       <Text Content="[CodeLocalizationModel.Items.#ui_AboutCaption!core:String]" Font="[FontBoldSettings]" Color="White" Padding="0,0,0,0"/>
@@ -92,7 +92,7 @@
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                         </Layout>
                         <Children>
-                          <Text Content="myForecast v1.0.3" Font="[FontBoldAppName]" Color="White"/>
+                          <Text Content="myForecast v1.0.4" Font="[FontBoldAppName]" Color="White"/>
                           <Text Content="Copyright &#169; 2016 by Chavdar Kostov" Font="[FontBoldAboutText]" Color="White"/>
                           <Text Content="[CodeLocalizationModel.Items.#ui_AboutLicense!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
                           <Text Content="[CodeLocalizationModel.Items.#ui_AboutWeatherIconsBy!core:String]" Font="[FontBoldAboutText]" Color="White"/>
@@ -123,7 +123,7 @@
               <!-- Buttons -->
               <Panel>
                 <LayoutInput>
-                  <FormLayoutInput Left="Parent,0,230" Top="Parent,0,160" Horizontal="Near" Vertical="Near"/>
+                  <FormLayoutInput Left="Parent,0,130" Top="Parent,0,160" Horizontal="Near" Vertical="Near"/>
                 </LayoutInput>
                 <Children>
                   <Panel>

@@ -80,7 +80,7 @@
                 <Children>
                   <Panel Layout="VerticalFlow">
                     <LayoutInput>
-                      <FormLayoutInput Left="Parent,0,230" Top="Parent,0,96"/>
+                      <FormLayoutInput Left="Parent,0,130" Top="Parent,0,96"/>
                     </LayoutInput>
                     <Children>
                       <Text Content="[CodeLocalizationModel.Items.#ui_WeatherAlertCaption!core:String]" Font="[FontBoldWeatherAlertText]" Color="White" Padding="0,0,0,0"/>
@@ -145,7 +145,7 @@
               <!-- Buttons -->
               <Panel>
                 <LayoutInput>
-                  <FormLayoutInput Left="Parent,0,230" Top="Parent,0,160" Horizontal="Near" Vertical="Near"/>
+                  <FormLayoutInput Left="Parent,0,130" Top="Parent,0,160" Horizontal="Near" Vertical="Near"/>
                 </LayoutInput>
                 <Children>
                   <Panel>

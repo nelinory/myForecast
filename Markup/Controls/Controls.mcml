@@ -34,29 +34,6 @@
     </Content>
   </UI>
 
-  <!-- Application title control -->
-  <UI Name="SettingsTitle">
-    <Properties>
-      <core:String Name="Content" String="$Required"/>
-
-      <Font Name="FontLight" FontName="global://this:FontFaceLight" FontSize="30"/>
-    </Properties>
-    <Content>
-      <Panel Layout="Dock" Padding="190,38,0,0">
-        <Children>
-          <Clip Layout="Anchor" Alpha="0.80" FadeSize="90" Orientation="Vertical" ShowNear="false">
-            <LayoutInput>
-              <DockLayoutInput Position="Top" Alignment="Near"/>
-            </LayoutInput>
-            <Children>
-              <Text Content="[Content]" Color="DeepSkyBlue" Font="[FontLight]"/>
-            </Children>
-          </Clip>
-        </Children>
-      </Panel>
-    </Content>
-  </UI>
-
   <!-- Loading message control -->
   <UI Name="LoadingMessage">
     <Properties>
