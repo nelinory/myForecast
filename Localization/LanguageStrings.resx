@@ -253,10 +253,10 @@
     <value>Error received from WeatherUnderground</value>
   </data>
   <data name="ui_DialogErrorWhileConnectingToWu" xml:space="preserve">
-    <value>Error while connecting to WeatherUnderground.\nPlease, try again in few minutes.</value>
+    <value>Error while connecting to WeatherUnderground. Please, try again in few minutes.</value>
   </data>
   <data name="ui_DialogNoResponseReceivedFromWu" xml:space="preserve">
-    <value>No response received from WeatherUnderground.\nPlease, try again in few minutes.</value>
+    <value>No response received from WeatherUnderground. Please, try again in few minutes.</value>
   </data>
   <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
     <value>myForecast - Weather Data Refresh</value>
