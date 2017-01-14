@@ -268,7 +268,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while connecting to WeatherUnderground.\nPlease, try again in few minutes..
+        ///   Looks up a localized string similar to Error while connecting to WeatherUnderground. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogErrorWhileConnectingToWu {
             get {
@@ -277,7 +277,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No response received from WeatherUnderground.\nPlease, try again in few minutes..
+        ///   Looks up a localized string similar to No response received from WeatherUnderground. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogNoResponseReceivedFromWu {
             get {

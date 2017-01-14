@@ -378,7 +378,7 @@ namespace myForecast
             string forecastIconName = currentForecastNode.SelectSingleNode("icon").InnerText;
 
             // switch to night icons
-            if (forecastHour >= 12 && forecastHour < 20)
+            if (forecastHour < 6 || forecastHour > 18)
                 forecastIconName = "nt_" + forecastIconName;
 
             // find the low/hi temperatures
@@ -411,12 +411,27 @@ namespace myForecast
         {
             for (int i = 1; i < forecastNodes.Count - 1; i++) // skip node[0] for the tonight forecast
             {
+                string dayOfTheWeek = String.Empty;
+
+                switch (Configuration.Instance.Language)
+                {
+                    case Language.FR:
+                        dayOfTheWeek = String.Format("{0} {1} {2}",
+                                                    forecastNodes[i].SelectSingleNode("date/weekday_short").InnerText.ToUpper(),
+                                                    forecastNodes[i].SelectSingleNode("date/day").InnerText,
+                                                    forecastNodes[i].SelectSingleNode("date/monthname_short").InnerText.ToUpper());
+                        break;
+                    default:    // US
+                        dayOfTheWeek = String.Format("{0} {1}/{2}",
+                                                    forecastNodes[i].SelectSingleNode("date/weekday_short").InnerText.ToUpper(),
+                                                    forecastNodes[i].SelectSingleNode("date/month").InnerText,
+                                                    forecastNodes[i].SelectSingleNode("date/day").InnerText);
+                        break;
+                }
+
                 DailyForecast.Add(new ForecastItem()
                 {
-                    DayOfTheWeek = String.Format("{0} {1}/{2}",
-                                                forecastNodes[i].SelectSingleNode("date/weekday_short").InnerText.ToUpper(),
-                                                forecastNodes[i].SelectSingleNode("date/month").InnerText,
-                                                forecastNodes[i].SelectSingleNode("date/day").InnerText),
+                    DayOfTheWeek = dayOfTheWeek,
                     ForecastIcon = "resx://myForecast/myForecast.Resources/" + forecastNodes[i].SelectSingleNode("icon").InnerText,
                     Condition = CleanForecastConditionDescription(forecastNodes[i].SelectSingleNode("conditions").InnerText),
                     LowTemp = GetFormattedDailyForecastTemperature(forecastNodes[i].SelectSingleNode("low")),
@@ -432,11 +447,18 @@ namespace myForecast
             HourlyForecast.Clear();
             for (int i = 0; i < hourlyForecastNodes.Count; i++)
             {
+                string forecastIconName = hourlyForecastNodes[i].SelectSingleNode("icon").InnerText;
+                int forecastHour = GetTimestampFromEpoch(hourlyForecastNodes[i].SelectSingleNode("FCTTIME/epoch").InnerText).Hour;
+
+                // switch to night icons
+                if (forecastHour < 6 || forecastHour > 18)
+                    forecastIconName = "nt_" + forecastIconName;
+
                 HourlyForecast.Add(new ForecastItem()
                 {
                     DayOfTheWeek = hourlyForecastNodes[i].SelectSingleNode("FCTTIME/weekday_name_abbrev").InnerText.ToUpper(),
                     TimeOfTheDay = GetFormattedTimeFromEpoch(hourlyForecastNodes[i].SelectSingleNode("FCTTIME/epoch").InnerText),
-                    ForecastIcon = "resx://myForecast/myForecast.Resources/" + hourlyForecastNodes[i].SelectSingleNode("icon").InnerText,
+                    ForecastIcon = "resx://myForecast/myForecast.Resources/" + forecastIconName,
                     HighTemp = GetFormattedCurrentForecastTemperature(hourlyForecastNodes[i].SelectSingleNode("temp")),
                     PopIcon = GetFormattedPopIconResx(hourlyForecastNodes[i]),
                     Pop = GetFormattedPop(hourlyForecastNodes[i])
@@ -479,6 +501,11 @@ namespace myForecast
             }
 
             return formattedTime;
+        }
+
+        private DateTime GetTimestampFromEpoch(string epoch)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
         }
 
         private string GetFormattedCurrentForecastTemperature(XmlNode temperatureNode)
