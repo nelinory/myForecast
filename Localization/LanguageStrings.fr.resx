@@ -253,10 +253,10 @@
     <value>WeatherUnderground a rencontré une erreur</value>
   </data>
   <data name="ui_DialogErrorWhileConnectingToWu" xml:space="preserve">
-    <value>Erreur lors de la connexion à WeatherUnderground.\nMerci de réessayer dans quelques minutes.</value>
+    <value>Erreur lors de la connexion à WeatherUnderground. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogNoResponseReceivedFromWu" xml:space="preserve">
-    <value>Aucune réponse reçue de WeatherUnderground.\nMerci de réessayer dans quelques minutes.</value>
+    <value>Aucune réponse reçue de WeatherUnderground. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
     <value>myForecast - Actualisation des données</value>
