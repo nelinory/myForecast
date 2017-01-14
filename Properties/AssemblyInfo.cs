@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Nelinory")]
 [assembly: AssemblyProduct("myForecast")]
-[assembly: AssemblyCopyright("Copyright © 2016 by Chavdar Kostov")]
+[assembly: AssemblyCopyright("Copyright © 2017 by Chavdar Kostov")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
