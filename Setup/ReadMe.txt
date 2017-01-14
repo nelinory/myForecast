@@ -1,5 +1,5 @@
 ﻿myForecast Version 1.0.5
-Copyright © 2006-2017 by Chavdar Kostov
+Copyright © 2017 by Chavdar Kostov
 
 
 What is myForecast?
