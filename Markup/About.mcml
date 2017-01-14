@@ -92,7 +92,7 @@
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                         </Layout>
                         <Children>
-                          <Text Content="myForecast v1.0.4" Font="[FontBoldAppName]" Color="White"/>
+                          <Text Content="myForecast v1.0.5" Font="[FontBoldAppName]" Color="White"/>
                           <Text Content="Copyright &#169; 2016 by Chavdar Kostov" Font="[FontBoldAboutText]" Color="White"/>
                           <Text Content="[CodeLocalizationModel.Items.#ui_AboutLicense!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
                           <Text Content="[CodeLocalizationModel.Items.#ui_AboutWeatherIconsBy!core:String]" Font="[FontBoldAboutText]" Color="White"/>

@@ -1,4 +1,13 @@
-﻿Changes for myForecast 1.0.4
+﻿Changes for myForecast 1.0.5
+============================
+Enhancements
+- Minor updates to the English and French localization.
+- Forecast tile captions will now be correctly localized based on the selected language.
+
+Bugfixes
+- Fixed the current forecast/hourly forecast icons. Night time forecast will use the night version of the icons.
+
+Changes for myForecast 1.0.4
 ============================
 Enhancements
 - N/A
