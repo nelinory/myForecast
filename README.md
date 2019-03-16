@@ -1,5 +1,5 @@
 > **Note:**<br/>
-> WeatherUnderground discounted free API accounts as of 03/01/2019. Investigation of a replacement for WeatherUnderground API is in progress.
+> WeatherUnderground discontinued free API accounts as of 03/01/2019. Working on replacement using DarkSky API.
 
 ## What is myForecast?
 myForecast is a free Windows Media Center weather application. Its use is governed by MIT License.
