@@ -61,7 +61,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All weather data used by this application is provided by Weather Underground® API.
+        ///   Looks up a localized string similar to All weather data used by this application is provided by Dark Sky ® API.
         /// </summary>
         internal static string ui_AboutAllWeatherDataProvidedByWu {
             get {
@@ -88,7 +88,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For more information regarding the Weather Underground® API, please visit http://www.wunderground.com/weather/api.
+        ///   Looks up a localized string similar to For more information regarding the Dark Sky ® API, please visit https://darksky.net/dev.
         /// </summary>
         internal static string ui_AboutForWuApiInfoVisit {
             get {
@@ -106,7 +106,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powered by Weather Underground®.
+        ///   Looks up a localized string similar to Powered by Dark Sky ®.
         /// </summary>
         internal static string ui_AboutPoweredByWu {
             get {
@@ -259,7 +259,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error received from WeatherUnderground.
+        ///   Looks up a localized string similar to Error received from Dark Sky ®.
         /// </summary>
         internal static string ui_DialogErrorReceivedFromWu {
             get {
@@ -268,7 +268,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while connecting to WeatherUnderground. Please, try again in few minutes..
+        ///   Looks up a localized string similar to Error while connecting to Dark Sky ®. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogErrorWhileConnectingToWu {
             get {
@@ -277,7 +277,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No response received from WeatherUnderground. Please, try again in few minutes..
+        ///   Looks up a localized string similar to No response received from Dark Sky ®. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogNoResponseReceivedFromWu {
             get {

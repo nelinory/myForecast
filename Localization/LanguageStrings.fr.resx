@@ -145,7 +145,7 @@
     <value>à propos</value>
   </data>
   <data name="ui_AboutAllWeatherDataProvidedByWu" xml:space="preserve">
-    <value>Les données météo utilisées par cette application sont fournies par l'API Weather Underground®</value>
+    <value>Les données météo utilisées par cette application sont fournies par l'API Dark Sky ®</value>
   </data>
   <data name="ui_SettingsApiKey" xml:space="preserve">
     <value>Clé API</value>
@@ -175,7 +175,7 @@
     <value>Ressenti:</value>
   </data>
   <data name="ui_AboutForWuApiInfoVisit" xml:space="preserve">
-    <value>Pour plus d'informations sur l'API Weather Undergroud, merci de consulter http://www.wunderground.com/weather/api</value>
+    <value>Pour plus d'informations sur l'API Dark Sky ®, merci de consulter https://darksky.net/dev</value>
   </data>
   <data name="ui_CurrentHumidity" xml:space="preserve">
     <value>Humidité:</value>
@@ -196,7 +196,7 @@
     <value>Fourni par</value>
   </data>
   <data name="ui_AboutPoweredByWu" xml:space="preserve">
-    <value>Fourni par Weather Underground®</value>
+    <value>Fourni par Dark Sky ®</value>
   </data>
   <data name="ui_CurrentPressure" xml:space="preserve">
     <value>Pression:</value>
@@ -250,13 +250,13 @@
     <value>Erreur critique.\nPour plus d'information, merci de consulter le rapport.</value>
   </data>
   <data name="ui_DialogErrorReceivedFromWu" xml:space="preserve">
-    <value>WeatherUnderground a rencontré une erreur</value>
+    <value>Dark Sky ® a rencontré une erreur</value>
   </data>
   <data name="ui_DialogErrorWhileConnectingToWu" xml:space="preserve">
-    <value>Erreur lors de la connexion à WeatherUnderground. Merci de réessayer dans quelques minutes.</value>
+    <value>Erreur lors de la connexion à Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogNoResponseReceivedFromWu" xml:space="preserve">
-    <value>Aucune réponse reçue de WeatherUnderground. Merci de réessayer dans quelques minutes.</value>
+    <value>Aucune réponse reçue de Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
     <value>myForecast - Actualisation des données</value>

@@ -1,4 +1,13 @@
-﻿Changes for myForecast 1.0.5
+﻿Changes for myForecast 1.0.6
+============================
+Enhancements
+- Replaced WeatherUnderground ® API with Dark Sky ® API, due to WeatherUnderground ® API discontinuing the free access.
+- All weather icons are provided by [d3stroy](https://www.deviantart.com/d3stroy) (weezle icon set)
+
+Bugfixes
+- N/A
+
+Changes for myForecast 1.0.5
 ============================
 Enhancements
 - Minor updates to the English and French localization.
@@ -19,7 +28,7 @@ Changes for myForecast 1.0.3
 ============================
 Enhancements
 - Redesigned the application to support localization. French translation is provided by Romain.
-- myForecast now will request the weather data from WeatherUnderground API(R) using the selected language.
+- myForecast now will request the weather data from WeatherUnderground ® API using the selected language.
 - Replaced the default application icon in MCE extras menu and the start menu strip with a new one by d3stroy(weezle icon set).
 
 Bugfixes

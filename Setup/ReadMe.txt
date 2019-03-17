@@ -13,7 +13,7 @@ Requirements
 ============
 - Windows Media Center 7/8
 - Internet connection
-- Api key from WeatherUnderground
+- Api key from Dark Sky ® API
 
 
 Limitations
@@ -22,8 +22,8 @@ Limitations
 - Single weather location only
 
 
-How to get the API key from Weather Underground
-===============================================
+How to get the API key from  Dark Sky ® API
+===========================================
 The application is designed to use a free Dark Sky ® API developer account which limits you to 1000 calls per day.
 To prevent the customer from going over the limit the minimum weather refresh interval is set to 5 minutes at the application level.
 Of course if you already have an API key (free or paid) from Dark Sky ® API you can use it too.
@@ -36,8 +36,8 @@ Of course if you already have an API key (free or paid) from Dark Sky ® API you
 5. After login you will be redirected to the main API page. If all is good you will be given an API key (secret key) which looks like: ma80b279fake22ma80b279fake22
 
 
-How to get the location code from Weather Underground
-=====================================================
+How to get the location code from  Dark Sky ® API
+=================================================
 Go to https://darksky.net - in most of the cases (or at least for US) your location will be automatically detected and shown
 in the location box. In case it is not the one you are looking for, please use the location box to find the correct location.
 For example if I search for "New York, NY" I will be redirected to a new page that shows the New York, NY current weather.
