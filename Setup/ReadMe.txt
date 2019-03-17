@@ -1,5 +1,5 @@
 ﻿myForecast Version 1.0.5
-Copyright © 2017-2019 by Chavdar Kostov
+Copyright © 2016-2019 by Chavdar Kostov
 
 
 What is myForecast?
@@ -14,6 +14,7 @@ Requirements
 - Windows Media Center 7/8
 - Internet connection
 - Api key from Dark Sky ® API
+- Location coordinates from Dark Sky ® API
 
 
 Limitations

@@ -40,11 +40,11 @@ namespace myForecast
                 int selectedIndex;
                 switch (Configuration.Instance.WeatherUnit)
                 {
-                    case myForecast.WeatherUnit.Metric:
-                        selectedIndex = 0;
+                    case myForecast.WeatherUnit.Imperial:
+                        selectedIndex = 1;
                         break;
                     default:
-                        selectedIndex = 1;
+                        selectedIndex = 0;
                         break;
                 }
                 _spinnerWeatherUnits.ChosenIndex = selectedIndex;
@@ -56,11 +56,11 @@ namespace myForecast
                 WeatherUnit selectedValue;
                 switch (value.ChosenIndex)
                 {
-                    case 0:
-                        selectedValue = myForecast.WeatherUnit.Metric;
+                    case 1:
+                        selectedValue = myForecast.WeatherUnit.Imperial;
                         break;
                     default:
-                        selectedValue = myForecast.WeatherUnit.Imperial;
+                        selectedValue = myForecast.WeatherUnit.Metric;
                         break;
                 }
                 Configuration.Instance.WeatherUnit = selectedValue;
