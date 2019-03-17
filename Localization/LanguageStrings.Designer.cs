@@ -124,7 +124,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Weather icons by: The Weather Channel, LLC weather.com®.
+        ///   Looks up a localized string similar to Weather icons by d3stroy (weezle icon set).
         /// </summary>
         internal static string ui_AboutWeatherIconsBy {
             get {

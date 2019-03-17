@@ -3,7 +3,7 @@
 
 ## What is myForecast?
 myForecast is a free Windows Media Center weather application. Its use is governed by MIT License.
-Powered by Dark Sky ® API. Icons provided by [d3stroy](https://www.deviantart.com/d3stroy) (weezle icon set).
+Powered by Dark Sky ® API. All weather icons are provided by [d3stroy](https://www.deviantart.com/d3stroy - weezle icon set).
 For more information regarding the Dark Sky ® API, please visit https://darksky.net/dev.
 
 ## Requirements

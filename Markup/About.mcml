@@ -32,7 +32,7 @@
       </Binding>
       <Binding Source="[CodeLocalizationModel.Items.#ui_AboutApllicationIconBy!core:String]" Target="[TextApplicationIconBy.Content]">
         <Transformer>
-          <FormatTransformer Format="{0} d3stroy(weezle icon set)"/>
+          <FormatTransformer Format="{0} d3stroy (weezle icon set)"/>
         </Transformer>
       </Binding>
       
