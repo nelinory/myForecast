@@ -9,11 +9,11 @@
   <!-- Used for shade background in panels -->
   <Image Name="Shade" Source="resx://myForecast/myForecast.Resources/Shade" NineGrid="4,4,4,4"/>
 
-  <!-- Used for WeatherUnderground credits -->
-  <Image Name="PoweredByWeatherUnderground" Source="resx://myForecast/myForecast.Resources/PoweredBy"/>
+  <!-- Used for WeatherProvider attribution -->
+  <Image Name="WeatherProviderAttribution" Source="resx://myForecast/myForecast.Resources/WeatherProviderAttribution"/>
 
-  <!-- Used for WeatherUnderground logo -->
-  <Image Name="WeatherUndergroundLogo" Source="resx://myForecast/myForecast.Resources/WeatherUndergroundLogo"/>
+  <!-- Used for WeatherProvider logo -->
+  <Image Name="WeatherProviderLogo" Source="resx://myForecast/myForecast.Resources/WeatherProviderLogo"/>
 
   <!-- Used for myForecast about screen -->
   <Image Name="myForecastAbout" Source="resx://myForecast/myForecast.Resources/myForecastAbout"/>

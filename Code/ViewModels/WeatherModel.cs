@@ -16,10 +16,11 @@ namespace myForecast
 
         private readonly string _weatherFileName;
         private readonly string _weatherFileLocation;
-        private readonly string _weatherApiAddress;
+        private readonly string _weatherApiUri;
 
         private bool _uiRefreshNeeded;
         private Timer _weatherRefreshTimer;
+        private WeatherData _weatherData;
         private XmlDocument _xmlWeatherData;
         private WeatherUnit _weatherUnit;
         private int _weatherRefreshRateInMinutes;
@@ -156,16 +157,16 @@ namespace myForecast
                 _weatherUnit = Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial);
                 _weatherClockTimeFormat = Configuration.Instance.ClockTimeFormat.GetValueOrDefault(ClockTimeFormat.Hours12);
                 _weatherRefreshRateInMinutes = Configuration.Instance.RefreshRateInMinutes.GetValueOrDefault(10);
-                _weatherLanguage = Configuration.Instance.Language.GetValueOrDefault(Language.EN);
+                _weatherLanguage = Configuration.Instance.Language.GetValueOrDefault(Language.en);
             }
 
             // set the correct language for the UI thread
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Enum.GetName(typeof(Language), Configuration.Instance.Language));
 
             _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode, _weatherLanguage);
-            _weatherFileName = _weatherFileName.Replace(":", "."); // small cleanup is needed for zmw location codes
+            _weatherFileName = _weatherFileName.Replace(".", "").Replace(",", "").Replace("-", ""); // small cleanup is needed for location coordinates
             _weatherFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherFileName);
-            _weatherApiAddress = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLanguage, _weatherLocationCode);
+            _weatherApiUri = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLocationCode, _weatherLanguage, _weatherUnit == WeatherUnit.Imperial ? "us" : "si");
 
             _xmlWeatherData = new XmlDocument();
             _dailyForecast = new ArrayListDataSet();
@@ -185,14 +186,14 @@ namespace myForecast
 
         public void LoadWeatherData()
         {
-            // if the config is invalid load default weather collection
+            // if the configuration is invalid load default weather collection
             if (Configuration.Instance.IsValid() == false)
             {
                 LoadDefaultWeatherModel();
                 return;
             }
 
-            using (WebClient webClient = new WebClient())
+            using (WebClientWithCompression webClient = new WebClientWithCompression())
             {
                 try
                 {
@@ -201,31 +202,28 @@ namespace myForecast
                         // download the new weather data in a temporary string
                         // in case there is an error the old weather file will be preserved
                         webClient.Encoding = Encoding.UTF8;
-                        string weatherDataXml = webClient.DownloadString(_weatherApiAddress);
-                        if (String.IsNullOrEmpty(weatherDataXml) == false)
+                        string weatherDataJson = webClient.DownloadString(_weatherApiUri);
+                        if (String.IsNullOrEmpty(weatherDataJson) == false)
                         {
-                            _xmlWeatherData.LoadXml(weatherDataXml);
+                            _weatherData = new WeatherData(weatherDataJson);
 
-                            // check for WeatherUnderground specific error
-                            XmlNode errorMessageNode = _xmlWeatherData.SelectSingleNode("response/error/description");
-                            if (errorMessageNode != null && String.IsNullOrEmpty(errorMessageNode.InnerText) == false)
+                            // check for WeatherProvider specific error
+                            if (_weatherData.IsWeatherInfoAvailable == false)
                             {
-                                ShowErrorDialog(String.Format("{0}: {1}", LanguageStrings.ui_DialogErrorReceivedFromWu, errorMessageNode.InnerText), null, true);
+                                ShowErrorDialog(String.Format("{0}: {1}", LanguageStrings.ui_DialogErrorReceivedFromWeatherProvider, "Weather station is down for maintenance."), null, true);
                                 return;
                             }
                             else
                             {
-                                File.WriteAllText(_weatherFileLocation, weatherDataXml, Encoding.UTF8);
+                                File.WriteAllText(_weatherFileLocation, weatherDataJson, Encoding.UTF8);
                                 _uiRefreshNeeded = true;
                             }
                         }
                         else
-                            ShowErrorDialog(LanguageStrings.ui_DialogNoResponseReceivedFromWu);
+                            ShowErrorDialog(LanguageStrings.ui_DialogNoResponseReceivedFromWeatherProvider);
                     }
                     else
-                    {
-                        _xmlWeatherData.Load(_weatherFileLocation);
-                    }
+                        _weatherData = new WeatherData(File.ReadAllText(_weatherFileLocation));
 
                     if (_uiRefreshNeeded == true)
                     {
@@ -237,7 +235,13 @@ namespace myForecast
                 }
                 catch (WebException webException)
                 {
-                    ShowErrorDialog(LanguageStrings.ui_DialogErrorWhileConnectingToWu, webException);
+                    HttpWebResponse response = (HttpWebResponse)webException.Response;
+                    if (response.StatusCode == HttpStatusCode.Forbidden)
+                        ShowErrorDialog(LanguageStrings.ui_DialogInvalidApiKeyReceivedFromWeatherProvider, webException);
+                    else if (response.StatusCode == HttpStatusCode.BadRequest)
+                        ShowErrorDialog(LanguageStrings.ui_DialogInvalidLocationDataReceivedFromWeatherProvider, webException);
+                    else
+                        ShowErrorDialog(LanguageStrings.ui_DialogErrorWhileConnectingToWeatherProvider, webException);
                 }
                 catch (Exception exception)
                 {
@@ -354,18 +358,18 @@ namespace myForecast
                     break;
             }
 
-            // UV index format based on http://www.wunderground.com/resources/health/uvindex.asp
+            // UV index format based on https://en.wikipedia.org/wiki/Ultraviolet_index
             int uvIndex = Int32.Parse(currentConditionNode.SelectSingleNode("UV").InnerText.Replace(".0", ""));
-            if (uvIndex <= 2)
-                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_VeryLow);
-            else if (uvIndex >= 3 && uvIndex < 5)
+            if (uvIndex < 3)
                 CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Low);
-            else if (uvIndex >= 5 && uvIndex < 7)
+            else if (uvIndex >= 3 && uvIndex < 6)
                 CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Moderate);
-            else if (uvIndex >= 7 && uvIndex < 10)
+            else if (uvIndex >= 6 && uvIndex < 8)
                 CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_High);
-            else if (uvIndex >= 10)
+            else if (uvIndex >= 8 && uvIndex < 11)
                 CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_VeryHigh);
+            else if (uvIndex >= 11)
+                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Extreme);
         }
 
         private void LoadCurrentForecastProperties(XmlNode hourlyForecastNode)
@@ -415,7 +419,7 @@ namespace myForecast
 
                 switch (Configuration.Instance.Language)
                 {
-                    case Language.FR:
+                    case Language.fr:
                         dayOfTheWeek = String.Format("{0} {1} {2}",
                                                     forecastNodes[i].SelectSingleNode("date/weekday_short").InnerText.ToUpper(),
                                                     forecastNodes[i].SelectSingleNode("date/day").InnerText,

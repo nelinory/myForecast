@@ -104,7 +104,7 @@
                   </Panel>
                   <Panel MinimumSize="760,200" MaximumSize="760,200" Layout="HorizontalFlow" Margins="0,20,0,0">
                     <Children>
-                      <Graphic Content="image://this:WeatherUndergroundLogo" Margins="0,0,10,0"/>
+                      <Graphic Content="image://this:WeatherProviderLogo" Margins="0,0,10,0"/>
                       <Panel Margins="15,0,0,0">
                         <Layout>
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>

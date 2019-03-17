@@ -129,8 +129,8 @@
   <data name="ui_UvIndex_Moderate" xml:space="preserve">
     <value>Moderate</value>
   </data>
-  <data name="ui_UvIndex_VeryLow" xml:space="preserve">
-    <value>Very Low</value>
+  <data name="ui_UvIndex_Extreme" xml:space="preserve">
+    <value>Extreme</value>
   </data>
   <data name="ui_WeatherSettingsCaption" xml:space="preserve">
     <value>weather settings</value>
@@ -144,7 +144,7 @@
   <data name="ui_AboutCaption" xml:space="preserve">
     <value>about</value>
   </data>
-  <data name="ui_AboutAllWeatherDataProvidedByWu" xml:space="preserve">
+  <data name="ui_AboutAllWeatherDataProvidedBy" xml:space="preserve">
     <value>All weather data used by this application is provided by Dark Sky ® API</value>
   </data>
   <data name="ui_SettingsApiKey" xml:space="preserve">
@@ -174,7 +174,7 @@
   <data name="ui_CurrentFeelsLike" xml:space="preserve">
     <value>Feels like:</value>
   </data>
-  <data name="ui_AboutForWuApiInfoVisit" xml:space="preserve">
+  <data name="ui_AboutForApiInfoVisit" xml:space="preserve">
     <value>For more information regarding the Dark Sky ® API, please visit https://darksky.net/dev</value>
   </data>
   <data name="ui_CurrentHumidity" xml:space="preserve">
@@ -190,12 +190,12 @@
     <value>This product is licensed under the terms of the End User License Agreement.</value>
   </data>
   <data name="ui_SettingsLocationCode" xml:space="preserve">
-    <value>Location code</value>
+    <value>Location coordinates</value>
   </data>
   <data name="ui_PoweredByCaption" xml:space="preserve">
     <value>Powered by</value>
   </data>
-  <data name="ui_AboutPoweredByWu" xml:space="preserve">
+  <data name="ui_AboutPoweredBy" xml:space="preserve">
     <value>Powered by Dark Sky ®</value>
   </data>
   <data name="ui_CurrentPressure" xml:space="preserve">
@@ -249,13 +249,13 @@
   <data name="ui_DialogCatastrophicError" xml:space="preserve">
     <value>Ooops - catastrophic error.\nPlease, check the log file for more details.</value>
   </data>
-  <data name="ui_DialogErrorReceivedFromWu" xml:space="preserve">
-    <value>Error received from Dark Sky ®</value>
+  <data name="ui_DialogErrorReceivedFromWeatherProvider" xml:space="preserve">
+    <value>Error received from Dark Sky ®. Please, try again in few minutes.</value>
   </data>
-  <data name="ui_DialogErrorWhileConnectingToWu" xml:space="preserve">
+  <data name="ui_DialogErrorWhileConnectingToWeatherProvider" xml:space="preserve">
     <value>Error while connecting to Dark Sky ®. Please, try again in few minutes.</value>
   </data>
-  <data name="ui_DialogNoResponseReceivedFromWu" xml:space="preserve">
+  <data name="ui_DialogNoResponseReceivedFromWeatherProvider" xml:space="preserve">
     <value>No response received from Dark Sky ®. Please, try again in few minutes.</value>
   </data>
   <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
@@ -278,5 +278,11 @@
   </data>
   <data name="ui_AboutApllicationIconBy" xml:space="preserve">
     <value>Application icon by</value>
+  </data>
+  <data name="ui_DialogInvalidApiKeyReceivedFromWeatherProvider" xml:space="preserve">
+    <value>Invalid API Key. Please, verify your API key and try again.</value>
+  </data>
+  <data name="ui_DialogInvalidLocationDataReceivedFromWeatherProvider" xml:space="preserve">
+    <value>Invalid location coordinates. Please, verify your location coordinates and try again.</value>
   </data>
 </root>

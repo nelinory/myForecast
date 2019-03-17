@@ -176,7 +176,7 @@
                   </this:CurrentTime>
 
                   <!-- Current weather condition -->
-                  <this:CurrentWeather Name="ControlCurrentWeather" CurrentWeatherModel="[CodeWeatherModel]" HourlyForecastCommand="[CommandHourlyForecast]">
+                  <this:CurrentWeather Name="ControlCurrentWeather" WeatherModel="[CodeWeatherModel]" HourlyForecastCommand="[CommandHourlyForecast]">
                     <LayoutInput>
                       <FormLayoutInput Top="Parent,.24"/>
                     </LayoutInput>
@@ -211,12 +211,12 @@
                     </Children>
                   </Panel>
 
-                  <!-- Powered by WeatherUnderground credits -->
-                  <this:PoweredByWeatherUndergroundCredits>
+                  <!-- Powered by credits -->
+                  <this:PoweredByCredits>
                     <LayoutInput>
                       <FormLayoutInput Right="ControlCurrentWeather,1" Bottom="PanelForecast,1,40"/>
                     </LayoutInput>
-                  </this:PoweredByWeatherUndergroundCredits>
+                  </this:PoweredByCredits>
                 </Children>
               </Panel>
             </Children>

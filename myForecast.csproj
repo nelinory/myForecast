@@ -74,6 +74,15 @@
   <ItemGroup>
     <Compile Include="Code\Configuration.cs" />
     <Compile Include="Code\Controller.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\DataType.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\FailureMode.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJPException.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJson.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJsonArray.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJsonObject.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJsonValue.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\StringMode.cs" />
+    <Compile Include="Code\Entities\WeatherData.cs" />
     <Compile Include="Code\Enums.cs" />
     <Compile Include="Code\Launch.cs" />
     <Compile Include="Code\Logger.cs" />
@@ -81,6 +90,9 @@
     <Compile Include="Code\ViewModels\ConfigModel.cs" />
     <Compile Include="Code\ViewModels\LocalizationModel.cs" />
     <Compile Include="Code\ViewModels\WeatherModel.cs" />
+    <Compile Include="Code\WebClientWithCompression.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Localization\LanguageStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -213,7 +225,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Localization\LanguageStrings.fr.resx" />
+    <EmbeddedResource Include="Localization\LanguageStrings.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\LanguageStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageStrings.Designer.cs</LastGenOutput>
@@ -224,6 +238,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>%25windir%25\eHome\McmlVerifier.exe -verbose -assemblyredirect:"$(FullyQualifiedOutputPath)" -directory:"$(ProjectDir)Markup"

@@ -16,7 +16,7 @@ namespace myForecast
 
     public enum Language
     {
-        EN,
-        FR
+        en,
+        fr
     }
 }

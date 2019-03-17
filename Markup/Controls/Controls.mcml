@@ -56,7 +56,7 @@
         </Animations>
         <Children>
           <Text Content="[Content]" Color="White" Font="[FontRegular]"/>
-          <Graphic Content="image://this:PoweredByWeatherUnderground" MaximumSize="120,28" Margins="0,70,0,0"/>
+          <Graphic Content="image://this:WeatherProviderAttribution" MaximumSize="120,28" Margins="0,70,0,0"/>
         </Children>
       </ColorFill>
     </Content>
@@ -129,7 +129,7 @@
       <code:LocalizationModel Name="CodeLocalizationModel"/>
     </Locals>
     <Properties>
-      <code:WeatherModel Name="CurrentWeatherModel" WeatherModel="$Required"/>
+      <code:WeatherModel Name="WeatherModel" WeatherModel="$Required"/>
 
       <ICommand Name="HourlyForecastCommand" ICommand="$Required"/>
 
@@ -148,21 +148,21 @@
       <Binding Source="[HourlyForecastCommand]" Target="[Clicker.Command]"/>
 
       <!-- Cast CurrentConditionIcon string to image -->
-      <Binding Source="[CurrentWeatherModel.CurrentConditionIcon!Image]" Target="[CurrentConditionIcon.Content]">
+      <Binding Source="[WeatherModel.CurrentConditionIcon!Image]" Target="[CurrentConditionIcon.Content]">
         <Conditions>
-          <Equality Source="[CurrentWeatherModel.CurrentConditionIcon]" ConditionOp="NotEquals" Value=""/>
+          <Equality Source="[WeatherModel.CurrentConditionIcon]" ConditionOp="NotEquals" Value=""/>
         </Conditions>
       </Binding>
 
       <!-- Bind all current conditions -->
-      <Binding Source="[CurrentWeatherModel.CurrentConditionTemperature]" Target="[TextCurrentConditionTemperature.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionDescription]" Target="[TextCurrentConditionDescription.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionFeelsLike]" Target="[TextCurrentConditionFeelsLike.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionHumidity]" Target="[TextCurrentConditionHumidity.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionDewPoint]" Target="[TextCurrentConditionDewPoint.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionWind]" Target="[TextCurrentConditionWind.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionUvIndex]" Target="[TextCurrentConditionUvIndex.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionPressure]" Target="[TextCurrentConditionPressure.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionTemperature]" Target="[TextCurrentConditionTemperature.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionDescription]" Target="[TextCurrentConditionDescription.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionFeelsLike]" Target="[TextCurrentConditionFeelsLike.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionHumidity]" Target="[TextCurrentConditionHumidity.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionDewPoint]" Target="[TextCurrentConditionDewPoint.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionWind]" Target="[TextCurrentConditionWind.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionUvIndex]" Target="[TextCurrentConditionUvIndex.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionPressure]" Target="[TextCurrentConditionPressure.Content]"/>
 
       <!-- Handles selection of the current condition panel -->
       <Condition Source="[Input.KeyFocus]" SourceValue="true">
@@ -412,8 +412,8 @@
     </Content>
   </UI>
 
-  <!-- Powered by WeatherUnderground credits control -->
-  <UI Name="PoweredByWeatherUndergroundCredits">
+  <!-- Powered by credits control -->
+  <UI Name="PoweredByCredits">
     <Locals>
       <code:LocalizationModel Name="CodeLocalizationModel"/>      
     </Locals>
@@ -427,7 +427,7 @@
         </Layout>
         <Children>
           <Text Content="[CodeLocalizationModel.Items.#ui_PoweredByCaption!core:String]" Color="White" Font="[FontRegular]"/>
-          <Graphic Content="image://this:PoweredByWeatherUnderground" MaximumSize="120,28"/>
+          <Graphic Content="image://this:WeatherProviderAttribution" MaximumSize="120,28"/>
         </Children>
       </Panel>
     </Content>

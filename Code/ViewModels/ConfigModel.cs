@@ -178,7 +178,7 @@ namespace myForecast
                 int selectedIndex;
                 switch (Configuration.Instance.Language)
                 {
-                    case myForecast.Language.EN:
+                    case myForecast.Language.en:
                         selectedIndex = 0;
                         break;
                     default:
@@ -195,10 +195,10 @@ namespace myForecast
                 switch (value.ChosenIndex)
                 {
                     case 0:
-                        selectedValue = myForecast.Language.EN;
+                        selectedValue = myForecast.Language.en;
                         break;
                     default:
-                        selectedValue = myForecast.Language.FR;
+                        selectedValue = myForecast.Language.fr;
                         break;
                 }
                 Configuration.Instance.Language = selectedValue;

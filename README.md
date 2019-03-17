@@ -10,6 +10,7 @@ For more information regarding the Dark Sky ® API, please visit https://darksky
 - Windows Media Center 7/8
 - Internet connection
 - Api key from Dark Sky ® API
+- Location coordinates from Dark Sky ® API
 
 ## Limitations
 - Only 16:9/16:10 screen layouts (widescreen) are supported at the moment
