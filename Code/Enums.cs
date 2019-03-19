@@ -37,18 +37,18 @@ namespace myForecast
     //    Sleet
     //}
 
-    public enum IconType
-    {
-        None,
-        ClearDay,
-        ClearNight,
-        Rain,
-        Snow,
-        Sleet,
-        Wind,
-        Fog,
-        Cloudy,
-        PartlyCloudyDay,
-        PartlyCloudyNight
-    }
+    //public enum IconType
+    //{
+    //    None,
+    //    ClearDay,
+    //    ClearNight,
+    //    Rain,
+    //    Snow,
+    //    Sleet,
+    //    Wind,
+    //    Fog,
+    //    Cloudy,
+    //    PartlyCloudyDay,
+    //    PartlyCloudyNight
+    //}
 }

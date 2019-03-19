@@ -285,4 +285,7 @@
   <data name="ui_DialogInvalidLocationDataReceivedFromWeatherProvider" xml:space="preserve">
     <value>Invalid location coordinates. Please, verify your location coordinates and try again.</value>
   </data>
+  <data name="ui_WindSpeedZeroDescription" xml:space="preserve">
+    <value>Calm</value>
+  </data>
 </root>

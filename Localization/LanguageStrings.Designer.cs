@@ -563,5 +563,14 @@ namespace myForecast.Localization {
                 return ResourceManager.GetString("ui_WeatherSettingsCaption", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calm.
+        /// </summary>
+        internal static string ui_WindSpeedZeroDescription {
+            get {
+                return ResourceManager.GetString("ui_WindSpeedZeroDescription", resourceCulture);
+            }
+        }
     }
 }

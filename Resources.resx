@@ -127,126 +127,6 @@
   <data name="Shade" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\shade.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="chanceflurries" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\chanceflurries.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chancerain" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\chancerain.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chancesleet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\chancesleet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chancesnow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\chancesnow.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="chancetstorms" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\chancetstorms.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\clear.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="cloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\cloudy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="flurries" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\flurries.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\fog.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hazy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\hazy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mostlycloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\mostlycloudy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mostlysunny" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\mostlysunny.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_chanceflurries" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_chanceflurries.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_chancerain" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_chancerain.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_chancesleet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_chancesleet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_chancesnow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_chancesnow.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_chancetstorms" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_chancetstorms.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_clear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_clear.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_cloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_cloudy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_flurries" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_flurries.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_fog" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_fog.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_hazy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_hazy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_mostlycloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_mostlycloudy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_mostlysunny" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_mostlysunny.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_partlycloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_partlycloudy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_partlysunny" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_partlysunny.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_rain" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_rain.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_sleet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_sleet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_snow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_snow.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_sunny" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_sunny.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_tstorms" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_tstorms.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="nt_unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\nt_unknown.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="partlycloudy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\partlycloudy.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="partlysunny" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\partlysunny.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="rain" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\rain.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sleet" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\sleet.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="snow" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\snow.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sunny" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\sunny.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tstorms" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\tstorms.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="unknown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\01\unknown.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>markup\settings.mcml;System.Byte[], mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -306,5 +186,56 @@
   </data>
   <data name="myForecastAbout" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\myforecastabout.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clear_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\clear-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clear_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\clear-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cloud_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\cloud-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cloud_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\cloud-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fog_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\fog-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fog_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\fog-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="none" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\none.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="partly_cloudy_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\partly-cloudy-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="partly_cloudy_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\partly-cloudy-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rain_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\rain-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rain_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\rain-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sleet_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\sleet-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sleet_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\sleet-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="snow_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\snow-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="snow_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\snow-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wind_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\wind-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wind_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\wind-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
