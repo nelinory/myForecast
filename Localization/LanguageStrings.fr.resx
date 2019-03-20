@@ -145,7 +145,7 @@
     <value>à propos</value>
   </data>
   <data name="ui_AboutAllWeatherDataProvidedBy" xml:space="preserve">
-    <value>Les données météo utilisées par cette application sont fournies par l'API Dark Sky ®</value>
+    <value>Les données météo sont fournies par l'API Dark Sky ®</value>
   </data>
   <data name="ui_SettingsApiKey" xml:space="preserve">
     <value>Clé API</value>
@@ -175,13 +175,10 @@
     <value>Ressenti:</value>
   </data>
   <data name="ui_AboutForApiInfoVisit" xml:space="preserve">
-    <value>Pour plus d'informations sur l'API Dark Sky ®, merci de consulter https://darksky.net/dev</value>
+    <value>Pour plus d'informations sur l'API Dark Sky ®, veuillez consulter https://darksky.net/dev</value>
   </data>
   <data name="ui_CurrentHumidity" xml:space="preserve">
     <value>Humidité:</value>
-  </data>
-  <data name="ui_AboutWeatherIconsBy" xml:space="preserve">
-    <value>Icônes météo par d3stroy (weezle icon set)</value>
   </data>
   <data name="ui_SettingsLanguage" xml:space="preserve">
     <value>Langue</value>
@@ -250,13 +247,13 @@
     <value>Erreur critique.\nPour plus d'information, merci de consulter le rapport.</value>
   </data>
   <data name="ui_DialogErrorReceivedFromWeatherProvider" xml:space="preserve">
-    <value>Dark Sky ® a rencontré une erreur. Merci de réessayer dans quelques minutes.</value>
+    <value>API Dark Sky ® a rencontré une erreur. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogErrorWhileConnectingToWeatherProvider" xml:space="preserve">
-    <value>Erreur lors de la connexion à Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
+    <value>Erreur lors de la connexion à API Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogNoResponseReceivedFromWeatherProvider" xml:space="preserve">
-    <value>Aucune réponse reçue de Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
+    <value>Aucune réponse reçue de API Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
     <value>myForecast - Actualisation des données</value>
@@ -276,8 +273,8 @@
   <data name="ui_AboutTranslationBy" xml:space="preserve">
     <value>Traduction par</value>
   </data>
-  <data name="ui_AboutApllicationIconBy" xml:space="preserve">
-    <value>Icône de l'application par</value>
+  <data name="ui_AboutIconSetBy" xml:space="preserve">
+    <value>Icône de l'application/météo par</value>
   </data>
   <data name="ui_DialogInvalidApiKeyReceivedFromWeatherProvider" xml:space="preserve">
     <value>Clé API invalide. Veuillez vérifier votre clé API et réessayer.</value>

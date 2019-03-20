@@ -143,9 +143,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cloud_day {
+        internal static System.Drawing.Bitmap cloudy_day {
             get {
-                object obj = ResourceManager.GetObject("cloud_day", resourceCulture);
+                object obj = ResourceManager.GetObject("cloudy_day", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +153,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cloud_night {
+        internal static System.Drawing.Bitmap cloudy_night {
             get {
-                object obj = ResourceManager.GetObject("cloud_night", resourceCulture);
+                object obj = ResourceManager.GetObject("cloudy_night", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

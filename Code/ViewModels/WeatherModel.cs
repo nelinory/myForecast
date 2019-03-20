@@ -165,7 +165,7 @@ namespace myForecast
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Enum.GetName(typeof(Language), Configuration.Instance.Language));
 
             _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode, _weatherLanguage);
-            _weatherFileName = _weatherFileName.Replace(".", "").Replace(",", "").Replace("-", ""); // small cleanup is needed for location coordinates
+            _weatherFileName = _weatherFileName.Replace(".", "_").Replace(",", "").Replace("-", ""); // small cleanup is needed for location coordinates
             _weatherFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherFileName);
             _weatherApiUri = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLocationCode, _weatherLanguage, _weatherUnit == WeatherUnit.Imperial ? "us" : "ca");
 
@@ -648,7 +648,7 @@ namespace myForecast
                 }
             }
 
-            return "resx://myForecast/myForecast.Resources/" + result;
+            return "resx://myForecast/myForecast.Resources/" + result.Replace("-", "_"); // dash is not valid in resource name
         }
 
         private string GetFormattedPopIconResx(string pop)

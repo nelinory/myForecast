@@ -86,7 +86,7 @@ namespace myForecast
                         LWJsonArray hourlyData = weatherDataObject["hourly"]["data"].AsArray();
 
                         HourlyForecast = new List<ForecastItem>();
-                        for (int i = 0; i < 36; i++) // only grab 36 hours
+                        for (int i = 1; i < 37; i++) // only grab 36 hours, skipping first one which is the current hour
                         {
                             HourlyForecast.Add(new ForecastItem()
                             {

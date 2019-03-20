@@ -61,20 +61,11 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All weather data used by this application is provided by Dark Sky ® API.
+        ///   Looks up a localized string similar to All weather data is provided by Dark Sky ® API.
         /// </summary>
         internal static string ui_AboutAllWeatherDataProvidedBy {
             get {
                 return ResourceManager.GetString("ui_AboutAllWeatherDataProvidedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Application icon by.
-        /// </summary>
-        internal static string ui_AboutApllicationIconBy {
-            get {
-                return ResourceManager.GetString("ui_AboutApllicationIconBy", resourceCulture);
             }
         }
         
@@ -93,6 +84,15 @@ namespace myForecast.Localization {
         internal static string ui_AboutForApiInfoVisit {
             get {
                 return ResourceManager.GetString("ui_AboutForApiInfoVisit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application/Weather icons by.
+        /// </summary>
+        internal static string ui_AboutIconSetBy {
+            get {
+                return ResourceManager.GetString("ui_AboutIconSetBy", resourceCulture);
             }
         }
         
@@ -120,15 +120,6 @@ namespace myForecast.Localization {
         internal static string ui_AboutTranslationBy {
             get {
                 return ResourceManager.GetString("ui_AboutTranslationBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weather icons by d3stroy (weezle icon set).
-        /// </summary>
-        internal static string ui_AboutWeatherIconsBy {
-            get {
-                return ResourceManager.GetString("ui_AboutWeatherIconsBy", resourceCulture);
             }
         }
         
@@ -259,7 +250,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error received from Dark Sky ®. Please, try again in few minutes..
+        ///   Looks up a localized string similar to Error received from Dark Sky ® API. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogErrorReceivedFromWeatherProvider {
             get {
@@ -268,7 +259,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while connecting to Dark Sky ®. Please, try again in few minutes..
+        ///   Looks up a localized string similar to Error while connecting to Dark Sky ® API. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogErrorWhileConnectingToWeatherProvider {
             get {
@@ -295,7 +286,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No response received from Dark Sky ®. Please, try again in few minutes..
+        ///   Looks up a localized string similar to No response received from Dark Sky ® API. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogNoResponseReceivedFromWeatherProvider {
             get {

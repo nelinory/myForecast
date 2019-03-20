@@ -117,8 +117,8 @@
     <Content Include="Images\Pop.png" />
     <Content Include="Images\WeatherIcons\clear-day.png" />
     <Content Include="Images\WeatherIcons\clear-night.png" />
-    <Content Include="Images\WeatherIcons\cloud-day.png" />
-    <Content Include="Images\WeatherIcons\cloud-night.png" />
+    <Content Include="Images\WeatherIcons\cloudy-day.png" />
+    <Content Include="Images\WeatherIcons\cloudy-night.png" />
     <Content Include="Images\WeatherIcons\fog-day.png" />
     <Content Include="Images\WeatherIcons\fog-night.png" />
     <Content Include="Images\WeatherIcons\none.png" />
@@ -132,6 +132,8 @@
     <Content Include="Images\WeatherIcons\snow-night.png" />
     <Content Include="Images\WeatherIcons\wind-day.png" />
     <Content Include="Images\WeatherIcons\wind-night.png" />
+    <Content Include="Images\WeatherProviderAttribution.png" />
+    <Content Include="Images\WeatherProviderLogo.png" />
     <Content Include="Setup\WixUI_Bmp_Banner.bmp" />
     <Content Include="Setup\WixUI_Bmp_Dialog.bmp" />
     <None Include=".gitignore" />
@@ -149,8 +151,6 @@
     <Content Include="Images\myForecastInactive.png" />
     <Content Include="Images\myForecastStrip.png" />
     <Content Include="Images\myForecastStripInactive.png" />
-    <Content Include="Images\PoweredBy.png" />
-    <Content Include="Images\WeatherUndergroundLogo.png" />
     <Content Include="Images\Weather_Alert.png" />
     <Content Include="Setup\ChangeLog.txt" />
     <Content Include="Setup\ReadMe.txt" />
