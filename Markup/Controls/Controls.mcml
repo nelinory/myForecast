@@ -253,13 +253,6 @@
       <Binding Source="[ForecastItem.Condition]" Target="[TextCondition.Content]"/>
       <Binding Source="[ForecastItem.LowTemp]" Target="[TextLowTemp.Content]"/>
       <Binding Source="[ForecastItem.HighTemp]" Target="[TextHighTemp.Content]"/>
-
-      <!-- Cast PopIcon string to image -->
-      <Binding Source="[ForecastItem.PopIcon!Image]" Target="[PopIcon.Content]">
-        <Conditions>
-          <Equality Source="[ForecastItem.PopIcon]" ConditionOp="NotEquals" Value=""/>
-        </Conditions>
-      </Binding>
       <Binding Source="[ForecastItem.Pop]" Target="[TextPop.Content]"/>
 
       <!-- Controls the visibility of pop panel -->
@@ -305,7 +298,7 @@
                   <FlowLayout Orientation="Horizontal" Spacing="3,0" ItemAlignment="Center"/>
                 </Layout>
                 <Children>
-                  <Graphic Name="PopIcon" Content="image://this:Blank" MaximumSize="15,15" Alpha="0.9" Margins="0,3,0,0"/>
+                  <Graphic Name="PopIcon" Content="image://this:Pop" MaximumSize="15,15" Alpha="0.9" Margins="0,3,0,0"/>
                   <Text Name="TextPop" Content="null" Color="White" Font="[FontRegular]"/>
                 </Children>
               </Panel>

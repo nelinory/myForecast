@@ -380,8 +380,7 @@ namespace myForecast
                 Condition = GetForecastConditionDescription(currentForecastItem.Condition, currentForecastItem.Icon),
                 LowTemp = GetFormattedWeatherValue(lowTemperature, WeatherValueFormatType.Temperature),
                 HighTemp = GetFormattedWeatherValue(highTemperature, WeatherValueFormatType.Temperature),
-                PopIcon = GetFormattedPopIconResx(currentForecastItem.Pop),
-                Pop = GetFormattedPop(currentForecastItem.Pop) // TODO: POP visualization needs some work, probably on/off based on pop value with static pop icon
+                Pop = GetFormattedPop(currentForecastItem.Pop)
             });
 
             // next 5 days forecast
@@ -419,8 +418,7 @@ namespace myForecast
                     Condition = GetForecastConditionDescription(dailyForecastItem.Condition, dailyForecastItem.Icon),
                     LowTemp = GetFormattedWeatherValue(dailyForecastItem.LowTemp, WeatherValueFormatType.Temperature),
                     HighTemp = GetFormattedWeatherValue(dailyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
-                    PopIcon = GetFormattedPopIconResx(dailyForecastItem.Pop),
-                    Pop = GetFormattedPop(dailyForecastItem.Pop) // TODO: POP visualization needs some work, probably on/off based on pop value with static pop icon
+                    Pop = GetFormattedPop(dailyForecastItem.Pop)
                 });
 
                 daysLoaded++;
@@ -455,8 +453,7 @@ namespace myForecast
                     TimeOfTheDay = GetFormattedTimeFromEpoch(hourlyForecastItem.TimestampEpoch),
                     ForecastIcon = GetFormattedIconResx(hourlyForecastItem.Icon, hourlyForecastItem.TimestampEpoch),
                     HighTemp = GetFormattedWeatherValue(hourlyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
-                    PopIcon = GetFormattedPopIconResx(hourlyForecastItem.Pop),
-                    Pop = GetFormattedPop(hourlyForecastItem.Pop) // TODO: POP visualization needs some work, probably on/off based on pop value with static pop icon
+                    Pop = GetFormattedPop(hourlyForecastItem.Pop)
                 });
             }
         }
@@ -661,18 +658,6 @@ namespace myForecast
             return "resx://myForecast/myForecast.Resources/" + result.Replace("-", "_"); // dash is not valid in resource name
         }
 
-        private string GetFormattedPopIconResx(string pop)
-        {
-            string popIconResx = "resx://myForecast/myForecast.Resources/";
-
-            if (String.IsNullOrEmpty(GetFormattedPop(pop)) == true)
-                popIconResx += "Blank";
-            else
-                popIconResx += "Pop";
-
-            return popIconResx;
-        }
-
         private string GetFormattedPop(string pop)
         {
             string result = null; // UI will hide pop indicator if value is null
@@ -752,12 +737,6 @@ namespace myForecast
         {
             get { return _highTemp; }
             set { _highTemp = value; FirePropertyChanged("HighTemp"); }
-        }
-
-        public string PopIcon
-        {
-            get { return _popIcon; }
-            set { _popIcon = value; FirePropertyChanged("PopIcon"); }
         }
 
         public string Pop

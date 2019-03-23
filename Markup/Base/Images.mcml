@@ -5,7 +5,10 @@
 
   <!-- Used for switching graphics like the forecast icons -->
   <Image Name="Blank" Image="null"/>
-  
+
+  <!-- Used for switching graphics like the forecast icons -->
+  <Image Name="Pop" Source="resx://myForecast/myForecast.Resources/Pop"/>
+
   <!-- Used for shade background in panels -->
   <Image Name="Shade" Source="resx://myForecast/myForecast.Resources/Shade" NineGrid="4,4,4,4"/>
 
