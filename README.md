@@ -1,6 +1,3 @@
-> **Note:**<br/>
-> WeatherUnderground discontinued free API accounts as of 03/01/2019. Working on replacement using Dark Sky API.
-
 ## What is myForecast?
 myForecast is a free Windows Media Center weather application. Its use is governed by MIT License.
 Powered by Dark Sky ® API. All weather icons are provided by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set).
@@ -23,7 +20,7 @@ The application is designed to use a free Dark Sky ® API developer account whic
 2. Fill in the "Register" section, agree to the Terms of Service and click "REGISTER" button
 3. Check the email address you used in Step 2 for the activation email from Dark Sky ® API (Dark Sky Developer Support <developer@darksky.net>) and click on the activation link. You have 30 minutes to activate.
 4. Go to https://darksky.net/dev and click the "LOG IN" button
-5. After login you will be redirected to the main API page. If all is good you will be given an API key (secret key) which looks like: ma80b279fake22ma80b279fake22
+5. After login you will be redirected to the main API page. If all is good you will be given an API key (secret key) which looks like: **ma80b279fake22ma80b279fake22**
 
 ## How to get the location coordinates from Dark Sky ® API
 Go to https://darksky.net - in most of the cases (or at least for US) your location will be automatically detected and shown
