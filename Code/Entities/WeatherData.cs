@@ -9,7 +9,6 @@ namespace myForecast
         // https://progklb.github.io/lightweight-json-parser/
 
         public bool IsWeatherInfoAvailable { get; set; }
-        public string LocationName { get; set; }
         public CurrentItem CurrentForecast { get; set; }
         public List<ForecastItem> DailyForecast { get; set; }
         public List<ForecastItem> HourlyForecast { get; set; }
@@ -22,8 +21,6 @@ namespace myForecast
             try
             {
                 LWJson weatherDataObject = LWJson.Parse(weatherDataJson);
-
-                LocationName = String.Empty;
 
                 // check first if weather info is available
                 if (weatherDataObject.Contains("flags") == true && weatherDataObject["flags"].IsObject == true)
@@ -51,7 +48,7 @@ namespace myForecast
                     };
                 }
 
-                // load daily forecast starting tomorrow 
+                // load daily forecast 
                 if (weatherDataObject.Contains("daily") == true && weatherDataObject["daily"].IsObject == true)
                 {
                     if (weatherDataObject["daily"]["data"].IsArray == true && weatherDataObject["daily"]["data"].AsArray().Count > 0)
@@ -59,7 +56,7 @@ namespace myForecast
                         LWJsonArray dailyData = weatherDataObject["daily"]["data"].AsArray();
 
                         DailyForecast = new List<ForecastItem>();
-                        for (int i = 1; i < 6; i++) // only grab 5 future days starting tomorrow
+                        for (int i = 0; i < dailyData.Count; i++)
                         {
                             // DarkSky quirk for daily data: Treat "partly-cloudy-night" as an alias for "clear-day"
                             string icon = dailyData[i]["icon"].AsString();

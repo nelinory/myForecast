@@ -15,6 +15,7 @@
       <!-- TypingHandlers for the OSK -->
       <TypingHandler Name="TypingHandlerApiKey" TypingPolicy="Default"/>
       <TypingHandler Name="TypingHandlerLocationCode" TypingPolicy="Default"/>
+      <TypingHandler Name="TypingHandlerLocationName" TypingPolicy="Default"/>
 
       <code:ConfigModel Name="CodeConfigModel"/>
       <code:LocalizationModel Name="CodeLocalizationModel"/>
@@ -22,6 +23,7 @@
 
       <EditableText Name="TextEditApiKey"/>
       <EditableText Name="TextEditLocationCode"/>
+      <EditableText Name="TextEditLocationName"/>
 
       <BooleanChoice Name="CheckboxShowInStartMenu" Description="null"/>
 
@@ -30,6 +32,7 @@
       <Command Name="CommandAbout" Description="null"/>
       <Command Name="CommandKeyboardApiKey" Description="null"/>
       <Command Name="CommandKeyboardLocationCode" Description="null"/>
+      <Command Name="CommandKeyboardLocationName" Description="null"/>
     </Locals>
     <Properties>
       <Font Name="FontBoldSettings" FontName="global://this:FontFaceBold" FontSize="18"/>
@@ -45,6 +48,9 @@
 
       <!-- Bind LocationCode text control -->
       <Binding Source="[CodeConfigModel.LocationCode]" Target="[TextEditLocationCode.Value]"/>
+
+      <!-- Bind LocationName text control -->
+      <Binding Source="[CodeConfigModel.LocationName]" Target="[TextEditLocationName.Value]"/>
 
       <!-- Bind WeatherUnit spinner control -->
       <Binding Source="[CodeConfigModel.WeatherUnit]" Target="[SpinnerWeatherUnits.Model]"/>
@@ -64,6 +70,7 @@
       <!-- Bindings for the OSK -->
       <Binding Source="[TextEditApiKey]" Target="[TypingHandlerApiKey.EditableText]" />
       <Binding Source="[TextEditLocationCode]" Target="[TypingHandlerLocationCode.EditableText]" />
+      <Binding Source="[TextEditLocationName]" Target="[TypingHandlerLocationName.EditableText]" />
 
       <!-- Bind the correct language string -->
       <Binding Source="[CodeLocalizationModel.Items.#ui_ButtonSave!core:String]" Target="[CommandSave.Description]"/>
@@ -76,6 +83,7 @@
         <Actions>
           <Set Target="[CodeConfigModel.ApiKey]" Value="[TextEditApiKey.Value]" />
           <Set Target="[CodeConfigModel.LocationCode]" Value="[TextEditLocationCode.Value]" />
+          <Set Target="[CodeConfigModel.LocationName]" Value="[TextEditLocationName.Value]" />
           <Set Target="[CodeConfigModel.WeatherUnit]" Value="[SpinnerWeatherUnits.Model]"/>
           <Set Target="[CodeConfigModel.RefreshRateInMinutes]" Value="[SpinnerRefreshRateInMinutes.Model]"/>
           <Set Target="[CodeConfigModel.ClockTimeFormat]" Value="[SpinnerClockTimeFormat.Model]"/>
@@ -117,6 +125,16 @@
                   editableText="[TypingHandlerLocationCode.EditableText]"
                   passwordMasked="[TypingHandlerLocationCode.PasswordMasked]"
                   maxLength="[TypingHandlerLocationCode.MaxLength]"/>
+        </Actions>
+      </Changed>
+
+      <!-- Button OSK LocationName clicked -->
+      <Changed Source="[CommandKeyboardLocationName.Invoked]">
+        <Actions>
+          <Invoke Target="[AddInHost.MediaCenterEnvironment.ShowOnscreenKeyboard]"
+                  editableText="[TypingHandlerLocationName.EditableText]"
+                  passwordMasked="[TypingHandlerLocationName.PasswordMasked]"
+                  maxLength="[TypingHandlerLocationName.MaxLength]"/>
         </Actions>
       </Changed>
 
@@ -192,6 +210,19 @@
                         </Children>
                       </Panel>
 
+                      <!-- Location name  -->
+                      <Panel Margins="0,4,0,0">
+                        <Layout>
+                          <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
+                        </Layout>
+                        <Children>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsLocationName!core:String]" Font="[FontRegular]" Color="White" MinimumSize="270,0"/>
+                          <this:Edit Model="[TextEditLocationName]" ContentMinSize="490,32" ContentMaxSize="490,32"/>
+                          <this:Button Model="[CommandKeyboardLocationName]" IconImage="image://this:Keyboard"
+                                       IconMinSize="46,30" IconMaxSize="46,30" TileSize="60,51" IconPadding="7,0,0,0"/>
+                        </Children>
+                      </Panel>                      
+                      
                       <!-- Weather units -->
                       <Panel Margins="0,4,0,0">
                         <Layout>
@@ -237,7 +268,7 @@
                       </Panel>
 
                       <!-- Integrate in Start menu -->
-                      <Panel Margins="0,80,0,0">
+                      <Panel Margins="0,40,0,0">
                         <Layout>
                           <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
                         </Layout>

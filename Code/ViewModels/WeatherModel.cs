@@ -164,8 +164,7 @@ namespace myForecast
             // set the correct language for the UI thread
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Enum.GetName(typeof(Language), Configuration.Instance.Language));
 
-            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode, _weatherLanguage);
-            _weatherFileName = _weatherFileName.Replace(".", "_").Replace(",", "").Replace("-", ""); // small cleanup is needed for location coordinates
+            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode.Replace(".", "_").Replace(",", ""), _weatherLanguage);
             _weatherFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherFileName);
             _weatherApiUri = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLocationCode, _weatherLanguage, _weatherUnit == WeatherUnit.Imperial ? "us" : "ca");
 
@@ -254,7 +253,7 @@ namespace myForecast
         private void LoadWeatherModel()
         {
             LastUpdateTimestamp = GetFormattedTimestampFromEpoch(_weatherData.CurrentForecast.TimestampEpoch);
-            LocationName = _weatherData.LocationName;
+            LocationName = Configuration.Instance.LocationName;
 
             LoadWeatherAlertProperties(_weatherData.Alerts);
             LoadCurrentConditionProperties(_weatherData.CurrentForecast);
@@ -386,10 +385,16 @@ namespace myForecast
             });
 
             // next 5 days forecast
+            int daysLoaded = 0;
             foreach (WeatherData.ForecastItem dailyForecastItem in dailyForecastItems)
             {
-                string dayOfTheWeek = String.Empty;
                 DateTime timestamp = GetTimestampFromEpoch(dailyForecastItem.TimestampEpoch);
+
+                // skip all days untill tomorrow
+                if (DateTime.Now.Date >= timestamp.Date)
+                    continue;
+
+                string dayOfTheWeek = String.Empty;
 
                 switch (Configuration.Instance.Language)
                 {
@@ -417,6 +422,11 @@ namespace myForecast
                     PopIcon = GetFormattedPopIconResx(dailyForecastItem.Pop),
                     Pop = GetFormattedPop(dailyForecastItem.Pop) // TODO: POP visualization needs some work, probably on/off based on pop value with static pop icon
                 });
+
+                daysLoaded++;
+                // max of 5 days can be shown
+                if (daysLoaded == 5)
+                    break;
             }
         }
 
@@ -551,10 +561,10 @@ namespace myForecast
                     switch (_weatherUnit)
                     {
                         case WeatherUnit.Imperial:
-                            formattedValue = weatherValue + "°F";
+                            formattedValue = String.Format("{0}°F", weatherValue);
                             break;
                         default:
-                            formattedValue = weatherValue + "°C";
+                            formattedValue = String.Format("{0}°C", weatherValue);
                             break;
                     }
                     break;
@@ -562,8 +572,9 @@ namespace myForecast
                     formattedValue = String.Format("{0}%", Math.Floor(Decimal.Parse(weatherValue) * 100));
                     break;
                 case WeatherValueFormatType.WindSpeed:
+                    decimal windSpeedValue = Math.Round(Decimal.Parse(weatherValue), MidpointRounding.AwayFromZero);
                     // check if no wind
-                    if (Math.Round(Decimal.Parse(weatherValue), MidpointRounding.AwayFromZero) == 0)
+                    if (windSpeedValue == 0)
                     {
                         formattedValue = LanguageStrings.ui_WindSpeedZeroDescription;
                         break;
@@ -571,10 +582,10 @@ namespace myForecast
                     switch (_weatherUnit)
                     {
                         case WeatherUnit.Imperial:
-                            formattedValue = String.Format("{0} mph", weatherValue);
+                            formattedValue = String.Format("{0} mph", windSpeedValue);
                             break;
                         default:
-                            formattedValue = String.Format("{0} kph", weatherValue);
+                            formattedValue = String.Format("{0} kph", windSpeedValue);
                             break;
                     }
                     break;
@@ -602,13 +613,14 @@ namespace myForecast
                         formattedValue = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Extreme);
                     break;
                 default: // WeatherValueFormatType.Pressure
+                    decimal pressureValue = Math.Floor(Decimal.Parse(weatherValue));
                     switch (_weatherUnit)
                     {
                         case WeatherUnit.Imperial:
-                            formattedValue = weatherValue + " in";
+                            formattedValue = String.Format("{0} mb", pressureValue);
                             break;
                         default:
-                            formattedValue = weatherValue + " hPa";
+                            formattedValue = String.Format("{0} hPa", pressureValue);
                             break;
                     }
                     break;

@@ -33,6 +33,12 @@ namespace myForecast
             set { Configuration.Instance.LocationCode = value; FirePropertyChanged("LocationCode"); }
         }
 
+        public string LocationName
+        {
+            get { return Configuration.Instance.LocationName; }
+            set { Configuration.Instance.LocationName = value; FirePropertyChanged("LocationName"); }
+        }
+
         public Choice WeatherUnit
         {
             get

@@ -306,4 +306,7 @@
   <data name="ui_ConditionWind" xml:space="preserve">
     <value>Vent</value>
   </data>
+  <data name="ui_SettingsLocationName" xml:space="preserve">
+    <value>Nom de localisation</value>
+  </data>
 </root>

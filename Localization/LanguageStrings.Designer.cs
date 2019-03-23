@@ -484,6 +484,15 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location name.
+        /// </summary>
+        internal static string ui_SettingsLocationName {
+            get {
+                return ResourceManager.GetString("ui_SettingsLocationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Metric.
         /// </summary>
         internal static string ui_SettingsMetricUnits {
