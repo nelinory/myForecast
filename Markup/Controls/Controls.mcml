@@ -39,7 +39,7 @@
     <Properties>
       <core:String Name="Content" String="$Required"/>
 
-      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="22"/>
+      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="23"/>
     </Properties>
     <Content>
       <ColorFill Content="Transparent" Layout="Center">
@@ -56,7 +56,7 @@
         </Animations>
         <Children>
           <Text Content="[Content]" Color="White" Font="[FontRegular]"/>
-          <Graphic Content="image://this:WeatherProviderAttribution" MaximumSize="120,28" Margins="0,70,0,0"/>
+          <Graphic Content="image://this:WeatherProviderAttribution" MaximumSize="247,56" Margins="0,90,0,0"/>
         </Children>
       </ColorFill>
     </Content>
@@ -198,7 +198,7 @@
                         MaximumSize="300,0" MaximumLines="2" WordWrap="true"/>
                 </Children>
               </Panel>
-              <Panel Margins="70,9,0,0" MinimumSize="120,1">
+              <Panel Margins="50,9,0,0" MinimumSize="120,1">
                 <Layout>
                   <FlowLayout Orientation="Vertical" ItemAlignment="Far"/>
                 </Layout>
@@ -211,7 +211,7 @@
                   <Text Content="[CodeLocalizationModel.Items.#ui_CurrentPressure!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
                 </Children>
               </Panel>
-              <Panel Margins="10,10,10,0" MinimumSize="200,1">
+              <Panel Margins="10,10,10,0" MinimumSize="180,1">
                 <Layout>
                   <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                 </Layout>
@@ -237,7 +237,7 @@
       <Index Name="Index" Index="$Required"/>
 
       <code:ForecastItem Name="ForecastItem" ForecastItem="$Required"/>
-      
+
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="16"/>
       <Font Name="FontRegularBig" FontName="global://this:FontFaceRegular" FontSize="18"/>
     </Properties>
@@ -348,7 +348,7 @@
       </Binding>
 
       <Binding Source="[ForecastItem.HighTemp]" Target="[TextHighTemp.Content]"/>
-      
+
       <Binding Source="[ForecastItem.Pop]" Target="[TextPop.Content]"/>
 
       <!-- Controls the visibility of pop panel -->
@@ -415,7 +415,7 @@
   <!-- Powered by credits control -->
   <UI Name="PoweredByCredits">
     <Locals>
-      <code:LocalizationModel Name="CodeLocalizationModel"/>      
+      <code:LocalizationModel Name="CodeLocalizationModel"/>
     </Locals>
     <Properties>
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="10"/>
@@ -423,11 +423,11 @@
     <Content>
       <Panel>
         <Layout>
-          <FlowLayout Orientation="Horizontal" Spacing="3,0" ItemAlignment="Far"/>
+          <FlowLayout Orientation="Horizontal" ItemAlignment="Far"/>
         </Layout>
         <Children>
-          <Text Content="[CodeLocalizationModel.Items.#ui_PoweredByCaption!core:String]" Color="White" Font="[FontRegular]"/>
-          <Graphic Content="image://this:WeatherProviderAttribution" MaximumSize="120,28"/>
+          <Text Content="[CodeLocalizationModel.Items.#ui_PoweredBy!core:String]" Color="White" Font="[FontRegular]"/>
+          <!--<Graphic Content="image://this:WeatherProviderAttribution" MaximumSize="190,43" Alpha="0.85"/>-->
         </Children>
       </Panel>
     </Content>

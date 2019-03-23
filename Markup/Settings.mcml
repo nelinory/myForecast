@@ -172,8 +172,8 @@
                           <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsApiKey!core:String]" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
-                          <this:Edit Model="[TextEditApiKey]" ContentMinSize="350,32" ContentMaxSize="350,32" FocusOrder="1"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsApiKey!core:String]" Font="[FontRegular]" Color="White" MinimumSize="270,0"/>
+                          <this:Edit Model="[TextEditApiKey]" ContentMinSize="490,32" ContentMaxSize="490,32" FocusOrder="1"/>
                           <this:Button Model="[CommandKeyboardApiKey]" IconImage="image://this:Keyboard"
                                        IconMinSize="46,30" IconMaxSize="46,30" TileSize="60,51" IconPadding="7,0,0,0"/>
                         </Children>
@@ -185,8 +185,8 @@
                           <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsLocationCode!core:String]" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
-                          <this:Edit Model="[TextEditLocationCode]" ContentMinSize="350,32" ContentMaxSize="350,32"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsLocationCode!core:String]" Font="[FontRegular]" Color="White" MinimumSize="270,0"/>
+                          <this:Edit Model="[TextEditLocationCode]" ContentMinSize="490,32" ContentMaxSize="490,32"/>
                           <this:Button Model="[CommandKeyboardLocationCode]" IconImage="image://this:Keyboard"
                                        IconMinSize="46,30" IconMaxSize="46,30" TileSize="60,51" IconPadding="7,0,0,0"/>
                         </Children>
@@ -198,7 +198,7 @@
                           <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsWeatherUnits!core:String]" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsWeatherUnits!core:String]" Font="[FontRegular]" Color="White" MinimumSize="270,0"/>
                           <this:Spinner Name="SpinnerWeatherUnits" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
                         </Children>
                       </Panel>
@@ -209,7 +209,7 @@
                           <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsRefreshInterval!core:String]" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsRefreshInterval!core:String]" Font="[FontRegular]" Color="White" MinimumSize="270,0"/>
                           <this:Spinner Name="SpinnerRefreshRateInMinutes" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
                         </Children>
                       </Panel>
@@ -220,7 +220,7 @@
                           <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsClockTimeFormat!core:String]" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsClockTimeFormat!core:String]" Font="[FontRegular]" Color="White" MinimumSize="270,0"/>
                           <this:Spinner Name="SpinnerClockTimeFormat" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
                         </Children>
                       </Panel>
@@ -231,7 +231,7 @@
                           <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsLanguage!core:String]" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsLanguage!core:String]" Font="[FontRegular]" Color="White" MinimumSize="270,0"/>
                           <this:Spinner Name="SpinnerLanguage" LabelMinSize="250,42" LabelMaxSize="250,42" Model="null"/>
                         </Children>
                       </Panel>
@@ -242,7 +242,7 @@
                           <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsAppShortcut!core:String]" Font="[FontRegular]" Color="White" MinimumSize="240,0"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_SettingsAppShortcut!core:String]" Font="[FontRegular]" Color="White" MinimumSize="270,0"/>
                           <this:Checkbox Model="[CheckboxShowInStartMenu]"/>
                         </Children>
                       </Panel>

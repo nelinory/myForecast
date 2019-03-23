@@ -189,11 +189,8 @@
   <data name="ui_SettingsLocationCode" xml:space="preserve">
     <value>Location coordinates</value>
   </data>
-  <data name="ui_PoweredByCaption" xml:space="preserve">
-    <value>Powered by</value>
-  </data>
-  <data name="ui_AboutPoweredBy" xml:space="preserve">
-    <value>Powered by Dark Sky ®</value>
+  <data name="ui_PoweredBy" xml:space="preserve">
+    <value>Powered by Dark Sky</value>
   </data>
   <data name="ui_CurrentPressure" xml:space="preserve">
     <value>Pressure:</value>
@@ -284,5 +281,29 @@
   </data>
   <data name="ui_WindSpeedZeroDescription" xml:space="preserve">
     <value>Calm</value>
+  </data>
+  <data name="ui_ConditionClear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="ui_ConditionCloudy" xml:space="preserve">
+    <value>Cloudy</value>
+  </data>
+  <data name="ui_ConditionFog" xml:space="preserve">
+    <value>Fog</value>
+  </data>
+  <data name="ui_ConditionPartlyCloudy" xml:space="preserve">
+    <value>Partly Cloudy</value>
+  </data>
+  <data name="ui_ConditionRain" xml:space="preserve">
+    <value>Rain</value>
+  </data>
+  <data name="ui_ConditionSleet" xml:space="preserve">
+    <value>Sleet</value>
+  </data>
+  <data name="ui_ConditionWind" xml:space="preserve">
+    <value>Wind</value>
+  </data>
+  <data name="ui_ConditionSnow" xml:space="preserve">
+    <value>Snow</value>
   </data>
 </root>

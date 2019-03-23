@@ -106,15 +106,6 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powered by Dark Sky ®.
-        /// </summary>
-        internal static string ui_AboutPoweredBy {
-            get {
-                return ResourceManager.GetString("ui_AboutPoweredBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Translation by.
         /// </summary>
         internal static string ui_AboutTranslationBy {
@@ -174,6 +165,78 @@ namespace myForecast.Localization {
         internal static string ui_ButtonSave {
             get {
                 return ResourceManager.GetString("ui_ButtonSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string ui_ConditionClear {
+            get {
+                return ResourceManager.GetString("ui_ConditionClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cloudy.
+        /// </summary>
+        internal static string ui_ConditionCloudy {
+            get {
+                return ResourceManager.GetString("ui_ConditionCloudy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fog.
+        /// </summary>
+        internal static string ui_ConditionFog {
+            get {
+                return ResourceManager.GetString("ui_ConditionFog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partly Cloudy.
+        /// </summary>
+        internal static string ui_ConditionPartlyCloudy {
+            get {
+                return ResourceManager.GetString("ui_ConditionPartlyCloudy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rain.
+        /// </summary>
+        internal static string ui_ConditionRain {
+            get {
+                return ResourceManager.GetString("ui_ConditionRain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sleet.
+        /// </summary>
+        internal static string ui_ConditionSleet {
+            get {
+                return ResourceManager.GetString("ui_ConditionSleet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snow.
+        /// </summary>
+        internal static string ui_ConditionSnow {
+            get {
+                return ResourceManager.GetString("ui_ConditionSnow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wind.
+        /// </summary>
+        internal static string ui_ConditionWind {
+            get {
+                return ResourceManager.GetString("ui_ConditionWind", resourceCulture);
             }
         }
         
@@ -340,11 +403,11 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powered by.
+        ///   Looks up a localized string similar to Powered by Dark Sky.
         /// </summary>
-        internal static string ui_PoweredByCaption {
+        internal static string ui_PoweredBy {
             get {
-                return ResourceManager.GetString("ui_PoweredByCaption", resourceCulture);
+                return ResourceManager.GetString("ui_PoweredBy", resourceCulture);
             }
         }
         

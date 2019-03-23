@@ -346,7 +346,7 @@ namespace myForecast
         {
             CurrentConditionIcon = GetFormattedIconResx(currentCondition.Icon, currentCondition.TimestampEpoch);
             CurrentConditionDescription = currentCondition.Description;
-            CurrentConditionHumidity = currentCondition.Humidity;
+            CurrentConditionHumidity = GetFormattedWeatherValue(currentCondition.Humidity, WeatherValueFormatType.Humidity);
             CurrentConditionTemperature = GetFormattedWeatherValue(currentCondition.Temperature, WeatherValueFormatType.Temperature);
             CurrentConditionFeelsLike = GetFormattedWeatherValue(currentCondition.FeelsLike, WeatherValueFormatType.Temperature);
             CurrentConditionDewPoint = GetFormattedWeatherValue(currentCondition.DewPoint, WeatherValueFormatType.Temperature);
@@ -363,14 +363,24 @@ namespace myForecast
 
             // forecast for the next 2 hours
             WeatherData.ForecastItem currentForecastItem = hourlyForecastItems[2]; // 2 hours ahead
+            WeatherData.ForecastItem previousForecastItem = hourlyForecastItems[1]; // 1 hours ahead
+
+            // we need to find the low/hi temperatures, because hourly forecast only have one temperature reading, no low/hi values
+            string lowTemperature = previousForecastItem.LowTemp;
+            string highTemperature = currentForecastItem.LowTemp;
+            if (float.Parse(previousForecastItem.LowTemp) > float.Parse(currentForecastItem.LowTemp))
+            {
+                lowTemperature = currentForecastItem.LowTemp;
+                highTemperature = previousForecastItem.LowTemp;
+            }
 
             DailyForecast.Add(new ForecastItem()
             {
                 DayOfTheWeek = LanguageStrings.ui_ForecastCaption.ToUpper(),
                 ForecastIcon = GetFormattedIconResx(currentForecastItem.Icon, currentForecastItem.TimestampEpoch),
-                Condition = CleanForecastConditionDescription(currentForecastItem.Condition, currentForecastItem.Icon),
-                LowTemp = GetFormattedWeatherValue(currentForecastItem.LowTemp, WeatherValueFormatType.Temperature),
-                HighTemp = GetFormattedWeatherValue(currentForecastItem.HighTemp, WeatherValueFormatType.Temperature),
+                Condition = GetForecastConditionDescription(currentForecastItem.Condition, currentForecastItem.Icon),
+                LowTemp = GetFormattedWeatherValue(lowTemperature, WeatherValueFormatType.Temperature),
+                HighTemp = GetFormattedWeatherValue(highTemperature, WeatherValueFormatType.Temperature),
                 PopIcon = GetFormattedPopIconResx(currentForecastItem.Pop),
                 Pop = GetFormattedPop(currentForecastItem.Pop) // TODO: POP visualization needs some work, probably on/off based on pop value with static pop icon
             });
@@ -384,7 +394,7 @@ namespace myForecast
                 switch (Configuration.Instance.Language)
                 {
                     case Language.fr:
-                        dayOfTheWeek = String.Format("{0} {1} {2}", /* Sun 09 Dec */
+                        dayOfTheWeek = String.Format("{0} {1} {2}", /* sun. 09 Dec */
                                                     timestamp.ToString("ddd", new CultureInfo("fr-FR")),
                                                     timestamp.ToString("dd"),
                                                     timestamp.ToString("MMM"), new CultureInfo("fr-FR"));
@@ -401,7 +411,7 @@ namespace myForecast
                 {
                     DayOfTheWeek = dayOfTheWeek,
                     ForecastIcon = GetFormattedIconResx(dailyForecastItem.Icon, null),
-                    Condition = CleanForecastConditionDescription(dailyForecastItem.Condition, dailyForecastItem.Icon),
+                    Condition = GetForecastConditionDescription(dailyForecastItem.Condition, dailyForecastItem.Icon),
                     LowTemp = GetFormattedWeatherValue(dailyForecastItem.LowTemp, WeatherValueFormatType.Temperature),
                     HighTemp = GetFormattedWeatherValue(dailyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
                     PopIcon = GetFormattedPopIconResx(dailyForecastItem.Pop),
@@ -439,21 +449,6 @@ namespace myForecast
                     Pop = GetFormattedPop(hourlyForecastItem.Pop) // TODO: POP visualization needs some work, probably on/off based on pop value with static pop icon
                 });
             }
-        }
-
-        private string CleanForecastConditionDescription(string conditionDescription, string iconName)
-        {
-            // forecast description space is tight - currently 13 characters
-            string result = conditionDescription;
-
-            // check for max size
-            if (result.Length > 13)
-            {
-                // retrieve condition name by using the icon name
-                result = iconName.Replace("-day", "").Replace("-night", "").Replace("-", " ");
-            }
-
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(result); // makes each word title case
         }
 
         private bool IsWeatherRefreshRequired()
@@ -563,6 +558,9 @@ namespace myForecast
                             break;
                     }
                     break;
+                case WeatherValueFormatType.Humidity:
+                    formattedValue = String.Format("{0}%", Math.Floor(Decimal.Parse(weatherValue) * 100));
+                    break;
                 case WeatherValueFormatType.WindSpeed:
                     // check if no wind
                     if (Math.Round(Decimal.Parse(weatherValue), MidpointRounding.AwayFromZero) == 0)
@@ -670,6 +668,22 @@ namespace myForecast
             int parsedPop = (int)Math.Floor(Decimal.Parse(pop) * 100); // pop value is decimal, 0.14 for 14%
             if (parsedPop > 0)
                 result = parsedPop + "%";
+
+            return result;
+        }
+
+        private string GetForecastConditionDescription(string conditionDescription, string iconName)
+        {
+            // forecast description space is tight - currently 13 characters
+            string result = conditionDescription;
+
+            // check for max size
+            if (result.Length > 13)
+            {
+                // retrieve condition name by using the icon name
+                string condition = iconName.Replace("-day", "").Replace("-night", "").Replace("-", " ");
+                result = LanguageStrings.ResourceManager.GetObject("ui_Condition" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(condition).Replace(" ", "")).ToString();
+            }
 
             return result;
         }

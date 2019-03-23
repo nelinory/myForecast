@@ -214,7 +214,7 @@
                   <!-- Powered by credits -->
                   <this:PoweredByCredits>
                     <LayoutInput>
-                      <FormLayoutInput Right="ControlCurrentWeather,1" Bottom="PanelForecast,1,40"/>
+                      <FormLayoutInput Right="ControlCurrentWeather,1" Bottom="PanelForecast,1,26"/>
                     </LayoutInput>
                   </this:PoweredByCredits>
                 </Children>

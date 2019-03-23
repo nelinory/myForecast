@@ -187,13 +187,10 @@
     <value>Ce produit est autorisé sous les termes du contrat de license utilisateur final.</value>
   </data>
   <data name="ui_SettingsLocationCode" xml:space="preserve">
-    <value>Coordonnées de l'emplacement</value>
+    <value>Code géographique</value>
   </data>
-  <data name="ui_PoweredByCaption" xml:space="preserve">
-    <value>Fourni par</value>
-  </data>
-  <data name="ui_AboutPoweredBy" xml:space="preserve">
-    <value>Fourni par Dark Sky ®</value>
+  <data name="ui_PoweredBy" xml:space="preserve">
+    <value>Fourni par Dark Sky</value>
   </data>
   <data name="ui_CurrentPressure" xml:space="preserve">
     <value>Pression:</value>
@@ -259,7 +256,7 @@
     <value>myForecast - Actualisation des données</value>
   </data>
   <data name="ui_ForecastCaption" xml:space="preserve">
-    <value>Météo</value>
+    <value>Prévoir</value>
   </data>
   <data name="ui_WeatherAlertExpireDate" xml:space="preserve">
     <value>Date de fin</value>
@@ -284,5 +281,29 @@
   </data>
   <data name="ui_WindSpeedZeroDescription" xml:space="preserve">
     <value>Calme</value>
+  </data>
+  <data name="ui_ConditionClear" xml:space="preserve">
+    <value>Claire</value>
+  </data>
+  <data name="ui_ConditionCloudy" xml:space="preserve">
+    <value>Nuageux</value>
+  </data>
+  <data name="ui_ConditionFog" xml:space="preserve">
+    <value>Brouillard</value>
+  </data>
+  <data name="ui_ConditionPartlyCloudy" xml:space="preserve">
+    <value>Un peu nuageux</value>
+  </data>
+  <data name="ui_ConditionRain" xml:space="preserve">
+    <value>Pluie</value>
+  </data>
+  <data name="ui_ConditionSleet" xml:space="preserve">
+    <value>Neige fondue</value>
+  </data>
+  <data name="ui_ConditionSnow" xml:space="preserve">
+    <value>Neige</value>
+  </data>
+  <data name="ui_ConditionWind" xml:space="preserve">
+    <value>Vent</value>
   </data>
 </root>

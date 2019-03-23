@@ -23,7 +23,7 @@ namespace myForecast
             {
                 LWJson weatherDataObject = LWJson.Parse(weatherDataJson);
 
-                LocationName = "Not available in the API response";
+                LocationName = String.Empty;
 
                 // check first if weather info is available
                 if (weatherDataObject.Contains("flags") == true && weatherDataObject["flags"].IsObject == true)
@@ -69,7 +69,7 @@ namespace myForecast
                             {
                                 TimestampEpoch = dailyData[i]["time"].AsString(),
                                 Icon = (icon.Equals("partly-cloudy-night", StringComparison.InvariantCultureIgnoreCase) == true) ? "clear-day" : icon,
-                                Condition = (icon.Equals("partly-cloudy-night", StringComparison.InvariantCultureIgnoreCase) == true) ? "Clear" : condition,
+                                Condition = condition,
                                 LowTemp = dailyData[i]["temperatureLow"].AsString(),
                                 HighTemp = dailyData[i]["temperatureHigh"].AsString(),
                                 Pop = dailyData[i]["precipProbability"].AsString()

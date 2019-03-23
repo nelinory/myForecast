@@ -23,6 +23,7 @@ namespace myForecast
     public enum WeatherValueFormatType
     {
         Temperature,
+        Humidity,
         WindSpeed,
         WindDirection,
         UvIndex,

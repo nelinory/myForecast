@@ -109,7 +109,6 @@
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                         </Layout>
                         <Children>
-                          <!--<Text Content="[CodeLocalizationModel.Items.#ui_AboutPoweredBy!core:String]" Font="[FontBoldAboutText]" Color="White"/>-->
                           <Text Content="[CodeLocalizationModel.Items.#ui_AboutAllWeatherDataProvidedBy!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
                           <Text Content="[CodeLocalizationModel.Items.#ui_AboutForApiInfoVisit!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
                         </Children>
