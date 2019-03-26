@@ -31,9 +31,13 @@ Look at your browser address bar and you will see something like: https://darksk
 The location coordinates you need are: **40.7309,-73.9872**.
 When you configure myForecast, please enter the full location coordinates, i.e. **40.7309,-73.9872**
 
-## Screenshot
-![Screenshot](https://cloud.githubusercontent.com/assets/15143882/13309459/9ab44c96-db42-11e5-8d13-bd3e63df076a.png)
+## Screenshots
+![MyForecastDaily](https://user-images.githubusercontent.com/15143882/55000286-355a9000-4fa0-11e9-825d-425d811667d9.png)
+- Weather alerts (if present for your location) can be viewed by clicking on the exclamation point icon.
+- Use the location name configuration settings to change the setup a custom location name.
 
+![MyForecastHourly](https://user-images.githubusercontent.com/15143882/55000294-3be90780-4fa0-11e9-8a2b-07378849a2fc.png)
+- Current weather condition panel acts as a button, when clicked the daily forecast will be replaced by hourly forecast weather data (36 hours ahead). You can use the left/right button on the remote control to scroll thru the data. To go back to the default layout just click again on the current weather condition panel. The scheduled data refresh will also restore the default layout.
 
 ## Feedback
 Any comments, questions and ideas are greatly appreciated.
