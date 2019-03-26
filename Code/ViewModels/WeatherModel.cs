@@ -151,15 +151,12 @@ namespace myForecast
 
         public WeatherModel()
         {
-            if (Configuration.Instance.IsValid() == true)
-            {
-                _weatherApiKey = Configuration.Instance.ApiKey;
-                _weatherLocationCode = Configuration.Instance.LocationCode;
-                _weatherUnit = Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial);
-                _weatherClockTimeFormat = Configuration.Instance.ClockTimeFormat.GetValueOrDefault(ClockTimeFormat.Hours12);
-                _weatherRefreshRateInMinutes = Configuration.Instance.RefreshRateInMinutes.GetValueOrDefault(10);
-                _weatherLanguage = Configuration.Instance.Language.GetValueOrDefault(Language.en);
-            }
+            _weatherApiKey = Configuration.Instance.ApiKey;
+            _weatherLocationCode = Configuration.Instance.LocationCode;
+            _weatherUnit = Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial);
+            _weatherClockTimeFormat = Configuration.Instance.ClockTimeFormat.GetValueOrDefault(ClockTimeFormat.Hours12);
+            _weatherRefreshRateInMinutes = Configuration.Instance.RefreshRateInMinutes.GetValueOrDefault(10);
+            _weatherLanguage = Configuration.Instance.Language.GetValueOrDefault(Language.en);
 
             // set the correct language for the UI thread
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Enum.GetName(typeof(Language), Configuration.Instance.Language));
@@ -186,13 +183,6 @@ namespace myForecast
 
         public void LoadWeatherData()
         {
-            // if the configuration is invalid load default weather collection
-            if (Configuration.Instance.IsValid() == false)
-            {
-                LoadDefaultWeatherModel();
-                return;
-            }
-
             using (WebClientWithCompression webClient = new WebClientWithCompression())
             {
                 try
@@ -259,55 +249,6 @@ namespace myForecast
             LoadCurrentConditionProperties(_weatherData.CurrentForecast);
             LoadDailyForecastProperties(_weatherData.HourlyForecast, _weatherData.DailyForecast);
             LoadHourlyForecastProperties(_weatherData.HourlyForecast);
-
-            IsLoaded = true;
-        }
-
-        private void LoadDefaultWeatherModel()
-        {
-            LastUpdateTimestamp = "N/A";
-            LocationName = "N/A";
-
-            // current conditions
-            CurrentConditionIcon = "resx://myForecast/myForecast.Resources/unknown";
-            CurrentConditionDescription = "N/A";
-            CurrentConditionHumidity = "N/A";
-            CurrentConditionTemperature = "N/A";
-            CurrentConditionFeelsLike = "N/A";
-            CurrentConditionDewPoint = "N/A";
-            CurrentConditionWind = "N/A";
-            CurrentConditionPressure = "N/A";
-            CurrentConditionUvIndex = "N/A";
-
-            // six days forecast
-            DailyForecast.Clear();
-            for (int i = 1; i < 7; i++)
-            {
-                DailyForecast.Add(new ForecastItem()
-                {
-                    DayOfTheWeek = "N/A",
-                    ForecastIcon = "resx://myForecast/myForecast.Resources/unknown",
-                    Condition = "N/A",
-                    LowTemp = "N/A",
-                    HighTemp = "N/A"
-                });
-            }
-
-            // 36 hours forecast by default
-            HourlyForecast.Clear();
-            for (int i = 1; i < 36; i++)
-            {
-                HourlyForecast.Add(new ForecastItem()
-                {
-                    DayOfTheWeek = "N/A",
-                    ForecastIcon = "resx://myForecast/myForecast.Resources/unknown",
-                    Condition = "N/A",
-                    LowTemp = "N/A",
-                    HighTemp = "N/A"
-                });
-            }
-
-            System.Threading.Thread.Sleep(2000);
 
             IsLoaded = true;
         }

@@ -56,9 +56,9 @@ namespace myForecast
             if (Load() == false)
             {
                 // load default values
-                ApiKey = String.Empty;
-                LocationCode = String.Empty;
-                LocationName = String.Empty;
+                ApiKey = "YourApiKey";
+                LocationCode = "40.7309,-73.9872";
+                LocationName = "New York, NY";
                 WeatherUnit = myForecast.WeatherUnit.Imperial;
                 RefreshRateInMinutes = 10; // default 10 minutes
                 ClockTimeFormat = myForecast.ClockTimeFormat.Hours12;
@@ -66,19 +66,6 @@ namespace myForecast
 
                 Save();
             }
-        }
-
-        public bool IsValid()
-        {
-            // main configuration items must present
-            if (String.IsNullOrEmpty(ApiKey) == true) return false;
-            if (String.IsNullOrEmpty(LocationCode) == true) return false;
-            if (WeatherUnit.HasValue == false) return false;
-            if (ClockTimeFormat.HasValue == false) return false;
-            if (RefreshRateInMinutes.HasValue == false) return false;
-            if (Language.HasValue == false) return false;
-
-            return true;
         }
 
         public bool Save()
@@ -151,9 +138,9 @@ namespace myForecast
                     XmlNode root = xmlDocument.SelectSingleNode("Configuration");
                     if (root != null && root.HasChildNodes == true)
                     {
-                        ApiKey = GetXmlNodeValue(root, "ApiKey") ?? String.Empty;
-                        LocationCode = GetXmlNodeValue(root, "LocationCode") ?? String.Empty;
-                        LocationName = GetXmlNodeValue(root, "LocationName") ?? "N/A";
+                        ApiKey = GetXmlNodeValue(root, "ApiKey") ?? "YourApiKey";
+                        LocationCode = GetXmlNodeValue(root, "LocationCode") ?? "40.7309,-73.9872";
+                        LocationName = GetXmlNodeValue(root, "LocationName") ?? "New York, NY";
                         WeatherUnit = (WeatherUnit)Enum.Parse(typeof(WeatherUnit), GetXmlNodeValue(root, "WeatherUnit") ?? myForecast.WeatherUnit.Imperial.ToString());
                         RefreshRateInMinutes = Int32.Parse(GetXmlNodeValue(root, "RefreshRateInMinutes") ?? "10");
                         ClockTimeFormat = (ClockTimeFormat)Enum.Parse(typeof(ClockTimeFormat), GetXmlNodeValue(root, "ClockTimeFormat") ?? myForecast.ClockTimeFormat.Hours12.ToString());
