@@ -74,6 +74,15 @@
   <ItemGroup>
     <Compile Include="Code\Configuration.cs" />
     <Compile Include="Code\Controller.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\DataType.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\FailureMode.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJPException.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJson.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJsonArray.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJsonObject.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\LWJsonValue.cs" />
+    <Compile Include="Code\Entities\LWJsonParser\StringMode.cs" />
+    <Compile Include="Code\Entities\WeatherData.cs" />
     <Compile Include="Code\Enums.cs" />
     <Compile Include="Code\Launch.cs" />
     <Compile Include="Code\Logger.cs" />
@@ -81,6 +90,9 @@
     <Compile Include="Code\ViewModels\ConfigModel.cs" />
     <Compile Include="Code\ViewModels\LocalizationModel.cs" />
     <Compile Include="Code\ViewModels\WeatherModel.cs" />
+    <Compile Include="Code\WebClientWithCompression.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Localization\LanguageStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -103,6 +115,25 @@
   <ItemGroup>
     <Content Include="Images\myForecastAbout.png" />
     <Content Include="Images\Pop.png" />
+    <Content Include="Images\WeatherIcons\clear-day.png" />
+    <Content Include="Images\WeatherIcons\clear-night.png" />
+    <Content Include="Images\WeatherIcons\cloudy-day.png" />
+    <Content Include="Images\WeatherIcons\cloudy-night.png" />
+    <Content Include="Images\WeatherIcons\fog-day.png" />
+    <Content Include="Images\WeatherIcons\fog-night.png" />
+    <Content Include="Images\WeatherIcons\none.png" />
+    <Content Include="Images\WeatherIcons\partly-cloudy-day.png" />
+    <Content Include="Images\WeatherIcons\partly-cloudy-night.png" />
+    <Content Include="Images\WeatherIcons\rain-day.png" />
+    <Content Include="Images\WeatherIcons\rain-night.png" />
+    <Content Include="Images\WeatherIcons\sleet-day.png" />
+    <Content Include="Images\WeatherIcons\sleet-night.png" />
+    <Content Include="Images\WeatherIcons\snow-day.png" />
+    <Content Include="Images\WeatherIcons\snow-night.png" />
+    <Content Include="Images\WeatherIcons\wind-day.png" />
+    <Content Include="Images\WeatherIcons\wind-night.png" />
+    <Content Include="Images\WeatherProviderAttribution.png" />
+    <Content Include="Images\WeatherProviderLogo.png" />
     <Content Include="Setup\WixUI_Bmp_Banner.bmp" />
     <Content Include="Setup\WixUI_Bmp_Dialog.bmp" />
     <None Include=".gitignore" />
@@ -120,8 +151,6 @@
     <Content Include="Images\myForecastInactive.png" />
     <Content Include="Images\myForecastStrip.png" />
     <Content Include="Images\myForecastStripInactive.png" />
-    <Content Include="Images\PoweredBy.png" />
-    <Content Include="Images\WeatherUndergroundLogo.png" />
     <Content Include="Images\Weather_Alert.png" />
     <Content Include="Setup\ChangeLog.txt" />
     <Content Include="Setup\ReadMe.txt" />
@@ -142,46 +171,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Markup\Base\Images.mcml" />
-    <Content Include="Images\WeatherIcons\01\chanceflurries.png" />
-    <Content Include="Images\WeatherIcons\01\chancerain.png" />
-    <Content Include="Images\WeatherIcons\01\chancesleet.png" />
-    <Content Include="Images\WeatherIcons\01\chancesnow.png" />
-    <Content Include="Images\WeatherIcons\01\chancetstorms.png" />
-    <Content Include="Images\WeatherIcons\01\clear.png" />
-    <Content Include="Images\WeatherIcons\01\cloudy.png" />
-    <Content Include="Images\WeatherIcons\01\flurries.png" />
-    <Content Include="Images\WeatherIcons\01\fog.png" />
-    <Content Include="Images\WeatherIcons\01\hazy.png" />
-    <Content Include="Images\WeatherIcons\01\mostlycloudy.png" />
-    <Content Include="Images\WeatherIcons\01\mostlysunny.png" />
-    <Content Include="Images\WeatherIcons\01\nt_chanceflurries.png" />
-    <Content Include="Images\WeatherIcons\01\nt_chancerain.png" />
-    <Content Include="Images\WeatherIcons\01\nt_chancesleet.png" />
-    <Content Include="Images\WeatherIcons\01\nt_chancesnow.png" />
-    <Content Include="Images\WeatherIcons\01\nt_chancetstorms.png" />
-    <Content Include="Images\WeatherIcons\01\nt_clear.png" />
-    <Content Include="Images\WeatherIcons\01\nt_cloudy.png" />
-    <Content Include="Images\WeatherIcons\01\nt_flurries.png" />
-    <Content Include="Images\WeatherIcons\01\nt_fog.png" />
-    <Content Include="Images\WeatherIcons\01\nt_hazy.png" />
-    <Content Include="Images\WeatherIcons\01\nt_mostlycloudy.png" />
-    <Content Include="Images\WeatherIcons\01\nt_mostlysunny.png" />
-    <Content Include="Images\WeatherIcons\01\nt_partlycloudy.png" />
-    <Content Include="Images\WeatherIcons\01\nt_partlysunny.png" />
-    <Content Include="Images\WeatherIcons\01\nt_rain.png" />
-    <Content Include="Images\WeatherIcons\01\nt_sleet.png" />
-    <Content Include="Images\WeatherIcons\01\nt_snow.png" />
-    <Content Include="Images\WeatherIcons\01\nt_sunny.png" />
-    <Content Include="Images\WeatherIcons\01\nt_tstorms.png" />
-    <Content Include="Images\WeatherIcons\01\nt_unknown.png" />
-    <Content Include="Images\WeatherIcons\01\partlycloudy.png" />
-    <Content Include="Images\WeatherIcons\01\partlysunny.png" />
-    <Content Include="Images\WeatherIcons\01\rain.png" />
-    <Content Include="Images\WeatherIcons\01\sleet.png" />
-    <Content Include="Images\WeatherIcons\01\snow.png" />
-    <Content Include="Images\WeatherIcons\01\sunny.png" />
-    <Content Include="Images\WeatherIcons\01\tstorms.png" />
-    <Content Include="Images\WeatherIcons\01\unknown.png" />
     <None Include="Markup\Controls\Edit.mcml">
       <SubType>Designer</SubType>
     </None>
@@ -213,7 +202,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Localization\LanguageStrings.fr.resx" />
+    <EmbeddedResource Include="Localization\LanguageStrings.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Localization\LanguageStrings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LanguageStrings.Designer.cs</LastGenOutput>
@@ -224,6 +215,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>%25windir%25\eHome\McmlVerifier.exe -verbose -assemblyredirect:"$(FullyQualifiedOutputPath)" -directory:"$(ProjectDir)Markup"

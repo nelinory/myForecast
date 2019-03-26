@@ -15,12 +15,13 @@ namespace myForecast
 
         #region Public Properties
 
-        public readonly string WeatherFileNamePattern = "wu_{0}_{1}.xml";
-        public readonly string ApiUrlPattern = "http://api.wunderground.com/api/{0}/lang:{1}/conditions/alerts/hourly/forecast7day/q/{2}.xml";
+        public readonly string WeatherFileNamePattern = "wd_{0}_{1}.dat";
+        public readonly string ApiUrlPattern = "https://api.darksky.net/forecast/{0}/{1}?exclude=minutely-flags&lang={2}&units={3}";
         public readonly string ConfigFileFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), "myForecast");
 
         public string ApiKey;
         public string LocationCode;
+        public string LocationName;
         public WeatherUnit? WeatherUnit;
         public int? RefreshRateInMinutes;
         public ClockTimeFormat? ClockTimeFormat;
@@ -57,10 +58,11 @@ namespace myForecast
                 // load default values
                 ApiKey = String.Empty;
                 LocationCode = String.Empty;
+                LocationName = String.Empty;
                 WeatherUnit = myForecast.WeatherUnit.Imperial;
                 RefreshRateInMinutes = 10; // default 10 minutes
                 ClockTimeFormat = myForecast.ClockTimeFormat.Hours12;
-                Language = myForecast.Language.EN;
+                Language = myForecast.Language.en;
 
                 Save();
             }
@@ -98,6 +100,10 @@ namespace myForecast
                 XmlNode locationCodeNode = xmlDocument.CreateElement("LocationCode");
                 locationCodeNode.InnerText = LocationCode;
                 rootNode.AppendChild(locationCodeNode);
+
+                XmlNode locationNameNode = xmlDocument.CreateElement("LocationName");
+                locationNameNode.InnerText = LocationName;
+                rootNode.AppendChild(locationNameNode);
 
                 XmlNode weatherUnitNode = xmlDocument.CreateElement("WeatherUnit");
                 weatherUnitNode.InnerText = WeatherUnit.ToString();
@@ -147,13 +153,11 @@ namespace myForecast
                     {
                         ApiKey = GetXmlNodeValue(root, "ApiKey") ?? String.Empty;
                         LocationCode = GetXmlNodeValue(root, "LocationCode") ?? String.Empty;
-                        WeatherUnit = (WeatherUnit)Enum.Parse(typeof(WeatherUnit),
-                                                              GetXmlNodeValue(root, "WeatherUnit") ?? myForecast.WeatherUnit.Imperial.ToString());
+                        LocationName = GetXmlNodeValue(root, "LocationName") ?? "N/A";
+                        WeatherUnit = (WeatherUnit)Enum.Parse(typeof(WeatherUnit), GetXmlNodeValue(root, "WeatherUnit") ?? myForecast.WeatherUnit.Imperial.ToString());
                         RefreshRateInMinutes = Int32.Parse(GetXmlNodeValue(root, "RefreshRateInMinutes") ?? "10");
-                        ClockTimeFormat = (ClockTimeFormat)Enum.Parse(typeof(ClockTimeFormat),
-                                                                      GetXmlNodeValue(root, "ClockTimeFormat") ?? myForecast.ClockTimeFormat.Hours12.ToString());
-                        Language = (Language)Enum.Parse(typeof(Language),
-                                                        GetXmlNodeValue(root, "Language") ?? myForecast.Language.EN.ToString());
+                        ClockTimeFormat = (ClockTimeFormat)Enum.Parse(typeof(ClockTimeFormat), GetXmlNodeValue(root, "ClockTimeFormat") ?? myForecast.ClockTimeFormat.Hours12.ToString());
+                        Language = (Language)Enum.Parse(typeof(Language), GetXmlNodeValue(root, "Language") ?? myForecast.Language.en.ToString(), true);
 
                         configLoaded = true;
                     }

@@ -33,6 +33,12 @@ namespace myForecast
             set { Configuration.Instance.LocationCode = value; FirePropertyChanged("LocationCode"); }
         }
 
+        public string LocationName
+        {
+            get { return Configuration.Instance.LocationName; }
+            set { Configuration.Instance.LocationName = value; FirePropertyChanged("LocationName"); }
+        }
+
         public Choice WeatherUnit
         {
             get
@@ -40,11 +46,11 @@ namespace myForecast
                 int selectedIndex;
                 switch (Configuration.Instance.WeatherUnit)
                 {
-                    case myForecast.WeatherUnit.Metric:
-                        selectedIndex = 0;
+                    case myForecast.WeatherUnit.Imperial:
+                        selectedIndex = 1;
                         break;
                     default:
-                        selectedIndex = 1;
+                        selectedIndex = 0;
                         break;
                 }
                 _spinnerWeatherUnits.ChosenIndex = selectedIndex;
@@ -56,11 +62,11 @@ namespace myForecast
                 WeatherUnit selectedValue;
                 switch (value.ChosenIndex)
                 {
-                    case 0:
-                        selectedValue = myForecast.WeatherUnit.Metric;
+                    case 1:
+                        selectedValue = myForecast.WeatherUnit.Imperial;
                         break;
                     default:
-                        selectedValue = myForecast.WeatherUnit.Imperial;
+                        selectedValue = myForecast.WeatherUnit.Metric;
                         break;
                 }
                 Configuration.Instance.WeatherUnit = selectedValue;
@@ -178,7 +184,7 @@ namespace myForecast
                 int selectedIndex;
                 switch (Configuration.Instance.Language)
                 {
-                    case myForecast.Language.EN:
+                    case myForecast.Language.en:
                         selectedIndex = 0;
                         break;
                     default:
@@ -195,10 +201,10 @@ namespace myForecast
                 switch (value.ChosenIndex)
                 {
                     case 0:
-                        selectedValue = myForecast.Language.EN;
+                        selectedValue = myForecast.Language.en;
                         break;
                     default:
-                        selectedValue = myForecast.Language.FR;
+                        selectedValue = myForecast.Language.fr;
                         break;
                 }
                 Configuration.Instance.Language = selectedValue;

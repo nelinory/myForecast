@@ -25,14 +25,14 @@
 
       <!-- Bind the correct language string -->
       <Binding Source="[CodeLocalizationModel.Items.#ui_ButtonDone!core:String]" Target="[CommandDone.Description]"/>
+      <Binding Source="[CodeLocalizationModel.Items.#ui_AboutIconSetBy!core:String]" Target="[TextIconSetBy.Content]">
+        <Transformer>
+          <FormatTransformer Format="{0} d3stroy (https://www.deviantart.com/d3stroy - weezle icon set)"/>
+        </Transformer>
+      </Binding>
       <Binding Source="[CodeLocalizationModel.Items.#ui_AboutTranslationBy!core:String]" Target="[TextTranslationBy.Content]">
         <Transformer>
           <FormatTransformer Format="{0} Romain(FR)"/>
-        </Transformer>
-      </Binding>
-      <Binding Source="[CodeLocalizationModel.Items.#ui_AboutApllicationIconBy!core:String]" Target="[TextApplicationIconBy.Content]">
-        <Transformer>
-          <FormatTransformer Format="{0} d3stroy(weezle icon set)"/>
         </Transformer>
       </Binding>
       
@@ -92,27 +92,25 @@
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                         </Layout>
                         <Children>
-                          <Text Content="myForecast v1.0.5" Font="[FontBoldAppName]" Color="White"/>
-                          <Text Content="Copyright &#169; 2017 by Chavdar Kostov" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Content="myForecast v1.0.6" Font="[FontBoldAppName]" Color="White"/>
+                          <Text Content="Copyright &#169; 2016-2019 by Chavdar Kostov" Font="[FontBoldAboutText]" Color="White"/>
                           <Text Content="[CodeLocalizationModel.Items.#ui_AboutLicense!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutWeatherIconsBy!core:String]" Font="[FontBoldAboutText]" Color="White"/>
+                          <Text Name="TextIconSetBy" Content="null" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
                           <Text Name="TextTranslationBy" Content="null" Font="[FontBoldAboutText]" Color="White"/>
-                          <Text Name="TextApplicationIconBy" Content="null" Font="[FontBoldAboutText]" Color="White"/>
                         </Children>
                       </Panel>
                     </Children>
                   </Panel>
                   <Panel MinimumSize="760,200" MaximumSize="760,200" Layout="HorizontalFlow" Margins="0,20,0,0">
                     <Children>
-                      <Graphic Content="image://this:WeatherUndergroundLogo" Margins="0,0,10,0"/>
+                      <Graphic Content="image://this:WeatherProviderLogo" MaximumSize="120,48" Margins="0,0,10,0"/>
                       <Panel Margins="15,0,0,0">
                         <Layout>
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutPoweredByWu!core:String]" Font="[FontBoldAboutText]" Color="White"/>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutAllWeatherDataProvidedByWu!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutForWuApiInfoVisit!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutAllWeatherDataProvidedBy!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutForApiInfoVisit!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
                         </Children>
                       </Panel>
                     </Children>

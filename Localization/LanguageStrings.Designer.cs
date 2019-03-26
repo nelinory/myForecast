@@ -61,20 +61,11 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All weather data used by this application is provided by Weather Underground® API.
+        ///   Looks up a localized string similar to All weather data is provided by Dark Sky ® API.
         /// </summary>
-        internal static string ui_AboutAllWeatherDataProvidedByWu {
+        internal static string ui_AboutAllWeatherDataProvidedBy {
             get {
-                return ResourceManager.GetString("ui_AboutAllWeatherDataProvidedByWu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Application icon by.
-        /// </summary>
-        internal static string ui_AboutApllicationIconBy {
-            get {
-                return ResourceManager.GetString("ui_AboutApllicationIconBy", resourceCulture);
+                return ResourceManager.GetString("ui_AboutAllWeatherDataProvidedBy", resourceCulture);
             }
         }
         
@@ -88,11 +79,20 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For more information regarding the Weather Underground® API, please visit http://www.wunderground.com/weather/api.
+        ///   Looks up a localized string similar to For more information regarding the Dark Sky ® API, please visit https://darksky.net/dev.
         /// </summary>
-        internal static string ui_AboutForWuApiInfoVisit {
+        internal static string ui_AboutForApiInfoVisit {
             get {
-                return ResourceManager.GetString("ui_AboutForWuApiInfoVisit", resourceCulture);
+                return ResourceManager.GetString("ui_AboutForApiInfoVisit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application/Weather icons by.
+        /// </summary>
+        internal static string ui_AboutIconSetBy {
+            get {
+                return ResourceManager.GetString("ui_AboutIconSetBy", resourceCulture);
             }
         }
         
@@ -106,29 +106,11 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powered by Weather Underground®.
-        /// </summary>
-        internal static string ui_AboutPoweredByWu {
-            get {
-                return ResourceManager.GetString("ui_AboutPoweredByWu", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Translation by.
         /// </summary>
         internal static string ui_AboutTranslationBy {
             get {
                 return ResourceManager.GetString("ui_AboutTranslationBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Weather icons by: The Weather Channel, LLC weather.com®.
-        /// </summary>
-        internal static string ui_AboutWeatherIconsBy {
-            get {
-                return ResourceManager.GetString("ui_AboutWeatherIconsBy", resourceCulture);
             }
         }
         
@@ -183,6 +165,78 @@ namespace myForecast.Localization {
         internal static string ui_ButtonSave {
             get {
                 return ResourceManager.GetString("ui_ButtonSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        internal static string ui_ConditionClear {
+            get {
+                return ResourceManager.GetString("ui_ConditionClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cloudy.
+        /// </summary>
+        internal static string ui_ConditionCloudy {
+            get {
+                return ResourceManager.GetString("ui_ConditionCloudy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fog.
+        /// </summary>
+        internal static string ui_ConditionFog {
+            get {
+                return ResourceManager.GetString("ui_ConditionFog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Partly Cloudy.
+        /// </summary>
+        internal static string ui_ConditionPartlyCloudy {
+            get {
+                return ResourceManager.GetString("ui_ConditionPartlyCloudy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rain.
+        /// </summary>
+        internal static string ui_ConditionRain {
+            get {
+                return ResourceManager.GetString("ui_ConditionRain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sleet.
+        /// </summary>
+        internal static string ui_ConditionSleet {
+            get {
+                return ResourceManager.GetString("ui_ConditionSleet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Snow.
+        /// </summary>
+        internal static string ui_ConditionSnow {
+            get {
+                return ResourceManager.GetString("ui_ConditionSnow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wind.
+        /// </summary>
+        internal static string ui_ConditionWind {
+            get {
+                return ResourceManager.GetString("ui_ConditionWind", resourceCulture);
             }
         }
         
@@ -259,29 +313,47 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error received from WeatherUnderground.
+        ///   Looks up a localized string similar to Error received from Dark Sky ® API. Please, try again in few minutes..
         /// </summary>
-        internal static string ui_DialogErrorReceivedFromWu {
+        internal static string ui_DialogErrorReceivedFromWeatherProvider {
             get {
-                return ResourceManager.GetString("ui_DialogErrorReceivedFromWu", resourceCulture);
+                return ResourceManager.GetString("ui_DialogErrorReceivedFromWeatherProvider", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while connecting to WeatherUnderground. Please, try again in few minutes..
+        ///   Looks up a localized string similar to Error while connecting to Dark Sky ® API. Please, try again in few minutes..
         /// </summary>
-        internal static string ui_DialogErrorWhileConnectingToWu {
+        internal static string ui_DialogErrorWhileConnectingToWeatherProvider {
             get {
-                return ResourceManager.GetString("ui_DialogErrorWhileConnectingToWu", resourceCulture);
+                return ResourceManager.GetString("ui_DialogErrorWhileConnectingToWeatherProvider", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No response received from WeatherUnderground. Please, try again in few minutes..
+        ///   Looks up a localized string similar to Invalid API Key. Please, verify your API key and try again..
         /// </summary>
-        internal static string ui_DialogNoResponseReceivedFromWu {
+        internal static string ui_DialogInvalidApiKeyReceivedFromWeatherProvider {
             get {
-                return ResourceManager.GetString("ui_DialogNoResponseReceivedFromWu", resourceCulture);
+                return ResourceManager.GetString("ui_DialogInvalidApiKeyReceivedFromWeatherProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid location coordinates. Please, verify your location coordinates and try again..
+        /// </summary>
+        internal static string ui_DialogInvalidLocationDataReceivedFromWeatherProvider {
+            get {
+                return ResourceManager.GetString("ui_DialogInvalidLocationDataReceivedFromWeatherProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No response received from Dark Sky ® API. Please, try again in few minutes..
+        /// </summary>
+        internal static string ui_DialogNoResponseReceivedFromWeatherProvider {
+            get {
+                return ResourceManager.GetString("ui_DialogNoResponseReceivedFromWeatherProvider", resourceCulture);
             }
         }
         
@@ -331,11 +403,11 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powered by.
+        ///   Looks up a localized string similar to Powered by Dark Sky.
         /// </summary>
-        internal static string ui_PoweredByCaption {
+        internal static string ui_PoweredBy {
             get {
-                return ResourceManager.GetString("ui_PoweredByCaption", resourceCulture);
+                return ResourceManager.GetString("ui_PoweredBy", resourceCulture);
             }
         }
         
@@ -403,11 +475,20 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Location code.
+        ///   Looks up a localized string similar to Location coordinates.
         /// </summary>
         internal static string ui_SettingsLocationCode {
             get {
                 return ResourceManager.GetString("ui_SettingsLocationCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location name.
+        /// </summary>
+        internal static string ui_SettingsLocationName {
+            get {
+                return ResourceManager.GetString("ui_SettingsLocationName", resourceCulture);
             }
         }
         
@@ -448,6 +529,15 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extreme.
+        /// </summary>
+        internal static string ui_UvIndex_Extreme {
+            get {
+                return ResourceManager.GetString("ui_UvIndex_Extreme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to High.
         /// </summary>
         internal static string ui_UvIndex_High {
@@ -480,15 +570,6 @@ namespace myForecast.Localization {
         internal static string ui_UvIndex_VeryHigh {
             get {
                 return ResourceManager.GetString("ui_UvIndex_VeryHigh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Very Low.
-        /// </summary>
-        internal static string ui_UvIndex_VeryLow {
-            get {
-                return ResourceManager.GetString("ui_UvIndex_VeryLow", resourceCulture);
             }
         }
         
@@ -543,6 +624,15 @@ namespace myForecast.Localization {
         internal static string ui_WeatherSettingsCaption {
             get {
                 return ResourceManager.GetString("ui_WeatherSettingsCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calm.
+        /// </summary>
+        internal static string ui_WindSpeedZeroDescription {
+            get {
+                return ResourceManager.GetString("ui_WindSpeedZeroDescription", resourceCulture);
             }
         }
     }

@@ -129,8 +129,8 @@
   <data name="ui_UvIndex_Moderate" xml:space="preserve">
     <value>Modéré</value>
   </data>
-  <data name="ui_UvIndex_VeryLow" xml:space="preserve">
-    <value>Très bas</value>
+  <data name="ui_UvIndex_Extreme" xml:space="preserve">
+    <value>Extrême</value>
   </data>
   <data name="ui_WeatherSettingsCaption" xml:space="preserve">
     <value>paramètres</value>
@@ -144,8 +144,8 @@
   <data name="ui_AboutCaption" xml:space="preserve">
     <value>à propos</value>
   </data>
-  <data name="ui_AboutAllWeatherDataProvidedByWu" xml:space="preserve">
-    <value>Les données météo utilisées par cette application sont fournies par l'API Weather Underground®</value>
+  <data name="ui_AboutAllWeatherDataProvidedBy" xml:space="preserve">
+    <value>Les données météo sont fournies par l'API Dark Sky ®</value>
   </data>
   <data name="ui_SettingsApiKey" xml:space="preserve">
     <value>Clé API</value>
@@ -174,14 +174,11 @@
   <data name="ui_CurrentFeelsLike" xml:space="preserve">
     <value>Ressenti:</value>
   </data>
-  <data name="ui_AboutForWuApiInfoVisit" xml:space="preserve">
-    <value>Pour plus d'informations sur l'API Weather Undergroud, merci de consulter http://www.wunderground.com/weather/api</value>
+  <data name="ui_AboutForApiInfoVisit" xml:space="preserve">
+    <value>Pour plus d'informations sur l'API Dark Sky ®, veuillez consulter https://darksky.net/dev</value>
   </data>
   <data name="ui_CurrentHumidity" xml:space="preserve">
     <value>Humidité:</value>
-  </data>
-  <data name="ui_AboutWeatherIconsBy" xml:space="preserve">
-    <value>Icônes météo par The Weather Channel, LLC weather.com®</value>
   </data>
   <data name="ui_SettingsLanguage" xml:space="preserve">
     <value>Langue</value>
@@ -192,11 +189,8 @@
   <data name="ui_SettingsLocationCode" xml:space="preserve">
     <value>Code géographique</value>
   </data>
-  <data name="ui_PoweredByCaption" xml:space="preserve">
-    <value>Fourni par</value>
-  </data>
-  <data name="ui_AboutPoweredByWu" xml:space="preserve">
-    <value>Fourni par Weather Underground®</value>
+  <data name="ui_PoweredBy" xml:space="preserve">
+    <value>Fourni par Dark Sky</value>
   </data>
   <data name="ui_CurrentPressure" xml:space="preserve">
     <value>Pression:</value>
@@ -249,20 +243,20 @@
   <data name="ui_DialogCatastrophicError" xml:space="preserve">
     <value>Erreur critique.\nPour plus d'information, merci de consulter le rapport.</value>
   </data>
-  <data name="ui_DialogErrorReceivedFromWu" xml:space="preserve">
-    <value>WeatherUnderground a rencontré une erreur</value>
+  <data name="ui_DialogErrorReceivedFromWeatherProvider" xml:space="preserve">
+    <value>API Dark Sky ® a rencontré une erreur. Merci de réessayer dans quelques minutes.</value>
   </data>
-  <data name="ui_DialogErrorWhileConnectingToWu" xml:space="preserve">
-    <value>Erreur lors de la connexion à WeatherUnderground. Merci de réessayer dans quelques minutes.</value>
+  <data name="ui_DialogErrorWhileConnectingToWeatherProvider" xml:space="preserve">
+    <value>Erreur lors de la connexion à API Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
   </data>
-  <data name="ui_DialogNoResponseReceivedFromWu" xml:space="preserve">
-    <value>Aucune réponse reçue de WeatherUnderground. Merci de réessayer dans quelques minutes.</value>
+  <data name="ui_DialogNoResponseReceivedFromWeatherProvider" xml:space="preserve">
+    <value>Aucune réponse reçue de API Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
     <value>myForecast - Actualisation des données</value>
   </data>
   <data name="ui_ForecastCaption" xml:space="preserve">
-    <value>Météo</value>
+    <value>Prévoir</value>
   </data>
   <data name="ui_WeatherAlertExpireDate" xml:space="preserve">
     <value>Date de fin</value>
@@ -276,7 +270,43 @@
   <data name="ui_AboutTranslationBy" xml:space="preserve">
     <value>Traduction par</value>
   </data>
-  <data name="ui_AboutApllicationIconBy" xml:space="preserve">
-    <value>Icône de l'application par</value>
+  <data name="ui_AboutIconSetBy" xml:space="preserve">
+    <value>Icône de l'application/météo par</value>
+  </data>
+  <data name="ui_DialogInvalidApiKeyReceivedFromWeatherProvider" xml:space="preserve">
+    <value>Clé API invalide. Veuillez vérifier votre clé API et réessayer.</value>
+  </data>
+  <data name="ui_DialogInvalidLocationDataReceivedFromWeatherProvider" xml:space="preserve">
+    <value>Coordonnées de localisation non valides. Veuillez vérifier vos coordonnées géographiques et réessayer.</value>
+  </data>
+  <data name="ui_WindSpeedZeroDescription" xml:space="preserve">
+    <value>Calme</value>
+  </data>
+  <data name="ui_ConditionClear" xml:space="preserve">
+    <value>Claire</value>
+  </data>
+  <data name="ui_ConditionCloudy" xml:space="preserve">
+    <value>Nuageux</value>
+  </data>
+  <data name="ui_ConditionFog" xml:space="preserve">
+    <value>Brouillard</value>
+  </data>
+  <data name="ui_ConditionPartlyCloudy" xml:space="preserve">
+    <value>Un peu nuageux</value>
+  </data>
+  <data name="ui_ConditionRain" xml:space="preserve">
+    <value>Pluie</value>
+  </data>
+  <data name="ui_ConditionSleet" xml:space="preserve">
+    <value>Neige fondue</value>
+  </data>
+  <data name="ui_ConditionSnow" xml:space="preserve">
+    <value>Neige</value>
+  </data>
+  <data name="ui_ConditionWind" xml:space="preserve">
+    <value>Vent</value>
+  </data>
+  <data name="ui_SettingsLocationName" xml:space="preserve">
+    <value>Nom de localisation</value>
   </data>
 </root>

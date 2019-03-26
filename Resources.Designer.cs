@@ -111,56 +111,6 @@ namespace myForecast {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap chanceflurries {
-            get {
-                object obj = ResourceManager.GetObject("chanceflurries", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap chancerain {
-            get {
-                object obj = ResourceManager.GetObject("chancerain", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap chancesleet {
-            get {
-                object obj = ResourceManager.GetObject("chancesleet", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap chancesnow {
-            get {
-                object obj = ResourceManager.GetObject("chancesnow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap chancetstorms {
-            get {
-                object obj = ResourceManager.GetObject("chancetstorms", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] Checkbox {
@@ -173,9 +123,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap clear {
+        internal static System.Drawing.Bitmap clear_day {
             get {
-                object obj = ResourceManager.GetObject("clear", resourceCulture);
+                object obj = ResourceManager.GetObject("clear_day", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +133,29 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap cloudy {
+        internal static System.Drawing.Bitmap clear_night {
             get {
-                object obj = ResourceManager.GetObject("cloudy", resourceCulture);
+                object obj = ResourceManager.GetObject("clear_night", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cloudy_day {
+            get {
+                object obj = ResourceManager.GetObject("cloudy_day", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cloudy_night {
+            get {
+                object obj = ResourceManager.GetObject("cloudy_night", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,9 +193,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap flurries {
+        internal static System.Drawing.Bitmap fog_day {
             get {
-                object obj = ResourceManager.GetObject("flurries", resourceCulture);
+                object obj = ResourceManager.GetObject("fog_day", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -233,9 +203,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap fog {
+        internal static System.Drawing.Bitmap fog_night {
             get {
-                object obj = ResourceManager.GetObject("fog", resourceCulture);
+                object obj = ResourceManager.GetObject("fog_night", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -247,16 +217,6 @@ namespace myForecast {
             get {
                 object obj = ResourceManager.GetObject("Fonts", resourceCulture);
                 return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap hazy {
-            get {
-                object obj = ResourceManager.GetObject("hazy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -293,26 +253,6 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap mostlycloudy {
-            get {
-                object obj = ResourceManager.GetObject("mostlycloudy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap mostlysunny {
-            get {
-                object obj = ResourceManager.GetObject("mostlysunny", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap myForecastAbout {
             get {
                 object obj = ResourceManager.GetObject("myForecastAbout", resourceCulture);
@@ -323,9 +263,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap nt_chanceflurries {
+        internal static System.Drawing.Bitmap none {
             get {
-                object obj = ResourceManager.GetObject("nt_chanceflurries", resourceCulture);
+                object obj = ResourceManager.GetObject("none", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -333,9 +273,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap nt_chancerain {
+        internal static System.Drawing.Bitmap partly_cloudy_day {
             get {
-                object obj = ResourceManager.GetObject("nt_chancerain", resourceCulture);
+                object obj = ResourceManager.GetObject("partly_cloudy_day", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -343,199 +283,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap nt_chancesleet {
+        internal static System.Drawing.Bitmap partly_cloudy_night {
             get {
-                object obj = ResourceManager.GetObject("nt_chancesleet", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_chancesnow {
-            get {
-                object obj = ResourceManager.GetObject("nt_chancesnow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_chancetstorms {
-            get {
-                object obj = ResourceManager.GetObject("nt_chancetstorms", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_clear {
-            get {
-                object obj = ResourceManager.GetObject("nt_clear", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_cloudy {
-            get {
-                object obj = ResourceManager.GetObject("nt_cloudy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_flurries {
-            get {
-                object obj = ResourceManager.GetObject("nt_flurries", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_fog {
-            get {
-                object obj = ResourceManager.GetObject("nt_fog", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_hazy {
-            get {
-                object obj = ResourceManager.GetObject("nt_hazy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_mostlycloudy {
-            get {
-                object obj = ResourceManager.GetObject("nt_mostlycloudy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_mostlysunny {
-            get {
-                object obj = ResourceManager.GetObject("nt_mostlysunny", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_partlycloudy {
-            get {
-                object obj = ResourceManager.GetObject("nt_partlycloudy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_partlysunny {
-            get {
-                object obj = ResourceManager.GetObject("nt_partlysunny", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_rain {
-            get {
-                object obj = ResourceManager.GetObject("nt_rain", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_sleet {
-            get {
-                object obj = ResourceManager.GetObject("nt_sleet", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_snow {
-            get {
-                object obj = ResourceManager.GetObject("nt_snow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_sunny {
-            get {
-                object obj = ResourceManager.GetObject("nt_sunny", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_tstorms {
-            get {
-                object obj = ResourceManager.GetObject("nt_tstorms", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap nt_unknown {
-            get {
-                object obj = ResourceManager.GetObject("nt_unknown", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap partlycloudy {
-            get {
-                object obj = ResourceManager.GetObject("partlycloudy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap partlysunny {
-            get {
-                object obj = ResourceManager.GetObject("partlysunny", resourceCulture);
+                object obj = ResourceManager.GetObject("partly_cloudy_night", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -553,9 +303,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap PoweredBy {
+        internal static System.Drawing.Bitmap rain_day {
             get {
-                object obj = ResourceManager.GetObject("PoweredBy", resourceCulture);
+                object obj = ResourceManager.GetObject("rain_day", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -563,9 +313,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rain {
+        internal static System.Drawing.Bitmap rain_night {
             get {
-                object obj = ResourceManager.GetObject("rain", resourceCulture);
+                object obj = ResourceManager.GetObject("rain_night", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -593,9 +343,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap sleet {
+        internal static System.Drawing.Bitmap sleet_day {
             get {
-                object obj = ResourceManager.GetObject("sleet", resourceCulture);
+                object obj = ResourceManager.GetObject("sleet_day", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -603,9 +353,29 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap snow {
+        internal static System.Drawing.Bitmap sleet_night {
             get {
-                object obj = ResourceManager.GetObject("snow", resourceCulture);
+                object obj = ResourceManager.GetObject("sleet_night", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap snow_day {
+            get {
+                object obj = ResourceManager.GetObject("snow_day", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap snow_night {
+            get {
+                object obj = ResourceManager.GetObject("snow_night", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -633,36 +403,6 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap sunny {
-            get {
-                object obj = ResourceManager.GetObject("sunny", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tstorms {
-            get {
-                object obj = ResourceManager.GetObject("tstorms", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap unknown {
-            get {
-                object obj = ResourceManager.GetObject("unknown", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Weather_Alert {
             get {
                 object obj = ResourceManager.GetObject("Weather_Alert", resourceCulture);
@@ -683,9 +423,39 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap WeatherUndergroundLogo {
+        internal static System.Drawing.Bitmap WeatherProviderAttribution {
             get {
-                object obj = ResourceManager.GetObject("WeatherUndergroundLogo", resourceCulture);
+                object obj = ResourceManager.GetObject("WeatherProviderAttribution", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap WeatherProviderLogo {
+            get {
+                object obj = ResourceManager.GetObject("WeatherProviderLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap wind_day {
+            get {
+                object obj = ResourceManager.GetObject("wind_day", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap wind_night {
+            get {
+                object obj = ResourceManager.GetObject("wind_night", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

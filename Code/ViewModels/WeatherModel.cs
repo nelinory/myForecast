@@ -2,6 +2,7 @@
 using Microsoft.MediaCenter.UI;
 using myForecast.Localization;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -16,10 +17,11 @@ namespace myForecast
 
         private readonly string _weatherFileName;
         private readonly string _weatherFileLocation;
-        private readonly string _weatherApiAddress;
+        private readonly string _weatherApiUri;
 
         private bool _uiRefreshNeeded;
         private Timer _weatherRefreshTimer;
+        private WeatherData _weatherData;
         private XmlDocument _xmlWeatherData;
         private WeatherUnit _weatherUnit;
         private int _weatherRefreshRateInMinutes;
@@ -156,16 +158,15 @@ namespace myForecast
                 _weatherUnit = Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial);
                 _weatherClockTimeFormat = Configuration.Instance.ClockTimeFormat.GetValueOrDefault(ClockTimeFormat.Hours12);
                 _weatherRefreshRateInMinutes = Configuration.Instance.RefreshRateInMinutes.GetValueOrDefault(10);
-                _weatherLanguage = Configuration.Instance.Language.GetValueOrDefault(Language.EN);
+                _weatherLanguage = Configuration.Instance.Language.GetValueOrDefault(Language.en);
             }
 
             // set the correct language for the UI thread
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Enum.GetName(typeof(Language), Configuration.Instance.Language));
 
-            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode, _weatherLanguage);
-            _weatherFileName = _weatherFileName.Replace(":", "."); // small cleanup is needed for zmw location codes
+            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode.Replace(".", "_").Replace(",", ""), _weatherLanguage);
             _weatherFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherFileName);
-            _weatherApiAddress = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLanguage, _weatherLocationCode);
+            _weatherApiUri = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLocationCode, _weatherLanguage, _weatherUnit == WeatherUnit.Imperial ? "us" : "ca");
 
             _xmlWeatherData = new XmlDocument();
             _dailyForecast = new ArrayListDataSet();
@@ -185,14 +186,14 @@ namespace myForecast
 
         public void LoadWeatherData()
         {
-            // if the config is invalid load default weather collection
+            // if the configuration is invalid load default weather collection
             if (Configuration.Instance.IsValid() == false)
             {
                 LoadDefaultWeatherModel();
                 return;
             }
 
-            using (WebClient webClient = new WebClient())
+            using (WebClientWithCompression webClient = new WebClientWithCompression())
             {
                 try
                 {
@@ -201,31 +202,28 @@ namespace myForecast
                         // download the new weather data in a temporary string
                         // in case there is an error the old weather file will be preserved
                         webClient.Encoding = Encoding.UTF8;
-                        string weatherDataXml = webClient.DownloadString(_weatherApiAddress);
-                        if (String.IsNullOrEmpty(weatherDataXml) == false)
+                        string weatherDataJson = webClient.DownloadString(_weatherApiUri);
+                        if (String.IsNullOrEmpty(weatherDataJson) == false)
                         {
-                            _xmlWeatherData.LoadXml(weatherDataXml);
+                            _weatherData = new WeatherData(weatherDataJson);
 
-                            // check for WeatherUnderground specific error
-                            XmlNode errorMessageNode = _xmlWeatherData.SelectSingleNode("response/error/description");
-                            if (errorMessageNode != null && String.IsNullOrEmpty(errorMessageNode.InnerText) == false)
+                            // check for WeatherProvider specific error
+                            if (_weatherData.IsWeatherInfoAvailable == false)
                             {
-                                ShowErrorDialog(String.Format("{0}: {1}", LanguageStrings.ui_DialogErrorReceivedFromWu, errorMessageNode.InnerText), null, true);
+                                ShowErrorDialog(String.Format("{0}: {1}", LanguageStrings.ui_DialogErrorReceivedFromWeatherProvider, "Weather station is down for maintenance."), null);
                                 return;
                             }
                             else
                             {
-                                File.WriteAllText(_weatherFileLocation, weatherDataXml, Encoding.UTF8);
+                                File.WriteAllText(_weatherFileLocation, weatherDataJson, Encoding.UTF8);
                                 _uiRefreshNeeded = true;
                             }
                         }
                         else
-                            ShowErrorDialog(LanguageStrings.ui_DialogNoResponseReceivedFromWu);
+                            ShowErrorDialog(LanguageStrings.ui_DialogNoResponseReceivedFromWeatherProvider);
                     }
                     else
-                    {
-                        _xmlWeatherData.Load(_weatherFileLocation);
-                    }
+                        _weatherData = new WeatherData(File.ReadAllText(_weatherFileLocation));
 
                     if (_uiRefreshNeeded == true)
                     {
@@ -237,7 +235,13 @@ namespace myForecast
                 }
                 catch (WebException webException)
                 {
-                    ShowErrorDialog(LanguageStrings.ui_DialogErrorWhileConnectingToWu, webException);
+                    HttpWebResponse response = (HttpWebResponse)webException.Response;
+                    if (response.StatusCode == HttpStatusCode.Forbidden)
+                        ShowErrorDialog(LanguageStrings.ui_DialogInvalidApiKeyReceivedFromWeatherProvider, webException, true);
+                    else if (response.StatusCode == HttpStatusCode.BadRequest)
+                        ShowErrorDialog(LanguageStrings.ui_DialogInvalidLocationDataReceivedFromWeatherProvider, webException, true);
+                    else
+                        ShowErrorDialog(LanguageStrings.ui_DialogErrorWhileConnectingToWeatherProvider, webException);
                 }
                 catch (Exception exception)
                 {
@@ -248,21 +252,13 @@ namespace myForecast
 
         private void LoadWeatherModel()
         {
-            LastUpdateTimestamp = GetFormattedTimestampFromEpoch(_xmlWeatherData.SelectSingleNode("response/current_observation/observation_epoch").InnerText);
-            LocationName = _xmlWeatherData.SelectSingleNode("response/current_observation/display_location/full").InnerText;
-            WeatherAlertCaption = GetWeatherAlertCaption(_xmlWeatherData.SelectSingleNode("response/alerts"));
-            WeatherAlertText = GetWeatherAlertText(_xmlWeatherData.SelectSingleNode("response/alerts"));
+            LastUpdateTimestamp = GetFormattedTimestampFromEpoch(_weatherData.CurrentForecast.TimestampEpoch);
+            LocationName = Configuration.Instance.LocationName;
 
-            // Current condition support
-            LoadCurrentConditionProperties(_xmlWeatherData.SelectSingleNode("response/current_observation"));
-
-            // Daily/Current forecast support
-            DailyForecast.Clear();
-            LoadCurrentForecastProperties(_xmlWeatherData.SelectSingleNode("response/hourly_forecast"));
-            LoadDailyForecastProperties(_xmlWeatherData.SelectNodes("response/forecast/simpleforecast/forecastdays/forecastday"));
-
-            // Hourly forecast support
-            LoadHourlyForecastProperties(_xmlWeatherData.SelectNodes("response/hourly_forecast/forecast"));
+            LoadWeatherAlertProperties(_weatherData.Alerts);
+            LoadCurrentConditionProperties(_weatherData.CurrentForecast);
+            LoadDailyForecastProperties(_weatherData.HourlyForecast, _weatherData.DailyForecast);
+            LoadHourlyForecastProperties(_weatherData.HourlyForecast);
 
             IsLoaded = true;
         }
@@ -316,159 +312,206 @@ namespace myForecast
             IsLoaded = true;
         }
 
-        private void LoadCurrentConditionProperties(XmlNode currentConditionNode)
+        private void LoadWeatherAlertProperties(List<WeatherData.AlertItem> alertItems)
         {
-            string icon_url = currentConditionNode.SelectSingleNode("icon_url").InnerText;          // icons.wxug.com/i/c/k/nt_clear.gif
-            string[] iconNameParts = icon_url.Substring(icon_url.LastIndexOf("/") + 1).Split('.');  // [0]nt_clear [1].gif
-            CurrentConditionIcon = "resx://myForecast/myForecast.Resources/" + iconNameParts[0];
-            CurrentConditionDescription = currentConditionNode.SelectSingleNode("weather").InnerText;
-            CurrentConditionHumidity = currentConditionNode.SelectSingleNode("relative_humidity").InnerText;
+            string alertCaption = null;
+            StringBuilder alertText = new StringBuilder();
 
-            switch (_weatherUnit)
+            if (alertItems != null && alertItems.Count > 0)
             {
-                case WeatherUnit.Imperial:
-                    CurrentConditionTemperature = currentConditionNode.SelectSingleNode("temp_f").InnerText;
-                    if (CurrentConditionTemperature.IndexOf(".") > -1)
-                        CurrentConditionTemperature = CurrentConditionTemperature.Substring(0, CurrentConditionTemperature.IndexOf(".")) + "°F";
-                    else
-                        CurrentConditionTemperature += "°F";
-                    CurrentConditionFeelsLike = currentConditionNode.SelectSingleNode("feelslike_f").InnerText + "°F";
-                    CurrentConditionDewPoint = currentConditionNode.SelectSingleNode("dewpoint_f").InnerText + "°F";
-                    CurrentConditionWind = (currentConditionNode.SelectSingleNode("wind_mph").InnerText == "0.0")
-                                            ? currentConditionNode.SelectSingleNode("wind_string").InnerText
-                                            : String.Format("{0} mph {1}", currentConditionNode.SelectSingleNode("wind_mph").InnerText, currentConditionNode.SelectSingleNode("wind_dir").InnerText);
-                    CurrentConditionPressure = currentConditionNode.SelectSingleNode("pressure_in").InnerText + " in";
-                    break;
-                default:
-                    CurrentConditionTemperature = currentConditionNode.SelectSingleNode("temp_c").InnerText;
-                    if (CurrentConditionTemperature.IndexOf(".") > -1)
-                        CurrentConditionTemperature = CurrentConditionTemperature.Substring(0, CurrentConditionTemperature.IndexOf(".")) + "°C";
-                    else
-                        CurrentConditionTemperature += "°C";
-                    CurrentConditionFeelsLike = currentConditionNode.SelectSingleNode("feelslike_c").InnerText + "°C";
-                    CurrentConditionDewPoint = currentConditionNode.SelectSingleNode("dewpoint_c").InnerText + "°C";
-                    CurrentConditionWind = (currentConditionNode.SelectSingleNode("wind_mph").InnerText == "0.0")
-                                            ? currentConditionNode.SelectSingleNode("wind_string").InnerText
-                                            : String.Format("{0} kph {1}", currentConditionNode.SelectSingleNode("wind_kph").InnerText, currentConditionNode.SelectSingleNode("wind_dir").InnerText);
-                    CurrentConditionPressure = currentConditionNode.SelectSingleNode("pressure_mb").InnerText + " mb";
-                    break;
+                // caption
+                alertCaption = String.Format("*** {0} ***", alertItems[0].Caption);
+                if (alertItems.Count > 1)
+                    alertCaption = String.Format("{0} [+{1}]", alertCaption, alertItems.Count - 1);
+
+                // text
+                foreach (WeatherData.AlertItem alertItem in alertItems)
+                {
+                    alertText.AppendLine(String.Format("*** {0} ***", alertItem.Caption).Trim());
+                    alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, GetFormattedTimestampFromEpoch(alertItem.StartDateTime)).Trim());
+                    alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, GetFormattedTimestampFromEpoch(alertItem.ExpireDateTime)).Trim());
+                    alertText.AppendLine(alertItem.Description.Trim());
+                }
             }
 
-            // UV index format based on http://www.wunderground.com/resources/health/uvindex.asp
-            int uvIndex = Int32.Parse(currentConditionNode.SelectSingleNode("UV").InnerText.Replace(".0", ""));
-            if (uvIndex <= 2)
-                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_VeryLow);
-            else if (uvIndex >= 3 && uvIndex < 5)
-                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Low);
-            else if (uvIndex >= 5 && uvIndex < 7)
-                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Moderate);
-            else if (uvIndex >= 7 && uvIndex < 10)
-                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_High);
-            else if (uvIndex >= 10)
-                CurrentConditionUvIndex = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_VeryHigh);
+            if (alertText.Length == 0)
+                alertText.AppendLine(LanguageStrings.ui_WeatherAlertInfoNotAvailable);
+
+            WeatherAlertCaption = alertCaption;
+            WeatherAlertText = alertText.ToString();
         }
 
-        private void LoadCurrentForecastProperties(XmlNode hourlyForecastNode)
+        private void LoadCurrentConditionProperties(WeatherData.CurrentItem currentCondition)
         {
-            int forecastHour = DateTime.Now.Hour;
-            XmlNode currentForecastNode = hourlyForecastNode.SelectSingleNode("forecast[FCTTIME/hour='" + DateTime.Now.AddHours(2).Hour + "']");
-            XmlNode previousForecastNode = hourlyForecastNode.SelectSingleNode("forecast[FCTTIME/hour='" + DateTime.Now.AddHours(1).Hour + "']");
+            CurrentConditionIcon = GetFormattedIconResx(currentCondition.Icon, currentCondition.TimestampEpoch);
+            CurrentConditionDescription = currentCondition.Description;
+            CurrentConditionHumidity = GetFormattedWeatherValue(currentCondition.Humidity, WeatherValueFormatType.Humidity);
+            CurrentConditionTemperature = GetFormattedWeatherValue(currentCondition.Temperature, WeatherValueFormatType.Temperature);
+            CurrentConditionFeelsLike = GetFormattedWeatherValue(currentCondition.FeelsLike, WeatherValueFormatType.Temperature);
+            CurrentConditionDewPoint = GetFormattedWeatherValue(currentCondition.DewPoint, WeatherValueFormatType.Temperature);
+            CurrentConditionWind = String.Format("{0} {1}",
+                                                GetFormattedWeatherValue(currentCondition.WindSpeed, WeatherValueFormatType.WindSpeed),
+                                                GetFormattedWeatherValue(currentCondition.WindDirection, WeatherValueFormatType.WindDirection));
+            CurrentConditionUvIndex = GetFormattedWeatherValue(currentCondition.UvIndex, WeatherValueFormatType.UvIndex);
+            CurrentConditionPressure = GetFormattedWeatherValue(currentCondition.Pressure, WeatherValueFormatType.Pressure);
+        }
 
-            string currentForecastTitle = LanguageStrings.ui_ForecastCaption.ToUpper();
-            string forecastIconName = currentForecastNode.SelectSingleNode("icon").InnerText;
+        private void LoadDailyForecastProperties(List<WeatherData.ForecastItem> hourlyForecastItems, List<WeatherData.ForecastItem> dailyForecastItems)
+        {
+            DailyForecast.Clear();
 
-            // switch to night icons
-            if (forecastHour < 6 || forecastHour > 18)
-                forecastIconName = "nt_" + forecastIconName;
+            // forecast for the next 2 hours
+            WeatherData.ForecastItem currentForecastItem = hourlyForecastItems[2]; // 2 hours ahead
+            WeatherData.ForecastItem previousForecastItem = hourlyForecastItems[1]; // 1 hours ahead
 
-            // find the low/hi temperatures
-            XmlNode lowTemperatureNode;
-            XmlNode highTemperatureNode;
-            if (float.Parse(currentForecastNode.SelectSingleNode("temp/english").InnerText) > float.Parse(previousForecastNode.SelectSingleNode("temp/english").InnerText))
+            // we need to find the low/hi temperatures, because hourly forecast only have one temperature reading, no low/hi values
+            string lowTemperature = previousForecastItem.LowTemp;
+            string highTemperature = currentForecastItem.LowTemp;
+            if (float.Parse(previousForecastItem.LowTemp) > float.Parse(currentForecastItem.LowTemp))
             {
-                lowTemperatureNode = previousForecastNode;
-                highTemperatureNode = currentForecastNode;
-            }
-            else
-            {
-                lowTemperatureNode = currentForecastNode;
-                highTemperatureNode = previousForecastNode;
+                lowTemperature = currentForecastItem.LowTemp;
+                highTemperature = previousForecastItem.LowTemp;
             }
 
             DailyForecast.Add(new ForecastItem()
             {
-                DayOfTheWeek = currentForecastTitle,
-                ForecastIcon = "resx://myForecast/myForecast.Resources/" + forecastIconName,
-                Condition = CleanForecastConditionDescription(currentForecastNode.SelectSingleNode("condition").InnerText),
-                LowTemp = GetFormattedCurrentForecastTemperature(lowTemperatureNode.SelectSingleNode("temp")),
-                HighTemp = GetFormattedCurrentForecastTemperature(highTemperatureNode.SelectSingleNode("temp")),
-                PopIcon = GetFormattedPopIconResx(currentForecastNode),
-                Pop = GetFormattedPop(currentForecastNode)
+                DayOfTheWeek = LanguageStrings.ui_ForecastCaption.ToUpper(),
+                ForecastIcon = GetFormattedIconResx(currentForecastItem.Icon, currentForecastItem.TimestampEpoch),
+                Condition = GetForecastConditionDescription(currentForecastItem.Condition, currentForecastItem.Icon),
+                LowTemp = GetFormattedWeatherValue(lowTemperature, WeatherValueFormatType.Temperature),
+                HighTemp = GetFormattedWeatherValue(highTemperature, WeatherValueFormatType.Temperature),
+                Pop = GetFormattedPop(currentForecastItem.Pop)
             });
-        }
 
-        private void LoadDailyForecastProperties(XmlNodeList forecastNodes)
-        {
-            for (int i = 1; i < forecastNodes.Count - 1; i++) // skip node[0] for the tonight forecast
+            // next 5 days forecast
+            int daysLoaded = 0;
+            foreach (WeatherData.ForecastItem dailyForecastItem in dailyForecastItems)
             {
+                DateTime timestamp = GetTimestampFromEpoch(dailyForecastItem.TimestampEpoch);
+
+                // skip all days untill tomorrow
+                if (DateTime.Now.Date >= timestamp.Date)
+                    continue;
+
                 string dayOfTheWeek = String.Empty;
 
                 switch (Configuration.Instance.Language)
                 {
-                    case Language.FR:
-                        dayOfTheWeek = String.Format("{0} {1} {2}",
-                                                    forecastNodes[i].SelectSingleNode("date/weekday_short").InnerText.ToUpper(),
-                                                    forecastNodes[i].SelectSingleNode("date/day").InnerText,
-                                                    forecastNodes[i].SelectSingleNode("date/monthname_short").InnerText.ToUpper());
+                    case Language.fr:
+                        dayOfTheWeek = String.Format("{0} {1} {2}", /* sun. 09 Dec */
+                                                    timestamp.ToString("ddd", new CultureInfo("fr-FR")),
+                                                    timestamp.ToString("dd"),
+                                                    timestamp.ToString("MMM"), new CultureInfo("fr-FR"));
                         break;
                     default:    // US
-                        dayOfTheWeek = String.Format("{0} {1}/{2}",
-                                                    forecastNodes[i].SelectSingleNode("date/weekday_short").InnerText.ToUpper(),
-                                                    forecastNodes[i].SelectSingleNode("date/month").InnerText,
-                                                    forecastNodes[i].SelectSingleNode("date/day").InnerText);
+                        dayOfTheWeek = String.Format("{0} {1}/{2}", /* Sun 12/09 */
+                                                    timestamp.ToString("ddd", new CultureInfo("en-US")),
+                                                    timestamp.ToString("MM"),
+                                                    timestamp.ToString("dd"));
                         break;
                 }
 
                 DailyForecast.Add(new ForecastItem()
                 {
                     DayOfTheWeek = dayOfTheWeek,
-                    ForecastIcon = "resx://myForecast/myForecast.Resources/" + forecastNodes[i].SelectSingleNode("icon").InnerText,
-                    Condition = CleanForecastConditionDescription(forecastNodes[i].SelectSingleNode("conditions").InnerText),
-                    LowTemp = GetFormattedDailyForecastTemperature(forecastNodes[i].SelectSingleNode("low")),
-                    HighTemp = GetFormattedDailyForecastTemperature(forecastNodes[i].SelectSingleNode("high")),
-                    PopIcon = GetFormattedPopIconResx(forecastNodes[i]),
-                    Pop = GetFormattedPop(forecastNodes[i])
+                    ForecastIcon = GetFormattedIconResx(dailyForecastItem.Icon, null),
+                    Condition = GetForecastConditionDescription(dailyForecastItem.Condition, dailyForecastItem.Icon),
+                    LowTemp = GetFormattedWeatherValue(dailyForecastItem.LowTemp, WeatherValueFormatType.Temperature),
+                    HighTemp = GetFormattedWeatherValue(dailyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
+                    Pop = GetFormattedPop(dailyForecastItem.Pop)
+                });
+
+                daysLoaded++;
+                // max of 5 days can be shown
+                if (daysLoaded == 5)
+                    break;
+            }
+        }
+
+        private void LoadHourlyForecastProperties(List<WeatherData.ForecastItem> hourlyForecastItems)
+        {
+            HourlyForecast.Clear();
+
+            foreach (WeatherData.ForecastItem hourlyForecastItem in hourlyForecastItems)
+            {
+                string dayOfTheWeek = String.Empty;
+                DateTime timestamp = GetTimestampFromEpoch(hourlyForecastItem.TimestampEpoch);
+
+                switch (Configuration.Instance.Language)
+                {
+                    case Language.fr:
+                        dayOfTheWeek = String.Format("{0}", timestamp.ToString("ddd", new CultureInfo("fr-FR"))); /* Sun, Mon, etc */
+                        break;
+                    default:    // US
+                        dayOfTheWeek = String.Format("{0}", timestamp.ToString("ddd", new CultureInfo("en-US"))); /* Sun, Mon, etc */
+                        break;
+                }
+
+                HourlyForecast.Add(new ForecastItem()
+                {
+                    DayOfTheWeek = dayOfTheWeek,
+                    TimeOfTheDay = GetFormattedTimeFromEpoch(hourlyForecastItem.TimestampEpoch),
+                    ForecastIcon = GetFormattedIconResx(hourlyForecastItem.Icon, hourlyForecastItem.TimestampEpoch),
+                    HighTemp = GetFormattedWeatherValue(hourlyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
+                    Pop = GetFormattedPop(hourlyForecastItem.Pop)
                 });
             }
         }
 
-        private void LoadHourlyForecastProperties(XmlNodeList hourlyForecastNodes)
+        private bool IsWeatherRefreshRequired()
         {
-            HourlyForecast.Clear();
-            for (int i = 0; i < hourlyForecastNodes.Count; i++)
+            bool isWeatherRefreshRequired = true;
+
+            if (File.Exists(_weatherFileLocation) == true)
             {
-                string forecastIconName = hourlyForecastNodes[i].SelectSingleNode("icon").InnerText;
-                int forecastHour = GetTimestampFromEpoch(hourlyForecastNodes[i].SelectSingleNode("FCTTIME/epoch").InnerText).Hour;
-
-                // switch to night icons
-                if (forecastHour < 6 || forecastHour > 18)
-                    forecastIconName = "nt_" + forecastIconName;
-
-                HourlyForecast.Add(new ForecastItem()
-                {
-                    DayOfTheWeek = hourlyForecastNodes[i].SelectSingleNode("FCTTIME/weekday_name_abbrev").InnerText.ToUpper(),
-                    TimeOfTheDay = GetFormattedTimeFromEpoch(hourlyForecastNodes[i].SelectSingleNode("FCTTIME/epoch").InnerText),
-                    ForecastIcon = "resx://myForecast/myForecast.Resources/" + forecastIconName,
-                    HighTemp = GetFormattedCurrentForecastTemperature(hourlyForecastNodes[i].SelectSingleNode("temp")),
-                    PopIcon = GetFormattedPopIconResx(hourlyForecastNodes[i]),
-                    Pop = GetFormattedPop(hourlyForecastNodes[i])
-                });
+                FileInfo fileInfo = new FileInfo(_weatherFileLocation);
+                if (fileInfo.LastWriteTime < DateTime.Now.AddMinutes(-_weatherRefreshRateInMinutes))
+                    return true;
+                else
+                    return false;
             }
+
+            return isWeatherRefreshRequired;
+        }
+
+        private void ShowErrorDialog(string message, Exception exception = null, bool goToSettingsPage = false)
+        {
+            if (exception == null)
+                Logger.LogError(message);
+            else
+                Logger.LogError(exception);
+
+            // only show dialogs when running under Media Center
+            if (MyAddIn.Instance != null)
+            {
+                // need this for error dialogs
+                MediaCenterEnvironment mcEnvironment = MyAddIn.Instance.AddInHost.MediaCenterEnvironment;
+
+                List<String> buttons = new List<String>();
+                buttons.Add(LanguageStrings.ui_ButtonClose); // normal button
+                if (goToSettingsPage == true)
+                    buttons.Add(LanguageStrings.ui_ButtonGoToSettings); // only show up if requested
+
+                DialogResult result = mcEnvironment.Dialog(message, LanguageStrings.ui_DialogWeatherDataRefreshCaption, buttons, 60, true, null);
+                if (result.ToString() == "101")
+                {
+                    _weatherRefreshTimer.Enabled = false;
+                    MyAddIn.Instance.GoSettingsPage();
+                }
+                else
+                    MyAddIn.Instance.AddInHost.ApplicationContext.CloseApplication();
+            }
+        }
+
+        #region Utilities
+
+        private DateTime GetTimestampFromEpoch(string epoch)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
         }
 
         private string GetFormattedTimestampFromEpoch(string epoch)
         {
-            //December 19, 6:05 PM
             DateTime parsedTimestamp = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
             string formattedTimestamp;
 
@@ -503,238 +546,146 @@ namespace myForecast
             return formattedTime;
         }
 
-        private DateTime GetTimestampFromEpoch(string epoch)
+        private string GetFormattedWeatherValue(string weatherValue, WeatherValueFormatType formatType)
         {
-            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
-        }
+            string formattedValue = String.Empty;
 
-        private string GetFormattedCurrentForecastTemperature(XmlNode temperatureNode)
-        {
-            string temperature;
-
-            switch (_weatherUnit)
+            switch (formatType)
             {
-                case WeatherUnit.Imperial:
-                    temperature = temperatureNode.SelectSingleNode("english").InnerText + "°F";
+                case WeatherValueFormatType.Temperature:
+                    // round up temperature value
+                    weatherValue = Math.Round(Decimal.Parse(weatherValue), MidpointRounding.AwayFromZero).ToString();
+                    switch (_weatherUnit)
+                    {
+                        case WeatherUnit.Imperial:
+                            formattedValue = String.Format("{0}°F", weatherValue);
+                            break;
+                        default:
+                            formattedValue = String.Format("{0}°C", weatherValue);
+                            break;
+                    }
                     break;
-                default:
-                    temperature = temperatureNode.SelectSingleNode("metric").InnerText + "°C";
+                case WeatherValueFormatType.Humidity:
+                    formattedValue = String.Format("{0}%", Math.Floor(Decimal.Parse(weatherValue) * 100));
+                    break;
+                case WeatherValueFormatType.WindSpeed:
+                    decimal windSpeedValue = Math.Round(Decimal.Parse(weatherValue), MidpointRounding.AwayFromZero);
+                    // check if no wind
+                    if (windSpeedValue == 0)
+                    {
+                        formattedValue = LanguageStrings.ui_WindSpeedZeroDescription;
+                        break;
+                    }
+                    switch (_weatherUnit)
+                    {
+                        case WeatherUnit.Imperial:
+                            formattedValue = String.Format("{0} mph", windSpeedValue);
+                            break;
+                        default:
+                            formattedValue = String.Format("{0} kph", windSpeedValue);
+                            break;
+                    }
+                    break;
+                case WeatherValueFormatType.WindDirection:
+                    // check if no wind
+                    if (String.IsNullOrEmpty(weatherValue) == true)
+                        break;
+
+                    // calculate the abbreviation
+                    string[] windDirections = { "N", "NE", "E", "SE", "S", "SW", "W", "NW", "N" };
+                    formattedValue = windDirections[(int)Math.Round((Decimal.Parse(weatherValue) % 360) / 45)];
+                    break;
+                case WeatherValueFormatType.UvIndex:
+                    // UV index format parsing based on https://en.wikipedia.org/wiki/Ultraviolet_index
+                    int uvIndex = Int32.Parse(weatherValue);
+                    if (uvIndex < 3)
+                        formattedValue = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Low);
+                    else if (uvIndex >= 3 && uvIndex < 6)
+                        formattedValue = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Moderate);
+                    else if (uvIndex >= 6 && uvIndex < 8)
+                        formattedValue = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_High);
+                    else if (uvIndex >= 8 && uvIndex < 11)
+                        formattedValue = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_VeryHigh);
+                    else if (uvIndex >= 11)
+                        formattedValue = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Extreme);
+                    break;
+                default: // WeatherValueFormatType.Pressure
+                    decimal pressureValue = Math.Floor(Decimal.Parse(weatherValue));
+                    switch (_weatherUnit)
+                    {
+                        case WeatherUnit.Imperial:
+                            formattedValue = String.Format("{0} mb", pressureValue);
+                            break;
+                        default:
+                            formattedValue = String.Format("{0} hPa", pressureValue);
+                            break;
+                    }
                     break;
             }
 
-            return temperature;
+            return formattedValue;
         }
 
-        private string GetFormattedDailyForecastTemperature(XmlNode temperatureNode)
+        private string GetFormattedIconResx(string iconName, string epoch)
         {
-            string temperature;
+            string result = "none";
 
-            switch (_weatherUnit)
+            if (iconName.EndsWith("-day", StringComparison.InvariantCultureIgnoreCase) == true
+               || iconName.EndsWith("-night", StringComparison.InvariantCultureIgnoreCase) == true)
             {
-                case WeatherUnit.Imperial:
-                    temperature = temperatureNode.SelectSingleNode("fahrenheit").InnerText + "°F";
-                    break;
-                default:
-                    temperature = temperatureNode.SelectSingleNode("celsius").InnerText + "°C";
-                    break;
+                // icon name is complete no additional formatting is needed
+                result = iconName;
             }
-
-            return temperature;
-        }
-
-        private string GetFormattedPopIconResx(XmlNode forecastNode)
-        {
-            string popIconResx = "resx://myForecast/myForecast.Resources/";
-
-            if (String.IsNullOrEmpty(GetFormattedPop(forecastNode)) == true)
-                popIconResx += "Blank";
             else
-                popIconResx += "Pop";
-
-            return popIconResx;
-        }
-
-        private string GetFormattedPop(XmlNode forecastNode)
-        {
-            string pop = forecastNode.SelectSingleNode("pop").InnerText;
-
-            if (pop == "0")
-                pop = null; // UI will not show null
-            else
-                pop += "%";
-
-            return pop;
-        }
-
-        private string CleanForecastConditionDescription(string conditionDescription)
-        {
-            // forecast description space is tight - currently 13 characters
-            // for similar items the order is from most specific to less specific
-            string[] removeStrings = new string[] { "chance of a", "chance of",     // EN
-                                                    "risque de", "risque d'" };     // FR 
-
-            string result = conditionDescription;
-            for (var i = 0; i < removeStrings.Length; i++)
             {
-                int indexOfValue = conditionDescription.ToLower().IndexOf(removeStrings[i]);
-                if (indexOfValue > -1)
+                if (String.IsNullOrEmpty(epoch) == true)
                 {
-                    result = conditionDescription.Substring(indexOfValue + removeStrings[i].Length);
-                    break;
+                    // epoch is not provided, day icon will be returned
+                    result = iconName + "-day";
+                }
+                else
+                {
+                    // epoch is provided, day/night icon will be returned
+                    int hour = GetTimestampFromEpoch(epoch).Hour;
+
+                    if (hour < 6 || hour > 18)
+                        result = iconName + "-night";
+                    else
+                        result = iconName + "-day";
                 }
             }
 
-            result = result.Trim();
+            return "resx://myForecast/myForecast.Resources/" + result.Replace("-", "_"); // dash is not valid in resource name
+        }
 
-            // fix plural condition words
-            switch (result.ToLower())
-            {
-                case "thunderstorm":        // EN
-                case "orage":               // FR
-                    result = result + "s";
-                    break;
-            }
+        private string GetFormattedPop(string pop)
+        {
+            string result = null; // UI will hide pop indicator if value is null
+
+            int parsedPop = (int)Math.Floor(Decimal.Parse(pop) * 100); // pop value is decimal, 0.14 for 14%
+            if (parsedPop > 0)
+                result = parsedPop + "%";
+
+            return result;
+        }
+
+        private string GetForecastConditionDescription(string conditionDescription, string iconName)
+        {
+            // forecast description space is tight - currently 13 characters
+            string result = conditionDescription;
 
             // check for max size
             if (result.Length > 13)
             {
-                // this may produce strange results with other languages than English
-                string[] sentenceParts = result.Split(' ');
-                result = sentenceParts[sentenceParts.Length - 1];
+                // retrieve condition name by using the icon name
+                string condition = iconName.Replace("-day", "").Replace("-night", "").Replace("-", " ");
+                result = LanguageStrings.ResourceManager.GetObject("ui_Condition" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(condition).Replace(" ", "")).ToString();
             }
 
-            return UppercaseFirstLetter(result);
+            return result;
         }
 
-        private bool IsWeatherRefreshRequired()
-        {
-            bool isWeatherRefreshRequired = true;
-
-            if (File.Exists(_weatherFileLocation) == true)
-            {
-                FileInfo fileInfo = new FileInfo(_weatherFileLocation);
-                if (fileInfo.LastWriteTime < DateTime.Now.AddMinutes(-_weatherRefreshRateInMinutes))
-                    return true;
-                else
-                    return false;
-            }
-
-            return isWeatherRefreshRequired;
-        }
-
-        private void ShowErrorDialog(string message, Exception exception = null, bool goToSettingsPage = false)
-        {
-            if (exception == null)
-                Logger.LogError(message);
-            else
-                Logger.LogError(exception);
-
-            // only show dialogs when running under Media Center
-            if (MyAddIn.Instance != null)
-            {
-                // need this for error dialogs
-                MediaCenterEnvironment mcEnvironment = MyAddIn.Instance.AddInHost.MediaCenterEnvironment;
-
-                System.Collections.Generic.List<String> buttons = new System.Collections.Generic.List<String>();
-                buttons.Add(LanguageStrings.ui_ButtonClose); // normal button
-                if (goToSettingsPage == true)
-                    buttons.Add(LanguageStrings.ui_ButtonGoToSettings); // only show up if requested
-
-                DialogResult result = mcEnvironment.Dialog(message, LanguageStrings.ui_DialogWeatherDataRefreshCaption, buttons, 60, true, null);
-                if (result.ToString() == "101")
-                {
-                    _weatherRefreshTimer.Enabled = false;
-                    MyAddIn.Instance.GoSettingsPage();
-                }
-                else
-                    MyAddIn.Instance.AddInHost.ApplicationContext.CloseApplication();
-            }
-        }
-
-        private string GetWeatherAlertCaption(XmlNode alertsNode)
-        {
-            string caption = null;
-
-            if (alertsNode.ChildNodes.Count > 0)
-            {
-                XmlNode descriptionNode = alertsNode.ChildNodes[0].SelectSingleNode("wtype_meteoalarm_name"); // Europe weather alert
-                if (descriptionNode == null)
-                    descriptionNode = alertsNode.ChildNodes[0].SelectSingleNode("description"); // US weather alert
-
-                if (descriptionNode != null)
-                {
-                    caption = String.Format("*** {0} ***", descriptionNode.InnerText);
-                    if (alertsNode.ChildNodes.Count > 1)
-                        caption = String.Format("{0} [+{1}]", caption, alertsNode.ChildNodes.Count - 1);
-                }
-            }
-
-            return caption;
-        }
-
-        private string GetWeatherAlertText(XmlNode alertsNode)
-        {
-            StringBuilder alertText = new StringBuilder();
-
-            if (alertsNode.ChildNodes.Count > 0)
-            {
-                foreach (XmlNode alertNode in alertsNode.ChildNodes)
-                {
-                    string alertDescription = String.Empty;
-                    string alertStartDate = String.Empty;
-                    string alertExpireDate = String.Empty;
-                    string alertMessage = String.Empty;
-                    string alertCredits = string.Empty;
-
-                    // description
-                    XmlNode descriptionNode = alertNode.SelectSingleNode("wtype_meteoalarm_name"); // Europe weather alert
-                    if (descriptionNode == null)
-                        descriptionNode = alertNode.SelectSingleNode("description"); // US weather alert
-
-                    if (descriptionNode != null)
-                        alertDescription = String.Format("*** {0} ***", descriptionNode.InnerText);
-
-                    // start date
-                    XmlNode startDateNode = alertNode.SelectSingleNode("date");
-                    if (startDateNode != null)
-                        alertStartDate = String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, startDateNode.InnerText);
-
-                    // expire date
-                    XmlNode expireDateNode = alertNode.SelectSingleNode("expires");
-                    if (expireDateNode != null)
-                        alertExpireDate = String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, expireDateNode.InnerText);
-
-                    // message
-                    XmlNode messageNode = alertNode.SelectSingleNode("message");
-                    if (messageNode != null)
-                        alertMessage = messageNode.InnerText;
-
-                    // credits
-                    XmlNode creditsNode = alertNode.SelectSingleNode("attribution");
-                    if (creditsNode != null)
-                        alertCredits = creditsNode.InnerText;
-
-                    alertText.AppendLine(alertDescription);
-                    alertText.AppendLine(alertStartDate.Trim());
-                    alertText.AppendLine(alertExpireDate.Trim());
-                    alertText.AppendLine(alertMessage.Trim());
-                    alertText.AppendLine(alertCredits.Trim());
-                }
-            }
-
-            if (alertText.Length == 0)
-                alertText.AppendLine(LanguageStrings.ui_WeatherAlertInfoNotAvailable);
-
-            return alertText.ToString();
-        }
-
-        private static string UppercaseFirstLetter(string text)
-        {
-            if (string.IsNullOrEmpty(text))
-                return String.Empty;
-
-            return Char.ToUpper(text[0]) + text.Substring(1);
-        }
+        #endregion
     }
 
     public class ForecastItem : ModelItem
@@ -786,12 +737,6 @@ namespace myForecast
         {
             get { return _highTemp; }
             set { _highTemp = value; FirePropertyChanged("HighTemp"); }
-        }
-
-        public string PopIcon
-        {
-            get { return _popIcon; }
-            set { _popIcon = value; FirePropertyChanged("PopIcon"); }
         }
 
         public string Pop

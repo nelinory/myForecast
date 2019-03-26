@@ -16,7 +16,40 @@ namespace myForecast
 
     public enum Language
     {
-        EN,
-        FR
+        en,
+        fr
     }
+
+    public enum WeatherValueFormatType
+    {
+        Temperature,
+        Humidity,
+        WindSpeed,
+        WindDirection,
+        UvIndex,
+        Pressure
+    }
+
+    //public enum PrecipitationType
+    //{
+    //    None,
+    //    Rain,
+    //    Snow,
+    //    Sleet
+    //}
+
+    //public enum IconType
+    //{
+    //    None,
+    //    ClearDay,
+    //    ClearNight,
+    //    Rain,
+    //    Snow,
+    //    Sleet,
+    //    Wind,
+    //    Fog,
+    //    Cloudy,
+    //    PartlyCloudyDay,
+    //    PartlyCloudyNight
+    //}
 }

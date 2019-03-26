@@ -39,7 +39,7 @@
     <Properties>
       <core:String Name="Content" String="$Required"/>
 
-      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="22"/>
+      <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="23"/>
     </Properties>
     <Content>
       <ColorFill Content="Transparent" Layout="Center">
@@ -56,7 +56,7 @@
         </Animations>
         <Children>
           <Text Content="[Content]" Color="White" Font="[FontRegular]"/>
-          <Graphic Content="image://this:PoweredByWeatherUnderground" MaximumSize="120,28" Margins="0,70,0,0"/>
+          <Graphic Content="image://this:WeatherProviderAttribution" MaximumSize="247,56" Margins="0,90,0,0"/>
         </Children>
       </ColorFill>
     </Content>
@@ -129,7 +129,7 @@
       <code:LocalizationModel Name="CodeLocalizationModel"/>
     </Locals>
     <Properties>
-      <code:WeatherModel Name="CurrentWeatherModel" WeatherModel="$Required"/>
+      <code:WeatherModel Name="WeatherModel" WeatherModel="$Required"/>
 
       <ICommand Name="HourlyForecastCommand" ICommand="$Required"/>
 
@@ -148,21 +148,21 @@
       <Binding Source="[HourlyForecastCommand]" Target="[Clicker.Command]"/>
 
       <!-- Cast CurrentConditionIcon string to image -->
-      <Binding Source="[CurrentWeatherModel.CurrentConditionIcon!Image]" Target="[CurrentConditionIcon.Content]">
+      <Binding Source="[WeatherModel.CurrentConditionIcon!Image]" Target="[CurrentConditionIcon.Content]">
         <Conditions>
-          <Equality Source="[CurrentWeatherModel.CurrentConditionIcon]" ConditionOp="NotEquals" Value=""/>
+          <Equality Source="[WeatherModel.CurrentConditionIcon]" ConditionOp="NotEquals" Value=""/>
         </Conditions>
       </Binding>
 
       <!-- Bind all current conditions -->
-      <Binding Source="[CurrentWeatherModel.CurrentConditionTemperature]" Target="[TextCurrentConditionTemperature.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionDescription]" Target="[TextCurrentConditionDescription.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionFeelsLike]" Target="[TextCurrentConditionFeelsLike.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionHumidity]" Target="[TextCurrentConditionHumidity.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionDewPoint]" Target="[TextCurrentConditionDewPoint.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionWind]" Target="[TextCurrentConditionWind.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionUvIndex]" Target="[TextCurrentConditionUvIndex.Content]"/>
-      <Binding Source="[CurrentWeatherModel.CurrentConditionPressure]" Target="[TextCurrentConditionPressure.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionTemperature]" Target="[TextCurrentConditionTemperature.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionDescription]" Target="[TextCurrentConditionDescription.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionFeelsLike]" Target="[TextCurrentConditionFeelsLike.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionHumidity]" Target="[TextCurrentConditionHumidity.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionDewPoint]" Target="[TextCurrentConditionDewPoint.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionWind]" Target="[TextCurrentConditionWind.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionUvIndex]" Target="[TextCurrentConditionUvIndex.Content]"/>
+      <Binding Source="[WeatherModel.CurrentConditionPressure]" Target="[TextCurrentConditionPressure.Content]"/>
 
       <!-- Handles selection of the current condition panel -->
       <Condition Source="[Input.KeyFocus]" SourceValue="true">
@@ -211,7 +211,7 @@
                   <Text Content="[CodeLocalizationModel.Items.#ui_CurrentPressure!core:String]" Color="White" Font="[FontRegularCurrentConditions]"/>
                 </Children>
               </Panel>
-              <Panel Margins="10,10,10,0" MinimumSize="200,1">
+              <Panel Margins="10,10,10,0" MinimumSize="170,1">
                 <Layout>
                   <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                 </Layout>
@@ -237,7 +237,7 @@
       <Index Name="Index" Index="$Required"/>
 
       <code:ForecastItem Name="ForecastItem" ForecastItem="$Required"/>
-      
+
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="16"/>
       <Font Name="FontRegularBig" FontName="global://this:FontFaceRegular" FontSize="18"/>
     </Properties>
@@ -253,13 +253,6 @@
       <Binding Source="[ForecastItem.Condition]" Target="[TextCondition.Content]"/>
       <Binding Source="[ForecastItem.LowTemp]" Target="[TextLowTemp.Content]"/>
       <Binding Source="[ForecastItem.HighTemp]" Target="[TextHighTemp.Content]"/>
-
-      <!-- Cast PopIcon string to image -->
-      <Binding Source="[ForecastItem.PopIcon!Image]" Target="[PopIcon.Content]">
-        <Conditions>
-          <Equality Source="[ForecastItem.PopIcon]" ConditionOp="NotEquals" Value=""/>
-        </Conditions>
-      </Binding>
       <Binding Source="[ForecastItem.Pop]" Target="[TextPop.Content]"/>
 
       <!-- Controls the visibility of pop panel -->
@@ -305,7 +298,7 @@
                   <FlowLayout Orientation="Horizontal" Spacing="3,0" ItemAlignment="Center"/>
                 </Layout>
                 <Children>
-                  <Graphic Name="PopIcon" Content="image://this:Blank" MaximumSize="15,15" Alpha="0.9" Margins="0,3,0,0"/>
+                  <Graphic Name="PopIcon" Content="image://this:Pop" MaximumSize="15,15" Alpha="0.9" Margins="0,3,0,0"/>
                   <Text Name="TextPop" Content="null" Color="White" Font="[FontRegular]"/>
                 </Children>
               </Panel>
@@ -348,7 +341,7 @@
       </Binding>
 
       <Binding Source="[ForecastItem.HighTemp]" Target="[TextHighTemp.Content]"/>
-      
+
       <Binding Source="[ForecastItem.Pop]" Target="[TextPop.Content]"/>
 
       <!-- Controls the visibility of pop panel -->
@@ -412,10 +405,10 @@
     </Content>
   </UI>
 
-  <!-- Powered by WeatherUnderground credits control -->
-  <UI Name="PoweredByWeatherUndergroundCredits">
+  <!-- Powered by credits control -->
+  <UI Name="PoweredByCredits">
     <Locals>
-      <code:LocalizationModel Name="CodeLocalizationModel"/>      
+      <code:LocalizationModel Name="CodeLocalizationModel"/>
     </Locals>
     <Properties>
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="10"/>
@@ -423,11 +416,11 @@
     <Content>
       <Panel>
         <Layout>
-          <FlowLayout Orientation="Horizontal" Spacing="3,0" ItemAlignment="Far"/>
+          <FlowLayout Orientation="Horizontal" ItemAlignment="Far"/>
         </Layout>
         <Children>
-          <Text Content="[CodeLocalizationModel.Items.#ui_PoweredByCaption!core:String]" Color="White" Font="[FontRegular]"/>
-          <Graphic Content="image://this:PoweredByWeatherUnderground" MaximumSize="120,28"/>
+          <Text Content="[CodeLocalizationModel.Items.#ui_PoweredBy!core:String]" Color="White" Font="[FontRegular]"/>
+          <!--<Graphic Content="image://this:WeatherProviderAttribution" MaximumSize="190,43" Alpha="0.85"/>-->
         </Children>
       </Panel>
     </Content>
