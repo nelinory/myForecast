@@ -1,4 +1,14 @@
-﻿Changes for myForecast 1.0.6
+﻿Changes for myForecast 1.0.7
+============================
+Enhancements
+- Improved the formatting of the value for Probability of Precipitation
+- Selected the correct Min/max temperature from the response to match the DarkSky website values
+
+Bugfixes
+- Fixed a bug with incorrectly parsing decimals under different regional settings like Dutch (Netherlands),
+due to the decimal separator from Dark Sky API response always being a comma, example: 32.34 (thanks to Alex Kelder)
+
+Changes for myForecast 1.0.6
 ============================
 Enhancements
 - Replaced WeatherUnderground ® API with Dark Sky ® API, due to WeatherUnderground ® API discontinuing the free access.

@@ -8,7 +8,7 @@
   <!-- Add myForecast to the standard location under "More Programs" -->
   <entrypoint
     id="{b1b8feb9-2738-4a51-8d5d-3a8f9d66d180}"
-    addin="myForecast.MyAddIn, myForecast,Culture=Neutral,Version=1.0.6.0,PublicKeyToken=a3fc2b4950c202e2"
+    addin="myForecast.MyAddIn, myForecast,Culture=Neutral,Version=1.0.7.0,PublicKeyToken=a3fc2b4950c202e2"
     title="myForecast"
     description="Shows current weather conditions and forecast"
     imageUrl="myForecast.png"
@@ -18,7 +18,7 @@
   <!-- Add myForecast to its own "Weather" strip under the main menu -->
   <entrypoint
     id="{912357e6-2e81-404c-aa7b-219df07fb073}"
-    addin="myForecast.MyAddIn, myForecast,Culture=Neutral,Version=1.0.6.0,PublicKeyToken=a3fc2b4950c202e2"
+    addin="myForecast.MyAddIn, myForecast,Culture=Neutral,Version=1.0.7.0,PublicKeyToken=a3fc2b4950c202e2"
     title="myForecast"
     description="Shows current weather conditions and forecast"
     imageUrl="myForecastStrip.png"
