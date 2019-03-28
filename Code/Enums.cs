@@ -27,7 +27,8 @@ namespace myForecast
         WindSpeed,
         WindDirection,
         UvIndex,
-        Pressure
+        Pressure,
+        Pop
     }
 
     //public enum PrecipitationType
