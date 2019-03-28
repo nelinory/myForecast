@@ -321,7 +321,7 @@ namespace myForecast
                 Condition = GetForecastConditionDescription(currentForecastItem.Condition, currentForecastItem.Icon),
                 LowTemp = GetFormattedWeatherValue(lowTemperature, WeatherValueFormatType.Temperature),
                 HighTemp = GetFormattedWeatherValue(highTemperature, WeatherValueFormatType.Temperature),
-                Pop = GetFormattedPop(currentForecastItem.Pop)
+                Pop = GetFormattedWeatherValue(currentForecastItem.Pop, WeatherValueFormatType.Pop)
             });
 
             // next 5 days forecast
@@ -359,7 +359,7 @@ namespace myForecast
                     Condition = GetForecastConditionDescription(dailyForecastItem.Condition, dailyForecastItem.Icon),
                     LowTemp = GetFormattedWeatherValue(dailyForecastItem.LowTemp, WeatherValueFormatType.Temperature),
                     HighTemp = GetFormattedWeatherValue(dailyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
-                    Pop = GetFormattedPop(dailyForecastItem.Pop)
+                    Pop = GetFormattedWeatherValue(dailyForecastItem.Pop, WeatherValueFormatType.Pop)
                 });
 
                 daysLoaded++;
@@ -394,7 +394,7 @@ namespace myForecast
                     TimeOfTheDay = GetFormattedTimeFromEpoch(hourlyForecastItem.TimestampEpoch),
                     ForecastIcon = GetFormattedIconResx(hourlyForecastItem.Icon, hourlyForecastItem.TimestampEpoch),
                     HighTemp = GetFormattedWeatherValue(hourlyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
-                    Pop = GetFormattedPop(hourlyForecastItem.Pop)
+                    Pop = GetFormattedWeatherValue(hourlyForecastItem.Pop, WeatherValueFormatType.Pop)
                 });
             }
         }
@@ -495,7 +495,7 @@ namespace myForecast
             {
                 case WeatherValueFormatType.Temperature:
                     // round up temperature value
-                    weatherValue = Math.Round(Decimal.Parse(weatherValue), MidpointRounding.AwayFromZero).ToString();
+                    weatherValue = Math.Round(GetDecimalFromString(weatherValue), MidpointRounding.AwayFromZero).ToString();
                     switch (_weatherUnit)
                     {
                         case WeatherUnit.Imperial:
@@ -507,10 +507,10 @@ namespace myForecast
                     }
                     break;
                 case WeatherValueFormatType.Humidity:
-                    formattedValue = String.Format("{0}%", Math.Floor(Decimal.Parse(weatherValue) * 100));
+                    formattedValue = String.Format("{0}%", Math.Floor(GetDecimalFromString(weatherValue) * 100));
                     break;
                 case WeatherValueFormatType.WindSpeed:
-                    decimal windSpeedValue = Math.Round(Decimal.Parse(weatherValue), MidpointRounding.AwayFromZero);
+                    decimal windSpeedValue = Math.Round(GetDecimalFromString(weatherValue), MidpointRounding.AwayFromZero);
                     // check if no wind
                     if (windSpeedValue == 0)
                     {
@@ -534,7 +534,7 @@ namespace myForecast
 
                     // calculate the abbreviation
                     string[] windDirections = { "N", "NE", "E", "SE", "S", "SW", "W", "NW", "N" };
-                    formattedValue = windDirections[(int)Math.Round((Decimal.Parse(weatherValue) % 360) / 45)];
+                    formattedValue = windDirections[(int)Math.Round((GetDecimalFromString(weatherValue) % 360) / 45)];
                     break;
                 case WeatherValueFormatType.UvIndex:
                     // UV index format parsing based on https://en.wikipedia.org/wiki/Ultraviolet_index
@@ -550,8 +550,8 @@ namespace myForecast
                     else if (uvIndex >= 11)
                         formattedValue = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Extreme);
                     break;
-                default: // WeatherValueFormatType.Pressure
-                    decimal pressureValue = Math.Floor(Decimal.Parse(weatherValue));
+                case WeatherValueFormatType.Pressure:
+                    decimal pressureValue = Math.Floor(GetDecimalFromString(weatherValue));
                     switch (_weatherUnit)
                     {
                         case WeatherUnit.Imperial:
@@ -561,6 +561,12 @@ namespace myForecast
                             formattedValue = String.Format("{0} hPa", pressureValue);
                             break;
                     }
+                    break;
+                default: // WeatherValueFormatType.Pop
+                    formattedValue = null;  // UI will hide pop indicator if value is null
+                    int popValue = (int)Math.Floor(GetDecimalFromString(weatherValue) * 100); // pop value is decimal, 0.14 for 14%
+                    if (popValue > 0)
+                        formattedValue = popValue + "%";
                     break;
             }
 
@@ -599,17 +605,6 @@ namespace myForecast
             return "resx://myForecast/myForecast.Resources/" + result.Replace("-", "_"); // dash is not valid in resource name
         }
 
-        private string GetFormattedPop(string pop)
-        {
-            string result = null; // UI will hide pop indicator if value is null
-
-            int parsedPop = (int)Math.Floor(Decimal.Parse(pop) * 100); // pop value is decimal, 0.14 for 14%
-            if (parsedPop > 0)
-                result = parsedPop + "%";
-
-            return result;
-        }
-
         private string GetForecastConditionDescription(string conditionDescription, string iconName)
         {
             // forecast description space is tight - currently 13 characters
@@ -624,6 +619,13 @@ namespace myForecast
             }
 
             return result;
+        }
+
+        private decimal GetDecimalFromString(string weatherValue)
+        {
+            // force en-US culture for parsing decimal since the decimal separator from Dark Sky API is always a comma, example: 32.34
+            // this should solve the issue with incorrectly parsing decimals under different regional settings like Dutch (Netherlands)
+            return Convert.ToDecimal(weatherValue, new CultureInfo("en-US"));
         }
 
         #endregion
