@@ -67,8 +67,8 @@ namespace myForecast
                                 TimestampEpoch = dailyData[i]["time"].AsString(),
                                 Icon = (icon.Equals("partly-cloudy-night", StringComparison.InvariantCultureIgnoreCase) == true) ? "clear-day" : icon,
                                 Condition = condition,
-                                LowTemp = dailyData[i]["temperatureLow"].AsString(),
-                                HighTemp = dailyData[i]["temperatureHigh"].AsString(),
+                                LowTemp = dailyData[i]["temperatureMin"].AsString(),
+                                HighTemp = dailyData[i]["temperatureMax"].AsString(),
                                 Pop = dailyData[i]["precipProbability"].AsString()
                             });
                         }
