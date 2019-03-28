@@ -161,7 +161,7 @@ namespace myForecast
             // set the correct language for the UI thread
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Enum.GetName(typeof(Language), Configuration.Instance.Language));
 
-            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode.Replace(".", "_").Replace(",", ""), _weatherLanguage);
+            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode.Replace(".", "_").Replace(",", ""), _weatherLanguage, _weatherUnit == WeatherUnit.Imperial ? "us" : "ca");
             _weatherFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherFileName);
             _weatherApiUri = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLocationCode, _weatherLanguage, _weatherUnit == WeatherUnit.Imperial ? "us" : "ca");
 

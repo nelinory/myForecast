@@ -15,7 +15,7 @@ namespace myForecast
 
         #region Public Properties
 
-        public readonly string WeatherFileNamePattern = "wd_{0}_{1}.dat";
+        public readonly string WeatherFileNamePattern = "wd_{0}_{1}_{2}.dat";
         public readonly string ApiUrlPattern = "https://api.darksky.net/forecast/{0}/{1}?exclude=minutely-flags&lang={2}&units={3}";
         public readonly string ConfigFileFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), "myForecast");
 
