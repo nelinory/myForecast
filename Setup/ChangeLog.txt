@@ -1,4 +1,9 @@
-﻿Changes for myForecast 1.0.7
+﻿Changes for myForecast 1.0.8
+============================
+Enhancements
+- Added support for Tsl 1.2 protocol when calling Dark Sky ® API
+
+Changes for myForecast 1.0.7
 ============================
 Enhancements
 - Improved the formatting of the value for Probability of Precipitation
