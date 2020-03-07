@@ -241,7 +241,7 @@
     <value>Paramètre</value>
   </data>
   <data name="ui_DialogCatastrophicError" xml:space="preserve">
-    <value>Erreur critique.\nPour plus d'information, merci de consulter le rapport.</value>
+    <value>Erreur critique. Pour plus d'information, merci de consulter le rapport.</value>
   </data>
   <data name="ui_DialogErrorReceivedFromWeatherProvider" xml:space="preserve">
     <value>API Dark Sky ® a rencontré une erreur. Merci de réessayer dans quelques minutes.</value>

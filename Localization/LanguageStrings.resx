@@ -241,7 +241,7 @@
     <value>Go to settings</value>
   </data>
   <data name="ui_DialogCatastrophicError" xml:space="preserve">
-    <value>Ooops - catastrophic error.\nPlease, check the log file for more details.</value>
+    <value>Ooops - catastrophic error. Please, check the log file for more details.</value>
   </data>
   <data name="ui_DialogErrorReceivedFromWeatherProvider" xml:space="preserve">
     <value>Error received from Dark Sky ® API. Please, try again in few minutes.</value>

@@ -56,7 +56,7 @@ namespace myForecast
             }
 
 #if DEBUG
-            AddInHost.MediaCenterEnvironment.Dialog("Attach debugger and hit ok", "myForecast - Debug", DialogButtons.Ok, 100, true);
+            AddInHost.MediaCenterEnvironment.Dialog("Attach debugger to ehexthost.exe and hit ok", "myForecast - Debug", DialogButtons.Ok, 100, true);
 #endif
             Session = new HistoryOrientedPageSession();
 

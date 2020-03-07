@@ -189,6 +189,10 @@ namespace myForecast
                 {
                     if (IsWeatherRefreshRequired() == true)
                     {
+                        // ensure correct security protocol is allowed
+                        ServicePointManager.Expect100Continue = true;
+                        ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00); // Tls, Tls11, Tls12
+
                         // download the new weather data in a temporary string
                         // in case there is an error the old weather file will be preserved
                         webClient.Encoding = Encoding.UTF8;
@@ -225,13 +229,18 @@ namespace myForecast
                 }
                 catch (WebException webException)
                 {
-                    HttpWebResponse response = (HttpWebResponse)webException.Response;
-                    if (response.StatusCode == HttpStatusCode.Forbidden)
-                        ShowErrorDialog(LanguageStrings.ui_DialogInvalidApiKeyReceivedFromWeatherProvider, webException, true);
-                    else if (response.StatusCode == HttpStatusCode.BadRequest)
-                        ShowErrorDialog(LanguageStrings.ui_DialogInvalidLocationDataReceivedFromWeatherProvider, webException, true);
+                    if (webException.Response != null)
+                    {
+                        HttpWebResponse response = (HttpWebResponse)webException.Response;
+                        if (response.StatusCode == HttpStatusCode.Forbidden)
+                            ShowErrorDialog(LanguageStrings.ui_DialogInvalidApiKeyReceivedFromWeatherProvider, webException, true);
+                        else if (response.StatusCode == HttpStatusCode.BadRequest)
+                            ShowErrorDialog(LanguageStrings.ui_DialogInvalidLocationDataReceivedFromWeatherProvider, webException, true);
+                        else
+                            ShowErrorDialog(LanguageStrings.ui_DialogErrorWhileConnectingToWeatherProvider, webException);
+                    }
                     else
-                        ShowErrorDialog(LanguageStrings.ui_DialogErrorWhileConnectingToWeatherProvider, webException);
+                        ShowErrorDialog(LanguageStrings.ui_DialogCatastrophicError, webException);
                 }
                 catch (Exception exception)
                 {

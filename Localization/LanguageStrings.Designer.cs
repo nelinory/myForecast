@@ -295,7 +295,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ooops - catastrophic error.\nPlease, check the log file for more details..
+        ///   Looks up a localized string similar to Ooops - catastrophic error. Please, check the log file for more details..
         /// </summary>
         internal static string ui_DialogCatastrophicError {
             get {
