@@ -1,4 +1,9 @@
-﻿Changes for myForecast 1.0.8
+﻿Changes for myForecast 1.0.9
+============================
+Enhancements
+- Removed support for Tls 1.0 and Tls 1.1. When calling Dark Sky ® API only Tls 1.2 will be used.
+
+Changes for myForecast 1.0.8
 ============================
 Enhancements
 - Added support for Tsl 1.2 protocol when calling Dark Sky ® API

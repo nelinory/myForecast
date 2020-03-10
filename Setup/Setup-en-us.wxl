@@ -9,7 +9,7 @@
 	<String Id="Property_ArpUrlInfoAbout">https://github.com/nelinory/myForecast</String>
   <String Id="Property_ArpUrlUpdateInfo">https://github.com/nelinory/myForecast/releases</String>
   <String Id="Property_ProductLanguage">1033</String>
-	<String Id="Property_ProductName">myForecast 1.0.8</String>
+	<String Id="Property_ProductName">myForecast 1.0.9</String>
 	<String Id="Property_CompanyName">Nelinory</String>
 
 	<String Id="Package_Description">myForecast weather application for Windows Media Center</String>

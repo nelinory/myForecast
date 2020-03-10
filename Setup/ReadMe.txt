@@ -1,4 +1,4 @@
-﻿myForecast Version 1.0.8
+﻿myForecast Version 1.0.9
 Copyright © 2016-2020 by Chavdar Kostov
 
 
