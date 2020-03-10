@@ -191,7 +191,8 @@ namespace myForecast
                     {
                         // ensure correct security protocol is allowed
                         ServicePointManager.Expect100Continue = true;
-                        ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00); // Tls, Tls11, Tls12
+                        //ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00); // Tls, Tls11, Tls12
+                        ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc00); // Tls12
 
                         // download the new weather data in a temporary string
                         // in case there is an error the old weather file will be preserved
