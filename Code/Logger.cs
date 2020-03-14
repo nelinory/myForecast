@@ -34,7 +34,7 @@ namespace myForecast
 
         public static void LogError(Exception exception)
         {
-            LogError(String.Format("{0}{1}Stack:{2}", exception.Message,Environment.NewLine, exception.StackTrace));
+            LogError(String.Format("{0}{1}Stack:{2}", exception.Message, Environment.NewLine, exception.StackTrace));
         }
 
         public static void LogError(string message)
@@ -45,8 +45,10 @@ namespace myForecast
         private static void WriteToLog(string messageType, string message)
         {
             string logFileName = String.Format("myForecastLog_{0:yyyy_MM_dd}.txt", DateTime.Now);
-            string formattedMessage = String.Format("{0}\t\t{1}\t\t{2}{3}",
+            string appVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string formattedMessage = String.Format("{0}\tmyForecast v{1}\t{2}\t{3}{4}",
                                                     DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss.fff"),
+                                                    appVersion,
                                                     messageType,
                                                     message,
                                                     Environment.NewLine);
