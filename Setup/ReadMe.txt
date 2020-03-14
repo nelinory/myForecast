@@ -15,6 +15,9 @@ Requirements
 - Internet connection
 - Api key from Dark Sky ® API
 - Location coordinates from Dark Sky ® API
+- Windows Media Center must support Tls 1.2 security protocol - it is required by Dark Sky ® API
+  If you receive: "Tls v1.2 protocol support is required." error when start myForecast for first time,
+  please follow this article to resolve the issue: https://support.microsoft.com/en-us/help/3154518
 
 
 Limitations
@@ -46,6 +49,12 @@ For example if I search for "New York, NY" I will be redirected to a new page th
 Look at your browser address bar and you will see something like: https://darksky.net/forecast/40.7309,-73.9872/us12/en
 The location coordinates you need are: 40.7309,-73.9872
 When you configure myForecast, please enter the full location coordinates, i.e. 40.7309,-73.9872
+
+
+Feedback
+========
+Any comments, questions and ideas are greatly appreciated.
+All application generated files (configuration/location cache and error logs) can be found at: C:\Users\<YOUR USER NAME>\Documents\myForecast
 
 
 Author

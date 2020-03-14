@@ -9,7 +9,7 @@ For more information regarding the Dark Sky ® API, please visit https://darksky
 - Api key from Dark Sky ® API
 - Location coordinates from Dark Sky ® API
 > Windows Media Center **must support Tls 1.2 security protocol** - it is required by Dark Sky ® API<br/>
-> If you receive: *"Tls v1.2 protocol support is required."* when run myForecast for first time,<br/>
+> If you receive: *"Tls v1.2 protocol support is required."* error when start myForecast for first time,<br/>
 > please follow this article to resolve the issue: https://support.microsoft.com/en-us/help/3154518
 
 ## Limitations
