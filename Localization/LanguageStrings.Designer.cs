@@ -376,6 +376,15 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tls v1.2 protocol support is required. Please, check the application requirements at https://github.com/nelinory/myForecast.
+        /// </summary>
+        internal static string ui_DialogTls12Error {
+            get {
+                return ResourceManager.GetString("ui_DialogTls12Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to myForecast - Weather Data Refresh.
         /// </summary>
         internal static string ui_DialogWeatherDataRefreshCaption {

@@ -189,11 +189,6 @@ namespace myForecast
                 {
                     if (IsWeatherRefreshRequired() == true)
                     {
-                        // ensure correct security protocol is allowed
-                        ServicePointManager.Expect100Continue = true;
-                        //ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0 | 0x300 | 0xc00); // Tls, Tls11, Tls12
-                        ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc00); // Tls12
-
                         // download the new weather data in a temporary string
                         // in case there is an error the old weather file will be preserved
                         webClient.Encoding = Encoding.UTF8;
@@ -442,6 +437,18 @@ namespace myForecast
                 buttons.Add(LanguageStrings.ui_ButtonClose); // normal button
                 if (goToSettingsPage == true)
                     buttons.Add(LanguageStrings.ui_ButtonGoToSettings); // only show up if requested
+
+                // adding more information for "Catastrophic Error"
+                if (String.Equals(LanguageStrings.ui_DialogCatastrophicError, message, StringComparison.InvariantCultureIgnoreCase) == true)
+                {
+                    // check for Tsl 1.2 support
+                    using (WebClientWithCompression webClient = new WebClientWithCompression())
+                    {
+                        bool tls12Supported = webClient.IsTls12Supported();
+                        if (tls12Supported == false)
+                            message = LanguageStrings.ui_DialogTls12Error;
+                    }
+                }
 
                 DialogResult result = mcEnvironment.Dialog(message, LanguageStrings.ui_DialogWeatherDataRefreshCaption, buttons, 60, true, null);
                 if (result.ToString() == "101")

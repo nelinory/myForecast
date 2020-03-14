@@ -309,4 +309,7 @@
   <data name="ui_SettingsLocationName" xml:space="preserve">
     <value>Location name</value>
   </data>
+  <data name="ui_DialogTls12Error" xml:space="preserve">
+    <value>Tls v1.2 protocol support is required. Please, check the application requirements at https://github.com/nelinory/myForecast</value>
+  </data>
 </root>
