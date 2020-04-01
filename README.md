@@ -17,7 +17,7 @@ For more information regarding the Dark Sky ® API, please visit https://darksky
 - Single weather location only
 
 ## How to get the API key from Dark Sky ® API
-> Dark Sky ® API company have been aquared by Apple.<br/>
+> Dark Sky ® API company have been acquired by Apple.<br/>
 > <strong>As of 04/01/2020 Dark Sky ® API does not accepts new sign ups.</strong>. Looking for a replacement weather API.
 
 The application is designed to use a free Dark Sky ® API developer account which limits you to 1000 calls per day. To prevent the customer from going over the limit the minimum weather refresh interval is set to 5 minutes at the application level. Of course if you already have an API key (free or paid) from Dark Sky ® API you can use it too.
