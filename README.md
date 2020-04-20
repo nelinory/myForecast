@@ -18,15 +18,9 @@ For more information regarding the Dark Sky ® API, please visit https://darksky
 
 ## How to get the API key from Dark Sky ® API
 > Dark Sky ® API company have been acquired by Apple.<br/>
-> <strong>As of 04/01/2020 Dark Sky ® API does not accepts new sign ups</strong>. Looking for a replacement weather API.
+> <strong>As of 04/01/2020 Dark Sky ® API does not accepts new sign ups and will stop working at the end of 2021.</strong>
 
-The application is designed to use a free Dark Sky ® API developer account which limits you to 1000 calls per day. To prevent the customer from going over the limit the minimum weather refresh interval is set to 5 minutes at the application level. Of course if you already have an API key (free or paid) from Dark Sky ® API you can use it too.
-
-1. Go to https://darksky.net/dev and click the "TRY FOR FREE" button
-2. Fill in the "Register" section, agree to the Terms of Service and click "REGISTER" button
-3. Check the email address you used in Step 2 for the activation email from Dark Sky ® API (Dark Sky Developer Support <developer@darksky.net>) and click on the activation link. You have 30 minutes to activate.
-4. Go to https://darksky.net/dev and click the "LOG IN" button
-5. After login you will be redirected to the main API page. If all is good you will be given an API key (secret key) which looks like: **ma80b279fake22ma80b279fake22**
+The application is designed to use a free Dark Sky ® API developer account which limits you to 1000 calls per day. To prevent the customer from going over the limit the minimum weather refresh interval is set to 5 minutes at the application level.
 
 ## How to get the location coordinates from Dark Sky ® API
 Go to https://darksky.net - in most of the cases (or at least for US) your location will be automatically detected and shown
