@@ -10,10 +10,11 @@ namespace myForecast
             // ensure correct security protocol is allowed
             ServicePointManager.Expect100Continue = true;
 
-            // 0xc0  - Tls 1.0 (obsolete)
-            // 0x300 - Tls 1.1 (obsolete)
-            // 0xc00 - Tls 1.2 (current)
-            ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc00);
+            // 0xc0     - Tls 1.0 (obsolete)
+            // 0x300    - Tls 1.1 (obsolete)
+            // 0xc00    - Tls 1.2 (current)
+            // 0x3000   - Tls 1.3 (future - not supported by .NET 2.0 framework)
+            ServicePointManager.SecurityProtocol = (SecurityProtocolType)(0xc0) | (SecurityProtocolType)(0x300) | (SecurityProtocolType)(0xc00);
         }
 
         protected override WebRequest GetWebRequest(Uri address)
@@ -33,9 +34,9 @@ namespace myForecast
 
             try
             {
-                DownloadString("https://darksky.net/dev");
+                DownloadString("https://openweathermap.org/api");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result = false;
             }

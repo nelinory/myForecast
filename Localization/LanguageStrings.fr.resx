@@ -145,7 +145,7 @@
     <value>à propos</value>
   </data>
   <data name="ui_AboutAllWeatherDataProvidedBy" xml:space="preserve">
-    <value>Les données météo sont fournies par l'API Dark Sky ®</value>
+    <value>Les données météo sont fournies par l'API OpenWeather ®</value>
   </data>
   <data name="ui_SettingsApiKey" xml:space="preserve">
     <value>Clé API</value>
@@ -175,7 +175,7 @@
     <value>Ressenti:</value>
   </data>
   <data name="ui_AboutForApiInfoVisit" xml:space="preserve">
-    <value>Pour plus d'informations sur l'API Dark Sky ®, veuillez consulter https://darksky.net/dev</value>
+    <value>Pour plus d'informations sur l'API OpenWeather ®, veuillez consulter https://openweathermap.org/api</value>
   </data>
   <data name="ui_CurrentHumidity" xml:space="preserve">
     <value>Humidité:</value>
@@ -190,7 +190,7 @@
     <value>Code géographique</value>
   </data>
   <data name="ui_PoweredBy" xml:space="preserve">
-    <value>Fourni par Dark Sky</value>
+    <value>Fourni par OpenWeather</value>
   </data>
   <data name="ui_CurrentPressure" xml:space="preserve">
     <value>Pression:</value>
@@ -244,13 +244,13 @@
     <value>Erreur critique. Pour plus d'information, merci de consulter le rapport.</value>
   </data>
   <data name="ui_DialogErrorReceivedFromWeatherProvider" xml:space="preserve">
-    <value>API Dark Sky ® a rencontré une erreur. Merci de réessayer dans quelques minutes.</value>
+    <value>API OpenWeather ® a rencontré une erreur. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogErrorWhileConnectingToWeatherProvider" xml:space="preserve">
-    <value>Erreur lors de la connexion à API Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
+    <value>Erreur lors de la connexion à API OpenWeather ®. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogNoResponseReceivedFromWeatherProvider" xml:space="preserve">
-    <value>Aucune réponse reçue de API Dark Sky ®. Merci de réessayer dans quelques minutes.</value>
+    <value>Aucune réponse reçue de API OpenWeather ®. Merci de réessayer dans quelques minutes.</value>
   </data>
   <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
     <value>myForecast - Actualisation des données</value>

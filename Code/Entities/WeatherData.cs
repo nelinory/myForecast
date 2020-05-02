@@ -22,103 +22,115 @@ namespace myForecast
             {
                 LWJson weatherDataObject = LWJson.Parse(weatherDataJson);
 
-                // check first if weather info is available
-                if (weatherDataObject.Contains("flags") == true && weatherDataObject["flags"].IsObject == true)
-                {
-                    if (weatherDataObject["flags"].Contains("darksky-unavailable") == true)
-                        return;
-                }
-
                 // load current condition
-                if (weatherDataObject.Contains("currently") == true && weatherDataObject["currently"].IsObject == true)
+                if (weatherDataObject.Contains("current") == true && weatherDataObject["current"].IsObject == true)
                 {
                     CurrentForecast = new CurrentItem()
                     {
-                        TimestampEpoch = weatherDataObject["currently"]["time"].AsString(),
-                        Icon = weatherDataObject["currently"]["icon"].AsString(),
-                        Temperature = weatherDataObject["currently"]["temperature"].AsString(),
-                        Description = weatherDataObject["currently"]["summary"].AsString(),
-                        FeelsLike = weatherDataObject["currently"]["apparentTemperature"].AsString(),
-                        Humidity = weatherDataObject["currently"]["humidity"].AsString(),
-                        DewPoint = weatherDataObject["currently"]["dewPoint"].AsString(),
-                        WindSpeed = weatherDataObject["currently"]["windSpeed"].AsString(),
-                        WindDirection = weatherDataObject["currently"].Contains("windBearing") == true ? weatherDataObject["currently"]["windBearing"].AsString() : null,
-                        UvIndex = weatherDataObject["currently"]["uvIndex"].AsString(),
-                        Pressure = weatherDataObject["currently"]["pressure"].AsString()
+                        TimestampEpoch = weatherDataObject["current"]["dt"].AsInteger().ToString(),
+                        Icon = weatherDataObject["current"]["weather"].IsArray == true ? weatherDataObject["current"]["weather"][0]["icon"].AsString() : String.Empty,
+                        Temperature = weatherDataObject["current"]["temp"].AsDouble().ToString(),
+                        Description = weatherDataObject["current"]["weather"].IsArray == true ? weatherDataObject["current"]["weather"][0]["main"].AsString() : String.Empty,
+                        FeelsLike = weatherDataObject["current"]["feels_like"].AsDouble().ToString(),
+                        Humidity = weatherDataObject["current"]["humidity"].AsDouble().ToString(),
+                        DewPoint = weatherDataObject["current"]["dew_point"].AsDouble().ToString(),
+                        WindSpeed = weatherDataObject["current"]["wind_speed"].AsDouble().ToString(),
+                        WindDirection = weatherDataObject["current"].Contains("wind_deg") == true ? weatherDataObject["current"]["wind_deg"].AsDouble().ToString() : String.Empty,
+                        UvIndex = weatherDataObject["current"]["uvi"].AsDouble().ToString(),
+                        Pressure = weatherDataObject["current"]["pressure"].AsDouble().ToString()
                     };
                 }
+                else return;
 
                 // load daily forecast 
-                if (weatherDataObject.Contains("daily") == true && weatherDataObject["daily"].IsObject == true)
+                if (weatherDataObject.Contains("daily") == true && weatherDataObject["daily"].IsArray == true && weatherDataObject["daily"].AsArray().Count > 0)
                 {
-                    if (weatherDataObject["daily"]["data"].IsArray == true && weatherDataObject["daily"]["data"].AsArray().Count > 0)
+                    LWJsonArray dailyData = weatherDataObject["daily"].AsArray();
+
+                    DailyForecast = new List<ForecastItem>();
+                    for (int i = 0; i < dailyData.Count; i++)
                     {
-                        LWJsonArray dailyData = weatherDataObject["daily"]["data"].AsArray();
+                        string timestampEpoch = dailyData[i]["dt"].AsInteger().ToString();
+                        DateTime timestamp = Utilities.GetTimestampFromEpoch(timestampEpoch);
 
-                        DailyForecast = new List<ForecastItem>();
-                        for (int i = 0; i < dailyData.Count; i++)
+                        // skip all days until tomorrow
+                        if (DateTime.Now.Date >= timestamp.Date)
+                            continue;
+
+                        // OpenWeather API provides: "rain precipitation" or "snow volume" in a separate fields - both in mm
+                        string pop = "0";
+                        if (dailyData[i].Contains("rain") == true)
+                            pop = dailyData[i]["rain"].AsDouble().ToString();
+                        else if (dailyData[i].Contains("snow") == true)
+                            pop = dailyData[i]["snow"].AsDouble().ToString();
+
+                        DailyForecast.Add(new ForecastItem()
                         {
-                            // DarkSky quirk for daily data: Treat "partly-cloudy-night" as an alias for "clear-day"
-                            string icon = dailyData[i]["icon"].AsString();
-                            string condition = dailyData[i]["summary"].AsString();
-
-                            DailyForecast.Add(new ForecastItem()
-                            {
-                                TimestampEpoch = dailyData[i]["time"].AsString(),
-                                Icon = (icon.Equals("partly-cloudy-night", StringComparison.InvariantCultureIgnoreCase) == true) ? "clear-day" : icon,
-                                Condition = condition,
-                                LowTemp = dailyData[i]["temperatureMin"].AsString(),
-                                HighTemp = dailyData[i]["temperatureMax"].AsString(),
-                                Pop = dailyData[i]["precipProbability"].AsString()
-                            });
-                        }
+                            TimestampEpoch = timestampEpoch,
+                            Icon = dailyData[i]["weather"].IsArray == true ? dailyData[i]["weather"][0]["icon"].AsString() : String.Empty,
+                            Condition = dailyData[i]["weather"].IsArray == true ? dailyData[i]["weather"][0]["main"].AsString() : String.Empty,
+                            LowTemp = dailyData[i]["temp"].IsObject ? dailyData[i]["temp"]["min"].AsDouble().ToString() : String.Empty,
+                            HighTemp = dailyData[i]["temp"].IsObject ? dailyData[i]["temp"]["max"].AsDouble().ToString() : String.Empty,
+                            Pop = pop
+                        });
                     }
                 }
+                else return;
 
                 // load hourly forecast for the next 36 hours
-                if (weatherDataObject.Contains("hourly") == true && weatherDataObject["hourly"].IsObject == true)
+                if (weatherDataObject.Contains("hourly") == true && weatherDataObject["hourly"].IsArray == true && weatherDataObject["hourly"].AsArray().Count > 0)
                 {
-                    if (weatherDataObject["hourly"]["data"].IsArray == true && weatherDataObject["hourly"]["data"].AsArray().Count > 0)
-                    {
-                        LWJsonArray hourlyData = weatherDataObject["hourly"]["data"].AsArray();
+                    LWJsonArray hourlyData = weatherDataObject["hourly"].AsArray();
+                    int totalHoursAdded = 1;
 
-                        HourlyForecast = new List<ForecastItem>();
-                        for (int i = 1; i < 37; i++) // only grab 36 hours, skipping first one which is the current hour
+                    HourlyForecast = new List<ForecastItem>();
+                    for (int i = 0; i < hourlyData.Count && totalHoursAdded <= 36; i++)
+                    {
+                        string timestampEpoch = hourlyData[i]["dt"].AsInteger().ToString();
+                        DateTime timestamp = Utilities.GetTimestampFromEpoch(timestampEpoch);
+
+                        // skip all hour until next hour
+                        if (DateTime.Now.Ticks >= timestamp.Ticks)
+                            continue;
+
+                        HourlyForecast.Add(new ForecastItem()
                         {
-                            HourlyForecast.Add(new ForecastItem()
-                            {
-                                TimestampEpoch = hourlyData[i]["time"].AsString(),
-                                Icon = hourlyData[i]["icon"].AsString(),
-                                Condition = hourlyData[i]["summary"].AsString(),
-                                LowTemp = hourlyData[i]["temperature"].AsString(), // no low temperature in the API
-                                HighTemp = hourlyData[i]["temperature"].AsString(),
-                                Pop = hourlyData[i]["precipProbability"].AsString()
-                            });
-                        }
+                            TimestampEpoch = timestampEpoch,
+                            Icon = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["icon"].AsString() : String.Empty,
+                            Condition = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["main"].AsString() : String.Empty,
+                            LowTemp = hourlyData[i]["temp"].AsString(),     // no low temperature in the OpenWeather API
+                            HighTemp = hourlyData[i]["temp"].AsString(),    // no high temperature in the OpenWeather API
+                            Pop = "0" // no pop for now
+                        });
+
+                        totalHoursAdded++;
                     }
                 }
+                else return;
 
-                // load alerts data
-                if (weatherDataObject.Contains("alerts") == true && weatherDataObject["alerts"].IsArray == true)
-                {
-                    if (weatherDataObject["alerts"].AsArray().Count > 0)
-                    {
-                        LWJsonArray alertsData = weatherDataObject["alerts"].AsArray();
+                //// load alerts data - no alerts data in OpenWeather API, so we use NWS for USA based weather alerts based on location coordinates
+                //// https://github.com/SimpleAppProjects/SimpleWeather-Windows/blob/6a6bb8c1acecae11bd52937ba0abbfb448d7b7c8/SimpleWeather/NWS/NWSAlertProvider.cs
+                //LWJson weatherAlertsObject = LWJson.Parse(weatherAlertsJson);
+                //if (weatherAlertsObject.Contains("features") == true && weatherAlertsObject["features"].IsArray == true && weatherAlertsObject["features"].AsArray().Count > 0)
+                //{
+                //    LWJsonArray alertsData = weatherAlertsObject["features"].AsArray();
 
-                        Alerts = new List<AlertItem>();
-                        for (int i = 0; i < alertsData.Count; i++)
-                        {
-                            Alerts.Add(new AlertItem()
-                            {
-                                Caption = alertsData[i]["title"].AsString(),
-                                Type = alertsData[i]["severity"].AsString(),
-                                StartDateTime = alertsData[i]["time"].AsString(),
-                                ExpireDateTime = alertsData[i]["expires"].AsString(),
-                                Description = alertsData[i]["description"].AsString()
-                            });
-                        }
-                    }
-                }
+                //    Alerts = new List<AlertItem>();
+                //    for (int i = 0; i < alertsData.Count; i++)
+                //    {
+                //        if (alertsData[i]["properties"].IsObject == true)
+                //        {
+                //            Alerts.Add(new AlertItem()
+                //            {
+                //                Caption = alertsData[i]["properties"]["event"].AsString(),
+                //                Type = alertsData[i]["properties"]["severity"].AsString(),
+                //                StartDateTime = alertsData[i]["properties"]["effective"].AsString(),
+                //                ExpireDateTime = alertsData[i]["properties"]["expires"].AsString(),
+                //                Description = alertsData[i]["properties"]["description"].AsString()
+                //            });
+                //        }
+                //    }
+                //}
 
                 IsWeatherInfoAvailable = true;
             }

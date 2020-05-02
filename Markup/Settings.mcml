@@ -217,7 +217,7 @@
                         </Layout>
                         <Children>
                           <Text Content="[CodeLocalizationModel.Items.#ui_SettingsLocationName!core:String]" Font="[FontRegular]" Color="White" MinimumSize="270,0"/>
-                          <this:Edit Model="[TextEditLocationName]" ContentMinSize="490,32" ContentMaxSize="490,32"/>
+                          <this:Edit Model="[TextEditLocationName]" ContentMinSize="490,32" ContentMaxSize="490,32" />
                           <this:Button Model="[CommandKeyboardLocationName]" IconImage="image://this:Keyboard"
                                        IconMinSize="46,30" IconMaxSize="46,30" TileSize="60,51" IconPadding="7,0,0,0"/>
                         </Children>

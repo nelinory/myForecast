@@ -145,7 +145,7 @@
     <value>about</value>
   </data>
   <data name="ui_AboutAllWeatherDataProvidedBy" xml:space="preserve">
-    <value>All weather data is provided by Dark Sky ® API</value>
+    <value>All weather data is provided by OpenWeather ® API</value>
   </data>
   <data name="ui_SettingsApiKey" xml:space="preserve">
     <value>Api key</value>
@@ -175,7 +175,7 @@
     <value>Feels like:</value>
   </data>
   <data name="ui_AboutForApiInfoVisit" xml:space="preserve">
-    <value>For more information regarding the Dark Sky ® API, please visit https://darksky.net/dev</value>
+    <value>For more information regarding the OpenWeather ® API, please visit https://openweathermap.org/api</value>
   </data>
   <data name="ui_CurrentHumidity" xml:space="preserve">
     <value>Humidity:</value>
@@ -190,7 +190,7 @@
     <value>Location coordinates</value>
   </data>
   <data name="ui_PoweredBy" xml:space="preserve">
-    <value>Powered by Dark Sky</value>
+    <value>Powered by OpenWeather</value>
   </data>
   <data name="ui_CurrentPressure" xml:space="preserve">
     <value>Pressure:</value>
@@ -244,13 +244,13 @@
     <value>Ooops - catastrophic error. Please, check the log file for more details.</value>
   </data>
   <data name="ui_DialogErrorReceivedFromWeatherProvider" xml:space="preserve">
-    <value>Error received from Dark Sky ® API. Please, try again in few minutes.</value>
+    <value>Error received from OpenWeather ® API. Please, try again in few minutes.</value>
   </data>
   <data name="ui_DialogErrorWhileConnectingToWeatherProvider" xml:space="preserve">
-    <value>Error while connecting to Dark Sky ® API. Please, try again in few minutes.</value>
+    <value>Error while connecting to OpenWeather ® API. Please, try again in few minutes.</value>
   </data>
   <data name="ui_DialogNoResponseReceivedFromWeatherProvider" xml:space="preserve">
-    <value>No response received from Dark Sky ® API. Please, try again in few minutes.</value>
+    <value>No response received from OpenWeather ® API. Please, try again in few minutes.</value>
   </data>
   <data name="ui_DialogWeatherDataRefreshCaption" xml:space="preserve">
     <value>myForecast - Weather Data Refresh</value>

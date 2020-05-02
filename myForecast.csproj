@@ -86,6 +86,7 @@
     <Compile Include="Code\Enums.cs" />
     <Compile Include="Code\Launch.cs" />
     <Compile Include="Code\Logger.cs" />
+    <Compile Include="Code\Utilities.cs" />
     <Compile Include="Code\ViewModels\ClockModel.cs" />
     <Compile Include="Code\ViewModels\ConfigModel.cs" />
     <Compile Include="Code\ViewModels\LocalizationModel.cs" />

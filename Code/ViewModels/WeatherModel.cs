@@ -161,9 +161,13 @@ namespace myForecast
             // set the correct language for the UI thread
             System.Threading.Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(Enum.GetName(typeof(Language), Configuration.Instance.Language));
 
-            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode.Replace(".", "_").Replace(",", ""), _weatherLanguage, _weatherUnit == WeatherUnit.Imperial ? "us" : "ca");
+            string latitude;
+            string longitude;
+            Utilities.GetLatLonCoordinates(_weatherLocationCode, out latitude, out longitude);
+
+            _weatherFileName = String.Format(Configuration.Instance.WeatherFileNamePattern, _weatherLocationCode.Replace(".", "_").Replace(",", ""), _weatherLanguage, _weatherUnit.ToString().ToLower());
             _weatherFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherFileName);
-            _weatherApiUri = String.Format(Configuration.Instance.ApiUrlPattern, _weatherApiKey, _weatherLocationCode, _weatherLanguage, _weatherUnit == WeatherUnit.Imperial ? "us" : "ca");
+            _weatherApiUri = String.Format(Configuration.Instance.ApiUrlPattern, latitude, longitude, _weatherApiKey, _weatherLanguage, _weatherUnit.ToString().ToLower());
 
             _xmlWeatherData = new XmlDocument();
             _dailyForecast = new ArrayListDataSet();
@@ -172,8 +176,16 @@ namespace myForecast
             _uiRefreshNeeded = true;
             _isLoaded = false;
 
+            // check current version, cleanup weather data files when the version change
+            if (Configuration.Instance.Version.Equals(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString()) == false)
+            {
+                Utilities.PurgeAllWeatherDataFiles(Configuration.Instance.ConfigFileFolder);
+                Configuration.Instance.Version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                Configuration.Instance.Save();
+            }
+
             // refresh timer
-            if (_weatherRefreshTimer == null)
+                if (_weatherRefreshTimer == null)
             {
                 _weatherRefreshTimer = new Timer(this);
                 _weatherRefreshTimer.Interval = 10000; // 10 seconds interval
@@ -228,7 +240,7 @@ namespace myForecast
                     if (webException.Response != null)
                     {
                         HttpWebResponse response = (HttpWebResponse)webException.Response;
-                        if (response.StatusCode == HttpStatusCode.Forbidden)
+                        if (response.StatusCode == HttpStatusCode.Unauthorized)
                             ShowErrorDialog(LanguageStrings.ui_DialogInvalidApiKeyReceivedFromWeatherProvider, webException, true);
                         else if (response.StatusCode == HttpStatusCode.BadRequest)
                             ShowErrorDialog(LanguageStrings.ui_DialogInvalidLocationDataReceivedFromWeatherProvider, webException, true);
@@ -333,7 +345,7 @@ namespace myForecast
             int daysLoaded = 0;
             foreach (WeatherData.ForecastItem dailyForecastItem in dailyForecastItems)
             {
-                DateTime timestamp = GetTimestampFromEpoch(dailyForecastItem.TimestampEpoch);
+                DateTime timestamp = Utilities.GetTimestampFromEpoch(dailyForecastItem.TimestampEpoch);
 
                 // skip all days untill tomorrow
                 if (DateTime.Now.Date >= timestamp.Date)
@@ -381,7 +393,7 @@ namespace myForecast
             foreach (WeatherData.ForecastItem hourlyForecastItem in hourlyForecastItems)
             {
                 string dayOfTheWeek = String.Empty;
-                DateTime timestamp = GetTimestampFromEpoch(hourlyForecastItem.TimestampEpoch);
+                DateTime timestamp = Utilities.GetTimestampFromEpoch(hourlyForecastItem.TimestampEpoch);
 
                 switch (Configuration.Instance.Language)
                 {
@@ -463,11 +475,6 @@ namespace myForecast
 
         #region Utilities
 
-        private DateTime GetTimestampFromEpoch(string epoch)
-        {
-            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
-        }
-
         private string GetFormattedTimestampFromEpoch(string epoch)
         {
             DateTime parsedTimestamp = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
@@ -524,7 +531,7 @@ namespace myForecast
                     }
                     break;
                 case WeatherValueFormatType.Humidity:
-                    formattedValue = String.Format("{0}%", Math.Floor(GetDecimalFromString(weatherValue) * 100));
+                    formattedValue = String.Format("{0}%", Math.Floor(GetDecimalFromString(weatherValue)));
                     break;
                 case WeatherValueFormatType.WindSpeed:
                     decimal windSpeedValue = Math.Round(GetDecimalFromString(weatherValue), MidpointRounding.AwayFromZero);
@@ -555,7 +562,7 @@ namespace myForecast
                     break;
                 case WeatherValueFormatType.UvIndex:
                     // UV index format parsing based on https://en.wikipedia.org/wiki/Ultraviolet_index
-                    int uvIndex = Int32.Parse(weatherValue);
+                    int uvIndex = (int)Math.Round(GetDecimalFromString(weatherValue), MidpointRounding.AwayFromZero);
                     if (uvIndex < 3)
                         formattedValue = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Low);
                     else if (uvIndex >= 3 && uvIndex < 6)
@@ -610,7 +617,7 @@ namespace myForecast
                 else
                 {
                     // epoch is provided, day/night icon will be returned
-                    int hour = GetTimestampFromEpoch(epoch).Hour;
+                    int hour = Utilities.GetTimestampFromEpoch(epoch).Hour;
 
                     if (hour < 6 || hour > 18)
                         result = iconName + "-night";
@@ -640,7 +647,7 @@ namespace myForecast
 
         private decimal GetDecimalFromString(string weatherValue)
         {
-            // force en-US culture for parsing decimal since the decimal separator from Dark Sky API is always a comma, example: 32.34
+            // Force en-US culture for parsing decimal since the decimal separator from OpenWeather API is always a comma, example: 32.34
             // this should solve the issue with incorrectly parsing decimals under different regional settings like Dutch (Netherlands)
             return Convert.ToDecimal(weatherValue, new CultureInfo("en-US"));
         }
