@@ -28,7 +28,7 @@ namespace myForecast
                     CurrentForecast = new CurrentItem()
                     {
                         TimestampEpoch = weatherDataObject["current"]["dt"].AsInteger().ToString(),
-                        Icon = weatherDataObject["current"]["weather"].IsArray == true ? weatherDataObject["current"]["weather"][0]["icon"].AsString() : String.Empty,
+                        IconId = weatherDataObject["current"]["weather"].IsArray == true ? weatherDataObject["current"]["weather"][0]["id"].AsString() : String.Empty,
                         Temperature = weatherDataObject["current"]["temp"].AsDouble().ToString(),
                         Description = weatherDataObject["current"]["weather"].IsArray == true ? weatherDataObject["current"]["weather"][0]["main"].AsString() : String.Empty,
                         FeelsLike = weatherDataObject["current"]["feels_like"].AsDouble().ToString(),
@@ -67,7 +67,7 @@ namespace myForecast
                         DailyForecast.Add(new ForecastItem()
                         {
                             TimestampEpoch = timestampEpoch,
-                            Icon = dailyData[i]["weather"].IsArray == true ? dailyData[i]["weather"][0]["icon"].AsString() : String.Empty,
+                            IconId = dailyData[i]["weather"].IsArray == true ? dailyData[i]["weather"][0]["id"].AsString() : String.Empty,
                             Condition = dailyData[i]["weather"].IsArray == true ? dailyData[i]["weather"][0]["main"].AsString() : String.Empty,
                             LowTemp = dailyData[i]["temp"].IsObject ? dailyData[i]["temp"]["min"].AsDouble().ToString() : String.Empty,
                             HighTemp = dailyData[i]["temp"].IsObject ? dailyData[i]["temp"]["max"].AsDouble().ToString() : String.Empty,
@@ -96,7 +96,7 @@ namespace myForecast
                         HourlyForecast.Add(new ForecastItem()
                         {
                             TimestampEpoch = timestampEpoch,
-                            Icon = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["icon"].AsString() : String.Empty,
+                            IconId = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["id"].AsString() : String.Empty,
                             Condition = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["main"].AsString() : String.Empty,
                             LowTemp = hourlyData[i]["temp"].AsString(),     // no low temperature in the OpenWeather API
                             HighTemp = hourlyData[i]["temp"].AsString(),    // no high temperature in the OpenWeather API
@@ -143,7 +143,7 @@ namespace myForecast
         public class CurrentItem
         {
             public string TimestampEpoch { get; set; }
-            public string Icon { get; set; }
+            public string IconId { get; set; }
             public string Temperature { get; set; }
             public string Description { get; set; }
             public string FeelsLike { get; set; }
@@ -158,7 +158,7 @@ namespace myForecast
         public class ForecastItem
         {
             public string TimestampEpoch { get; set; }
-            public string Icon { get; set; }
+            public string IconId { get; set; }
             public string Condition { get; set; }
             public string LowTemp { get; set; }
             public string HighTemp { get; set; }

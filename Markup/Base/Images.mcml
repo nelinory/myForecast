@@ -12,9 +12,6 @@
   <!-- Used for shade background in panels -->
   <Image Name="Shade" Source="resx://myForecast/myForecast.Resources/Shade" NineGrid="4,4,4,4"/>
 
-  <!-- Used for WeatherProvider attribution -->
-  <Image Name="WeatherProviderAttribution" Source="resx://myForecast/myForecast.Resources/WeatherProviderAttribution"/>
-
   <!-- Used for WeatherProvider logo -->
   <Image Name="WeatherProviderLogo" Source="resx://myForecast/myForecast.Resources/WeatherProviderLogo"/>
 

@@ -56,7 +56,7 @@
         </Animations>
         <Children>
           <Text Content="[Content]" Color="White" Font="[FontRegular]"/>
-          <Graphic Content="image://this:WeatherProviderAttribution" MaximumSize="247,56" Margins="0,90,0,0"/>
+          <Graphic Content="image://this:WeatherProviderLogo" MaximumSize="130,56" Margins="0,110,0,0"/>
         </Children>
       </ColorFill>
     </Content>
@@ -379,7 +379,7 @@
                             </Layout>
                             <Children>
                               <Text Name="TextDayOfTheWeek" Content="null" Color="White" Font="[FontRegularBig]"/>
-                              <Text Name="TextTimeOfTheDay" Content="null" Color="White" Font="[FontRegularBig]"/>
+                              <Text Name="TextTimeOfTheDay" Content="null" Color="White" Font="[FontRegularBig]"/> 
                             </Children>
                           </Panel>
                         </Children>

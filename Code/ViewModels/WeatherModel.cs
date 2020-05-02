@@ -185,7 +185,7 @@ namespace myForecast
             }
 
             // refresh timer
-                if (_weatherRefreshTimer == null)
+            if (_weatherRefreshTimer == null)
             {
                 _weatherRefreshTimer = new Timer(this);
                 _weatherRefreshTimer.Interval = 10000; // 10 seconds interval
@@ -301,7 +301,7 @@ namespace myForecast
 
         private void LoadCurrentConditionProperties(WeatherData.CurrentItem currentCondition)
         {
-            CurrentConditionIcon = GetFormattedIconResx(currentCondition.Icon, currentCondition.TimestampEpoch);
+            CurrentConditionIcon = GetFormattedIconResx(currentCondition.IconId, currentCondition.TimestampEpoch);
             CurrentConditionDescription = currentCondition.Description;
             CurrentConditionHumidity = GetFormattedWeatherValue(currentCondition.Humidity, WeatherValueFormatType.Humidity);
             CurrentConditionTemperature = GetFormattedWeatherValue(currentCondition.Temperature, WeatherValueFormatType.Temperature);
@@ -334,8 +334,8 @@ namespace myForecast
             DailyForecast.Add(new ForecastItem()
             {
                 DayOfTheWeek = LanguageStrings.ui_ForecastCaption.ToUpper(),
-                ForecastIcon = GetFormattedIconResx(currentForecastItem.Icon, currentForecastItem.TimestampEpoch),
-                Condition = GetForecastConditionDescription(currentForecastItem.Condition, currentForecastItem.Icon),
+                ForecastIcon = GetFormattedIconResx(currentForecastItem.IconId, currentForecastItem.TimestampEpoch),
+                Condition = GetForecastConditionDescription(currentForecastItem.Condition, currentForecastItem.IconId),
                 LowTemp = GetFormattedWeatherValue(lowTemperature, WeatherValueFormatType.Temperature),
                 HighTemp = GetFormattedWeatherValue(highTemperature, WeatherValueFormatType.Temperature),
                 Pop = GetFormattedWeatherValue(currentForecastItem.Pop, WeatherValueFormatType.Pop)
@@ -347,7 +347,7 @@ namespace myForecast
             {
                 DateTime timestamp = Utilities.GetTimestampFromEpoch(dailyForecastItem.TimestampEpoch);
 
-                // skip all days untill tomorrow
+                // skip all days until tomorrow
                 if (DateTime.Now.Date >= timestamp.Date)
                     continue;
 
@@ -372,8 +372,8 @@ namespace myForecast
                 DailyForecast.Add(new ForecastItem()
                 {
                     DayOfTheWeek = dayOfTheWeek,
-                    ForecastIcon = GetFormattedIconResx(dailyForecastItem.Icon, null),
-                    Condition = GetForecastConditionDescription(dailyForecastItem.Condition, dailyForecastItem.Icon),
+                    ForecastIcon = GetFormattedIconResx(dailyForecastItem.IconId, null),
+                    Condition = GetForecastConditionDescription(dailyForecastItem.Condition, dailyForecastItem.IconId),
                     LowTemp = GetFormattedWeatherValue(dailyForecastItem.LowTemp, WeatherValueFormatType.Temperature),
                     HighTemp = GetFormattedWeatherValue(dailyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
                     Pop = GetFormattedWeatherValue(dailyForecastItem.Pop, WeatherValueFormatType.Pop)
@@ -409,7 +409,7 @@ namespace myForecast
                 {
                     DayOfTheWeek = dayOfTheWeek,
                     TimeOfTheDay = GetFormattedTimeFromEpoch(hourlyForecastItem.TimestampEpoch),
-                    ForecastIcon = GetFormattedIconResx(hourlyForecastItem.Icon, hourlyForecastItem.TimestampEpoch),
+                    ForecastIcon = GetFormattedIconResx(hourlyForecastItem.IconId, hourlyForecastItem.TimestampEpoch),
                     HighTemp = GetFormattedWeatherValue(hourlyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
                     Pop = GetFormattedWeatherValue(hourlyForecastItem.Pop, WeatherValueFormatType.Pop)
                 });
@@ -588,45 +588,159 @@ namespace myForecast
                     break;
                 default: // WeatherValueFormatType.Pop
                     formattedValue = null;  // UI will hide pop indicator if value is null
-                    int popValue = (int)Math.Floor(GetDecimalFromString(weatherValue) * 100); // pop value is decimal, 0.14 for 14%
+                    decimal popValue = Decimal.Parse(weatherValue); // pop value is decimal in millimeters
                     if (popValue > 0)
-                        formattedValue = popValue + "%";
+                    {
+                        switch (_weatherUnit)
+                        {
+                            case WeatherUnit.Imperial:
+                                formattedValue = String.Format("{0:0.##}\"", popValue * 0.03937008M); // 1mm = 0.03937008 inch
+                                break;
+                            default:
+                                formattedValue = String.Format("{0}mm", weatherValue);
+                                break;
+                        }
+                    }
                     break;
             }
 
             return formattedValue;
         }
 
-        private string GetFormattedIconResx(string iconName, string epoch)
+        private string GetFormattedIconResx(string iconId, string epoch)
         {
             string result = "none";
+            bool isNight = false;
 
-            if (iconName.EndsWith("-day", StringComparison.InvariantCultureIgnoreCase) == true
-               || iconName.EndsWith("-night", StringComparison.InvariantCultureIgnoreCase) == true)
+            // epoch is provided, day/night icon will be returned
+            if (String.IsNullOrEmpty(epoch) == false)
             {
-                // icon name is complete no additional formatting is needed
-                result = iconName;
+                int hour = Utilities.GetTimestampFromEpoch(epoch).Hour;
+                if (hour < 6 || hour > 18)
+                    isNight = true;
             }
-            else
-            {
-                if (String.IsNullOrEmpty(epoch) == true)
-                {
-                    // epoch is not provided, day icon will be returned
-                    result = iconName + "-day";
-                }
-                else
-                {
-                    // epoch is provided, day/night icon will be returned
-                    int hour = Utilities.GetTimestampFromEpoch(epoch).Hour;
 
-                    if (hour < 6 || hour > 18)
-                        result = iconName + "-night";
+            switch (iconId)
+            {
+                // Group 2xx: Thunderstorm
+                case "200": // thunderstorm with light rain
+                case "201": // thunderstorm with rain
+                case "202": // thunderstorm with heavy rain
+                case "210": // light thunderstorm
+                case "211": // thunderstorm		
+                case "212": // heavy thunderstorm
+                case "221": // ragged thunderstorm
+                case "230": // thunderstorm with light drizzle
+                case "231": // thunderstorm with drizzle
+                case "232": // thunderstorm with heavy drizzle
+                    if (isNight == true)
+                        result = "weezle_night_thunder_rain";
                     else
-                        result = iconName + "-day";
-                }
+                        result = "weezle_cloud_thunder_rain";
+                    break;
+
+                // Group 3xx: Drizzle
+                case "300": // light intensity drizzle
+                case "301": // drizzle
+                case "302": // heavy intensity drizzle
+                case "310": // light intensity drizzle rain		
+                case "311": // drizzle rain
+                case "312": // heavy intensity drizzle rain
+                case "313": // shower rain and drizzle		
+                case "314": // heavy shower rain and drizzle
+                case "321": // shower drizzle
+                    if (isNight == true)
+                        result = "drizzle_night";
+                    else
+                        result = "drizzle_day";
+                    break;
+
+                // Group 5xx: Rain
+                case "500": // light rain
+                case "501": // moderate rain
+                case "502": // heavy intensity rain
+                case "503": // very heavy rain
+                case "504": // extreme rain
+                case "511": // freezing rain
+                case "520": // light intensity shower rain
+                case "521": // shower rain
+                case "522": // heavy intensity shower rain		
+                case "531": // ragged shower rain
+                    if (isNight == true)
+                        result = "rain_night";
+                    else
+                        result = "rain_day";
+                    break;
+
+                // Group 6xx: Snow
+                case "600": // light snow
+                case "601": // snow
+                case "602": // heavy snow
+                case "620": // light shower snow
+                case "621": // shower snow
+                case "622": // heavy shower snow		
+                    if (isNight == true)
+                        result = "snow_night";
+                    else
+                        result = "snow_day";
+                    break;
+                case "611": // sleet
+                case "612": // light shower sleet
+                case "613": // shower sleet		
+                case "615": // light rain and snow
+                case "616": // rain and snow
+                    if (isNight == true)
+                        result = "sleet_night";
+                    else
+                        result = "sleet_day";
+                    break;
+
+                // Group 7xx: Atmosphere 
+                case "701": // mist
+                case "711": // smoke
+                case "721": // haze
+                case "731": // sand/dust whirls	
+                case "741": // fog
+                case "751": // sand
+                case "761": // dust
+                case "762": // volcanic ash
+                case "771": // squalls
+                case "781": // tornado	
+                    if (isNight == true)
+                        result = "fog_night";
+                    else
+                        result = "fog_day";
+                    break;
+
+                // Group 800: Clear
+                case "800": // clear 
+                    if (isNight == true)
+                        result = "clear_night";
+                    else
+                        result = "clear_day";
+                    break;
+
+                // Group 80x: Clouds
+                case "801": // few clouds
+                case "802": // scattered clouds
+                    if (isNight == true)
+                        result = "partly_cloudy_night";
+                    else
+                        result = "partly_cloudy_day";
+                    break;
+                case "803": // broken clouds
+                case "804": // overcast clouds
+                    if (isNight == true)
+                        result = "cloudy_night";
+                    else
+                        result = "cloudy_day";
+                    break;
+
+                default:
+                    break;
             }
 
-            return "resx://myForecast/myForecast.Resources/" + result.Replace("-", "_"); // dash is not valid in resource name
+            return "resx://myForecast/myForecast.Resources/" + result;
         }
 
         private string GetForecastConditionDescription(string conditionDescription, string iconName)
@@ -666,7 +780,6 @@ namespace myForecast
         private string _lowTemp;
         private string _highTemp;
         private string _pop;
-        private string _popIcon;
 
         #endregion
 
