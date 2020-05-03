@@ -2,7 +2,8 @@
 ============================
 Enhancements
 - Replaced Dark Sky ® API with OpenWeather ® API, due to Dark Sky ® API been acquired by Apple and discontinuing the free access.
-- Added more weather icons from by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set)
+- Rain/Snow precipitation is shown in inches/mm based on the weather units. It is expected precipitation by volume not probability of precipitation.
+- Added more weather icons from by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set) to support more detailed forecasts by OpenWeather ® API
 
 Changes for myForecast 1.0.9
 ============================

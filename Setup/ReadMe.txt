@@ -47,7 +47,7 @@ Go to https://openweathermap.org/ - in most of the cases (or at least for US) yo
 in the location box. In case it is not the one you are looking for, please use the location box to find the correct location.
 
 For example if I search for "New York, US" OpenWeather will show two results: New York City, US and New York, US.
-You need the geo coords which are under each search result, for New York City, US they are: [40.7143,-74.006].
+You need the geo coords which are under each search result, for New York City, US they are: 40.7143,-74.006.
 When you configure myForecast, please enter the full location coordinates, i.e. 40.7143,-74.006
 
 

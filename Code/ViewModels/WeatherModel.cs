@@ -212,7 +212,7 @@ namespace myForecast
                             // check for WeatherProvider specific error
                             if (_weatherData.IsWeatherInfoAvailable == false)
                             {
-                                ShowErrorDialog(String.Format("{0}: {1}", LanguageStrings.ui_DialogErrorReceivedFromWeatherProvider, "Weather station is down for maintenance."), null);
+                                ShowErrorDialog(LanguageStrings.ui_DialogErrorReceivedFromWeatherProvider);
                                 return;
                             }
                             else
@@ -562,7 +562,7 @@ namespace myForecast
                     break;
                 case WeatherValueFormatType.UvIndex:
                     // UV index format parsing based on https://en.wikipedia.org/wiki/Ultraviolet_index
-                    int uvIndex = (int)Math.Round(GetDecimalFromString(weatherValue), MidpointRounding.AwayFromZero);
+                    decimal uvIndex = Math.Floor(GetDecimalFromString(weatherValue));
                     if (uvIndex < 3)
                         formattedValue = String.Format("{0} ({1})", uvIndex, LanguageStrings.ui_UvIndex_Low);
                     else if (uvIndex >= 3 && uvIndex < 6)

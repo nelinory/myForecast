@@ -39,7 +39,7 @@ namespace myForecast
 
             try
             {
-                string[] coordinates = weatherLocationCode.Split(',');
+                string[] coordinates = weatherLocationCode.Trim('[').Trim(']').Split(',');
                 if (coordinates.Length > 1)
                 {
                     latitude = coordinates[0];

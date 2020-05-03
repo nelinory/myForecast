@@ -98,8 +98,8 @@ namespace myForecast
                             TimestampEpoch = timestampEpoch,
                             IconId = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["id"].AsString() : String.Empty,
                             Condition = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["main"].AsString() : String.Empty,
-                            LowTemp = hourlyData[i]["temp"].AsString(),     // no low temperature in the OpenWeather API
-                            HighTemp = hourlyData[i]["temp"].AsString(),    // no high temperature in the OpenWeather API
+                            LowTemp = hourlyData[i]["temp"].AsString(),     // no low temperature in the OpenWeather API for hourly forecast
+                            HighTemp = hourlyData[i]["temp"].AsString(),    // no high temperature in the OpenWeather API for hourly forecast
                             Pop = "0" // no pop for now
                         });
 

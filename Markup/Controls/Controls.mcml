@@ -237,7 +237,8 @@
       <Index Name="Index" Index="$Required"/>
 
       <code:ForecastItem Name="ForecastItem" ForecastItem="$Required"/>
-
+      
+      <Font Name="FontSmall" FontName="global://this:FontFaceRegular" FontSize="14"/>
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="16"/>
       <Font Name="FontRegularBig" FontName="global://this:FontFaceRegular" FontSize="18"/>
     </Properties>
@@ -293,13 +294,13 @@
                 </Children>
               </Panel>
               <Text Name="TextCondition" Content="null" Color="White" Font="[FontRegular]" MaximumSize="160,0"/>
-              <Panel Name="PanelPop">
+              <Panel Name="PanelPop" Margins="0,5,0,0">
                 <Layout>
                   <FlowLayout Orientation="Horizontal" Spacing="3,0" ItemAlignment="Center"/>
                 </Layout>
                 <Children>
                   <Graphic Name="PopIcon" Content="image://this:Pop" MaximumSize="15,15" Alpha="0.9" Margins="0,3,0,0"/>
-                  <Text Name="TextPop" Content="null" Color="White" Font="[FontRegular]"/>
+                  <Text Name="TextPop" Content="null" Color="White" Font="[FontSmall]"/>
                 </Children>
               </Panel>
             </Children>
@@ -319,6 +320,7 @@
 
       <code:ForecastItem Name="ForecastItem" ForecastItem="$Required"/>
 
+      <Font Name="FontSmall" FontName="global://this:FontFaceRegular" FontSize="14"/>
       <Font Name="FontRegular" FontName="global://this:FontFaceRegular" FontSize="16"/>
       <Font Name="FontRegularBig" FontName="global://this:FontFaceRegular" FontSize="18"/>
 
@@ -389,13 +391,13 @@
                 </Children>
               </Panel>
               <Graphic Name="ForecastIcon" Content="image://this:Blank" MinimumSize="70,70" MaximumSize="70,70" Margins="0,10,0,5"/>
-              <Text Name="TextHighTemp" Content="null" Color="White" Font="[FontRegularBig]"/>
+              <Text Name="TextHighTemp" Content="null" Color="White" Font="[FontRegularBig]" Margins="0,15,0,0"/>
               <Panel Name="PanelPop">
                 <Layout>
                   <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>
                 </Layout>
                 <Children>
-                  <Text Name="TextPop" Content="null" Color="White" Font="[FontRegular]"/>
+                  <Text Name="TextPop" Content="null" Color="White" Font="[FontSmall]"/>
                 </Children>
               </Panel>
             </Children>
