@@ -14,7 +14,7 @@ namespace myForecast
         public List<ForecastItem> HourlyForecast { get; set; }
         public List<AlertItem> Alerts { get; set; }
 
-        public WeatherData(string weatherDataJson)
+        public WeatherData(string weatherDataJson, string weatherAlertsJson)
         {
             IsWeatherInfoAvailable = false;
 
@@ -108,29 +108,32 @@ namespace myForecast
                 }
                 else return;
 
-                //// load alerts data - no alerts data in OpenWeather API, so we use NWS for USA based weather alerts based on location coordinates
-                //// https://github.com/SimpleAppProjects/SimpleWeather-Windows/blob/6a6bb8c1acecae11bd52937ba0abbfb448d7b7c8/SimpleWeather/NWS/NWSAlertProvider.cs
-                //LWJson weatherAlertsObject = LWJson.Parse(weatherAlertsJson);
-                //if (weatherAlertsObject.Contains("features") == true && weatherAlertsObject["features"].IsArray == true && weatherAlertsObject["features"].AsArray().Count > 0)
-                //{
-                //    LWJsonArray alertsData = weatherAlertsObject["features"].AsArray();
+                // load alerts data - no alerts data in OpenWeather API, so we use NWS for USA weather alerts based on location coordinates
+                if (String.IsNullOrEmpty(weatherAlertsJson) == false)
+                {
+                    LWJson weatherAlertsObject = LWJson.Parse(weatherAlertsJson);
 
-                //    Alerts = new List<AlertItem>();
-                //    for (int i = 0; i < alertsData.Count; i++)
-                //    {
-                //        if (alertsData[i]["properties"].IsObject == true)
-                //        {
-                //            Alerts.Add(new AlertItem()
-                //            {
-                //                Caption = alertsData[i]["properties"]["event"].AsString(),
-                //                Type = alertsData[i]["properties"]["severity"].AsString(),
-                //                StartDateTime = alertsData[i]["properties"]["effective"].AsString(),
-                //                ExpireDateTime = alertsData[i]["properties"]["expires"].AsString(),
-                //                Description = alertsData[i]["properties"]["description"].AsString()
-                //            });
-                //        }
-                //    }
-                //}
+                    if (weatherAlertsObject.Contains("features") == true && weatherAlertsObject["features"].IsArray == true && weatherAlertsObject["features"].AsArray().Count > 0)
+                    {
+                        LWJsonArray alertsData = weatherAlertsObject["features"].AsArray();
+
+                        Alerts = new List<AlertItem>();
+                        for (int i = 0; i < alertsData.Count; i++)
+                        {
+                            if (alertsData[i]["properties"].IsObject == true)
+                            {
+                                Alerts.Add(new AlertItem()
+                                {
+                                    Caption = alertsData[i]["properties"]["event"].AsString(),
+                                    Type = alertsData[i]["properties"]["severity"].AsString(),
+                                    StartDateTime = alertsData[i]["properties"]["onset"].AsString(),
+                                    ExpireDateTime = alertsData[i]["properties"]["ends"].AsString(),
+                                    Description = alertsData[i]["properties"]["description"].AsString()
+                                });
+                            }
+                        }
+                    }
+                }
 
                 IsWeatherInfoAvailable = true;
             }
