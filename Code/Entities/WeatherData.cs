@@ -30,13 +30,12 @@ namespace myForecast
                         TimestampEpoch = weatherDataObject["current"]["dt"].AsInteger().ToString(),
                         IconId = weatherDataObject["current"]["weather"].IsArray == true ? weatherDataObject["current"]["weather"][0]["id"].AsString() : String.Empty,
                         Temperature = weatherDataObject["current"]["temp"].AsDouble().ToString(),
-                        Description = weatherDataObject["current"]["weather"].IsArray == true ? weatherDataObject["current"]["weather"][0]["main"].AsString() : String.Empty,
                         FeelsLike = weatherDataObject["current"]["feels_like"].AsDouble().ToString(),
                         Humidity = weatherDataObject["current"]["humidity"].AsDouble().ToString(),
                         DewPoint = weatherDataObject["current"]["dew_point"].AsDouble().ToString(),
                         WindSpeed = weatherDataObject["current"]["wind_speed"].AsDouble().ToString(),
                         WindDirection = weatherDataObject["current"].Contains("wind_deg") == true ? weatherDataObject["current"]["wind_deg"].AsDouble().ToString() : String.Empty,
-                        UvIndex = weatherDataObject["current"]["uvi"].AsDouble().ToString(),
+                        UvIndex = (weatherDataObject["current"]["dt"].AsInteger() > weatherDataObject["current"]["sunset"].AsInteger()) ? "0" : weatherDataObject["current"]["uvi"].AsDouble().ToString(),
                         Pressure = weatherDataObject["current"]["pressure"].AsDouble().ToString()
                     };
                 }
@@ -68,7 +67,6 @@ namespace myForecast
                         {
                             TimestampEpoch = timestampEpoch,
                             IconId = dailyData[i]["weather"].IsArray == true ? dailyData[i]["weather"][0]["id"].AsString() : String.Empty,
-                            Condition = dailyData[i]["weather"].IsArray == true ? dailyData[i]["weather"][0]["main"].AsString() : String.Empty,
                             LowTemp = dailyData[i]["temp"].IsObject ? dailyData[i]["temp"]["min"].AsDouble().ToString() : String.Empty,
                             HighTemp = dailyData[i]["temp"].IsObject ? dailyData[i]["temp"]["max"].AsDouble().ToString() : String.Empty,
                             Pop = pop
@@ -97,7 +95,6 @@ namespace myForecast
                         {
                             TimestampEpoch = timestampEpoch,
                             IconId = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["id"].AsString() : String.Empty,
-                            Condition = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["main"].AsString() : String.Empty,
                             LowTemp = hourlyData[i]["temp"].AsString(),     // no low temperature in the OpenWeather API for hourly forecast
                             HighTemp = hourlyData[i]["temp"].AsString(),    // no high temperature in the OpenWeather API for hourly forecast
                             Pop = "0" // no pop for now
@@ -148,7 +145,6 @@ namespace myForecast
             public string TimestampEpoch { get; set; }
             public string IconId { get; set; }
             public string Temperature { get; set; }
-            public string Description { get; set; }
             public string FeelsLike { get; set; }
             public string Humidity { get; set; }
             public string DewPoint { get; set; }
@@ -162,7 +158,6 @@ namespace myForecast
         {
             public string TimestampEpoch { get; set; }
             public string IconId { get; set; }
-            public string Condition { get; set; }
             public string LowTemp { get; set; }
             public string HighTemp { get; set; }
             public string Pop { get; set; }

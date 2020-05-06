@@ -303,13 +303,16 @@
   <data name="ui_ConditionSnow" xml:space="preserve">
     <value>Neige</value>
   </data>
-  <data name="ui_ConditionWind" xml:space="preserve">
-    <value>Vent</value>
+  <data name="ui_ConditionThunder" xml:space="preserve">
+    <value>Orage</value>
   </data>
   <data name="ui_SettingsLocationName" xml:space="preserve">
     <value>Nom de localisation</value>
   </data>
   <data name="ui_DialogTls12Error" xml:space="preserve">
     <value>La prise en charge du protocole TLS v1.2 est requise. Veuillez vérifier les exigences de l'application sur https://github.com/nelinory/myForecast</value>
+  </data>
+  <data name="ui_ConditionDrizzle" xml:space="preserve">
+    <value>Bruine</value>
   </data>
 </root>

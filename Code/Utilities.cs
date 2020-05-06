@@ -283,9 +283,9 @@ namespace myForecast
                 case "231": // thunderstorm with drizzle
                 case "232": // thunderstorm with heavy drizzle
                     if (isNight == true)
-                        result = "weezle_night_thunder_rain";
+                        result = "thunder_night";
                     else
-                        result = "weezle_cloud_thunder_rain";
+                        result = "thunder_day";
                     break;
 
                 // Group 3xx: Drizzle
@@ -392,20 +392,14 @@ namespace myForecast
             return "resx://myForecast/myForecast.Resources/" + result;
         }
 
-        internal static string GetForecastConditionDescription(string conditionDescription, string iconName)
+        internal static string GetForecastConditionDescription(string iconResource)
         {
-            // forecast description space is tight - currently 13 characters
-            string result = conditionDescription;
+            // forecast description space is tight - currently 14 characters
+            string iconName = iconResource.Substring(iconResource.LastIndexOf("/") + 1);
 
-            // check for max size
-            if (result.Length > 13)
-            {
-                // retrieve condition name by using the icon name
-                string condition = iconName.Replace("-day", "").Replace("-night", "").Replace("-", " ");
-                result = LanguageStrings.ResourceManager.GetObject("ui_Condition" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(condition).Replace(" ", "")).ToString();
-            }
-
-            return result;
+            // retrieve condition name by using the icon name
+            string condition = iconName.Replace("_day", String.Empty).Replace("_night", String.Empty).Replace("_", String.Empty);
+            return LanguageStrings.ResourceManager.GetObject("ui_Condition" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(condition)).ToString();
         }
 
         internal static decimal GetDecimalFromString(string weatherValue)

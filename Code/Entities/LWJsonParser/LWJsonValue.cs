@@ -56,7 +56,7 @@ namespace LightWeightJsonParser
 
         public override bool AsBoolean() => bool.Parse(Value);
 
-        public override int AsInteger() => int.Parse(Value);
+        public override uint AsInteger() => UInt32.Parse(Value);
 
         public override double AsDouble() => double.Parse(Value.Replace(".", NumberFormatInfo.CurrentInfo.NumberDecimalSeparator));
         #endregion

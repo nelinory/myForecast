@@ -313,7 +313,7 @@ namespace myForecast
         private void LoadCurrentConditionProperties(WeatherData.CurrentItem currentCondition)
         {
             CurrentConditionIcon = Utilities.GetFormattedIconResx(currentCondition.IconId, currentCondition.TimestampEpoch);
-            CurrentConditionDescription = currentCondition.Description;
+            CurrentConditionDescription = Utilities.GetForecastConditionDescription(CurrentConditionIcon);
             CurrentConditionHumidity = Utilities.GetFormattedWeatherValue(currentCondition.Humidity, WeatherValueFormatType.Humidity);
             CurrentConditionTemperature = Utilities.GetFormattedWeatherValue(currentCondition.Temperature, WeatherValueFormatType.Temperature);
             CurrentConditionFeelsLike = Utilities.GetFormattedWeatherValue(currentCondition.FeelsLike, WeatherValueFormatType.Temperature);
@@ -342,11 +342,12 @@ namespace myForecast
                 highTemperature = previousForecastItem.LowTemp;
             }
 
+            string forecastIcon = Utilities.GetFormattedIconResx(currentForecastItem.IconId, currentForecastItem.TimestampEpoch);
             DailyForecast.Add(new ForecastItem()
             {
                 DayOfTheWeek = LanguageStrings.ui_ForecastCaption.ToUpper(),
-                ForecastIcon = Utilities.GetFormattedIconResx(currentForecastItem.IconId, currentForecastItem.TimestampEpoch),
-                Condition = Utilities.GetForecastConditionDescription(currentForecastItem.Condition, currentForecastItem.IconId),
+                ForecastIcon = forecastIcon,
+                Condition = Utilities.GetForecastConditionDescription(forecastIcon),
                 LowTemp = Utilities.GetFormattedWeatherValue(lowTemperature, WeatherValueFormatType.Temperature),
                 HighTemp = Utilities.GetFormattedWeatherValue(highTemperature, WeatherValueFormatType.Temperature),
                 Pop = Utilities.GetFormattedWeatherValue(currentForecastItem.Pop, WeatherValueFormatType.Pop)
@@ -380,11 +381,12 @@ namespace myForecast
                         break;
                 }
 
+                forecastIcon = Utilities.GetFormattedIconResx(dailyForecastItem.IconId, null);
                 DailyForecast.Add(new ForecastItem()
                 {
                     DayOfTheWeek = dayOfTheWeek,
-                    ForecastIcon = Utilities.GetFormattedIconResx(dailyForecastItem.IconId, null),
-                    Condition = Utilities.GetForecastConditionDescription(dailyForecastItem.Condition, dailyForecastItem.IconId),
+                    ForecastIcon = forecastIcon,
+                    Condition = Utilities.GetForecastConditionDescription(forecastIcon),
                     LowTemp = Utilities.GetFormattedWeatherValue(dailyForecastItem.LowTemp, WeatherValueFormatType.Temperature),
                     HighTemp = Utilities.GetFormattedWeatherValue(dailyForecastItem.HighTemp, WeatherValueFormatType.Temperature),
                     Pop = Utilities.GetFormattedWeatherValue(dailyForecastItem.Pop, WeatherValueFormatType.Pop)

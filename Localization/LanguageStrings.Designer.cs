@@ -187,6 +187,15 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drizzle.
+        /// </summary>
+        internal static string ui_ConditionDrizzle {
+            get {
+                return ResourceManager.GetString("ui_ConditionDrizzle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fog.
         /// </summary>
         internal static string ui_ConditionFog {
@@ -232,11 +241,11 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wind.
+        ///   Looks up a localized string similar to Thunderstorm.
         /// </summary>
-        internal static string ui_ConditionWind {
+        internal static string ui_ConditionThunder {
             get {
-                return ResourceManager.GetString("ui_ConditionWind", resourceCulture);
+                return ResourceManager.GetString("ui_ConditionThunder", resourceCulture);
             }
         }
         
