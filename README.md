@@ -8,9 +8,7 @@ For more information regarding the OpenWeather ® API, please visit https://open
 - Internet connection
 - Api key from OpenWeather ® API
 - Location coordinates from OpenWeather ® API
-> Windows Media Center **must support Tls 1.2 security protocol** - it is required by OpenWeather ® API<br/>
-> If you receive: *"Tls v1.2 protocol support is required."* error when start myForecast for first time,<br/>
-> please follow this article to resolve the issue: https://support.microsoft.com/en-us/help/3154518
+- Windows Media Center **must support Tls 1.2 security protocol**.<br/>If you receive: *"Tls v1.2 protocol support is required."* message when running myForecast for first time, please follow this article to resolve the issue: https://support.microsoft.com/en-us/help/3154518
 
 ## Limitations
 - Only 16:9/16:10 screen layouts (widescreen) are supported at the moment
@@ -30,7 +28,7 @@ The application is designed to use a free OpenWeather ® API account which limit
 Go to https://openweathermap.org/ - in most of the cases (or at least for US) your location will be automatically detected and shown.
 in the location box. In case it is not the one you are looking for, please use the location box to find the correct location.
 
-For example if I search for "New York, US" OpenWeather will show two results: New York City, US and New York, US.
+For example when searching for "New York, US" OpenWeather will show two results: New York City, US and New York, US.
 You need the **geo coords** which are under each search result, for New York City, US they are: **40.7143,-74.006**.
 When you configure myForecast, please enter the full location coordinates, i.e. **40.7143,-74.006**
 

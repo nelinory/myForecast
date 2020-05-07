@@ -293,13 +293,16 @@ namespace myForecast
                 if (alertItems.Count > 1)
                     alertCaption = String.Format("{0} [+{1}]", alertCaption, alertItems.Count - 1);
 
-                // text
+                // alert text
+                int alertCounter = 0;
                 foreach (WeatherData.AlertItem alertItem in alertItems)
                 {
-                    alertText.AppendLine(String.Format("*** {0} ***", alertItem.Caption).Trim());
-                    alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.StartDateTime)));
-                    alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.ExpireDateTime)));
-                    alertText.AppendLine(alertItem.Description);
+                    alertCounter++;
+                    alertText.AppendLine(String.Format("*** {0} #{1} ***", alertItem.Caption, alertCounter));
+                    alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.StartDateTime))
+                                            + "\n"
+                                            + String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.ExpireDateTime)));
+                    alertText.AppendLine(alertItem.Description.Replace("\\n\\n", "\n").Replace("\\n", " "));
                 }
             }
 

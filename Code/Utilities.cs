@@ -398,8 +398,8 @@ namespace myForecast
             string iconName = iconResource.Substring(iconResource.LastIndexOf("/") + 1);
 
             // retrieve condition name by using the icon name
-            string condition = iconName.Replace("_day", String.Empty).Replace("_night", String.Empty).Replace("_", String.Empty);
-            return LanguageStrings.ResourceManager.GetObject("ui_Condition" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(condition)).ToString();
+            string condition = iconName.Replace("_day", String.Empty).Replace("_night", String.Empty);
+            return LanguageStrings.ResourceManager.GetObject("ui_Condition" + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(condition).Replace("_", String.Empty)).ToString();
         }
 
         internal static decimal GetDecimalFromString(string weatherValue)
