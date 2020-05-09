@@ -1,9 +1,10 @@
 ﻿Changes for myForecast 1.1.0
 ============================
 Enhancements
-- Replaced Dark Sky ® API with OpenWeather ® API, due to Dark Sky ® API been acquired by Apple and discontinuing the free access.
-- Rain/Snow precipitation is shown in inches/mm based on the weather units. It is expected precipitation by volume not probability of precipitation.
+- Replaced Dark Sky ® API with OpenWeather ® API, due to Dark Sky ® API discontinuing the free access after been acquired by Apple.
+- Rain/Snow precipitation is shown in inches/mm based on the weather units. It is expected precipitation by volume not probability of precipitation (not available in OpenWeather ® API).
 - Added more weather icons from by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set) to support more detailed forecasts by OpenWeather ® API
+- Weather alerts are provided by National Weather Service (https://www.weather.gov) and they are only available for location coordinates within continental US
 
 Changes for myForecast 1.0.9
 ============================
