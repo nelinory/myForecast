@@ -298,7 +298,10 @@ namespace myForecast
                 foreach (WeatherData.AlertItem alertItem in alertItems)
                 {
                     alertCounter++;
-                    alertText.AppendLine(String.Format("*** {0} #{1} ***", alertItem.Caption, alertCounter));
+                    if (alertItems.Count == 1)
+                        alertText.AppendLine(String.Format("*** {0} ***", alertItem.Caption));
+                    else
+                        alertText.AppendLine(String.Format("*** {0} #{1} ***", alertItem.Caption, alertCounter));
                     alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.StartDateTime))
                                             + "\n"
                                             + String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.ExpireDateTime)));

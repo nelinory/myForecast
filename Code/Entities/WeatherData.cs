@@ -108,27 +108,33 @@ namespace myForecast
                 // load alerts data - no alerts data in OpenWeather API, so we use NWS for USA weather alerts based on location coordinates
                 if (String.IsNullOrEmpty(weatherAlertsJson) == false)
                 {
-                    LWJson weatherAlertsObject = LWJson.Parse(weatherAlertsJson);
-
-                    if (weatherAlertsObject.Contains("features") == true && weatherAlertsObject["features"].IsArray == true && weatherAlertsObject["features"].AsArray().Count > 0)
+                    try
                     {
-                        LWJsonArray alertsData = weatherAlertsObject["features"].AsArray();
+                        LWJson weatherAlertsObject = LWJson.Parse(weatherAlertsJson);
 
-                        Alerts = new List<AlertItem>();
-                        for (int i = 0; i < alertsData.Count; i++)
+                        if (weatherAlertsObject.Contains("features") == true && weatherAlertsObject["features"].IsArray == true && weatherAlertsObject["features"].AsArray().Count > 0)
                         {
-                            if (alertsData[i]["properties"].IsObject == true)
+                            LWJsonArray alertsData = weatherAlertsObject["features"].AsArray();
+
+                            Alerts = new List<AlertItem>();
+                            for (int i = 0; i < alertsData.Count; i++)
                             {
-                                Alerts.Add(new AlertItem()
+                                if (alertsData[i]["properties"].IsObject == true)
                                 {
-                                    Caption = alertsData[i]["properties"]["event"].AsString(),
-                                    Type = alertsData[i]["properties"]["severity"].AsString(),
-                                    StartDateTime = alertsData[i]["properties"]["onset"].AsString(),
-                                    ExpireDateTime = alertsData[i]["properties"]["ends"].AsString(),
-                                    Description = alertsData[i]["properties"]["description"].AsString()
-                                });
+                                    Alerts.Add(new AlertItem()
+                                    {
+                                        Caption = alertsData[i]["properties"]["event"].AsString(),
+                                        StartDateTime = alertsData[i]["properties"]["effective"].AsString(),
+                                        ExpireDateTime = alertsData[i]["properties"]["expires"].AsString(),
+                                        Description = alertsData[i]["properties"]["description"].AsString()
+                                    });
+                                }
                             }
                         }
+                    }
+                    catch (Exception exception)
+                    {
+                        Logger.LogError(exception);
                     }
                 }
 
@@ -166,7 +172,6 @@ namespace myForecast
         public class AlertItem
         {
             public string Caption { get; set; }
-            public string Type { get; set; }
             public string StartDateTime { get; set; }
             public string ExpireDateTime { get; set; }
             public string Description { get; set; }
