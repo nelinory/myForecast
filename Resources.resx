@@ -220,22 +220,25 @@
   <data name="snow_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\weathericons\snow-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="wind_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\wind-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="wind_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weathericons\wind-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="cloudy_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\weathericons\cloudy-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="cloudy_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\weathericons\cloudy-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="WeatherProviderAttribution" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>images\weatherproviderattribution.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="WeatherProviderLogo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>images\weatherproviderlogo.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="drizzle_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\drizzle-day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="drizzle_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\drizzle-night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="thunder_day" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\thunder_day.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="thunder_night" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>images\weathericons\thunder_night.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -86,6 +86,7 @@
     <Compile Include="Code\Enums.cs" />
     <Compile Include="Code\Launch.cs" />
     <Compile Include="Code\Logger.cs" />
+    <Compile Include="Code\Utilities.cs" />
     <Compile Include="Code\ViewModels\ClockModel.cs" />
     <Compile Include="Code\ViewModels\ConfigModel.cs" />
     <Compile Include="Code\ViewModels\LocalizationModel.cs" />
@@ -119,6 +120,8 @@
     <Content Include="Images\WeatherIcons\clear-night.png" />
     <Content Include="Images\WeatherIcons\cloudy-day.png" />
     <Content Include="Images\WeatherIcons\cloudy-night.png" />
+    <Content Include="Images\WeatherIcons\drizzle-day.png" />
+    <Content Include="Images\WeatherIcons\drizzle-night.png" />
     <Content Include="Images\WeatherIcons\fog-day.png" />
     <Content Include="Images\WeatherIcons\fog-night.png" />
     <Content Include="Images\WeatherIcons\none.png" />
@@ -130,9 +133,8 @@
     <Content Include="Images\WeatherIcons\sleet-night.png" />
     <Content Include="Images\WeatherIcons\snow-day.png" />
     <Content Include="Images\WeatherIcons\snow-night.png" />
-    <Content Include="Images\WeatherIcons\wind-day.png" />
-    <Content Include="Images\WeatherIcons\wind-night.png" />
-    <Content Include="Images\WeatherProviderAttribution.png" />
+    <Content Include="Images\WeatherIcons\thunder_day.png" />
+    <Content Include="Images\WeatherIcons\thunder_night.png" />
     <Content Include="Images\WeatherProviderLogo.png" />
     <Content Include="Setup\WixUI_Bmp_Banner.bmp" />
     <Content Include="Setup\WixUI_Bmp_Dialog.bmp" />
@@ -170,7 +172,9 @@
     <None Include="Markup\Base\Fonts.mcml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Markup\Base\Images.mcml" />
+    <None Include="Markup\Base\Images.mcml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Markup\Controls\Edit.mcml">
       <SubType>Designer</SubType>
     </None>

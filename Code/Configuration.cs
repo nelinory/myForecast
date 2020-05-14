@@ -16,7 +16,9 @@ namespace myForecast
         #region Public Properties
 
         public readonly string WeatherFileNamePattern = "wd_{0}_{1}_{2}.dat";
-        public readonly string ApiUrlPattern = "https://api.darksky.net/forecast/{0}/{1}?exclude=minutely-flags&lang={2}&units={3}";
+        public readonly string WeatherAlertsFileNamePattern = "wda_{0}_{1}_{2}.dat";
+        public readonly string WeatherProviderApiUrlPattern = "https://api.openweathermap.org/data/2.5/onecall?lat={0}&lon={1}&appid={2}&lang={3}&units={4}";
+        public readonly string WeatherAlertsProviderApiUrlPattern = "https://api.weather.gov/alerts/active?point={0}";
         public readonly string ConfigFileFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), "myForecast");
 
         public string ApiKey;
@@ -26,6 +28,7 @@ namespace myForecast
         public int? RefreshRateInMinutes;
         public ClockTimeFormat? ClockTimeFormat;
         public Language? Language;
+        public string Version;
 
         public static Configuration Instance
         {
@@ -63,6 +66,7 @@ namespace myForecast
                 RefreshRateInMinutes = 10; // default 10 minutes
                 ClockTimeFormat = myForecast.ClockTimeFormat.Hours12;
                 Language = myForecast.Language.en;
+                Version = String.Empty;
 
                 Save();
             }
@@ -108,6 +112,10 @@ namespace myForecast
                 languageNode.InnerText = Language.ToString();
                 rootNode.AppendChild(languageNode);
 
+                XmlNode versionNode = xmlDocument.CreateElement("Version");
+                versionNode.InnerText = Version;
+                rootNode.AppendChild(versionNode);
+
                 // using the xmlTextWriter to get the nice formatting of the xml file
                 XmlTextWriter xmlTextWriter = new XmlTextWriter(configFileFullName, System.Text.Encoding.UTF8);
                 xmlTextWriter.Formatting = Formatting.Indented;
@@ -145,6 +153,7 @@ namespace myForecast
                         RefreshRateInMinutes = Int32.Parse(GetXmlNodeValue(root, "RefreshRateInMinutes") ?? "10");
                         ClockTimeFormat = (ClockTimeFormat)Enum.Parse(typeof(ClockTimeFormat), GetXmlNodeValue(root, "ClockTimeFormat") ?? myForecast.ClockTimeFormat.Hours12.ToString());
                         Language = (Language)Enum.Parse(typeof(Language), GetXmlNodeValue(root, "Language") ?? myForecast.Language.en.ToString(), true);
+                        Version = GetXmlNodeValue(root, "Version") ?? String.Empty;
 
                         configLoaded = true;
                     }

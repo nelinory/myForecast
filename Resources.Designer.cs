@@ -181,6 +181,26 @@ namespace myForecast {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap drizzle_day {
+            get {
+                object obj = ResourceManager.GetObject("drizzle_day", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap drizzle_night {
+            get {
+                object obj = ResourceManager.GetObject("drizzle_night", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] Edit {
@@ -403,6 +423,26 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap thunder_day {
+            get {
+                object obj = ResourceManager.GetObject("thunder_day", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap thunder_night {
+            get {
+                object obj = ResourceManager.GetObject("thunder_night", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Weather_Alert {
             get {
                 object obj = ResourceManager.GetObject("Weather_Alert", resourceCulture);
@@ -423,39 +463,9 @@ namespace myForecast {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap WeatherProviderAttribution {
-            get {
-                object obj = ResourceManager.GetObject("WeatherProviderAttribution", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap WeatherProviderLogo {
             get {
                 object obj = ResourceManager.GetObject("WeatherProviderLogo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap wind_day {
-            get {
-                object obj = ResourceManager.GetObject("wind_day", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap wind_night {
-            get {
-                object obj = ResourceManager.GetObject("wind_night", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -61,7 +61,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All weather data is provided by Dark Sky ® API.
+        ///   Looks up a localized string similar to All weather data is provided by OpenWeather ® API.
         /// </summary>
         internal static string ui_AboutAllWeatherDataProvidedBy {
             get {
@@ -79,7 +79,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For more information regarding the Dark Sky ® API, please visit https://darksky.net/dev.
+        ///   Looks up a localized string similar to For more information regarding the OpenWeather ® API, please visit https://openweathermap.org/api.
         /// </summary>
         internal static string ui_AboutForApiInfoVisit {
             get {
@@ -187,6 +187,15 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drizzle.
+        /// </summary>
+        internal static string ui_ConditionDrizzle {
+            get {
+                return ResourceManager.GetString("ui_ConditionDrizzle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fog.
         /// </summary>
         internal static string ui_ConditionFog {
@@ -232,11 +241,11 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wind.
+        ///   Looks up a localized string similar to Thunderstorm.
         /// </summary>
-        internal static string ui_ConditionWind {
+        internal static string ui_ConditionThunder {
             get {
-                return ResourceManager.GetString("ui_ConditionWind", resourceCulture);
+                return ResourceManager.GetString("ui_ConditionThunder", resourceCulture);
             }
         }
         
@@ -313,7 +322,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error received from Dark Sky ® API. Please, try again in few minutes..
+        ///   Looks up a localized string similar to Error received from OpenWeather ® API. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogErrorReceivedFromWeatherProvider {
             get {
@@ -322,7 +331,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while connecting to Dark Sky ® API. Please, try again in few minutes..
+        ///   Looks up a localized string similar to Error while connecting to OpenWeather ® API. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogErrorWhileConnectingToWeatherProvider {
             get {
@@ -349,7 +358,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No response received from Dark Sky ® API. Please, try again in few minutes..
+        ///   Looks up a localized string similar to No response received from OpenWeather ® API. Please, try again in few minutes..
         /// </summary>
         internal static string ui_DialogNoResponseReceivedFromWeatherProvider {
             get {
@@ -412,7 +421,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Powered by Dark Sky.
+        ///   Looks up a localized string similar to Powered by OpenWeather.
         /// </summary>
         internal static string ui_PoweredBy {
             get {

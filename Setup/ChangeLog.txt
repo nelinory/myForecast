@@ -1,4 +1,12 @@
-﻿Changes for myForecast 1.0.9
+﻿Changes for myForecast 1.1.0
+============================
+Enhancements
+- Replaced Dark Sky ® API with OpenWeather ® API, due to Dark Sky ® API discontinuing the free access after been acquired by Apple.
+- Rain/Snow precipitation is shown in inches/mm based on the weather units. It is expected precipitation by volume not probability of precipitation (not available in OpenWeather ® API).
+- Added more weather icons from by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set) to support more detailed forecasts by OpenWeather ® API
+- Weather alerts are provided by National Weather Service (https://www.weather.gov) and they are only available for location coordinates within continental US
+
+Changes for myForecast 1.0.9
 ============================
 Enhancements
 - Removed support for Tls 1.0 and Tls 1.1. When calling Dark Sky ® API only Tls 1.2 will be used.
@@ -13,7 +21,6 @@ Changes for myForecast 1.0.7
 Enhancements
 - Improved the formatting of the value for Probability of Precipitation
 - Selected the correct Min/max temperature from the response to match the DarkSky website values
-
 Bugfixes
 - Fixed a bug with incorrectly parsing decimals under different regional settings like Dutch (Netherlands),
 due to the decimal separator from Dark Sky API response always being a comma, example: 32.34 (thanks to Alex Kelder)
@@ -24,23 +31,16 @@ Enhancements
 - Replaced WeatherUnderground ® API with Dark Sky ® API, due to WeatherUnderground ® API discontinuing the free access.
 - All weather icons are provided by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set)
 
-Bugfixes
-- N/A
-
 Changes for myForecast 1.0.5
 ============================
 Enhancements
 - Minor updates to the English and French localization.
 - Forecast tile captions will now be correctly localized based on the selected language.
-
 Bugfixes
 - Fixed the current forecast/hourly forecast icons. Night time forecast will use the night version of the icons.
 
 Changes for myForecast 1.0.4
 ============================
-Enhancements
-- N/A
-
 Bugfixes
 - Updated the application layout to render better on 16:10 displays (example: 1680x1050 resolution, thanks to Scallica)
 
@@ -50,7 +50,6 @@ Enhancements
 - Redesigned the application to support localization. French translation is provided by Romain.
 - myForecast now will request the weather data from WeatherUnderground ® API using the selected language.
 - Replaced the default application icon in MCE extras menu and the start menu strip with a new one by d3stroy (weezle icon set).
-
 Bugfixes
 - Fixed an issue when removing the decimal point from the current temperature (thanks to stuartm and Embiggens)
 - Removed the complicated (buggy) logic for the forecast tile, now the title is just named "Forecast"
@@ -67,7 +66,6 @@ Enhancements
   the hourly forecast weather data (36 hours ahead). You can use the left/right button on the remote
   control to scroll thru the data. To go back to the default layout just click again on the current
   weather condition panel. The scheduled data refresh will also restore the default layout.
-
 Bugfixes
 - Fixed an issue where the myForecast start menu tile may override another custom start menu tile
 
@@ -76,7 +74,6 @@ Changes for myForecast 1.0.1
 Enhancements
 - Added support for weather alerts
 - Added support for the application shortcut to show in star menu of Windows Media Center
-
 Bugfixes
 - Small optimizations for extenders
 
@@ -84,6 +81,5 @@ Changes for myForecast 1.0 beta
 ===============================
 Enhancements
 - N/A
-
 Bugfixes
 - N/A

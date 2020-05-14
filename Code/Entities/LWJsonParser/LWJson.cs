@@ -127,7 +127,7 @@ namespace LightWeightJsonParser
         /// Returns this item as an integer value.
         /// </summary>
         /// <returns>The integer representation of this item.</returns>
-        public virtual int AsInteger() { throw new InvalidCastException();}
+        public virtual uint AsInteger() { throw new InvalidCastException();}
         /// <summary>
         /// Returns this item as a double value.
         /// </summary>
