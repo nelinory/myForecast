@@ -59,23 +59,22 @@ namespace myForecast
             {
                 Utilities.GetLatLonCoordinates(weatherLocationCode, out latitude, out longitude);
 
-                // cannot get latitude/longitude so exit
+                // cannot get latitude/longitude so get out
                 if (String.IsNullOrEmpty(latitude) == true || String.IsNullOrEmpty(longitude) == true)
                     return result;
 
-                // Check latitude/longitude is inside the bounds of the continental US. Using simple box model.
                 double boxTop = 49.384358;     // north latitude
                 double boxLeft = -124.848974;  // west longitude
                 double boxRight = -66.885444;  // east longitude
                 double boxBottom = 24.396308;  // south latitude
                 double latitudeConverted = Double.Parse(latitude);
                 double longitudeConverted = Double.Parse(longitude);
-
+                
+                // Check if latitude/longitude is inside the bounds of the continental US. Using simple box model.
                 if (latitudeConverted >= boxBottom && latitudeConverted <= boxTop && longitudeConverted >= boxLeft && longitudeConverted <= boxRight)
                 {
                     using (WebClientWithCompression webClient = new WebClientWithCompression())
                     {
-                        // TODO: DO a check if the location coordinates are within US
                         webClient.Headers.Add("Content-Type", "application/json");
                         webClient.Headers.Add("User-Agent", "myForecast");
 

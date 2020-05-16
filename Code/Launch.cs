@@ -49,6 +49,8 @@ namespace myForecast
         /// <param name="host">Represents the media center host.</param        
         public void Launch(AddInHost host)
         {
+            System.AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
             if (host != null && host.ApplicationContext != null)
             {
                 host.ApplicationContext.SingleInstance = true;
@@ -61,6 +63,12 @@ namespace myForecast
             Session = new HistoryOrientedPageSession();
 
             GoMainPage();
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, System.UnhandledExceptionEventArgs e)
+        {
+            Logger.LogError(e.ExceptionObject.ToString());
+            AddInHost.ApplicationContext.CloseApplication();
         }
 
         /// <summary>
