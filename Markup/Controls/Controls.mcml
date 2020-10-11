@@ -391,7 +391,7 @@
                 </Children>
               </Panel>
               <Graphic Name="ForecastIcon" Content="image://this:Blank" MinimumSize="70,70" MaximumSize="70,70" Margins="0,10,0,5"/>
-              <Text Name="TextHighTemp" Content="null" Color="White" Font="[FontRegularBig]" Margins="0,15,0,0"/>
+              <Text Name="TextHighTemp" Content="null" Color="White" Font="[FontRegularBig]"/>
               <Panel Name="PanelPop">
                 <Layout>
                   <FlowLayout Orientation="Horizontal" ItemAlignment="Center"/>

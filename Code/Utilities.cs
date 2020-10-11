@@ -49,47 +49,6 @@ namespace myForecast
             }
         }
 
-        internal static string GetWeatherAlertsDataFromUrl(string weatherAlertsProviderApiUri, string weatherLocationCode)
-        {
-            string result = String.Empty;
-            string latitude;
-            string longitude;
-
-            try
-            {
-                Utilities.GetLatLonCoordinates(weatherLocationCode, out latitude, out longitude);
-
-                // cannot get latitude/longitude so get out
-                if (String.IsNullOrEmpty(latitude) == true || String.IsNullOrEmpty(longitude) == true)
-                    return result;
-
-                double boxTop = 49.384358;     // north latitude
-                double boxLeft = -124.848974;  // west longitude
-                double boxRight = -66.885444;  // east longitude
-                double boxBottom = 24.396308;  // south latitude
-                double latitudeConverted = Double.Parse(latitude);
-                double longitudeConverted = Double.Parse(longitude);
-                
-                // Check if latitude/longitude is inside the bounds of the continental US. Using simple box model.
-                if (latitudeConverted >= boxBottom && latitudeConverted <= boxTop && longitudeConverted >= boxLeft && longitudeConverted <= boxRight)
-                {
-                    using (WebClientWithCompression webClient = new WebClientWithCompression())
-                    {
-                        webClient.Headers.Add("Content-Type", "application/json");
-                        webClient.Headers.Add("User-Agent", "myForecast");
-
-                        result = webClient.DownloadString(weatherAlertsProviderApiUri);
-                    }
-                }
-            }
-            catch (Exception exception)
-            {
-                Logger.LogError(exception);
-            }
-
-            return result;
-        }
-
         internal static string LoadWeatherDataFromFile(string weatherDataFileLocation)
         {
             string result = String.Empty;
@@ -103,24 +62,6 @@ namespace myForecast
         internal static DateTime GetTimestampFromEpoch(string epoch)
         {
             return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
-        }
-
-        internal static string GetFormattedTimestampFromIso8601(string iso8601)
-        {
-            DateTime parsedTimestamp = DateTime.Parse(iso8601);
-            string formattedTimestamp;
-
-            switch (Configuration.Instance.ClockTimeFormat.GetValueOrDefault(ClockTimeFormat.Hours12))
-            {
-                case ClockTimeFormat.Hours12:
-                    formattedTimestamp = parsedTimestamp.ToString("dddd dd, h:mm tt");
-                    break;
-                default:
-                    formattedTimestamp = parsedTimestamp.ToString("dddd dd, HH:mm");
-                    break;
-            }
-
-            return formattedTimestamp;
         }
 
         internal static string GetFormattedTimestampFromEpoch(string epoch)
@@ -236,19 +177,9 @@ namespace myForecast
                     break;
                 default: // WeatherValueFormatType.Pop
                     formattedValue = null;  // UI will hide pop indicator if value is null
-                    decimal popValue = Decimal.Parse(weatherValue); // pop value is decimal in millimeters
+                    int popValue = (int)Math.Floor(GetDecimalFromString(weatherValue) * 100); // pop value is decimal, 0.14 for 14%
                     if (popValue > 0)
-                    {
-                        switch (Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial))
-                        {
-                            case WeatherUnit.Imperial:
-                                formattedValue = String.Format("{0:0.##}\"", popValue * 0.03937008M); // 1mm = 0.03937008 inch
-                                break;
-                            default:
-                                formattedValue = String.Format("{0}mm", weatherValue);
-                                break;
-                        }
-                    }
+                        formattedValue = popValue + "%";
                     break;
             }
 

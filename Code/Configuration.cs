@@ -16,9 +16,7 @@ namespace myForecast
         #region Public Properties
 
         public readonly string WeatherFileNamePattern = "wd_{0}_{1}_{2}.dat";
-        public readonly string WeatherAlertsFileNamePattern = "wda_{0}_{1}_{2}.dat";
         public readonly string WeatherProviderApiUrlPattern = "https://api.openweathermap.org/data/2.5/onecall?lat={0}&lon={1}&exclude=minutely&appid={2}&lang={3}&units={4}";
-        public readonly string WeatherAlertsProviderApiUrlPattern = "https://api.weather.gov/alerts/active?point={0}";
         public readonly string ConfigFileFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), "myForecast");
 
         public string ApiKey;

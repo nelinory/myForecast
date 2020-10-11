@@ -1,4 +1,10 @@
-﻿Changes for myForecast 1.1.0
+﻿Changes for myForecast 1.1.1
+============================
+Enhancements
+- OpenWeather ® API now provides "Probability of precipitation" in percentage. Expected precipitation by volume is replaced with probability of precipitation (POP) on the daily/hourly forecast screen.
+- Updated the weather alerts functionality to use the new OpenWeather ® API weather alerts data.
+
+Changes for myForecast 1.1.0
 ============================
 Enhancements
 - Replaced Dark Sky ® API with OpenWeather ® API, due to Dark Sky ® API discontinuing the free access after been acquired by Apple.
