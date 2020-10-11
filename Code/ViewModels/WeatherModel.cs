@@ -18,9 +18,6 @@ namespace myForecast
         private readonly string _weatherFileName;
         private readonly string _weatherFileLocation;
         private readonly string _weatherProviderApiUri;
-        private readonly string _weatherAlertsFileName;
-        private readonly string _weatherAlertsFileLocation;
-        private readonly string _weatherAlertsProviderApiUri;
 
         private bool _uiRefreshNeeded;
         private Timer _weatherRefreshTimer;
@@ -167,14 +164,6 @@ namespace myForecast
                                                     Configuration.Instance.Language.GetValueOrDefault(Language.en),
                                                     Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial).ToString().ToLower());
 
-            // weather alerts data file
-            _weatherAlertsFileName = String.Format(Configuration.Instance.WeatherAlertsFileNamePattern,
-                                                    Configuration.Instance.LocationCode.Replace(".", "_").Replace(",", ""),
-                                                    Configuration.Instance.Language.GetValueOrDefault(Language.en),
-                                                    Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial).ToString().ToLower());
-            _weatherAlertsFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherAlertsFileName);
-            _weatherAlertsProviderApiUri = String.Format(Configuration.Instance.WeatherAlertsProviderApiUrlPattern, Configuration.Instance.LocationCode);
-
             _dailyForecast = new ArrayListDataSet();
             _hourlyForecast = new ArrayListDataSet();
 
@@ -213,8 +202,7 @@ namespace myForecast
                         string weatherDataJson = webClient.DownloadString(_weatherProviderApiUri);
                         if (String.IsNullOrEmpty(weatherDataJson) == false)
                         {
-                            string weatherAlertsJson = Utilities.GetWeatherAlertsDataFromUrl(_weatherAlertsProviderApiUri, Configuration.Instance.LocationCode);
-                            _weatherData = new WeatherData(weatherDataJson, weatherAlertsJson);
+                            _weatherData = new WeatherData(weatherDataJson);
 
                             // check for WeatherProvider specific error
                             if (_weatherData.IsWeatherInfoAvailable == false)
@@ -225,7 +213,6 @@ namespace myForecast
                             else
                             {
                                 File.WriteAllText(_weatherFileLocation, weatherDataJson, Encoding.UTF8);
-                                File.WriteAllText(_weatherAlertsFileLocation, weatherAlertsJson, Encoding.UTF8);
                                 _uiRefreshNeeded = true;
                             }
                         }
@@ -234,8 +221,7 @@ namespace myForecast
                     }
                     else
                     {
-                        _weatherData = new WeatherData(Utilities.LoadWeatherDataFromFile(_weatherFileLocation),
-                                                        Utilities.LoadWeatherDataFromFile(_weatherAlertsFileLocation));
+                        _weatherData = new WeatherData(Utilities.LoadWeatherDataFromFile(_weatherFileLocation));
                     }
 
                     if (_uiRefreshNeeded == true)
@@ -302,10 +288,14 @@ namespace myForecast
                         alertText.AppendLine(String.Format("*** {0} ***", alertItem.Caption));
                     else
                         alertText.AppendLine(String.Format("*** {0} #{1} ***", alertItem.Caption, alertCounter));
-                    alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.StartDateTime))
+                    alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, Utilities.GetFormattedTimestampFromEpoch(alertItem.StartDateTime))
                                             + "\n"
-                                            + String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.ExpireDateTime)));
-                    alertText.AppendLine(alertItem.Description.Replace("\\n\\n", "\n").Replace("\\n", " "));
+                                            + String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, Utilities.GetFormattedTimestampFromEpoch(alertItem.ExpireDateTime)));
+                    string[] alertLines = alertItem.Description.Split(new string[] { "\\n*" }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (string alertLine in alertLines)
+                    {
+                        alertText.AppendLine(alertLine.Replace("\\n", " "));
+                    }
                 }
             }
 

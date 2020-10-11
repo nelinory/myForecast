@@ -14,7 +14,7 @@ namespace myForecast
         public List<ForecastItem> HourlyForecast { get; set; }
         public List<AlertItem> Alerts { get; set; }
 
-        public WeatherData(string weatherDataJson, string weatherAlertsJson)
+        public WeatherData(string weatherDataJson)
         {
             IsWeatherInfoAvailable = false;
 
@@ -56,12 +56,9 @@ namespace myForecast
                         if (DateTime.Now.Date >= timestamp.Date)
                             continue;
 
-                        // OpenWeather API provides: "rain precipitation" or "snow volume" in a separate fields - both in mm
                         string pop = "0";
-                        if (dailyData[i].Contains("rain") == true)
-                            pop = dailyData[i]["rain"].AsDouble().ToString();
-                        else if (dailyData[i].Contains("snow") == true)
-                            pop = dailyData[i]["snow"].AsDouble().ToString();
+                        if (dailyData[i].Contains("pop") == true)
+                            pop = dailyData[i]["pop"].AsDouble().ToString();
 
                         DailyForecast.Add(new ForecastItem()
                         {
@@ -91,13 +88,17 @@ namespace myForecast
                         if (DateTime.Now.Ticks >= timestamp.Ticks)
                             continue;
 
+                        string pop = "0";
+                        if (hourlyData[i].Contains("pop") == true)
+                            pop = hourlyData[i]["pop"].AsDouble().ToString();
+
                         HourlyForecast.Add(new ForecastItem()
                         {
                             TimestampEpoch = timestampEpoch,
                             IconId = hourlyData[i]["weather"].IsArray == true ? hourlyData[i]["weather"][0]["id"].AsString() : String.Empty,
                             LowTemp = hourlyData[i]["temp"].AsString(),     // no low temperature in the OpenWeather API for hourly forecast
                             HighTemp = hourlyData[i]["temp"].AsString(),    // no high temperature in the OpenWeather API for hourly forecast
-                            Pop = "0" // no pop for now
+                            Pop = pop
                         });
 
                         totalHoursAdded++;
@@ -105,36 +106,21 @@ namespace myForecast
                 }
                 else return;
 
-                // load alerts data - no alerts data in OpenWeather API, so we use NWS for USA weather alerts based on location coordinates
-                if (String.IsNullOrEmpty(weatherAlertsJson) == false)
+                // load alerts data
+                if (weatherDataObject.Contains("alerts") == true && weatherDataObject["alerts"].IsArray == true && weatherDataObject["alerts"].AsArray().Count > 0)
                 {
-                    try
-                    {
-                        LWJson weatherAlertsObject = LWJson.Parse(weatherAlertsJson);
+                    LWJsonArray alertsData = weatherDataObject["alerts"].AsArray();
 
-                        if (weatherAlertsObject.Contains("features") == true && weatherAlertsObject["features"].IsArray == true && weatherAlertsObject["features"].AsArray().Count > 0)
+                    Alerts = new List<AlertItem>();
+                    for (int i = 0; i < alertsData.Count; i++)
+                    {
+                        Alerts.Add(new AlertItem()
                         {
-                            LWJsonArray alertsData = weatherAlertsObject["features"].AsArray();
-
-                            Alerts = new List<AlertItem>();
-                            for (int i = 0; i < alertsData.Count; i++)
-                            {
-                                if (alertsData[i]["properties"].IsObject == true)
-                                {
-                                    Alerts.Add(new AlertItem()
-                                    {
-                                        Caption = alertsData[i]["properties"]["event"].AsString(),
-                                        StartDateTime = alertsData[i]["properties"]["effective"].AsString(),
-                                        ExpireDateTime = alertsData[i]["properties"]["expires"].AsString(),
-                                        Description = alertsData[i]["properties"]["description"].AsString()
-                                    });
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception exception)
-                    {
-                        Logger.LogError(exception);
+                            Caption = alertsData[i]["event"].AsString(),
+                            StartDateTime = alertsData[i]["start"].AsString(),
+                            ExpireDateTime = alertsData[i]["end"].AsString(),
+                            Description = alertsData[i]["description"].AsString()
+                        });
                     }
                 }
 
