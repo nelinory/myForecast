@@ -18,7 +18,7 @@ pushd "%~dp0"
 
 SET WIX_BUILD_LOCATION=%ProgramFilesPath%\WiX Toolset v3.10\bin
 SET APP_INTERMEDIATE_PATH=..\obj\%BUILD_TYPE%
-SET OUTPUTNAME=..\bin\%BUILD_TYPE%\myForecastSetup_1.1.0.msi
+SET OUTPUTNAME=..\bin\%BUILD_TYPE%\myForecastSetup_1.1.1.msi
 
 REM Cleanup leftover intermediate files
 
