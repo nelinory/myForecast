@@ -1,7 +1,14 @@
 ## What is myForecast?
-myForecast is a free Windows Media Center weather application. Its use is governed by MIT License.<br/>
-Powered by OpenWeather ® API. All weather icons are provided by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set).<br/>
-For more information regarding the OpenWeather ® API, please visit https://openweathermap.org/api.
+![GitHub release](https://img.shields.io/github/v/release/nelinory/myForecast)
+![GitHub downloads](https://img.shields.io/github/downloads/nelinory/myForecast/total)
+![GitHub issues](https://img.shields.io/github/issues/nelinory/myForecast)
+![Github license](https://img.shields.io/github/license/nelinory/myForecast)
+
+myForecast is a free Windows Media Center weather application.
+
+## Credits
+- All weather icons are provided by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set).
+- For more information regarding the OpenWeather ® API, please visit https://openweathermap.org/api.
 
 ## Requirements
 - Windows Media Center 7/8
