@@ -27,12 +27,12 @@
       <Binding Source="[CodeLocalizationModel.Items.#ui_ButtonDone!core:String]" Target="[CommandDone.Description]"/>
       <Binding Source="[CodeLocalizationModel.Items.#ui_AboutIconSetBy!core:String]" Target="[TextIconSetBy.Content]">
         <Transformer>
-          <FormatTransformer Format="{0} d3stroy (https://www.deviantart.com/d3stroy - weezle icon set)"/>
+          <FormatTransformer Format="- {0} d3stroy (https://www.deviantart.com/d3stroy - weezle icon set)"/>
         </Transformer>
       </Binding>
       <Binding Source="[CodeLocalizationModel.Items.#ui_AboutTranslationBy!core:String]" Target="[TextTranslationBy.Content]">
         <Transformer>
-          <FormatTransformer Format="{0} Romain(FR)"/>
+          <FormatTransformer Format="- {0} Romain(FR)"/>
         </Transformer>
       </Binding>
       

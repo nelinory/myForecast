@@ -13,9 +13,11 @@ myForecast is a free Windows Media Center weather application.
 ## Requirements
 - Windows Media Center 7/8
 - Internet connection
-- Api key from OpenWeather ® API
+- Api key from OpenWeather ® API with an active subscription for **One Call API 3.0**
 - Location coordinates from OpenWeather ® API
-- Windows Media Center **must support Tls 1.2 security protocol**.<br/>If you receive: *"Tls v1.2 protocol support is required."* message when running myForecast for first time, please follow this article to resolve the issue: https://support.microsoft.com/en-us/help/3154518
+- Windows Media Center **must support Tls 1.2 security protocol**.<br/>If you receive: *"Tls v1.2 protocol support is required."* message when running myForecast for first time, please follow these articles to resolve the issue:
+  - Main patch: https://support.microsoft.com/kb/3154518
+  - Alternative patch: https://support.microsoft.com/kb/3140245
 
 ## Limitations
 - Only 16:9/16:10 screen layouts (widescreen) are supported at the moment
@@ -36,8 +38,8 @@ Go to https://openweathermap.org/ - in most of the cases (or at least for US) yo
 in the location box. In case it is not the one you are looking for, please use the location box to find the correct location.
 
 For example when searching for "New York, US" OpenWeather will show two results: New York City, US and New York, US.
-You need the **geo coords** which are under each search result, for New York City, US they are: **40.7143,-74.006**.
-When you configure myForecast, please enter the full location coordinates, i.e. **40.7143,-74.006**
+You need the **geo coords** which are on the right side of each search result, for New York City, US they are: **40.714,-74.006**.
+When you configure myForecast, please enter the full location coordinates, i.e. **40.714,-74.006**
 
 ## Screenshots
 <img src="https://user-images.githubusercontent.com/15143882/81483585-e05df580-9204-11ea-9fda-582552cbc3f0.png" alt="Daily forecast" width="914"/><br/>
