@@ -13,7 +13,7 @@ myForecast is a free Windows Media Center weather application.
 ## Requirements
 - Windows Media Center 7/8
 - Internet connection
-- Api key from OpenWeather ® API with an active subscription for **One Call API 3.0**
+- Api key from OpenWeather ® API with an active subscription for **Free plan**
 - Location coordinates from OpenWeather ® API
 - Windows Media Center **must support Tls 1.2 security protocol**.<br/>If you receive: *"Tls v1.2 protocol support is required."* message when running myForecast for first time, please follow these articles to resolve the issue:
   - Main patch: https://support.microsoft.com/kb/3154518
@@ -47,7 +47,7 @@ When you configure myForecast, please enter the full location coordinates, i.e. 
 - Use the location name configuration settings to setup a custom location name.
 
 <img src="https://user-images.githubusercontent.com/15143882/81483592-e6ec6d00-9204-11ea-9e82-aa699960b4f0.png" alt="Hourly forecast" width="914"/><br/>
-- Current weather condition panel acts as a button, when clicked the daily forecast will be replaced by hourly forecast weather data (36 hours ahead). You can use the left/right button on the remote control to scroll thru the data. To go back to the default layout just click again on the current weather condition panel. The scheduled data refresh will also restore the default layout.
+- Current weather condition panel acts as a button, when clicked the daily forecast will be replaced by hourly forecast weather data. You can use the left/right button on the remote control to scroll through the data. To go back to the default layout just click again on the current weather condition panel. The scheduled data refresh will also restore the default layout.
 
 ## Feedback
 Any comments, questions and ideas are greatly appreciated.

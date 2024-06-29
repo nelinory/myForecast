@@ -16,7 +16,8 @@ namespace myForecast
 
         private readonly string _weatherFileName;
         private readonly string _weatherFileLocation;
-        private readonly string _weatherProviderApiUri;
+        private readonly string _weatherProviderCurrentApiUri;
+        private readonly string _weatherProviderForecastApiUri;
 
         private bool _uiRefreshNeeded;
         private Timer _weatherRefreshTimer;
@@ -156,7 +157,13 @@ namespace myForecast
                                                 Configuration.Instance.Language.GetValueOrDefault(Language.en),
                                                 Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial).ToString().ToLower());
             _weatherFileLocation = Path.Combine(Configuration.Instance.ConfigFileFolder, _weatherFileName);
-            _weatherProviderApiUri = String.Format(Configuration.Instance.WeatherProviderApiUrlPattern,
+            _weatherProviderCurrentApiUri = String.Format(Configuration.Instance.WeatherProviderCurrentApiUrlPattern,
+                                                    latitude,
+                                                    longitude,
+                                                    Configuration.Instance.ApiKey,
+                                                    Configuration.Instance.Language.GetValueOrDefault(Language.en),
+                                                    Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial).ToString().ToLower());
+            _weatherProviderForecastApiUri = String.Format(Configuration.Instance.WeatherProviderForecastApiUrlPattern,
                                                     latitude,
                                                     longitude,
                                                     Configuration.Instance.ApiKey,
@@ -198,7 +205,10 @@ namespace myForecast
                         // in case there is an error the old weather file will be preserved
                         webClient.Encoding = Encoding.UTF8;
 
-                        string weatherDataJson = webClient.DownloadString(_weatherProviderApiUri);
+                        string weatherDataJson = String.Format("{{\"current\": {0},\"forecast\": {1} }}",
+                                                    webClient.DownloadString(_weatherProviderCurrentApiUri),
+                                                    webClient.DownloadString(_weatherProviderForecastApiUri));
+
                         if (String.IsNullOrEmpty(weatherDataJson) == false)
                         {
                             _weatherData = new WeatherData(weatherDataJson);
@@ -324,18 +334,8 @@ namespace myForecast
         {
             DailyForecast.Clear();
 
-            // forecast for the next 2 hours
-            WeatherData.ForecastItem currentForecastItem = hourlyForecastItems[2]; // 2 hours ahead
-            WeatherData.ForecastItem previousForecastItem = hourlyForecastItems[1]; // 1 hours ahead
-
-            // we need to find the low/hi temperatures, because hourly forecast only have one temperature reading, no low/hi values
-            string lowTemperature = previousForecastItem.LowTemp;
-            string highTemperature = currentForecastItem.LowTemp;
-            if (float.Parse(previousForecastItem.LowTemp) > float.Parse(currentForecastItem.LowTemp))
-            {
-                lowTemperature = currentForecastItem.LowTemp;
-                highTemperature = previousForecastItem.LowTemp;
-            }
+            WeatherData.ForecastItem currentForecastItem = hourlyForecastItems[0]; // 3 hours ahead
+            WeatherData.ForecastItem nextForecastItem = hourlyForecastItems[1]; // 6 hours ahead
 
             string forecastIcon = Utilities.GetFormattedIconResx(currentForecastItem.IconId, currentForecastItem.TimestampEpoch);
             DailyForecast.Add(new ForecastItem()
@@ -343,8 +343,8 @@ namespace myForecast
                 DayOfTheWeek = LanguageStrings.ui_ForecastCaption.ToUpper(),
                 ForecastIcon = forecastIcon,
                 Condition = Utilities.GetForecastConditionDescription(forecastIcon),
-                LowTemp = Utilities.GetFormattedWeatherValue(lowTemperature, WeatherValueFormatType.Temperature),
-                HighTemp = Utilities.GetFormattedWeatherValue(highTemperature, WeatherValueFormatType.Temperature),
+                LowTemp = Utilities.GetFormattedWeatherValue(currentForecastItem.LowTemp, WeatherValueFormatType.Temperature),
+                HighTemp = Utilities.GetFormattedWeatherValue(nextForecastItem.HighTemp, WeatherValueFormatType.Temperature),
                 Pop = Utilities.GetFormattedWeatherValue(currentForecastItem.Pop, WeatherValueFormatType.Pop)
             });
 
@@ -352,7 +352,8 @@ namespace myForecast
             int daysLoaded = 0;
             foreach (WeatherData.ForecastItem dailyForecastItem in dailyForecastItems)
             {
-                DateTime timestamp = Utilities.GetTimestampFromEpoch(dailyForecastItem.TimestampEpoch);
+                // keep the timestamp in UTC for the daily forecast, since we only show the mean value
+                DateTime timestamp = Utilities.GetUtcTimestampFromEpochKeep(dailyForecastItem.TimestampEpoch);
 
                 // skip all days until tomorrow
                 if (DateTime.Now.Date >= timestamp.Date)
@@ -388,6 +389,7 @@ namespace myForecast
                 });
 
                 daysLoaded++;
+
                 // max of 5 days can be shown
                 if (daysLoaded == 5)
                     break;
@@ -458,17 +460,17 @@ namespace myForecast
                 if (goToSettingsPage == true)
                     buttons.Add(LanguageStrings.ui_ButtonGoToSettings); // only show up if requested
 
-                // adding more information for "Catastrophic Error"
-                if (String.Equals(LanguageStrings.ui_DialogCatastrophicError, message, StringComparison.InvariantCultureIgnoreCase) == true)
-                {
-                    // check for Tsl 1.2 support
-                    using (WebClientWithCompression webClient = new WebClientWithCompression())
-                    {
-                        bool tls12Supported = webClient.IsTls12Supported();
-                        if (tls12Supported == false)
-                            message = LanguageStrings.ui_DialogTls12Error;
-                    }
-                }
+                // TODO: adding more information for "Catastrophic Error"
+                //if (String.Equals(LanguageStrings.ui_DialogCatastrophicError, message, StringComparison.InvariantCultureIgnoreCase) == true)
+                //{
+                //    // check for Tsl 1.2 support
+                //    using (WebClientWithCompression webClient = new WebClientWithCompression())
+                //    {
+                //        bool tls12Supported = webClient.IsTls12Supported();
+                //        if (tls12Supported == false)
+                //            message = LanguageStrings.ui_DialogTls12Error;
+                //    }
+                //}
 
                 DialogResult result = mcEnvironment.Dialog(message, LanguageStrings.ui_DialogWeatherDataRefreshCaption, buttons, 60, true, null);
                 if (result.ToString() == "101")

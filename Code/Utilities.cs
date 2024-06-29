@@ -59,6 +59,11 @@ namespace myForecast
             return result;
         }
 
+        internal static DateTime GetUtcTimestampFromEpochKeep(string epoch)
+        {
+            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch));
+        }
+
         internal static DateTime GetTimestampFromEpoch(string epoch)
         {
             return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
