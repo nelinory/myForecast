@@ -109,8 +109,8 @@
                           <FlowLayout Orientation="Vertical" ItemAlignment="Near"/>
                         </Layout>
                         <Children>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutAllWeatherDataProvidedBy!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
-                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutForApiInfoVisit!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutWeatherDataProvidedBy!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true"/>
+                          <Text Content="[CodeLocalizationModel.Items.#ui_AboutUvIndexDataProvidedBy!core:String]" Font="[FontBoldAboutText]" Color="White" MaximumSize="700,0" WordWrap="true" Margins="0,20,0,0"/>                        
                         </Children>
                       </Panel>
                     </Children>

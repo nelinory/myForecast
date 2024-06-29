@@ -18,6 +18,7 @@ namespace myForecast
         private readonly string _weatherFileLocation;
         private readonly string _weatherProviderCurrentApiUri;
         private readonly string _weatherProviderForecastApiUri;
+        private readonly string _weatherProviderUvIndexApiUri;
 
         private bool _uiRefreshNeeded;
         private Timer _weatherRefreshTimer;
@@ -169,6 +170,9 @@ namespace myForecast
                                                     Configuration.Instance.ApiKey,
                                                     Configuration.Instance.Language.GetValueOrDefault(Language.en),
                                                     Configuration.Instance.WeatherUnit.GetValueOrDefault(WeatherUnit.Imperial).ToString().ToLower());
+            _weatherProviderUvIndexApiUri = String.Format(Configuration.Instance.WeatherProviderUvIndexApiUrlPattern,
+                                                    latitude,
+                                                    longitude);
 
             _dailyForecast = new ArrayListDataSet();
             _hourlyForecast = new ArrayListDataSet();
@@ -205,9 +209,10 @@ namespace myForecast
                         // in case there is an error the old weather file will be preserved
                         webClient.Encoding = Encoding.UTF8;
 
-                        string weatherDataJson = String.Format("{{\"current\": {0},\"forecast\": {1} }}",
+                        string weatherDataJson = String.Format("{{\"current\": {0},\"forecast\": {1},\"uv_index\": {2} }}",
                                                     webClient.DownloadString(_weatherProviderCurrentApiUri),
-                                                    webClient.DownloadString(_weatherProviderForecastApiUri));
+                                                    webClient.DownloadString(_weatherProviderForecastApiUri),
+                                                    DownloadUvIndexData(webClient));
 
                         if (String.IsNullOrEmpty(weatherDataJson) == false)
                         {
@@ -481,6 +486,23 @@ namespace myForecast
                 else
                     MyAddIn.Instance.AddInHost.ApplicationContext.CloseApplication();
             }
+        }
+
+        private string DownloadUvIndexData(WebClientWithCompression webClient)
+        {
+            string result = String.Empty;
+
+            try
+            {
+                result = webClient.DownloadString(_weatherProviderUvIndexApiUri);
+            }
+            catch (Exception)
+            {
+                // ignore, default to no data available
+                result = "{\"ok\": false}";
+            }
+
+            return result;
         }
     }
 

@@ -144,8 +144,8 @@
   <data name="ui_AboutCaption" xml:space="preserve">
     <value>about</value>
   </data>
-  <data name="ui_AboutAllWeatherDataProvidedBy" xml:space="preserve">
-    <value>All weather data is provided by OpenWeather ® API</value>
+  <data name="ui_AboutWeatherDataProvidedBy" xml:space="preserve">
+    <value>Weather data is provided by OpenWeather ® API - https://openweathermap.org/api</value>
   </data>
   <data name="ui_SettingsApiKey" xml:space="preserve">
     <value>Api key</value>
@@ -173,9 +173,6 @@
   </data>
   <data name="ui_CurrentFeelsLike" xml:space="preserve">
     <value>Feels like:</value>
-  </data>
-  <data name="ui_AboutForApiInfoVisit" xml:space="preserve">
-    <value>For more information regarding the OpenWeather ® API, please visit https://openweathermap.org/api</value>
   </data>
   <data name="ui_CurrentHumidity" xml:space="preserve">
     <value>Humidity:</value>
@@ -314,5 +311,8 @@
   </data>
   <data name="ui_ConditionDrizzle" xml:space="preserve">
     <value>Drizzle</value>
+  </data>
+  <data name="ui_AboutUvIndexDataProvidedBy" xml:space="preserve">
+    <value>Uv index data is provided by CurrentUvIndex® API - https://currentuvindex.com/api</value>
   </data>
 </root>

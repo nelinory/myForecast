@@ -30,8 +30,10 @@ namespace myForecast
                     double humidity = weatherDataObject["current"]["main"].IsObject == true ? weatherDataObject["current"]["main"]["humidity"].AsDouble() : 0;
                     string dewPoint = ((237.3 * (Math.Log(humidity / 100) + ((17.27 * temp) / (237.3 + temp)))) / (17.27 - (Math.Log(humidity / 100) + ((17.27 * temp) / (237.3 + temp))))).ToString("F");
 
-                    // TODO: get uv index
-                    string uvIndex = "-1";
+                    // get uv index
+                    string uvIndex = "0";
+                    if (weatherDataObject.Contains("uv_index") == true && weatherDataObject["uv_index"].Contains("now") == true && weatherDataObject["uv_index"]["now"].IsObject == true)
+                        uvIndex = weatherDataObject["uv_index"]["now"]["uvi"].AsDouble().ToString();
 
                     CurrentForecast = new CurrentItem()
                     {

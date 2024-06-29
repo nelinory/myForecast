@@ -61,29 +61,11 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to All weather data is provided by OpenWeather ® API.
-        /// </summary>
-        internal static string ui_AboutAllWeatherDataProvidedBy {
-            get {
-                return ResourceManager.GetString("ui_AboutAllWeatherDataProvidedBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to about.
         /// </summary>
         internal static string ui_AboutCaption {
             get {
                 return ResourceManager.GetString("ui_AboutCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to For more information regarding the OpenWeather ® API, please visit https://openweathermap.org/api.
-        /// </summary>
-        internal static string ui_AboutForApiInfoVisit {
-            get {
-                return ResourceManager.GetString("ui_AboutForApiInfoVisit", resourceCulture);
             }
         }
         
@@ -111,6 +93,24 @@ namespace myForecast.Localization {
         internal static string ui_AboutTranslationBy {
             get {
                 return ResourceManager.GetString("ui_AboutTranslationBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uv index data is provided by CurrentUvIndex® API - https://currentuvindex.com/api.
+        /// </summary>
+        internal static string ui_AboutUvIndexDataProvidedBy {
+            get {
+                return ResourceManager.GetString("ui_AboutUvIndexDataProvidedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weather data is provided by OpenWeather ® API - https://openweathermap.org/api.
+        /// </summary>
+        internal static string ui_AboutWeatherDataProvidedBy {
+            get {
+                return ResourceManager.GetString("ui_AboutWeatherDataProvidedBy", resourceCulture);
             }
         }
         
