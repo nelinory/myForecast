@@ -69,9 +69,32 @@ namespace myForecast
             return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
         }
 
+        internal static DateTime GetTimestampFromIso8601(string iso8601)
+        {
+            return DateTime.Parse(iso8601).ToLocalTime();
+        }
+
         internal static string GetFormattedTimestampFromEpoch(string epoch)
         {
             DateTime parsedTimestamp = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Double.Parse(epoch)).ToLocalTime();
+            string formattedTimestamp;
+
+            switch (Configuration.Instance.ClockTimeFormat.GetValueOrDefault(ClockTimeFormat.Hours12))
+            {
+                case ClockTimeFormat.Hours12:
+                    formattedTimestamp = parsedTimestamp.ToString("dddd dd, h:mm tt");
+                    break;
+                default:
+                    formattedTimestamp = parsedTimestamp.ToString("dddd dd, HH:mm");
+                    break;
+            }
+
+            return formattedTimestamp;
+        }
+
+        internal static string GetFormattedTimestampFromIso8601(string iso8601)
+        {
+            DateTime parsedTimestamp = DateTime.Parse(iso8601);
             string formattedTimestamp;
 
             switch (Configuration.Instance.ClockTimeFormat.GetValueOrDefault(ClockTimeFormat.Hours12))
@@ -104,7 +127,7 @@ namespace myForecast
 
             return formattedTime;
         }
-
+       
         internal static string GetFormattedWeatherValue(string weatherValue, WeatherValueFormatType formatType)
         {
             string formattedValue = String.Empty;

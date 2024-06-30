@@ -313,6 +313,9 @@
     <value>Bruine</value>
   </data>
   <data name="ui_AboutUvIndexDataProvidedBy" xml:space="preserve">
-    <value>Les données de l'indice UV sont fournies par l'API CurrentUvIndex® - https://currentuvindex.com/api</value>
+    <value>Les données de l'indice UV sont fournies par l'API CurrentUvIndex ® - https://currentuvindex.com/api</value>
+  </data>
+  <data name="ui_AboutAlertDataProvidedBy" xml:space="preserve">
+    <value>Les données d'alerte météo sont fournies par NWS ® API - https://www.weather.gov/documentation/services-web-api</value>
   </data>
 </root>

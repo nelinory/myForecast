@@ -19,6 +19,7 @@ namespace myForecast
         public readonly string WeatherProviderCurrentApiUrlPattern = "https://api.openweathermap.org/data/2.5/weather?lat={0}&lon={1}&appid={2}&lang={3}&units={4}";
         public readonly string WeatherProviderForecastApiUrlPattern = "https://api.openweathermap.org/data/2.5/forecast?lat={0}&lon={1}&appid={2}&lang={3}&units={4}";
         public readonly string WeatherProviderUvIndexApiUrlPattern = "https://currentuvindex.com/api/v1/uvi?latitude={0}&longitude={1}";
+        public readonly string WeatherProviderAlertsApiUrlPattern = "https://api.weather.gov/alerts/active?point={0},{1}";
         public readonly string ConfigFileFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDoc‌​uments), "myForecast");
 
         public string ApiKey;

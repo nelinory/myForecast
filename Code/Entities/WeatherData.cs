@@ -157,21 +157,31 @@ namespace myForecast
                 }
                 else return;
 
-                // load alerts data
-                if (weatherDataObject.Contains("alerts") == true && weatherDataObject["alerts"].IsArray == true && weatherDataObject["alerts"].AsArray().Count > 0)
+                // load alerts data - no alerts data in OpenWeather API - Free Plan, so we use NWS for USA weather alerts based on location coordinates
+                if (weatherDataObject.Contains("alerts") == true && weatherDataObject["alerts"].Contains("features") == true)
                 {
-                    LWJsonArray alertsData = weatherDataObject["alerts"].AsArray();
-
-                    Alerts = new List<AlertItem>();
-                    for (int i = 0; i < alertsData.Count; i++)
+                    if (weatherDataObject["alerts"]["features"].IsArray == true && weatherDataObject["alerts"]["features"].AsArray().Count > 0)
                     {
-                        Alerts.Add(new AlertItem()
+                        LWJsonArray alertsData = weatherDataObject["alerts"]["features"].AsArray();
+
+                        Alerts = new List<AlertItem>();
+                        for (int i = 0; i < alertsData.Count; i++)
                         {
-                            Caption = alertsData[i]["event"].AsString(),
-                            StartDateTime = alertsData[i]["start"].AsString(),
-                            ExpireDateTime = alertsData[i]["end"].AsString(),
-                            Description = alertsData[i]["description"].AsString()
-                        });
+                            if (alertsData[i]["properties"].IsObject == true)
+                            {
+                                // add only active alerts
+                                if (Utilities.GetTimestampFromIso8601(alertsData[i]["properties"]["expires"].AsString()) > DateTime.Now)
+                                {
+                                    Alerts.Add(new AlertItem()
+                                    {
+                                        Caption = alertsData[i]["properties"]["event"].AsString(),
+                                        StartDateTime = alertsData[i]["properties"]["effective"].AsString(),
+                                        ExpireDateTime = alertsData[i]["properties"]["expires"].AsString(),
+                                        Description = alertsData[i]["properties"]["description"].AsString()
+                                    });
+                                }
+                            }
+                        }
                     }
                 }
 

@@ -61,6 +61,15 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weather alert data is provided by NWS ® API - https://www.weather.gov/documentation/services-web-api.
+        /// </summary>
+        internal static string ui_AboutAlertDataProvidedBy {
+            get {
+                return ResourceManager.GetString("ui_AboutAlertDataProvidedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to about.
         /// </summary>
         internal static string ui_AboutCaption {
@@ -97,7 +106,7 @@ namespace myForecast.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uv index data is provided by CurrentUvIndex® API - https://currentuvindex.com/api.
+        ///   Looks up a localized string similar to Uv index data is provided by CurrentUvIndex ® API - https://currentuvindex.com/api.
         /// </summary>
         internal static string ui_AboutUvIndexDataProvidedBy {
             get {

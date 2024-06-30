@@ -19,6 +19,7 @@ namespace myForecast
         private readonly string _weatherProviderCurrentApiUri;
         private readonly string _weatherProviderForecastApiUri;
         private readonly string _weatherProviderUvIndexApiUri;
+        private readonly string _weatherProviderAlertsApiUri;
 
         private bool _uiRefreshNeeded;
         private Timer _weatherRefreshTimer;
@@ -173,6 +174,9 @@ namespace myForecast
             _weatherProviderUvIndexApiUri = String.Format(Configuration.Instance.WeatherProviderUvIndexApiUrlPattern,
                                                     latitude,
                                                     longitude);
+            _weatherProviderAlertsApiUri = String.Format(Configuration.Instance.WeatherProviderAlertsApiUrlPattern,
+                                                    latitude,
+                                                    longitude);
 
             _dailyForecast = new ArrayListDataSet();
             _hourlyForecast = new ArrayListDataSet();
@@ -209,10 +213,11 @@ namespace myForecast
                         // in case there is an error the old weather file will be preserved
                         webClient.Encoding = Encoding.UTF8;
 
-                        string weatherDataJson = String.Format("{{\"current\": {0},\"forecast\": {1},\"uv_index\": {2} }}",
+                        string weatherDataJson = String.Format("{{\"current\": {0},\"forecast\": {1},\"uv_index\": {2},\"alerts\": {3} }}",
                                                     webClient.DownloadString(_weatherProviderCurrentApiUri),
                                                     webClient.DownloadString(_weatherProviderForecastApiUri),
-                                                    DownloadUvIndexData(webClient));
+                                                    DownloadUvIndexData(webClient),
+                                                    DownloadAlertsData(webClient));
 
                         if (String.IsNullOrEmpty(weatherDataJson) == false)
                         {
@@ -302,9 +307,9 @@ namespace myForecast
                         alertText.AppendLine(String.Format("*** {0} ***", alertItem.Caption));
                     else
                         alertText.AppendLine(String.Format("*** {0} #{1} ***", alertItem.Caption, alertCounter));
-                    alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, Utilities.GetFormattedTimestampFromEpoch(alertItem.StartDateTime))
+                    alertText.AppendLine(String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertStartDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.StartDateTime))
                                             + "\n"
-                                            + String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, Utilities.GetFormattedTimestampFromEpoch(alertItem.ExpireDateTime)));
+                                            + String.Format("{0}: {1}", LanguageStrings.ui_WeatherAlertExpireDate, Utilities.GetFormattedTimestampFromIso8601(alertItem.ExpireDateTime)));
                     string[] alertLines = alertItem.Description.Split(new string[] { "\\n*" }, StringSplitOptions.RemoveEmptyEntries);
                     foreach (string alertLine in alertLines)
                     {
@@ -465,17 +470,17 @@ namespace myForecast
                 if (goToSettingsPage == true)
                     buttons.Add(LanguageStrings.ui_ButtonGoToSettings); // only show up if requested
 
-                // TODO: adding more information for "Catastrophic Error"
-                //if (String.Equals(LanguageStrings.ui_DialogCatastrophicError, message, StringComparison.InvariantCultureIgnoreCase) == true)
-                //{
-                //    // check for Tsl 1.2 support
-                //    using (WebClientWithCompression webClient = new WebClientWithCompression())
-                //    {
-                //        bool tls12Supported = webClient.IsTls12Supported();
-                //        if (tls12Supported == false)
-                //            message = LanguageStrings.ui_DialogTls12Error;
-                //    }
-                //}
+                // adding more information for "Catastrophic Error"
+                if (String.Equals(LanguageStrings.ui_DialogCatastrophicError, message, StringComparison.InvariantCultureIgnoreCase) == true)
+                {
+                    // check for Tsl 1.2 support
+                    using (WebClientWithCompression webClient = new WebClientWithCompression())
+                    {
+                        bool tls12Supported = webClient.IsTls12Supported();
+                        if (tls12Supported == false)
+                            message = LanguageStrings.ui_DialogTls12Error;
+                    }
+                }
 
                 DialogResult result = mcEnvironment.Dialog(message, LanguageStrings.ui_DialogWeatherDataRefreshCaption, buttons, 60, true, null);
                 if (result.ToString() == "101")
@@ -490,7 +495,7 @@ namespace myForecast
 
         private string DownloadUvIndexData(WebClientWithCompression webClient)
         {
-            string result = String.Empty;
+            string result = "{\"ok\": false}";
 
             try
             {
@@ -499,7 +504,41 @@ namespace myForecast
             catch (Exception)
             {
                 // ignore, default to no data available
-                result = "{\"ok\": false}";
+            }
+
+            return result;
+        }
+
+        private string DownloadAlertsData(WebClientWithCompression webClient)
+        {
+            string result = "{\"features\": []}";
+
+            try
+            {
+                // continental US box
+                double boxTop = 49.384358;     // north latitude
+                double boxLeft = -124.848974;  // west longitude
+                double boxRight = -66.885444;  // east longitude
+                double boxBottom = 24.396308;  // south latitude
+
+                string latitude;
+                string longitude;
+                Utilities.GetLatLonCoordinates(Configuration.Instance.LocationCode, out latitude, out longitude);
+                double latitudeConverted = Double.Parse(latitude);
+                double longitudeConverted = Double.Parse(longitude);
+
+                // Check if latitude/longitude is inside the bounds of the continental US by using simple box model
+                if (latitudeConverted >= boxBottom && latitudeConverted <= boxTop && longitudeConverted >= boxLeft && longitudeConverted <= boxRight)
+                {
+                    webClient.Headers.Add("Content-Type", "application/json");
+                    webClient.Headers.Add("User-Agent", "myForecast");
+
+                    result = webClient.DownloadString(_weatherProviderAlertsApiUri);
+                }
+            }
+            catch (Exception)
+            {
+                // ignore, default to no data available
             }
 
             return result;
