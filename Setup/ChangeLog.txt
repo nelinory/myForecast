@@ -1,4 +1,11 @@
-﻿Changes for myForecast 1.1.1
+﻿Changes for myForecast 1.2.1
+============================
+Enhancements
+- OpenWeather ® API integration now uses the "Free Plan" API (Current Weather + 5 days forecast) due to OpenWeather ® API 3.0 requiring credit card to subscribe.
+- Updated the weather alerts functionality to use the NWS ® API
+- Updated the uv index functionality to use CurrentUvIndex ® API
+
+Changes for myForecast 1.1.1
 ============================
 Enhancements
 - OpenWeather ® API now provides "Probability of precipitation" in percentage. Expected precipitation by volume is replaced with probability of precipitation (POP) on the daily/hourly forecast screen.

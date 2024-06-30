@@ -1,23 +1,28 @@
-﻿myForecast Version 1.1.1
-Copyright © 2016-2020 by Chavdar Kostov
+﻿myForecast Version 1.2.1
+Copyright © 2016-2024 by Chavdar Kostov
 
 
 What is myForecast?
 ===================
 myForecast is a free Windows Media Center weather application. Its use is governed by MIT License.
-Powered by OpenWeather ® API. All weather icons are provided by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set).
-For more information regarding the OpenWeather ® API, please visit https://openweathermap.org/api.
+
+- All weather icons are provided by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set).
+- Weather data is provided by OpenWeather ® API - https://openweathermap.org/api (Worldwide).
+- Uv index data is provided by CurrentUvIndex® API - https://currentuvindex.com/api (Worldwide).
+- Weather alert data is provided by NWS® API - https://www.weather.gov/documentation/services-web-api (USA Only).
 
 
 Requirements
 ============
 - Windows Media Center 7/8
 - Internet connection
-- Api key from OpenWeather ® API
+- Api key from OpenWeather ® API with an active subscription for "Free plan"
 - Location coordinates from OpenWeather ® API
 - Windows Media Center must support Tls 1.2 security protocol.
   If you receive: "Tls v1.2 protocol support is required." message when running myForecast for first time,
-  please follow this article to resolve the issue: https://support.microsoft.com/en-us/help/3154518
+  please follow these articles to resolve the issue:
+  - Main patch: https://support.microsoft.com/kb/3154518
+  - Alternative patch: https://support.microsoft.com/kb/3140245
 
 
 Limitations
@@ -47,7 +52,7 @@ Go to https://openweathermap.org/ - in most of the cases (or at least for US) yo
 in the location box. In case it is not the one you are looking for, please use the location box to find the correct location.
 
 For example when searching for "New York, US" OpenWeather will show two results: New York City, US and New York, US.
-You need the geo coords which are under each search result, for New York City, US they are: 40.7143,-74.006.
+You need the geo coords which are on the right side of each search result, for New York City, US they are: 40.7143,-74.006.
 When you configure myForecast, please enter the full location coordinates, i.e. 40.7143,-74.006
 
 

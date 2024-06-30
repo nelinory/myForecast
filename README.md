@@ -9,8 +9,8 @@ myForecast is a free Windows Media Center weather application.
 ## Credits
 - All weather icons are provided by d3stroy (https://www.deviantart.com/d3stroy - weezle icon set).
 - Weather data is provided by OpenWeather ® API - https://openweathermap.org/api (Worldwide).
-- Uv index data is provided by CurrentUvIndex® API - https://currentuvindex.com/api (Worldwide).
-- Weather alert data is provided by NWS® API - https://www.weather.gov/documentation/services-web-api (USA Only).
+- Uv index data is provided by CurrentUvIndex ® API - https://currentuvindex.com/api (Worldwide).
+- Weather alert data is provided by NWS ® API - https://www.weather.gov/documentation/services-web-api (USA Only).
 
 ## Requirements
 - Windows Media Center 7/8
